@@ -11,7 +11,7 @@
 	<groupId>kr.co.jhta</groupId>
 	<artifactId>pony</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>pony</name>
+	<name>pony</name> 
 	<description>pony</description>
 	<properties>
 		<java.version>1.8</java.version>
