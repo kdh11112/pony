@@ -12,10 +12,10 @@ public class indexController {
 		return "/index";
 	}
 	
-//	@GetMapping("/login") 아직 비활성화
-//	public String loginPage() {
-//		return "/clogin";
-//	}
+	@GetMapping("/login")// 아직 비활성화
+	public String loginPage() {
+		return "/clogin";
+	}
 
 	@GetMapping("/no")
 	public String nonauthorized() {
