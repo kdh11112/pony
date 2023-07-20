@@ -37,7 +37,6 @@
 	<p>🍴 Special Thanks To 🍴</p>
 </div>
 <div align=center>
-	<img src="https://img.shields.io/badge/Eclipse%20IDE-2C2255?style=flat&logo=EclipseIDE&logoColor=white" />
 	<img src="https://img.shields.io/badge/Burgerking-D62300?style=flat&logo=burgerking&logoColor=white"/>
 </div>
 <br>
