@@ -19,7 +19,7 @@
 			.bg li .text h3{font-size:30px;}
 			.bg li .text h6{font-size:18px;}
 			.header{position:relative; z-index:9999;}
-			.header .logo{position:absolute; left:2%; top:20px;z-index:9999;}
+			.header .logo{position:absolute; left:2%; top:20px; z-index:9999;}
 			.open{position:absolute; right:40px; top:30px;}
 			.nav{position:fixed; left:0; top:0;right:0; bottom:0; /* width:100%; height:100%; */ background:rgba(0,0,0,0.8); z-index:10000;
 			display:none;}
@@ -28,6 +28,7 @@
 			.gnb a{display:block; color:#fff; line-height:70px; font-size:30px; text-decoration:none;}
 			.footer{height:5%; position:absolute; left:20px; bottom:0; font-size:12px; color:#fff;}
 			.bg .active{z-index:1;}
+			.mypage{position:absolute; right:80px; top:23px; color:white; width:35px;}
 		</style>
 		<script src="js/jquery-3.4.1.min.js"></script>
 		<script>
@@ -65,11 +66,11 @@
 	<div class="container">
 		<header class="header">
 			<div class="logo">
-				<a href="#">
-				<img src="images/pony_motors_log.png" alt="미니골프">
+				<a href="/index">
+				<img src="images/KakaoTalk_20230720_160646746.png" alt="미니골프">
 				</a>
 			</div>
-			
+				<p class="mypage"><a href="/mypage"><img src="images/pngegg.png" alt="" /></a></p>
 				<a href="#" class="open">
 				<img src="images/icon_menu.png" alt="닫기">
 				</a>
