@@ -1,4 +1,4 @@
-package kr.co.jhta.pony.security.control;
+package kr.co.jhta.pony.control;
 
 import org.springframework.web.bind.annotation.RestController;
 

@@ -1,4 +1,4 @@
-package kr.co.jhta.pony.security;
+package kr.co.jhta.pony.config;
 
 import java.io.IOException;
 
