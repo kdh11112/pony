@@ -40,9 +40,10 @@
 	<img src="https://img.shields.io/badge/Burgerking-D62300?style=flat&logo=burgerking&logoColor=white"/>
 </div>
 <br>
-<br>
+
 <div align=center>
 	<br>
 <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=kdh11112&layout=compact">
+	<br>
 	<br>
 <img src="https://github-readme-stats.vercel.app/api?username=kdh11112&show_icons=true">
