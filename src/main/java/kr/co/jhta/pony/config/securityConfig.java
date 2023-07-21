@@ -29,8 +29,8 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		
-		http
+//	.csrf().disable() 추가 작업해야함
+		http.csrf().disable()
 			.authorizeHttpRequests() //인가정책
 			.antMatchers("/no").hasRole("ADMIN") // 해당 페이지에는 해당 권한이 필요함
 			.anyRequest().permitAll(); // 기본적으로 인가 필요없음
