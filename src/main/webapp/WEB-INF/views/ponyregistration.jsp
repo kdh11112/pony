@@ -98,55 +98,73 @@
 									</div>
 
 
-
-
-									<div class="form-outline mb-4">
-									    <div class="row">
-									        <div class="col" style="width: 155px">
-									            <div class="form-floating d-flex align-items-center" style="width: 185px">
-									                <input type="text" id="firstInput" class="form-control form-control-lg shadow-sm" maxlength="6" />
-									                <label for="firstInput">RegNumberFist</label>
-									            </div>
-									        </div>
-									        <div class="col-auto" style="width: 30px; margin-right: 20px;">
-									            <div class="form-floating d-flex align-items-center" style="width: 30px">
-									                <input type="text" id="secondInput" class="form-control form-control-lg shadow-sm" maxlength="1" />
-									            </div>
-									        </div>
-									        <div class="col-auto align-self-center">
-									            <div style="display: flex; align-items: center; padding-top: 20px;">
-									                <span style="margin-right: 5px">*</span>
-									                <span style="margin-right: 5px">*</span>
-									                <span style="margin-right: 5px">*</span>
-									                <span style="margin-right: 5px">*</span>
-									                <span style="margin-right: 5px">*</span>
-									                <span style="margin-right: 5px">*</span>
-									            </div>
-									        </div>
-									        <div class="col-auto">
-									            <button class="btn btn-primary btn-lg" style="width: 82px; height: 45px;">확인</button>
-									        </div>
-									    </div>
-									</div>
-									
 									<div class="form-outline mb-4">
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
 													<input type="email" id="typeEmailX-2" class="form-control form-control-lg shadow-sm" />
+													<label for="typeEmailX-2">FullName</label>
+												</div>
+											</div>
+										</div>
+									</div>
+
+<div class="form-group">
+    <div class="form-outline mb-4">
+        <div class="d-flex align-items-center">
+            <div style="flex: 0 0 155px;">
+                <div class="form-floating">
+                    <input type="text" id="firstInput" class="form-control form-control-lg shadow-sm" maxlength="6" />
+                    <label for="firstInput">RegNumberFist</label>
+                </div>
+            </div>
+            <div style="margin-left: 10px;">
+                <input type="text" id="secondInput" class="form-control form-control-lg shadow-sm" maxlength="1" style="width: 30px; height: 58px;" />
+            </div>
+            <div style="margin-left: 10px;">
+                <span style="margin-right: 50px">* * * * * *</span>
+            </div>
+            <div style="margin-left: 50px;">
+                <button class="btn btn-primary btn-lg" style="width: 82px; height: 45px;">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+									<div class="form-outline mb-4">
+										<div class="row">
+											<div class="col">
+												<div class="form-floating">
+													<input type="text" id="typeEmailX-2" class="form-control form-control-lg shadow-sm" />
 													<label for="typeEmailX-2">Phone</label>
 												</div>
 											</div>
 										</div>
 									</div>
 									
+									<div class="form-outline mb-4">
+										<div class="row">
+											<div class="col">
+												<div class="form-floating">
+													<input type="email" id="typeEmailX-2" class="form-control form-control-lg shadow-sm" />
+													<label for="typeEmailX-2">ZipCode</label>
+												</div>
+											</div>
+											
+											<div class="col-auto">
+												<button class="btn btn-primary btn-lg" style="width: 82px; height: 45px">인증</button>
+											</div>
+										</div>
+									</div>
 									
 									
 									<div class="form-outline mb-4">
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="email" id="typeEmailX-2" class="form-control form-control-lg shadow-sm" />
+													<input type="text" id="typeEmailX-2" class="form-control form-control-lg shadow-sm" />
 													<label for="typeEmailX-2">Address</label>
 												</div>
 											</div>
@@ -158,7 +176,7 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="email" id="typeEmailX-2" class="form-control form-control-lg shadow-sm" />
+													<input type="text" id="typeEmailX-2" class="form-control form-control-lg shadow-sm" />
 													<label for="typeEmailX-2">Address2</label>
 												</div>
 											</div>
