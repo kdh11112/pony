@@ -16,7 +16,7 @@
     }
     .card-title{
         height: 70px;
-        background-color: #5E5E5E;
+        background-color: #3b71ca;
         font-size: 45px;
         font-weight: bold;
         text-align: center;

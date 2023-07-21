@@ -40,19 +40,19 @@
 							<div class="card-body p-5 text-center">
 
 
-								<form action="ponyRegOk" method="post">
+								<form action="ponyRegOk" method="post" onsubmit="return false;">
 
 									<div class="form-outline mb-4">
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="email" id="typeEmailX-2" class="form-control form-control-lg shadow-sm" />
-													<label for="typeEmailX-2">Email</label>
+													<input type="email" id="ponyMemberEmail" class="form-control form-control-lg shadow-sm" />
+													<label for="ponyMemberEmail">Email</label>
 												</div>
 											</div>
 											
 											<div class="col-auto">
-												<button class="btn btn-primary btn-lg" style="width: 82px; height: 45px">인증</button>
+												<button class="btn btn-primary btn-lg" style="width: 82px; height: 45px" onclick="sendAuthCode()">인증</button>
 											</div>
 										</div>
 									</div>
@@ -121,15 +121,16 @@
             <div style="margin-left: 10px;">
                 <input type="text" id="secondInput" class="form-control form-control-lg shadow-sm" maxlength="1" style="width: 30px; height: 58px;" />
             </div>
-            <div style="margin-left: 10px;">
-                <span style="margin-right: 50px">* * * * * *</span>
+            <div class="d-flex align-items-center">
+                <span style="margin-right: 5px">* * * * * *</span>
             </div>
-            <div style="margin-left: 50px;">
+            <div style="margin-left: auto;">
                 <button class="btn btn-primary btn-lg" style="width: 82px; height: 45px;">확인</button>
             </div>
         </div>
     </div>
 </div>
+
 
 
 
@@ -198,6 +199,40 @@
 				</div>
 			</div>
 	</section>
+	
+	
+	
+	<script>
+  function sendAuthCode() {
+    // 인증 버튼을 눌렀을 때 실행되는 비동기 POST 요청
+    // 폼 데이터를 가져와서 fetch() 메서드를 사용하여 서버로 POST 요청 보냄
+    // 구현 방법은 이전에 설명한 것과 동일
+
+    // 예시 코드:
+    const emailInput = document.getElementById('ponyMemberEmail');
+    const emailValue = emailInput.value;
+
+    // FormData를 사용하여 폼 데이터 생성
+    const formData = new FormData();
+    formData.append('email', emailValue);
+
+    // fetch()를 사용하여 서버로 POST 요청 보냄
+    fetch('mailConfirm', {
+      method: 'POST',
+      body: formData
+    })
+      .then(response => response.json()) // JSON 형식으로 응답 파싱 (옵션이며, 응답 형식에 따라 사용)
+      .then(data => {
+        // 서버에서 받은 응답 데이터를 처리
+        console.log(data);
+      })
+      .catch(error => {
+        // 오류 처리
+        console.error('Error:', error);
+      });
+  }
+  
+  </script>
 
 </body>
 </html>
