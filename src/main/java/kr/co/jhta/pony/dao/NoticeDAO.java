@@ -8,8 +8,15 @@ import org.springframework.stereotype.Repository;
 import kr.co.jhta.pony.dto.NoticeDTO;
 import kr.co.jhta.pony.dto.StartEnd;
 
+
 @Repository
 @Mapper
 public interface NoticeDAO {
 	List<NoticeDTO> getAll(StartEnd se);
+	NoticeDTO selectOne(int noticeNo);
+	void modifyOne(NoticeDTO dto);
+	void addOne(NoticeDTO dto);
+	void deleteOne(NoticeDTO dto);
+	int getTotal();
+	void increaseHits(int noticeNo);
 }

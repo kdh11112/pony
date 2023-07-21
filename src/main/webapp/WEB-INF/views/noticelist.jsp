@@ -34,30 +34,26 @@
 		<table class="table">
 
 			<tr>
-				<td colspan="6"><a href="write"><input type="button"
+				<td colspan="6"><a href="noticewrite"><input type="button"
 						class="btn btn-outline-secondary" value="글쓰기" /></a></td>
 			</tr>
 			<tr>
 				<th>번호</th>
-				<th>작성자</th>
 				<th>제목</th>
 				<th>내용</th>
 				<th>작성일자</th>
 				<th>조회수</th>
-
 			</tr>
 			<c:forEach var="list" items="${list }">
 				<tr>
 					<td>${list.noticeNo }</td>
-					<td>${list.memberNo }</td>
 					<td>${list.noticeTitle }</td>
-					<td><a href="detail?bno=${list.noticeNo}">${list.noticeContents }</a></td>
-					<%-- <td>${list.regdate }</td> --%>
+					<td><a href="detail?noticeNo=${list.noticeNo}">${list.noticeContents }</a></td>
 					<td>
-						<fmt:parseDate var="dateString" value="${list.regdate }" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:parseDate var="dateString" value="${list.noticeDate }" pattern="yyyy-MM-dd"/>
 						<fmt:formatDate value="${dateString }" pattern="yyyy-MM-dd"/>
 					</td>
-					<td>${list.hits }</td>
+					<td>${list.noticeHits }</td>
 				</tr>
 			</c:forEach>
 			<tr>
@@ -68,10 +64,10 @@
 			    <li class="page-item"><a class="page-link" href="list?currentPage=${map.currentPage-5 }">이전</a></li>
 			    </c:if>
 			    <c:forEach var="i" begin="${map.startPageNo }" end="${map.endPageNo }">
-			    <li class="page-item"><a class="page-link" href="list?currentPage=${i }">${i }</a></li>
+			    <li class="page-item"><a class="page-link" href="notice?currentPage=${i }">${i }</a></li>
 			    </c:forEach>
 			    <c:if test="${map.next }">
-			    <li class="page-item"><a class="page-link" href="list?currentPage=${map.currentPage+5 }">다음</a></li>
+			    <li class="page-item"><a class="page-link" href="notice?currentPage=${map.currentPage+5 }">다음</a></li>
 			    </c:if>
 			  </ul>
 			</nav>
