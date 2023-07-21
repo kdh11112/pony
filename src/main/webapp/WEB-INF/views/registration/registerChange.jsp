@@ -33,9 +33,9 @@
   <!-- /.login-logo -->
 <img src="/css/assets/invi.png" alt="" />
   <div class="login-box-body">
-    <p class="login-box-msg">로그인을 해주세요</p>
+    <p class="login-box-msg">비밀번호를 바꿔주세요</p>
 
-    <form action="/reg/login" method="post">
+    <form action="/reg/change" method="post">
     <div class="row">
   	    <div class="col-xs-7">
         </div>
@@ -61,21 +61,18 @@
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox"> Remember Me
+              
             </label>
           </div>
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">로그인</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat">변경</button>
         </div>
         <!-- /.col -->
       </div>
     </form>
 
-
-
-    <a href="/reg/change">비밀번호 변경</a><br>
 
   </div>
   <!-- /.login-box-body -->

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class MechanicRegisterDTO {
 	
 	private int mechanicNo;
-	private int mechanicPw;
+	private String mechanicPw;
 	private String mechanicName;
 	
 	private int shopNo;

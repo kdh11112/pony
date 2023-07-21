@@ -21,10 +21,29 @@ public class MechanicRegisterServiceImpl implements MechanicRegisterService{
 	}
 
 	@Override
-	public void register(int shopNo, int mechanicPw, String mechanicName) {
-		
+	public void register(int shopNo, String mechanicPw, String mechanicName) {
+		if(mechanicPw == null || mechanicPw.isEmpty()) {
+			mechanicPw = shopNo+mechanicName;
+		}
 		dao.registeremployee(shopNo,mechanicPw,mechanicName);
 		
+	}
+
+	@Override
+	public void ChangePw(int mechanicNo,int shopNo, String mechanicPw) {
+
+		dao.updatePw(mechanicNo,shopNo,mechanicPw);
+	}
+
+	@Override
+	public boolean loginCheck(MechanicRegisterDTO dto) {
+		int count = dao.loginCheck(dto);
+		
+		if(count == 1) {
+			return true;
+		}
+		
+		return false;
 	}
 
 
