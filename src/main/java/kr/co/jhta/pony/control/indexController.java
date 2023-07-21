@@ -14,12 +14,19 @@ public class indexController {
 	
 	@GetMapping("/login")// 아직 비활성화
 	public String loginPage() {
-		return "/clogin";
+		return "/ponylogin";
 	}
 
 	@GetMapping("/no")
 	public String nonauthorized() {
 		return "/nonauthorized";
+	}
+	
+	@GetMapping("/ponyreg")
+	public String goreg() {
+		
+		return "/ponyregistration";
+		
 	}
 	
 	
