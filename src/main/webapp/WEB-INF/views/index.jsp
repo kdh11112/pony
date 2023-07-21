@@ -79,7 +79,7 @@
 				<ul class="gnb">
 					<li><a href="#">MENU1</a></li>
 					<li><a href="#">MENU2</a></li>
-					<li><a href="#">MENU3</a></li>
+					<li><a href="/modelComparison">모델비교</a></li>
 					<li><a href="#">MENU4</a></li>
 				</ul>
 				
