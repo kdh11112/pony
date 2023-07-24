@@ -1,12 +1,14 @@
 package kr.co.jhta.pony.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class PonyMemberDTO {
 	
 	
@@ -14,7 +16,7 @@ public class PonyMemberDTO {
 	private int memberSosialNo;
 	private String memberEmail;
 	private String memberPassword;
-	private String membername;
+	private String memberName;
 	private String memberBirthday;
 	private String memberPhone;
 	private String memberZip;

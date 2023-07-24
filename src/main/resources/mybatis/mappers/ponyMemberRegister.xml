@@ -6,7 +6,9 @@
 	
 	
 	<insert id="PonyMemberReg" parameterType="kr.co.jhta.pony.dto.PonyMemberDTO">
-		        INSERT INTO member VALUES (#{name},#{phone},#{email},#{password},#{gender})
+       INSERT INTO member (memberEmail, memberPassword, memberName, memberBirthday, memberPhone, memberZip, memberAddress1, memberAddress2 )
+       VALUES (#{memberEmail},#{memberPassword},#{memberName},#{memberBirthday},#{memberPhone}, #{memberZip}, #{memberAddress1}, #{memberAddress2} )
+		        
 
 	</insert>
 	
