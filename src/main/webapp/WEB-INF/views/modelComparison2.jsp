@@ -96,7 +96,6 @@ $(document).ready(function() {
                 <h1 class="top-title-text2">판매되는 차량을 빠르게 비교하여 원하는 차량을 쉽게 찾아볼 수 있습니다</h1>
             </div>
         </div>
-    </div>
     
     <div class="container">
 	    <div class="grid text-center">
