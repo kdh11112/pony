@@ -9,7 +9,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-public class ponyMailConfig {
+public class PonyMailConfig {
 
 	@Configuration
 	@PropertySource("classpath:application.properties")

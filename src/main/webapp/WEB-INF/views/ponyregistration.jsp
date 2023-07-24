@@ -46,8 +46,8 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="email" id="ponyMemberEmail" class="form-control form-control-lg shadow-sm" />
-													<label for="ponyMemberEmail">Email</label>
+													<input type="text" id="ponyMemberEmail" class="form-control form-control-lg shadow-sm" />
+													<label>Email</label>
 												</div>
 											</div>
 											
@@ -62,14 +62,13 @@
 
 											<div class="col">
 												<div class="form-floating">
-													<input type="email" id="typeEmailX-2" class="form-control form-control-lg shadow-sm" />
-													<label for="typeEmailX-2">인증번호</label>
+													<input type="text" id="authCode" class="form-control form-control-lg shadow-sm" />
+													<label>인증번호</label>
 												</div>
 											</div>
 
 											<div class="col-auto">
-												<button class="btn btn-primary btn-lg"
-													style="width: 82px; height: 45px">확인</button>
+												<button class="btn btn-primary btn-lg" style="width: 82px; height: 45px" onclick="autoemail()">확인</button> <!-- 여기 누르면 Post요청 보내기 -->
 											</div>
 
 										</div>
@@ -79,8 +78,8 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="email" id="typeEmailX-2" class="form-control form-control-lg shadow-sm" />
-													<label for="typeEmailX-2">Password</label>
+													<input type="password" id="password" class="form-control form-control-lg shadow-sm" />
+													<label>Password</label>
 												</div>
 											</div>
 										</div>
@@ -90,8 +89,8 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="email" id="typeEmailX-2" class="form-control form-control-lg shadow-sm" />
-													<label for="typeEmailX-2">ConfirmPassword</label>
+													<input type="password" id="password2" class="form-control form-control-lg shadow-sm" />
+													<label>ConfirmPassword</label>
 												</div>
 											</div>
 										</div>
@@ -102,92 +101,99 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="email" id="typeEmailX-2" class="form-control form-control-lg shadow-sm" />
-													<label for="typeEmailX-2">FullName</label>
-												</div>
-											</div>
-										</div>
-									</div>
-
-<div class="form-group">
-    <div class="form-outline mb-4">
-        <div class="d-flex align-items-center">
-            <div style="flex: 0 0 155px;">
-                <div class="form-floating">
-                    <input type="text" id="firstInput" class="form-control form-control-lg shadow-sm" maxlength="6" />
-                    <label for="firstInput">RegNumberFist</label>
-                </div>
-            </div>
-            <div style="margin-left: 10px;">
-                <input type="text" id="secondInput" class="form-control form-control-lg shadow-sm" maxlength="1" style="width: 30px; height: 58px;" />
-            </div>
-            <div class="d-flex align-items-center">
-                <span style="margin-right: 5px">* * * * * *</span>
-            </div>
-            <div style="margin-left: auto;">
-                <button class="btn btn-primary btn-lg" style="width: 82px; height: 45px;">확인</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-									<div class="form-outline mb-4">
-										<div class="row">
-											<div class="col">
-												<div class="form-floating">
-													<input type="text" id="typeEmailX-2" class="form-control form-control-lg shadow-sm" />
-													<label for="typeEmailX-2">Phone</label>
+													<input type="text" id="" class="form-control form-control-lg shadow-sm" />
+													<label>FullName</label>
 												</div>
 											</div>
 										</div>
 									</div>
 									
+									
+
+									<div class="form-group">
+									    <div class="form-outline mb-4">
+									        <div class="d-flex align-items-center">
+									            <div style="flex: 0 0 155px;">
+									                <div class="form-floating">
+									                    <input type="text" id="firstInput" class="form-control form-control-lg shadow-sm" maxlength="6" />
+									                    <label>RegNumberFist</label>
+									                </div>
+									            </div>
+									            
+									            <div style="margin-left: 10px;">
+									                <input type="text" id="secondInput" class="form-control form-control-lg shadow-sm" maxlength="1" style="width: 30px; height: 58px;" />
+									            </div>
+									            <div class="d-flex align-items-center">
+									                <span style="margin-right: 5px">* * * * * *</span>
+									            </div>
+									            <div style="margin-left: auto;">
+									                <button class="btn btn-primary btn-lg" style="width: 82px; height: 45px;">확인</button>
+									            </div>
+									        </div>
+									    </div>
+									</div>
+
+
 									<div class="form-outline mb-4">
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="email" id="typeEmailX-2" class="form-control form-control-lg shadow-sm" />
-													<label for="typeEmailX-2">ZipCode</label>
+													<input type="text" id="phone" class="form-control form-control-lg shadow-sm phone" maxlength="13" />
+													<label>Phone</label>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									
+									<div class="form-outline mb-4">
+										<div class="row">
+											<div class="col">
+												<div class="form-floating">
+													<input type="text" id="postcode" class="form-control form-control-lg shadow-sm">
+													<label>ZipCode</label>
 												</div>
 											</div>
 											
 											<div class="col-auto">
-												<button class="btn btn-primary btn-lg" style="width: 82px; height: 45px">인증</button>
+												<button class="btn btn-primary btn-lg" onclick="execDaumPostcode()" style="width: 82px; height: 45px">검색</button>
 											</div>
 										</div>
-									</div>
 									
 									
-									<div class="form-outline mb-4">
-										<div class="row">
-											<div class="col">
-												<div class="form-floating">
-													<input type="text" id="typeEmailX-2" class="form-control form-control-lg shadow-sm" />
-													<label for="typeEmailX-2">Address</label>
-												</div>
+										<div class="col">
+											<div class="form-floating">
+												<input type="text" id="address" class="form-control form-control-lg shadow-sm">
+												<label>주소</label>
 											</div>
+										</div>
+										
+										<div class="form-outline mb-4 row">
+										    <div class="col">
+										        <div class="form-floating">
+										            <input type="text" id="detailAddress" class="form-control form-control-lg shadow-sm">
+										            <label>상세 주소</label>
+										            <span id="guide" style="color:#999;display:none"></span>
+										        </div>
+										    </div>
+										
+										    <div class="col">
+										        <div class="form-floating">
+										            <input type="text" id="extraAddress" class="form-control form-control-lg shadow-sm">
+										            <label>참고항목</label>
+										            <span id="guide" style="color:#999;display:none"></span>
+										        </div>
+										    </div>
 										</div>
 									</div>
 
 
-									<div class="form-outline mb-4">
-										<div class="row">
-											<div class="col">
-												<div class="form-floating">
-													<input type="text" id="typeEmailX-2" class="form-control form-control-lg shadow-sm" />
-													<label for="typeEmailX-2">Address2</label>
-												</div>
-											</div>
-										</div>
-									</div>
 
-							<div align="center">
-							<button class="btn btn-primary btn-lg btn-block" type="submit" style=" width: 300px; height: 45px">Sign up</button>
+							<div align="center" >
+								<button id="regBtn" disabled="disabled" class="btn btn-primary btn-lg btn-block" type="submit" style=" width: 300px; height: 45px; margin-top: 20px;">Sign up</button>
 							</div>
-								</form>
+								
+						</form>
 
 
 						
@@ -202,13 +208,117 @@
 	
 	
 	
-	<script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<script>
+    function execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("extraAddress").value = extraAddr;
+                
+                } else {
+                    document.getElementById("extraAddress").value = '';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('postcode').value = data.zonecode;
+                document.getElementById("address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("detailAddress").focus();
+            }
+        }).open();
+    }
+</script>
+
+
+
+
+
+<script> // 핸드폰번호 입력시 자동 하이픈 추가
+  $(document).on("keyup", ".phone", function() { 
+		$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
+	});
+  	
+</script>
+  
+  
+<script> // 인증번호 확인 스크립트
+function autoemail() {
+	
+	 
+	
+	const authInput = document.getElementById('authCode');
+	const authValue = authInput.value;
+	
+	const formData = new FormData();
+	formData.append('authcode', authValue);
+	
+	
+	fetch('autoEmailOk', {
+	  method: 'POST' ,
+	  body: formData
+	
+	})
+	 .then(data => { // 서버에서 받은 응답 데이터를 처리
+       
+	 if(data.status !== 200){
+    	   console.log("실패")
+    	   alert('실패하셧습니다.');
+     }else{
+       //성공하면 회원가입버튼 활성화
+       //console.log(data);
+    //   console.log("성공")
+       alert('인증에 성공하셨습니다.')
+       const regBtn = document.getElementById('regBtn');
+       regBtn.disabled =  false;
+       }
+     })
+     .catch(error => {
+       // 오류 처리
+       console.error('Error:', error);
+     });
+	
+}
+
+</script>
+  
+<script> // 이메일 인증번호 발송 스크립트
   function sendAuthCode() {
     // 인증 버튼을 눌렀을 때 실행되는 비동기 POST 요청
     // 폼 데이터를 가져와서 fetch() 메서드를 사용하여 서버로 POST 요청 보냄
-    // 구현 방법은 이전에 설명한 것과 동일
 
-    // 예시 코드:
     const emailInput = document.getElementById('ponyMemberEmail');
     const emailValue = emailInput.value;
 
@@ -228,11 +338,12 @@
       })
       .catch(error => {
         // 오류 처리
+        
         console.error('Error:', error);
       });
   }
-  
-  </script>
+
+</script>
 
 </body>
 </html>
