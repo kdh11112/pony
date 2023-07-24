@@ -10,7 +10,7 @@
 
 <title>PONY ADMIN</title>
 
-<!-- Favicon-->
+<!-- Favicon -->
 <link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="css/admin/css/styles.css" rel="stylesheet" />
