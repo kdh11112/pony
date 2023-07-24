@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600&family=Noto+Sans+KR&display=swap');
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -13,7 +14,7 @@ section.notice {
 .page-title h3 {
   font-size: 28px;
   color: #333333;
-  font-weight: 400;
+  font-weight: 600;
   text-align: center;
 }
 
@@ -167,6 +168,7 @@ section.notice {
 .container {
   width: 1100px;
   margin: 0 auto;
+  font-family: 'IBM Plex Sans KR', sans-serif;
 }
 .blind {
   position: absolute;

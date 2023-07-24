@@ -15,40 +15,6 @@
 
 <title>PONY ADMIN</title>
 
-<style type="text/css">
-	.pagination {
-		text-align:center;
-	}
-	.page-item {
-		display:inline;
-		vertical-align:middle;
-	}
-	.page-link {
-		display:-moz-inline-stack;	/*FF2*/
-		display:inline-block;
-		vertical-align:top;
-		padding:4px;
-		margin-right:3px;
-		width:15px !important;
-		color:#000;
-		font:bold 12px tahoma;
-		border:1px solid #eee;
-		text-align:center;
-		text-decoration:none;
-		width:26px;	/*IE 5.5*/
-	}
-	.page-link.now{
-		color:#fff;
-		background-color:#f40;
-		border:1px solid #f40;
-	}
-	.page-link:hover, .page-link:focus {
-		color:#fff;
-		border:1px solid #f40;
-		background-color:#f40;
-	}
-	
-</style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
@@ -58,6 +24,7 @@
 <link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="css/admin/css/styles.css" rel="stylesheet" />
+<link href="css/admin/css/board.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -66,7 +33,7 @@
 		<div class="border-end bg-white" id="sidebar-wrapper">
 			<div class="sidebar-heading border-bottom bg-light">
 				<img alt="" src="css/admin/assets/invi.png"> 
-					<a class="logo-link" href="/admin"> PONY Admin</a>
+				<a class="logo-link" href="/admin"> PONY Admin</a>
 			</div>
 			<div class="list-group list-group-flush">
                	<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/partlist">재고관리</a>
@@ -78,10 +45,9 @@
 		<!-- Page content wrapper-->
 		<div id="page-content-wrapper">
 			<!-- Top navigation-->
-			<nav
-				class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+			<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
 				<div class="container-fluid">
-					<img id="sidebarToggle" src="css/admin/assets/list.png">공지사항
+					<img id="sidebarToggle" src="css/admin/assets/list.png">
 					<button class="navbar-toggler" type="button"
 						data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 						aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -109,54 +75,89 @@
 					</div> 
 				</div>
 			</nav>
-			<div class="container">
-				<!-- 전체사원의목록 -->
-				<table class="table">
-					<tr>
-						<td colspan="6"><a href="/noticewrite"><input
-								type="button" class="btn btn-outline-secondary" value="글쓰기" /></a></td>
-					</tr>
-					<tr>
-						<th>번호</th>
-						<th>제목</th>
-						<th>작성일자</th>
-						<th>조회수</th>
-					</tr>
-					<c:forEach var="list" items="${list }">
-						<tr>
-							<td>${list.noticeNo }</td>
-							<td><a href="admindetail?noticeNo=${list.noticeNo}">${list.noticeTitle }</a></td>
-							<td><fmt:parseDate var="dateString"
-									value="${list.noticeDate }" pattern="yyyy-MM-dd" /> <fmt:formatDate
-									value="${dateString }" pattern="yyyy-MM-dd" /></td>
-							<td>${list.noticeHits }</td>
-						</tr>
-					</c:forEach>
-					<tr>
-						<td colspan="4">
-							<nav aria-label="Page navigation example">
-								<ul class="pagination">
-									<c:if test="${map.prev }">
-										<li class="page-item"><a class="page-link"
-											href="list?currentPage=${map.currentPage-5 }">이전</a></li>
-									</c:if>
-									<c:forEach var="i" begin="${map.startPageNo }"
-										end="${map.endPageNo }">
-										<li class="page-item"><a class="page-link"
-											href="adminnotice?currentPage=${i }">${i }</a></li>
-									</c:forEach>
-									<c:if test="${map.next }">
-										<li class="page-item"><a class="page-link"
-											href="adminnotice?currentPage=${map.currentPage+5 }">다음</a></li>
-									</c:if>
-								</ul>
-							</nav>
-						</td>
-					</tr>
-				</table>
-			</div>
-		</div>
-	</div>
+			<!-- Page content-->
+	        <div class="container-fluid">
+	        	<section class="notice">
+  					<div class="page-title">
+						<div class="container">
+							<h3>공지사항</h3>
+        				</div>
+    				</div>
+    							
+    				<!-- board list area -->
+				    <div id="board-list">
+				        <div class="container">
+							<a href="/noticewrite"><input type="button" 
+								class="btn btn-outline-secondary" value="글쓰기" />
+							</a>
+				            <table class="board-table">
+				                <thead>
+					                <tr>
+					                    <th scope="col" class="th-num">번호</th>
+					                    <th scope="col" class="th-title">제목</th>
+					                    <th scope="col" class="th-date">등록일</th>
+					                    <th scope="col" class="th-view">조회수</th>
+					                </tr>
+				                </thead>
+				                <tbody>
+				                <c:forEach var="list" items="${list }">
+					                <tr>
+					                    <td>${list.noticeNo }</td>
+					                    <th>
+					                      <a href="admindetail?noticeNo=${list.noticeNo}">${list.noticeTitle }</a>
+					                      <p>테스트</p>
+					                    </th>
+					                    <td><fmt:parseDate var="dateString"
+												value="${list.noticeDate }" pattern="yyyy-MM-dd" /> 
+											<fmt:formatDate
+												value="${dateString }" pattern="yyyy-MM-dd" /></td>
+					                    <td>${list.noticeHits }</td>
+					                </tr>
+				                </c:forEach>
+				                </tbody>
+				                <tr>
+									<td colspan="4">
+										<nav aria-label="Page navigation example">
+											<ul class="pagination">
+												<c:if test="${map.prev }">
+													<li class="page-item"><a class="page-link"
+														href="list?currentPage=${map.currentPage-5 }">이전</a></li>
+												</c:if>
+												<c:forEach var="i" begin="${map.startPageNo }"
+													end="${map.endPageNo }">
+													<li class="page-item"><a class="page-link"
+														href="adminnotice?currentPage=${i }">${i }</a></li>
+												</c:forEach>
+												<c:if test="${map.next }">
+													<li class="page-item"><a class="page-link"
+														href="adminnotice?currentPage=${map.currentPage+5 }">다음</a></li>
+												</c:if>
+											</ul>
+										</nav>
+									</td>
+								</tr>
+				            </table>
+				        </div>
+				    </div>
+				    
+				    <!-- board search area -->
+			    	<div id="board-search">
+				        <div class="container">
+				            <div class="search-window">
+				                <form action="">
+				                    <div class="search-wrap">
+				                        <label for="search" class="blind">공지사항 내용 검색</label>
+				                        <a href="/noticewrite"><button type="button" class="btn btn-dark" >글작성</button></a>
+				                    </div>
+				                </form>
+				            </div>
+				        </div>
+				    </div>
+				</section>
+	        </div>
+        </div>
+	</div>				
+							
 	<!-- Bootstrap core JS-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
