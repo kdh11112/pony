@@ -45,5 +45,18 @@ public class NoticeSerciceImple implements NoticeService{
 		
 	}
 
+	@Override
+	public void modifyOne(NoticeDTO dto) {
+		dao.modifyOne(dto);
+		
+	}
+
+	@Override
+	public void deleteOne(NoticeDTO dto) {
+		dao.deleteOne(dto);
+		
+	}
+
+
 
 }

@@ -10,10 +10,13 @@ public interface NoticeService {
 
 	public void addOne(NoticeDTO dto);
 	
-	public NoticeDTO selectOne(int bno);
+	public NoticeDTO selectOne(int noticeNo);
 	
 	public int getTotal();
 
-
 	void increaseHits(int noticeNo);
+
+	public void modifyOne(NoticeDTO dto);
+
+	public void deleteOne(NoticeDTO dto);
 }

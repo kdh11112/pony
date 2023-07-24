@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.co.jhta.pony.dto.NoticeDTO;
 import kr.co.jhta.pony.service.NoticeService;
 import kr.co.jhta.pony.util.PageUtil;
+import kr.co.jhta.springboot12.dto.BoardDTO;
 
 
 @Controller
@@ -60,5 +61,25 @@ public class WebManagerController {
 		service.addOne(dto);
 
 			return "redirect:/notice";
+	}
+	@GetMapping("modify")
+	public String modifyform(@RequestParam("noticeNo") int noticeNo, Model model) {
+		model.addAttribute("dto", service.selectOne(noticeNo));
+		return "manager/noticemodify";
+	}
+	
+	@PostMapping("modify")
+	public String modifyOk(@ModelAttribute NoticeDTO dto, HttpServletRequest req) {
+		String contents = req.getParameter("contents");
+		String title = req.getParameter("title");
+		dto.setNoticeContents(contents);
+		dto.setNoticeTitle(title);
+		service.modifyOne(dto);
+		return "redirect:/notice";
+	}
+	@GetMapping("/delete")
+	public String deleteOk(@ModelAttribute NoticeDTO dto) {
+		service.deleteOne(dto);
+		return "redirect:/notice";
 	}
 }
