@@ -129,7 +129,7 @@
                     <div>후륜서스펜션</div>
                     <div>전륜제동장치</div>
                     <div>후륜제동장치</div>
-                    <div>스티어링</div>
+                    <div>스티어링</div> 
                 </div>
                 <div class="model-info-co3 col-md-3 text-center">${model.modelPrice}
                 <div>${model.modelEngineType}</div>

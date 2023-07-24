@@ -94,7 +94,7 @@
             <h1 class="top-title-text">${model.modelName}</h1>
         </div>
         <div>
-            <img src="../images/model/aTop.png" alt="" width="70%" id="DetailTopImg">
+            <img src="../images/model/sTop.png" alt="" width="70%" id="DetailTopImg">
         </div>
     
     <div class="container">
