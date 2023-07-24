@@ -37,24 +37,24 @@ public class ponyRegisterController {
 	    @ResponseBody
 	    public String autoEmailOk(@RequestParam String authcode, Model model) throws Exception {
 	         
+	    	// redisUtil.getData를 사용하여 레디스에 저장된 이메일주소를 얻어옴.(authcode 는 view에서 사용자가 입력한 인증번호, code는 해당 인증번호를 레디스에 입력하여 반환받은 이메일주소(키, 밸류값) 
+	    	String email = redisUtil.getData(authcode);
 	    	
-	    	String code = redisUtil.getData(authcode);
-	    	
-	    	if (code == null) {
+	    	if (email == null) {
 	            throw new ChangeSetPersister.NotFoundException();
 	        }
 	    	
 	    	
-	    	if (code.equals(redisUtil.getData(authcode))) {
+	    	if (email.equals(redisUtil.getData(authcode))) { // 인증번호로 얻어온 이메일주소가, 레디스에 저장된 인증번호에 대응하는 이메일인지 확인
 	    	        // 인증 성공
 	    			log.info(authcode);
-	    			log.info(code);
+	    			log.info(email);
 	    			log.info("성공");
 	    	        return "redirect:/ponyreg";
 	    	} else {
 	    	        
 	    		log.info(authcode);
-    			log.info(code);
+    			log.info(email);
 	    		// 인증 실패
 	    			log.info("실패");
 	    	        return "redirect:/ponyreg";
