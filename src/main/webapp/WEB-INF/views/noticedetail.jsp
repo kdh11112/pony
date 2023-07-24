@@ -33,8 +33,11 @@
 			</tr>
 			<tr>
 				<td colspan="6">
-					<a href="notice"><input type="button" class="btn btn-outline-dark" value="목록" /></a>	
+					<a href="notice"><input type="button" class="btn btn-outline-dark" value="목록" /></a>
+					<a href="modify?noticeNo=${detail.noticeNo }" class="btn btn-outline-secondary">수정</a>
+					<a href="delete?noticeNo=${detail.noticeNo }"><input type="button" class="btn btn-outline-danger" value="삭제" /></a>	
 				</td>
+				
 			</tr>
 		</table>
 	</div>
