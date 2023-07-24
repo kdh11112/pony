@@ -7,7 +7,7 @@
 		SELECT *
 		FROM MODEL
 	</select>
-	 
+	  
 	<select id="ModelOne" parameterType="String" resultType="kr.co.jhta.pony.dto.ModelDTO">
 		SELECT *
 		FROM MODEL

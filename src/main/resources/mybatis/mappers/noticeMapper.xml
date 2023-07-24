@@ -21,7 +21,7 @@
   	</select>
   	<select id="selectOne" resultType="kr.co.jhta.pony.dto.NoticeDTO" parameterType="int">
   		SELECT * FROM 
-  		NOTICE 
+  		NOTICE  
   		WHERE noticeNo = #{noticeNo}
   	</select>
   	<insert id="addOne" parameterType="kr.co.jhta.pony.dto.NoticeDTO">

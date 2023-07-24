@@ -12,7 +12,7 @@
 		FROM SHOP
 		ORDER BY shopNo ASC
 	</select>
-	 
+	  
 	<insert id="registeremployee" parameterType="kr.co.jhta.pony.dto.MechanicRegisterDTO">
 		INSERT INTO MECHANIC(shopNo,mechanicPw,mechanicName) VALUES(#{shopNo},#{mechanicPw},#{mechanicName})
 	</insert>
