@@ -134,7 +134,7 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
 }
 
 .htitle{									/*상단 텍스트 큰거*/
-	width:200px;
+	width:300px;
 	position: absolute;
 	top:100px;
 	left:50%;
@@ -143,10 +143,10 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
 }
 .hp{									/*상단텍스트 작은거*/
 	width:460px;
-	position: absolute;
+/*	position: absolute;*/
 	top:160px;
 	left:50%;
-	transform:translateX(-50%);
+/*	transform:translateX(-50%);*/
 }
 
 #wrapper{									/*잘모르겟음. 일단 냅둬보기 */
@@ -157,10 +157,46 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
 
 footer{											/*footer 푸터 높이 설정*/
   height: 100px;
-  position : absolute;
-  /*transform : translateY(0%);*/
+  position : relative;
+transform : translateY(100%);
   bottom:0px;
  width:100%;
+}
+
+#contents{
+position: absolute;
+	background-color: rgb(255, 255, 128);
+	/*width:30em;*/
+	top: 400px;
+	left:50%;
+transform:translateX(-50%);
+	/*--bs-gutter-x: 1.5rem;
+ 	--bs-gutter-y: 0;*/
+  width: 100%;
+  /*padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);*/
+  /*margin-right: auto;
+  margin-left: auto;*/
+}
+
+.sidemenu{
+	width: 200px;
+}
+.sidemenulist{
+	list-style: none;
+	
+}
+.sidemenulist>a{
+	text-decoration: none;
+}
+
+.mypageqnalist{
+	position: absolute;
+	top:100px;
+	left: 350px;
+	background-color: #86b7fe;
+	width:70%;
+	height: 900px;
 }
 
 h1, .h1 {

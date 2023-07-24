@@ -48,43 +48,42 @@
             <img alt="" src="images/cloud.jpg" class="himg">
             
                 <div id="txt">
-                    <h1 class="htitle">마이페이지</h1>
-                    <p class="hp">이용 중인 현대자동차 서비스를 마이페이지에서 확인하세요.</p>
+                    <h1 class="htitle">1:1문의내역</h1>
+                    <p class="hp">나의 질문내역들을 확인하세요.</p>
      			</div>
 
 
 		<!-- contents start -->
-		
-		<div id="contents">
-			<div id="mypagehead1">
-				<div class="username">username</div>
-				<div class="userinfomodify"><a href="">회원정보수정</a></div>
+		<div class="body">
+		<div id="contents" >
+			<div id="sidemenu1">
+				<ul class="sidemenu">
+					<li class="sidemenulist">나의 포인트</li>
+					<li class="sidemenulist">1000 보유</li>
+				</ul>
+				<ul class="sidemenu">
+					<li class="sidemenulist">나의 자동차</li>
+					<li class="sidemenulist"><a href="">차량등록 관리</a></li>
+					<li class="sidemenulist"><a href="">차량기본점검</a></li>
+					<li class="sidemenulist"><a href="">정비예약현황</a></li>
+					<li class="sidemenulist"><a href="">시승신청내역</a></li>
+				</ul>
+				<ul class="sidemenu">
+					<li class="sidemenulist">나의 활동</li>
+					<li class="sidemenulist"><a href="">1:1문의</a></li>
+					<li class="sidemenulist"><a href="">나의 회원정보</a></li>
+				</ul>
 			</div>
-			<div id="userhead2">
-				<div class="userpoint">사용자 포인트</div>
-				<div class="userqna"><a href="/mypageqna">1:1문의내역</a></div>
-			</div>
-			<div id="usercontents1">
-				<div class="usermycar1">나의 현대자동차 0대</div>
-				<div class="usermycar2">등록차량정보확인</div>
-				<div class="usermycar3">등록된 차량이 없습니다.</div> 
-			</div>
-			<div id="myactice">
-				<div class="myactice1">나의 활동</div>
-				<div class="myactice2">관심 있게 보았던 차량과 활동하신 내역을 확인해보세요!</div>
-			</div>
-			<div id="testdrivinglist">
-				<a href="">시승신청내역</a>
-			</div>
-			<div id="reservationlist">
-				<a href="">정비예약내역</a>
+			<div class="mypageqnalist">
+				
 			</div>
 		</div>
 		<!-- contents end -->
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
+		</div>
+        <!-- <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
-        </footer>
+        </footer> -->
         </div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
