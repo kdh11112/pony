@@ -54,7 +54,7 @@
 </head>
 <body>
 	<form action="/modelComparison2" id="frm">
-	    <div><img src="../images/vs_top.png" alt="" width="100%;" style="height: 200px;"></div>
+	    <div><img src="../images/model/vs_top.png" alt="" width="100%;" style="height: 200px;"></div>
 	    <div style="height: 100px; background-color: white;"></div>
 	        <div style="background-color: white;">
 	            <div class="top-title text-center">
@@ -78,7 +78,7 @@
                                     </select>
 	                            </div>
 	                            <p class="card-text" style="height: 100px;"></p>
-	                            <img src="../images/vs_logo.jpg" class="card-img-top" alt="..." id="card-img1">
+	                            <img src="../images/model/vs_logo.jpg" class="card-img-top" alt="..." id="card-img1">
 	                            <div class="card-body"></div>
 	                        </div>
 	                    </div>
@@ -97,7 +97,7 @@
                                     </select>
 	                            </div>
 	                            <p class="card-text" style="height: 100px;"></p>
-	                            <img src="../images/vs_logo.jpg" class="card-img-top" alt="..." id="card-img2">
+	                            <img src="../images/model/vs_logo.jpg" class="card-img-top" alt="..." id="card-img2">
 	                            <div class="card-body"></div>
 	                        </div>
 	                    </div>

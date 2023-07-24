@@ -22,6 +22,7 @@
         align-items: center;
         height: 150px;
         background-color: rgb(247, 244, 239);
+        margin-bottom: 100px
     }
     .top-title-text{
         font-size: 80px;
@@ -82,15 +83,18 @@
         width: 400px;
     }
 </style>
+<script type="text/javascript">
+ 	var 소나타 =../images/model/A4.png; 
+</script>
 </head>
 <body>
-    <div><img src="../images/vs_top.png" alt="" width="100%;" style="height: 200px;"></div>
+    <div><img src="../images/model/vs_top.png" alt="" width="100%;" style="height: 200px;"></div>
     <div style="height: 100px; background-color: white;"></div>
         <div class="top-title text-center">
             <h1 class="top-title-text">${model.modelName}</h1>
         </div>
         <div>
-            <img src="DetailTopImg1.png" alt="" width="70%" id="DetailTopImg">
+            <img src="../images/model/aTop.png" alt="" width="70%" id="DetailTopImg">
         </div>
     
     <div class="container">
@@ -103,7 +107,7 @@
                 <div class="col-md-6" id="info">INFOMATION</div>
             </div>
             <div class="row">
-                <div class="model-info-co1 col-md-6"><img src="../images/A4.png" alt=""></div>
+                <div class="model-info-co1 col-md-6"><img src="../images/model/A4.png" alt=""></div>
 	            <div class="model-info-co2 col-md-3 text-center">가격
                     <div>엔진형식</div>
                     <div>과급방식</div>
@@ -152,10 +156,10 @@
 	            </div>
 	    </div>
         <div class="row">
-            <div class="model-info-co1 col-md-6"><img src="../images/A6.png" alt=""></div>
+            <div class="model-info-co1 col-md-6"><img src="../images/model/A6.png" alt=""></div>
         </div>
         <div class="row">
-            <div class="model-info-co1 col-md-6"><img src="../images/A5.jpg" alt=""></div>
+            <div class="model-info-co1 col-md-6"><img src="../images/model/A5.jpg" alt=""></div>
         </div>
 
 	</div>

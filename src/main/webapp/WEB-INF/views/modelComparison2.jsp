@@ -88,7 +88,7 @@ $(document).ready(function() {
 <body>
 	<h2>${model.modelName}</h2>
 
-    <div><img src="../images/vs_top.png" alt="" width="100%;" style="height: 200px;"></div>
+    <div><img src="../images/model/vs_top.png" alt="" width="100%;" style="height: 200px;"></div>
     <div style="height: 100px; background-color: white;"></div>
         <div style="background-color: white;">
             <div class="top-title text-center">

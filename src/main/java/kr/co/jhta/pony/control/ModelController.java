@@ -40,7 +40,7 @@ public class ModelController {
 	@GetMapping("/modelDetail")
 	public String modelDetail(@RequestParam("selectModel1")String modelName, Model model) {
 		model.addAttribute("model", dao.ModelOne(modelName));
-		return "modelDetail";
+		return "modelDetail"+modelName;
 	}
 	
 }
