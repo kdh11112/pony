@@ -42,20 +42,20 @@
 
 								<form action="ponyRegOk" method="post" onsubmit="return false;">
 
-									<div class="form-outline mb-4">
-										<div class="row">
-											<div class="col">
-												<div class="form-floating">
-													<input type="text" id="ponyMemberEmail" class="form-control form-control-lg shadow-sm" />
-													<label>Email</label>
-												</div>
-											</div>
-											
-											<div class="col-auto">
-												<button class="btn btn-primary btn-lg" style="width: 82px; height: 45px" onclick="sendAuthCode()">인증</button>
-											</div>
-										</div>
-									</div>
+								<div class="form-outline mb-4">
+								  <div class="row">
+								    <div class="col">
+								      <div class="form-floating">
+								        <input type="text" id="ponyMemberEmail" class="form-control form-control-lg shadow-sm" />
+								        <label>Email</label>
+								      </div>
+								      <span id="emailValidationMsg" style="color: red; display: none;">올바른 이메일 형식이 아닙니다.</span>
+								    </div>
+								    <div class="col-auto">
+								      <button class="btn btn-primary btn-lg" style="width: 82px; height: 45px" onclick="sendAuthCode()" disabled="disabled">인증</button>
+								    </div>
+								  </div>
+								</div>
 
 									<div class="form-outline mb-4">
 										<div class="row">
@@ -277,8 +277,6 @@
 <script> // 인증번호 확인 스크립트
 function autoemail() {
 	
-	 
-	
 	const authInput = document.getElementById('authCode');
 	const authValue = authInput.value;
 	
@@ -344,6 +342,88 @@ function autoemail() {
   }
 
 </script>
+
+
+<script>
+function isValidEmail(email) {
+	  // 간단한 이메일 형식 검사를 위한 정규식
+	  const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+	  return emailRegex.test(email);
+	}
+
+	document.getElementById('ponyMemberEmail').addEventListener('input', function() {
+	  const emailInput = document.getElementById('ponyMemberEmail');
+	  const emailValidationMsg = document.getElementById('emailValidationMsg');
+	  const authButton = document.querySelector('.btn-primary');
+
+	  if (isValidEmail(emailInput.value)) {
+	    emailValidationMsg.style.display = 'none';
+	    authButton.disabled = false;
+	  } else {
+	    emailValidationMsg.style.display = 'block';
+	    authButton.disabled = true;
+	  }
+	});
+
+</script>
+
+
+<script>
+  function submitForm() {
+    const email = document.getElementById('ponyMemberEmail').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('password2').value;
+    const fullName = document.getElementById('fullName').value;
+    const regNumberFirst = document.getElementById('firstInput').value;
+    const regNumberSecond = document.getElementById('secondInput').value;
+    const phone = document.getElementById('phone').value;
+    const postcode = document.getElementById('postcode').value;
+    const address = document.getElementById('address').value;
+    const detailAddress = document.getElementById('detailAddress').value;
+    const extraAddress = document.getElementById('extraAddress').value;
+
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('confirmPassword', confirmPassword);
+    formData.append('fullName', fullName);
+    formData.append('regNumberFirst', regNumberFirst);
+    formData.append('regNumberSecond', regNumberSecond);
+    formData.append('phone', phone);
+    formData.append('postcode', postcode);
+    formData.append('address', address);
+    formData.append('detailAddress', detailAddress);
+    formData.append('extraAddress', extraAddress);
+
+    fetch('ponyRegOk', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // 서버에서 받은 응답 데이터를 처리
+      console.log(data);
+      // 성공적으로 회원가입이 완료되면 다음 단계로 이동하는 등의 처리를 추가할 수 있습니다.
+      alert('회원가입이 완료되었습니다!');
+      // 페이지를 다른 곳으로 리다이렉션하거나 추가적인 처리를 수행할 수 있습니다.
+    })
+    .catch(error => {
+      // 오류 처리
+      console.error('Error:', error);
+      alert('회원가입에 실패하였습니다. 다시 시도해주세요.');
+    });
+  }
+
+  document.getElementById('regBtn').addEventListener('click', function() {
+    submitForm();
+  });
+</script>
+
 
 </body>
 </html>

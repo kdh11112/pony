@@ -30,4 +30,11 @@ public class indexController {
 	}
 	
 	
+	@PostMapping("/ponyRegOk")
+	public String ponyRegOk() {
+		
+		return "/ponylogin";
+	}
+	
+	
 }

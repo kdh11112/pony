@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.jhta.pony.dao.PonyMemberDAO">
+	
+	
+	<insert id="PonyMemberReg" parameterType="kr.co.jhta.pony.dto.PonyMemberDTO">
+		        INSERT INTO member VALUES (#{name},#{phone},#{email},#{password},#{gender})
+
+	</insert>
+	
+</mapper>
