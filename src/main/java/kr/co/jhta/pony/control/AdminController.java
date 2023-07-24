@@ -46,12 +46,13 @@ public class AdminController {
 	}
 	
 	
-	// 공지사항 작성 ---------------------------------------------------------
+	// 공지사항 (유경님 코드)----------------------------------------------------
 	@GetMapping("/noticewrite")
 	public String noticeWriteForm() {
 		return "/admin/notice/adminNoticeWriteForm";
 	}
 	
+	//게시글 목록
 	@GetMapping("/adminnotice")
 	public String notice(Model model,
 			@RequestParam(name="currentPage",defaultValue="1")int currentPage
@@ -72,6 +73,7 @@ public class AdminController {
 		return "/admin/notice/adminNoticeList";
 	}
 	
+	//글 상세 페이지
 	@GetMapping("/admindetail")
 	public String detail(@RequestParam("noticeNo")int noticeNo,Model model) {
 		model.addAttribute("detail",nservice.selectOne(noticeNo));
@@ -80,6 +82,7 @@ public class AdminController {
 		return "/admin/notice/adminNoticeDetail";
 	}
 	
+	//글 작성 저장
 	@PostMapping("/adminnoticewrite")
 		public String noticeWriteOk(@ModelAttribute NoticeDTO dto,HttpServletRequest req) {
 		String contents = req.getParameter("contents");
@@ -88,7 +91,31 @@ public class AdminController {
 		dto.setNoticeTitle(title);
 		nservice.addOne(dto);
 
-		return "redirect:/admin/notice/adminNoticeList";
+		return "redirect:/adminnotice";
 	}
 	
+	//글 수정 페이지
+	@GetMapping("/adminmodify")
+	public String modifyform(@RequestParam("noticeNo") int noticeNo, Model model) {
+		model.addAttribute("dto", nservice.selectOne(noticeNo));
+		return "/admin/notice/adminNoticeModify";
+	}
+	
+	//글 수정
+	@PostMapping("/adminmodify")
+	public String modifyOk(@ModelAttribute NoticeDTO dto, HttpServletRequest req) {
+		String contents = req.getParameter("contents");
+		String title = req.getParameter("title");
+		dto.setNoticeContents(contents);
+		dto.setNoticeTitle(title);
+		nservice.modifyOne(dto);
+		return "redirect:/adminnotice";
+	}
+	
+	//글 삭제
+	@GetMapping("/admindelete")
+	public String deleteOk(@ModelAttribute NoticeDTO dto) {
+		nservice.deleteOne(dto);
+		return "redirect:/adminnotice";
+	}
 }
