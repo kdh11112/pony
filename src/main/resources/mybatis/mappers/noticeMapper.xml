@@ -7,7 +7,7 @@
   		<!-- select rn,noticeNo,noticeTitle,noticeContents,noticeDate,noticeHits
 		from (select rownum rn,noticeNo,noticeTitle,noticeContents,noticeDate,noticeHits
 		from(select noticeNo,noticeTitle,noticeContents, noticeDate,noticeHits
-		from NOTICE
+		from NOTICE 
 		order by noticeNo desc) as sub
 		where rownum &lt;=#{endNo}) as derived
 		where rn &gt;=#{startNo} -->
