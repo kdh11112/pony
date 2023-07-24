@@ -34,10 +34,6 @@
 		<table class="table">
 
 			<tr>
-				<td colspan="6"><a href="noticewrite"><input type="button"
-						class="btn btn-outline-secondary" value="글쓰기" /></a></td>
-			</tr>
-			<tr>
 				<th>번호</th>
 				<th>제목</th>
 				<th>내용</th>

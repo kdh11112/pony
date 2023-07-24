@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +19,7 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/lang/summernote-ko-KR.min.js"></script>
- 
+
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
 <!-- Core theme CSS (includes Bootstrap)-->
@@ -35,10 +35,10 @@
 					<a class="logo-link" href="/admin"> PONY Admin</a>
 			</div>
 			<div class="list-group list-group-flush">
-               	<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/partlist">재고관리</a>
-               	<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/adminorderlist">주문목록</a>
-               	<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/questionlist">고객문의</a>
-               	<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/adminnotice">공지사항</a>
+		       	<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/partlist">재고관리</a>
+		       	<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/adminorderlist">주문목록</a>
+		       	<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/questionlist">고객문의</a>
+		       	<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/adminnotice">공지사항</a>
 			</div>
 		</div>
 		<!-- Page content wrapper-->
@@ -72,26 +72,29 @@
 								</div>
 							</li>
 						</ul>
-					</div> 
+					</div>
 				</div>
-			</nav>	
+			</nav>
 			<div class="container">
-				<form action="/adminnoticewrite" method=post>
+				<form action="adminmodify" method="post">
 					<table class="table">
 						<tr>
+							<td>
+								<input type="hidden" name="noticeNo" value="${dto.noticeNo }" />
+							</td>
+						</tr>
+						<tr>
 							<th>제목</th>
-							<td colspan="5"><input type="text" name="title" id="" /></td>
+							<td colspan="5"><input type="text" name="title" id="" value="${dto.noticeTitle }"/></td>
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td><textarea name="contents" id="summernote" cols="30" rows="10" ></textarea></td>
+							<td><textarea name="contents" id="summernote" cols="30" rows="10" >${dto.noticeContents }</textarea></td>
 						</tr>
 						<tr>
 							<td colspan="6">
-								<a href="/adminnotice"><input type="button"	class="btn btn-outline-dark" value="목록" /></a> 
-								<a href="/adminnotice"><input type="submit" class="btn btn-outline-secondary" value="저장" /></a> 
-								<a href="/adminnotice"><input type="button" class="btn btn-outline-danger" value="삭제" /></a> 
-							</td>
+							<a href="/adminnotice"><input type="button" class="btn btn-outline-dark" value="목록" /></a> 
+							<a href="/adminnotice"><input type="submit" class="btn btn-outline-dark" value="수정" /></a>
 						</tr>
 					</table>
 				</form>
@@ -101,7 +104,7 @@
 	<!-- Bootstrap core JS-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
-	<script src="css/admin/js/scripts.js"></script>
+	<script src="css/admin/js/scripts.js"></script>	
 	<script>
 		$(document).ready(function() {
 			$('#summernote').summernote({
@@ -113,5 +116,6 @@
 			});
 		});
 	</script>
+
 </body>
 </html>
