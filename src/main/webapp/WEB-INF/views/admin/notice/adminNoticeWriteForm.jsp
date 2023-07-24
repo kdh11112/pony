@@ -18,7 +18,6 @@
  
 </head>
 <body>
-	<h2>write.jsp</h2>
 	<div class="container">
 		<form action="noticewrite" method=post>
 			<table class="table">

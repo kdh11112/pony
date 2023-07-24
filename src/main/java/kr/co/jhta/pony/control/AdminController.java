@@ -1,11 +1,94 @@
 package kr.co.jhta.pony.control;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import kr.co.jhta.pony.dto.NoticeDTO;
+import kr.co.jhta.pony.service.NoticeService;
+import kr.co.jhta.pony.util.PageUtil;
+
+@Controller
 public class AdminController {
 
+	@Autowired
+	NoticeService nservice;
+	
 	@GetMapping("/admin")
 	public String admin() {
-		return "admin";
+		return "/admin/admin";
 	}
+
+	// 재고 관리 ------------------------------------------------------------
+	@GetMapping("/partlist")
+	public String partlist() {
+		return "/admin/part/partList";
+	}
+	
+	// 주문 목록 ------------------------------------------------------------
+	@GetMapping("/adminorderlist")
+	public String adminorderlist() {
+		return "/admin/order/orderList";
+	}
+	
+	// 고객 문의 ------------------------------------------------------------
+	@GetMapping("/questionlist")
+	public String questionlist() {
+		return "/admin/question/questionList";
+	}
+	
+	
+	// 공지사항 작성 ---------------------------------------------------------
+	@GetMapping("/noticewrite")
+	public String noticeWriteForm() {
+		return "/admin/notice/adminNoticeWriteForm";
+	}
+	
+	@GetMapping("/adminnotice")
+	public String notice(Model model,
+			@RequestParam(name="currentPage",defaultValue="1")int currentPage
+			) {
+		//총게시물수
+		int totalNumber = nservice.getTotal();
+		//페이지당 게시물수
+		int recordPerPage = 10;
+		
+		//총페이지수, 한페이지당 수, 현재 페이지 번호
+		Map<String, Object> map = PageUtil.getPageData(totalNumber, recordPerPage, currentPage);
+		
+		int startNo = (int)map.get("startNo");
+		int endNo = (int)map.get("endNo");
+		
+		model.addAttribute("list",nservice.selectAll(startNo, endNo));
+		model.addAttribute("map", map);
+		return "/admin/notice/adminNoticeList";
+	}
+	
+	@GetMapping("/admindetail")
+	public String detail(@RequestParam("noticeNo")int noticeNo,Model model) {
+		model.addAttribute("detail",nservice.selectOne(noticeNo));
+		nservice.increaseHits(noticeNo);
+		
+		return "/admin/notice/adminNoticeDetail";
+	}
+	
+	@PostMapping("/adminnoticewrite")
+		public String noticeWriteOk(@ModelAttribute NoticeDTO dto,HttpServletRequest req) {
+		String contents = req.getParameter("contents");
+		String title = req.getParameter("title");
+		dto.setNoticeContents(contents);
+		dto.setNoticeTitle(title);
+		nservice.addOne(dto);
+
+		return "redirect:/admin/notice/adminNoticeList";
+	}
+	
 }

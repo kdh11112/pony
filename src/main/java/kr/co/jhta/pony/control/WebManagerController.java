@@ -51,11 +51,6 @@ public class WebManagerController {
 		return "noticedetail";
 	}
 	
-	@GetMapping("/noticewrite")
-		public String noticeWriteForm() {
-			return "manager/noticewriteform";
-	}
-	
 	@PostMapping("/noticewrite")
 		public String noticeWriteOk(@ModelAttribute NoticeDTO dto,HttpServletRequest req) {
 		String contents = req.getParameter("contents");
