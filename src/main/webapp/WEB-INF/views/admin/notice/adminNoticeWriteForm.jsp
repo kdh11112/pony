@@ -24,6 +24,7 @@
 <link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="css/admin/css/styles.css" rel="stylesheet" />
+<link href="css/admin/css/board.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -32,7 +33,7 @@
 		<div class="border-end bg-white" id="sidebar-wrapper">
 			<div class="sidebar-heading border-bottom bg-light">
 				<img alt="" src="css/admin/assets/invi.png"> 
-					<a class="logo-link" href="/admin"> PONY Admin</a>
+				<a class="logo-link" href="/admin"> PONY Admin</a>
 			</div>
 			<div class="list-group list-group-flush">
                	<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/partlist">재고관리</a>
@@ -41,32 +42,23 @@
                	<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/adminnotice">공지사항</a>
 			</div>
 		</div>
+		
 		<!-- Page content wrapper-->
 		<div id="page-content-wrapper">
 			<!-- Top navigation-->
-			<nav
-				class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+			<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
 				<div class="container-fluid">
-					<img id="sidebarToggle" src="css/admin/assets/list.png">공지사항
-					<button class="navbar-toggler" type="button"
-						data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-						aria-controls="navbarSupportedContent" aria-expanded="false"
-						aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
+					<img id="sidebarToggle" src="css/admin/assets/list.png">
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-							<li class="nav-item active"><a class="nav-link"
-								href="/admin">AdminHome</a></li>
+							<li class="nav-item active"><a class="nav-link" href="/admin">AdminHome</a></li>
 							<li class="nav-item"><a class="nav-link" href="/">UserPage</a></li>
 							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
-								role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-								aria-expanded="false">Dropdown</a>
-								<div class="dropdown-menu dropdown-menu-end"
-									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="#!">Action</a> <a
-										class="dropdown-item" href="#!">Another action</a>
+								<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+								<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="#!">Action</a> 
+									<a class="dropdown-item" href="#!">Another action</a>
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" href="#!">Something else here</a>
 								</div>
@@ -74,30 +66,49 @@
 						</ul>
 					</div> 
 				</div>
-			</nav>	
-			<div class="container">
-				<form action="/adminnoticewrite" method=post>
-					<table class="table">
-						<tr>
-							<th>제목</th>
-							<td colspan="5"><input type="text" name="title" id="" /></td>
-						</tr>
-						<tr>
-							<th>내용</th>
-							<td><textarea name="contents" id="summernote" cols="30" rows="10" ></textarea></td>
-						</tr>
-						<tr>
-							<td colspan="6">
-								<a href="/adminnotice"><input type="button"	class="btn btn-outline-dark" value="목록" /></a> 
-								<a href="/adminnotice"><input type="submit" class="btn btn-outline-secondary" value="저장" /></a> 
-								<a href="/adminnotice"><input type="button" class="btn btn-outline-danger" value="삭제" /></a> 
-							</td>
-						</tr>
-					</table>
-				</form>
-			</div>
-		</div>
-	</div>
+			</nav>
+			
+			<!-- Page content-->
+	        <div class="container-fluid">
+	        	<section class="notice">
+  					<div class="page-title">
+						<div class="container">
+							<h3>공지사항</h3>
+        				</div>
+    				</div>		
+    					
+    				<!-- board list area -->
+				    <div id="board-list">	
+						<div class="container">
+							<form action="/adminnoticewrite" method=post>
+								<table class="board-table">
+									<thead>
+										<tr>
+											<th colspan="6">제목</th>
+											<td><input type="text" name="title" value="[공지사항] "/></td>
+										</tr>
+									</thead>
+				               		<tbody>
+										<tr>
+											<th colspan="6">내용</th>
+											<td><textarea name="contents" id="summernote" cols="30" rows="10" ></textarea></td>
+										</tr>
+										<tr>
+											<td colspan="10">
+												<a href="/adminnotice"><input type="submit" class="btn btn-outline-secondary" value="저장" /></a> 
+												<a href="/adminnotice"><input type="button"	class="btn btn-outline-dark" value="취소" /></a> 
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</form>
+						</div>
+					</div>
+				</section>
+	        </div>
+        </div>
+	</div>				
+					
 	<!-- Bootstrap core JS-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->

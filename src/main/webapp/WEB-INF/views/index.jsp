@@ -5,8 +5,8 @@
 	<head>
 		<title> </title>
 		<meta charset="UTF-8">
-		<style>
 		
+		<style>
 		    *{margin:0; padding:0;}
 			html,body{width:100%; height:100%;}
 			ul{list-style:none;}
@@ -45,7 +45,6 @@
 					$(".bg").append(now_img);			
 					now_img.removeClass("active");
 				});
-
 					
 				}
 				$('.open').click(function(e){
