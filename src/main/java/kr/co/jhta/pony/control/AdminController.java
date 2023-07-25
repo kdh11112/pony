@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.jhta.pony.dto.NoticeDTO;
 import kr.co.jhta.pony.service.NoticeService;
+import kr.co.jhta.pony.service.QuestionService;
+import kr.co.jhta.pony.util.ControllerAdvisor;
 import kr.co.jhta.pony.util.PageUtil;
 
 @Controller
@@ -21,6 +24,9 @@ public class AdminController {
 
 	@Autowired
 	NoticeService nservice;
+	
+	@Autowired
+	QuestionService qservice;
 	
 	@GetMapping("/admin")
 	public String admin() {
@@ -41,8 +47,29 @@ public class AdminController {
 	
 	// 고객 문의 ------------------------------------------------------------
 	@GetMapping("/questionlist")
-	public String questionlist() {
+	public String questionlist(Model model, @RequestParam(name="currentPage", defaultValue = "1")int currentPage) {
+		//총게시물수
+		int totalNumber = qservice.getTotal();
+		
+		//페이지당 게시물수
+		int recordPerPage = 10;
+		
+		//총페이지수, 한페이지당 수, 현재 페이지 번호
+		Map<String, Object> map = PageUtil.getPageData(totalNumber, recordPerPage, currentPage);
+		
+		int startNo = (int)map.get("startNo");
+		int endNo = (int)map.get("endNo");
+		
+		model.addAttribute("list", qservice.selectAll(startNo, endNo));
+		model.addAttribute("map", map);
+
 		return "/admin/question/questionList";
+
+	}
+	
+	@GetMapping("/questiondetail")
+	public String questiondetail() {
+		return "/admin/question/questionDetail";
 	}
 	
 	
@@ -54,23 +81,23 @@ public class AdminController {
 	
 	//게시글 목록
 	@GetMapping("/adminnotice")
-	public String notice(Model model,
-			@RequestParam(name="currentPage",defaultValue="1")int currentPage
-			) {
-		//총게시물수
-		int totalNumber = nservice.getTotal();
-		//페이지당 게시물수
-		int recordPerPage = 10;
-		
-		//총페이지수, 한페이지당 수, 현재 페이지 번호
-		Map<String, Object> map = PageUtil.getPageData(totalNumber, recordPerPage, currentPage);
-		
-		int startNo = (int)map.get("startNo");
-		int endNo = (int)map.get("endNo");
-		
-		model.addAttribute("list",nservice.selectAll(startNo, endNo));
-		model.addAttribute("map", map);
-		return "/admin/notice/adminNoticeList";
+	public String notice(Model model, @RequestParam(name="currentPage",defaultValue="1")int currentPage) {
+	
+	//총게시물수
+	int totalNumber = nservice.getTotal();
+	
+	//페이지당 게시물수
+	int recordPerPage = 10;
+	
+	//총페이지수, 한페이지당 수, 현재 페이지 번호
+	Map<String, Object> map = PageUtil.getPageData(totalNumber, recordPerPage, currentPage);
+	
+	int startNo = (int)map.get("startNo");
+	int endNo = (int)map.get("endNo");
+	
+	model.addAttribute("list",nservice.selectAll(startNo, endNo));
+	model.addAttribute("map", map);
+	return "/admin/notice/adminNoticeList";
 	}
 	
 	//글 상세 페이지
