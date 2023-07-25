@@ -18,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
@@ -34,9 +35,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-	
+		
+		auth.inMemoryAuthentication().withUser("admin@com").password("{noop}111").roles("ADMIN");
+		auth.inMemoryAuthentication().withUser("sys@com").password("{noop}111").roles("SYS"); //임시로 계정만듬. pw는 임시로 평문으로 만듬
+		
 		auth.userDetailsService(userDetailsService);
-
+		
 		
 //	      String usernameQuery = "SELECT memberEmail as username , memberPassword as password from MEMBER where memberEmail = ?";
 //	      //String authQuery = "SELECT a. id as username, b.role as authority , where a.id=b.id and a.id =?";
@@ -77,16 +81,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.failureUrl("/login") // 로그인 실패시 다시 로그인 페이지
 			
 			
-//			.successHandler(new AuthenticationSuccessHandler() { //로그인 성공시 핸들러
-//				
-//				@Override
-//				public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-//						Authentication authentication) throws IOException, ServletException {
-//						System.out.println("authentication : " + authentication.getName()); // 로그인을 성공하면 인증에 성공한 객체 이름 출력
-//						response.sendRedirect("/"); //인증에 성공하면 루트 페이지로 이동
-//					
-//				}
-//			})
+			.successHandler(new AuthenticationSuccessHandler() { //로그인 성공시 핸들러
+				
+				@Override
+				public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+						Authentication authentication) throws IOException, ServletException {
+						System.out.println("authentication : " + authentication.getName()); // 로그인을 성공하면 인증에 성공한 객체 이름 출력
+						response.sendRedirect("/"); //인증에 성공하면 루트 페이지로 이동
+					
+				}
+			})
 			.failureHandler(new AuthenticationFailureHandler() { // 인증 실패시 핸들러
 				
 				@Override

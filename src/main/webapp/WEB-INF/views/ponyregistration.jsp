@@ -187,8 +187,8 @@
 										</div>
 										
 							<div align="center" >
-								<button id="regBtn" disabled="disabled" class="btn btn-primary btn-lg btn-block"
-								style=" width: 300px; height: 45px; margin-top: 20px;" onclick="submitForm()">Sign up</button>
+								<button id="regBtn" disabled="disabled" class="btn btn-primary btn-lg btn-block" style="width: 300px; height: 45px; margin-top: 20px;" onclick="submitForm()">Sign up</button>
+
 							</div>
 										
 										
@@ -345,25 +345,6 @@ function autoemail() {
       });
   }
 
-</script>
-
-<script>
-  // 이벤트 핸들러가 중복 등록되지 않도록 변수를 사용하여 상태를 관리합니다.
-  let isEventRegistered = false;
-
-  document.getElementById('regBtn').addEventListener('click', function() {
-    if (!isEventRegistered) {
-      // 이벤트 핸들러 실행 중에는 버튼을 재활성화하지 않도록 상태를 변경합니다.
-      isEventRegistered = true;
-      // 여기에 버튼 클릭 시 실행할 로직을 작성합니다.
-      submitForm(); // 이벤트 핸들러에서 submitForm() 함수를 호출합니다.
-
-      // 이벤트 핸들러 실행이 끝난 후에는 상태를 원래대로 변경하여 다시 클릭할 수 있도록 합니다.
-      setTimeout(function() {
-        isEventRegistered = false;
-      }, 1000); // 1000ms 딜레이(1초)을 줄 수 있습니다.
-    }
-  });
 </script>
 
 
