@@ -68,7 +68,7 @@
 	                        <div class="card mx-auto" style="width: 25rem;">
 	                            <h5 class="card-title text-center">A차량 선택</h5>
 	                            <div class="select text-center">
-	                                <select class="selectModel btn btn-secondary" id="selectModel1" name="selectModel1" >
+	                                <select class="selectModel btn btn-secondary" id="selectModel" name="selectModel" >
                                         <option value="">차량선택</option>
                                         <option value="AVANTE">AVANTE</option>
 	                                    <option value="SONATA">SONATA</option>
@@ -93,17 +93,17 @@
     <script>
          $(function(){
             $("select").change(function() {
-                var selectedModel1 = $("#selectModel1").val();
+                var selectedModel = $("#selectModel").val();
                 
-                if (selectedModel1 === "AVANTE") {
+                if (selectedModel === "AVANTE") {
                     $("#card-img1").attr("src", "https://search.pstatic.net/common?quality=75&direct=true&ttype=input&src=https%3A%2F%2Fdbscthumb-phinf.pstatic.net%2F5662_000_9%2F20230313103619999_CT56XDZ2R.png%2F20230313102856_v.png%3Ftype%3Dm1500");
-                }else if(selectedModel1 === "SONATA"){
+                }else if(selectedModel === "SONATA"){
                     $("#card-img1").attr("src","https://search.pstatic.net/common?quality=75&direct=true&ttype=input&src=https%3A%2F%2Fdbscthumb-phinf.pstatic.net%2F5662_000_9%2F20230503101116687_KBFEQSEHR.png%2F20230503100646_X.png%3Ftype%3Dm1500")
-                }else if(selectedModel1 === "GRANDEUR"){
+                }else if(selectedModel === "GRANDEUR"){
                     $("#card-img1").attr("src","https://search.pstatic.net/common?quality=75&direct=true&ttype=input&src=https://dbscthumb-phinf.pstatic.net/5662_000_8/20221114125621183_IOQGN0BH1.png/20221114124905_u.png?type=m1500")
-                }else if(selectedModel1 === "PALISADE"){
+                }else if(selectedModel === "PALISADE"){
                     $("#card-img1").attr("src","https://search.pstatic.net/common?quality=75&direct=true&ttype=input&src=https://dbscthumb-phinf.pstatic.net/5662_000_9/20230602100123286_X619RPAHU.png/20230602094536_k.png?type=m1500")
-                }else if(selectedModel1 === "TUCSON"){
+                }else if(selectedModel === "TUCSON"){
                     $("#card-img1").attr("src","https://search.pstatic.net/common?quality=75&direct=true&ttype=input&src=https://dbscthumb-phinf.pstatic.net/5662_000_8/20220713140508604_CLPS0GTFK.png/20220713140232_Z.png?type=m1500")
                 }
                 
