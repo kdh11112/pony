@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.jhta.pony.dao.QuestionDAO">
+	<select id="getAll" resultType="kr.co.jhta.pony.dto.QuestionDTO" parameterType="kr.co.jhta.pony.dto.StartEnd">
+		SELECT rn, questionNo, questionTitle, questionContents, questionFile, questionDate, memberNo, answerStatus
+    	FROM (SELECT ROW_NUMBER() OVER (ORDER BY questionNo DESC) 
+    		AS rn, questionNo, questionTitle, questionContents, questionFile, questionDate, memberNo, answerStatus
+		        FROM QUESTION) 
+		    AS derived
+    	WHERE rn BETWEEN #{startNo} AND #{endNo}
+	</select>
+
+	<select id="getTotal" resultType="int">
+		SELECT count(*) cnt
+		FROM QUESTION
+	</select>
+	
+	<select id="selectOne" parameterType="int" resultType="kr.co.jhta.pony.dto.QuestionDTO">
+		SELECT * 
+		FROM QUESTION
+		WHERE questionNo = #{questionNo}
+	</select>
+	
+	<delete id="deleteOne">
+		DELETE 
+		FROM QUESTION
+		WHERE questionNo = #{questionNo}
+	</delete>
+</mapper>
