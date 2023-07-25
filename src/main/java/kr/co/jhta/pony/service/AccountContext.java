@@ -6,7 +6,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import kr.co.jhta.pony.dto.PonyMemberDTO;
+import lombok.Getter;
 
+@Getter
 public class AccountContext extends User {
 
 	private final PonyMemberDTO dto;

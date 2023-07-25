@@ -1,8 +1,15 @@
 package kr.co.jhta.pony.control;
 
+import java.security.Principal;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import kr.co.jhta.pony.service.AccountContext;
 
 @Controller
 public class indexController {
@@ -33,6 +40,18 @@ public class indexController {
 	public String loginOk() {
 		
 		return "/ponylogin";
+	}
+	
+	@GetMapping("/testuser")
+	public String testuser(Principal principal, Model model, @AuthenticationPrincipal AccountContext userAccount) {
+		
+		
+		userAccount.getAccount();
+		
+		model.addAttribute("name", principal.getName());
+		
+		
+		return "/textview";
 	}
 	
 	
