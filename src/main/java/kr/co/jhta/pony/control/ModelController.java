@@ -38,9 +38,9 @@ public class ModelController {
 		return "modelFind";
 	}
 	@GetMapping("/modelDetail")
-	public String modelDetail(@RequestParam("selectModel1")String modelName, Model model) {
+	public String modelDetail(@RequestParam("selectModel")String modelName, Model model) {
 		model.addAttribute("model", dao.ModelOne(modelName));
-		return "modelDetail"+modelName;
+		return "modelDetail";
 	}
 	
 }
