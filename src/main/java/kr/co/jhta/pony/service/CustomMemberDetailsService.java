@@ -29,6 +29,7 @@ public class CustomMemberDetailsService implements UserDetailsService {
 			throw new UsernameNotFoundException("UsernamNotFoundException");
 		}
 		
+		
 		List<GrantedAuthority> roles = new ArrayList<>();
 		roles.add(new SimpleGrantedAuthority("ROLE_USER"));
 		
