@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%> 
 <!doctype html>
-<html>
+<html> 
 	<head>
 		<title> </title>
 		<meta charset="UTF-8">
+		
 		<style>
 		    *{margin:0; padding:0;}
 			html,body{width:100%; height:100%;}
@@ -44,7 +45,6 @@
 					$(".bg").append(now_img);			
 					now_img.removeClass("active");
 				});
-
 					
 				}
 				$('.open').click(function(e){
@@ -78,8 +78,8 @@
 			   
 				<ul class="gnb">
 					<li><a href="#">MENU1</a></li>
-					<li><a href="#">MENU2</a></li>
-					<li><a href="#">MENU3</a></li>
+					<li><a href="/modelFind">모델검색</a></li>
+					<li><a href="/modelComparison">모델비교</a></li>
 					<li><a href="#">MENU4</a></li>
 				</ul>
 				

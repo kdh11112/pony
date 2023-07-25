@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,9 +25,22 @@ public class ModelController {
 	
 	@GetMapping("/modelComparison2")
 	public String modelInfo(@RequestParam("selectModel1")String modelName1,@RequestParam("selectModel2")String modelName2, Model model) {
+		log.info("modelName1 : " + modelName1);
+		log.info("modelName2 : " + modelName2);
 		model.addAttribute("model1",dao.ModelOne(modelName1));
 		model.addAttribute("model2",dao.ModelOne(modelName2));
 		return "modelComparison2";
+	}
+	
+	@GetMapping("/modelFind")
+	public String modelFind() {
+		
+		return "modelFind";
+	}
+	@GetMapping("/modelDetail")
+	public String modelDetail(@RequestParam("selectModel")String modelName, Model model) {
+		model.addAttribute("model", dao.ModelOne(modelName));
+		return "modelDetail";
 	}
 	
 }

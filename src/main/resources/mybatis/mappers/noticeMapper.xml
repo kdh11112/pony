@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="kr.co.jhta.pony.dao.NoticeDAO">
+  	<select id="getAll" resultType="kr.co.jhta.pony.dto.NoticeDTO" parameterType="kr.co.jhta.pony.dto.StartEnd">
+  		<!-- select rn,noticeNo,noticeTitle,noticeContents,noticeDate,noticeHits
+		from (select rownum rn,noticeNo,noticeTitle,noticeContents,noticeDate,noticeHits
+		from(select noticeNo,noticeTitle,noticeContents, noticeDate,noticeHits
+		from NOTICE 
+		order by noticeNo desc) as sub
+		where rownum &lt;=#{endNo}) as derived
+		where rn &gt;=#{startNo} -->
+		SELECT rn, noticeNo, noticeTitle, noticeContents, noticeDate, noticeHits
+    	FROM (
+        SELECT ROW_NUMBER() OVER (ORDER BY noticeNo DESC) AS rn,
+               noticeNo, noticeTitle, noticeContents, noticeDate, noticeHits
+        FROM NOTICE
+    	) AS derived
+    	WHERE rn BETWEEN #{startNo} AND #{endNo}
+  	</select>
+  	<select id="selectOne" resultType="kr.co.jhta.pony.dto.NoticeDTO" parameterType="int">
+  		SELECT * FROM 
+  		NOTICE  
+  		WHERE noticeNo = #{noticeNo}
+  	</select>
+  	<insert id="addOne" parameterType="kr.co.jhta.pony.dto.NoticeDTO">
+  		INSERT INTO NOTICE (noticeTitle, noticeContents, noticeDate, noticeHits,memberNo)
+  		VALUES (#{noticeTitle},#{noticeContents},now(),0,1)
+  	</insert>
+  	<select id="getTotal" resultType="int">
+  		SELECT count(*) cnt
+  		FROM NOTICE
+  	</select>
+  	<delete id= "deleteOne" parameterType="int">
+  		DELETE 
+  		FROM NOTICE
+  		WHERE noticeNo = #{noticeNo}
+  	</delete>
+  	<update id="modifyOne" parameterType="kr.co.jhta.pony.dto.NoticeDTO">
+  		UPDATE NOTICE
+  		SET noticeTitle = #{noticeTitle} , noticeContents = #{noticeContents},noticeDate = now()
+  		WHERE noticeNo = #{noticeNo}
+  	</update>
+  	<update id="increaseHits" parameterType="int">
+	    UPDATE NOTICE
+	    SET noticeHits = noticeHits + 1
+	    WHERE noticeNo = #{noticeNo}
+	</update>
+  </mapper>
