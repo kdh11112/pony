@@ -46,13 +46,14 @@
     }
     .model-info-co2{
         width: 120px;
-        margin-left: 300px;
+        margin-left:40px;
         font-weight: 600;
         background-color: rgb(130, 155, 225);
         color: white;
         
     }
-    .model-info-co3{
+    .model-info-co3,
+    .model-info-co4{
     	width:350px;
         background-color: rgb(229, 235, 250);
         font-weight: 600;
@@ -69,7 +70,7 @@
     }
     #modelImg2,#modelImg3
    	,#modelImg4{
-   		height:550px;
+   		height:620px;
    	}
     .row{
         width: 100%;
@@ -80,14 +81,24 @@
     }
     .design-info > div> h3{
         margin-bottom: 50px;
+        font-weight: 600;
     }
     .design-info > div> p{
-        font-size: 13px;
-        font-weight: 500;
+        font-size: 15px;
+        font-weight: bold;
+        color: #6C757D;
     }
     #info{
-        margin-left: 400px;
+        margin-left: 430px;
         width: 400px;
+    }
+    #btnArea{
+    	background-color: white;
+    	margin-left:-140px;
+    	width:150px;
+    }
+    #btn{
+    	font-weight: bold;
     }
 </style>
 </head>
@@ -102,75 +113,96 @@
         </div>
     
     <div class="container">
-            <div class="row design-info">
-                <div class="col-md-6" >HIGHLIGHT
-                    <h3 id="designContents1"></h3>
-                    <p id="designContents2"></p>
-                    <p id="designContents3"></p>
-                </div>
-                <div class="col-md-6" id="info">INFOMATION</div>
+    	<div class="row design-info">
+        	<div class="col-md-6" >HIGHLIGHT
+            	<h3 id="designContents1"></h3>
+                <p id="designContents2"></p>
+                <p id="designContents3"></p>
             </div>
+            <div class="col-md-6" id="info">INFOMATION
+            	<div class="info row">
+            		<div class="model-info-co1 col-md-6" style="color:white">empty</div>
+	            	<div class="model-info-co2 col-md-3" id="btnArea" style="width:160px;"><a href="/modelFind"><button type="button" class="btn btn-secondary" id="btn">다른차량 선택</button></a></div>
+	            	<div class="model-info-co3 col-md-3" style="margin-top:30px; width:110px; font-size:20px; background-color: white;">현재차량:</div>
+	            	<div class="model-info-co4 col-md-3" style="margin-top:20px; background-color: white; font-size:30px; width:200px;">${model.modelName}</div>
+            	</div>
+            	
+            </div>
+        </div>
             <div class="row">
                 <div class="model-info-co1 col-md-6"><img src="" alt="" id="modelImg2"></div>
-	            <div class="model-info-co2 col-md-3 text-center">가격
-                    <div>엔진형식</div>
-                    <div>과급방식</div>
-                    <div>배기량</div>
-                    <div>연료</div>
-                    <div>최고출력</div>
-                    <div>최대토크</div>
-                    <div>연비</div>
-                    <div>CO배출량</div>
-                    <div>전장/전폭</div>
-                    <div>전고/축거</div>
-                    <div>윤거전/후</div>
-                    <div>공차중량</div>
-                    <div>전륜타이어</div>
-                    <div>후륜타이어</div>
-                    <div>구동방식</div>
-                    <div>변속기</div>
-                    <div>전륜서스펜션</div>
-                    <div>후륜서스펜션</div>
-                    <div>전륜제동장치</div>
-                    <div>후륜제동장치</div>
-                    <div>스티어링</div> 
+	            <div class="accordion" id="accordionExample" style="width: 600px; margin-left: 230px;">
+                    <div class="accordion-item" >
+                      <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          차량 기본정보 및 제원 확인하기
+                        </button>
+                      </h2>
+                      <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body row">
+                            <div class="model-info-co2 col-md-3 text-center">가격
+                                <div>엔진형식</div>
+                                <div>과급방식</div>
+                                <div>배기량</div>
+                                <div>연료</div>
+                                <div>최고출력</div>
+                                <div>최대토크</div>
+                                <div>연비</div>
+                                <div>CO배출량</div>
+                                <div>전장/전폭</div>
+                                <div>전고/축거</div>
+                                <div>윤거전/후</div>
+                                <div>공차중량</div>
+                                <div>전륜타이어</div>
+                                <div>후륜타이어</div>
+                                <div>구동방식</div>
+                                <div>변속기</div>
+                                <div>전륜서스펜션</div>
+                                <div>후륜서스펜션</div>
+                                <div>전륜제동장치</div>
+                                <div>후륜제동장치</div>
+                                <div>스티어링</div> 
+                            </div>
+                            <div class="model-info-co3 col-md-3 text-center">${model.modelPrice}
+                            <div>${model.modelEngineType}</div>
+                            <div>${model.modelSuperCharged}</div>
+                            <div class="comma">${model.modelDisplacement}cc</div>
+                            <div>${model.modelFuel}</div>
+                            <div class="comma">${model.modelMaximumOutput}hp</div>
+                            <div class="comma">${model.modelMaximumTalk}kg.m</div>
+                            <div>${model.modelFuelEfficiency}</div>
+                            <div>${model.modelCoEmissions}</div>
+                            <div class="comma">${model.modelFullLength}mm/${model.modelFullWidth}mm</div>
+                            <div class="comma">${model.modelFullHeight}mm/${model.modelWheelBase}mm</div>
+                            <div>${model.modelFrontTread}/${model.modelRearTread}</div>
+                            <div>${model.modelUnladenVehicleWeight}</div>
+                            <div>${model.modelFrontTire}</div>
+                            <div>${model.modelRearTire}</div>
+                            <div>${model.modelDriveType}</div>
+                            <div>${model.modelTransmission}</div>
+                            <div>${model.modelFrontSuspension}</div>
+                            <div>${model.modelRearSuspension}</div>
+                            <div>${model.modelFrontBrake}</div>
+                            <div>${model.modelRearBrake}</div>
+                            <div>${model.modelStreering}</div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
                 </div>
-                <div class="model-info-co3 col-md-3 text-center">${model.modelPrice}
-                <div>${model.modelEngineType}</div>
-                <div>${model.modelSuperCharged}</div>
-                <div>${model.modelDisplacement}</div>
-                <div>${model.modelFuel}</div>
-                <div>${model.modelMaximumOutput}</div>
-                <div>${model.modelMaximumTalk}</div>
-                <div>${model.modelFuelEfficiency}</div>
-                <div>${model.modelCoEmissions}</div>
-                <div>${model.modelFullLength}mm/${model.modelFullWidth}mm</div>
-                <div>${model.modelFullHeight}mm/${model.modelWheelBase}mm</div>
-                <div>${model.modelFrontTread}/${model.modelRearTread}</div>
-                <div>${model.modelUnladenVehicleWeight}</div>
-                <div>${model.modelFrontTire}</div>
-                <div>${model.modelRearTire}</div>
-                <div>${model.modelDriveType}</div>
-                <div>${model.modelTransmission}</div>
-                <div>${model.modelFrontSuspension}</div>
-                <div>${model.modelRearSuspension}</div>
-                <div>${model.modelFrontBrake}</div>
-                <div>${model.modelRearBrake}</div>
-                <div>${model.modelStreering}</div>
-	            </div>
 	    </div>
         <div class="row">
             <div class="model-info-co1 col-md-6"><img src="" alt="" id="modelImg3"></div>
+            
         </div>
         <div class="row">
             <div class="model-info-co1 col-md-6"><img src="" alt="" id="modelImg4"></div>
         </div>
 
 	</div>
-	<script>
+<script>
 	$(document).ready(function(){
 		let modelName = "${model.modelName}"
-		console.log("asdasd")
         if(modelName === "AVANTE"){
         	$("#designContents1").text("더욱 스타일리시하게")
         	$("#designContents2").text("한층 더 진보된 기본기와 함께,")
@@ -179,6 +211,7 @@
             $("#modelImg2").attr("src","https://imgauto-phinf.pstatic.net/20230313_224/auto_1678683300167oYBOY_JPEG/20230313135450_wviqsLt5.jpg")
             $("#modelImg3").attr("src","https://imgauto-phinf.pstatic.net/20230313_82/auto_1678683298467uIdUo_JPEG/20230313135450_wmBFEU1E.jpg")
             $("#modelImg4").attr("src","https://imgauto-phinf.pstatic.net/20230313_152/auto_1678683297300DUIJR_JPEG/20230313135449_av7qFb0w.jpg")
+            $("#modelImg5").attr("src","https://imgauto-phinf.pstatic.net/20230313_242/auto_1678683340753dnlXG_JPEG/20230313135527_zcwgRRvW.jpg")
         }else if(modelName === "SONATA"){
           	$("#designContents1").text("익숙함도 완전히 새롭게")
         	$("#designContents2").text("탄탄한 헤리티지와 선도적인 디자인,")
@@ -212,8 +245,25 @@
             $("#modelImg3").attr("src","https://imgauto-phinf.pstatic.net/20220713_179/auto_1657678963743J8hwa_JPEG/20220713112232_alS7qbIH.jpg")
             $("#modelImg4").attr("src","https://imgauto-phinf.pstatic.net/20220713_80/auto_1657679019560cunWa_JPEG/20220713112329_cEnTDYQr.jpg")
         }
+		
+		 function valueComma(value) {
+		 	return value.replace(/\d+/, function(number) {
+		    	return parseInt(number).toLocaleString();
+		        });
+		    }
+
+		    $(".comma").each(function() {
+		        let value = $(this).text();
+		        $(this).text(valueComma(value));
+		    });
     })
 
+</script>
+
+<script>
+$(document).ready(function() {
+   
+});
 </script>
 </body>
 </html>
