@@ -40,7 +40,7 @@
 							<div class="card-body p-5 text-center">
 
 
-								<form action="ponyRegOk" method="post" onsubmit="return false;">
+								<form action="ponyRegOk" id="frm" method="post" onsubmit="return false;">
 
 								<div class="form-outline mb-4">
 								  <div class="row">
@@ -78,7 +78,7 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="password" id="password" class="form-control form-control-lg shadow-sm" />
+													<input type="password" id="password" value="aaaa" class="form-control form-control-lg shadow-sm" />
 													<label>Password</label>
 												</div>
 											</div>
@@ -89,7 +89,7 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="password" id="password2" class="form-control form-control-lg shadow-sm" />
+													<input type="password" id="password2" value="aaaa" class="form-control form-control-lg shadow-sm" />
 													<label>ConfirmPassword</label>
 												</div>
 											</div>
@@ -101,7 +101,7 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="text" id="" class="form-control form-control-lg shadow-sm" />
+													<input type="text" id="fullName" value="Test" class="form-control form-control-lg shadow-sm" />
 													<label>FullName</label>
 												</div>
 											</div>
@@ -121,7 +121,7 @@
 									            </div>
 									            
 									            <div style="margin-left: 10px;">
-									                <input type="text" id="secondInput" class="form-control form-control-lg shadow-sm" maxlength="1" style="width: 30px; height: 58px;" />
+									                <input type="text" id="secondInput" value="888888" class="form-control form-control-lg shadow-sm" maxlength="1" style="width: 30px; height: 58px;" />
 									            </div>
 									            <div class="d-flex align-items-center">
 									                <span style="margin-right: 5px">* * * * * *</span>
@@ -138,7 +138,7 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="text" id="phone" class="form-control form-control-lg shadow-sm phone" maxlength="13" />
+													<input type="text" id="phone" value="01055555555" class="form-control form-control-lg shadow-sm phone" maxlength="13" />
 													<label>Phone</label>
 												</div>
 											</div>
@@ -185,13 +185,17 @@
 										        </div>
 										    </div>
 										</div>
+										
+							<div align="center" >
+								<button id="regBtn" disabled="disabled" class="btn btn-primary btn-lg btn-block"
+								style=" width: 300px; height: 45px; margin-top: 20px;" onclick="submitForm()">Sign up</button>
+							</div>
+										
+										
 									</div>
 
 
 
-							<div align="center" >
-								<button id="regBtn" disabled="disabled" class="btn btn-primary btn-lg btn-block" type="submit" style=" width: 300px; height: 45px; margin-top: 20px;">Sign up</button>
-							</div>
 								
 						</form>
 
@@ -343,6 +347,25 @@ function autoemail() {
 
 </script>
 
+<script>
+  // 이벤트 핸들러가 중복 등록되지 않도록 변수를 사용하여 상태를 관리합니다.
+  let isEventRegistered = false;
+
+  document.getElementById('regBtn').addEventListener('click', function() {
+    if (!isEventRegistered) {
+      // 이벤트 핸들러 실행 중에는 버튼을 재활성화하지 않도록 상태를 변경합니다.
+      isEventRegistered = true;
+      // 여기에 버튼 클릭 시 실행할 로직을 작성합니다.
+      submitForm(); // 이벤트 핸들러에서 submitForm() 함수를 호출합니다.
+
+      // 이벤트 핸들러 실행이 끝난 후에는 상태를 원래대로 변경하여 다시 클릭할 수 있도록 합니다.
+      setTimeout(function() {
+        isEventRegistered = false;
+      }, 1000); // 1000ms 딜레이(1초)을 줄 수 있습니다.
+    }
+  });
+</script>
+
 
 <script>
 function isValidEmail(email) {
@@ -369,59 +392,59 @@ function isValidEmail(email) {
 
 
 <script>
-  function submitForm() {
-    const email = document.getElementById('ponyMemberEmail').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('password2').value;
-    const fullName = document.getElementById('fullName').value;
-    const regNumberFirst = document.getElementById('firstInput').value;
-    const regNumberSecond = document.getElementById('secondInput').value;
-    const phone = document.getElementById('phone').value;
-    const postcode = document.getElementById('postcode').value;
-    const address = document.getElementById('address').value;
-    const detailAddress = document.getElementById('detailAddress').value;
-    const extraAddress = document.getElementById('extraAddress').value;
+function submitForm() {
+	  const email = document.getElementById('ponyMemberEmail').value;
+	  const password = document.getElementById('password').value;
+	  const confirmPassword = document.getElementById('password2').value;
+	  const fullName = document.getElementById('fullName').value;
+	  const regNumberFirst = document.getElementById('firstInput').value;
+	  const regNumberSecond = document.getElementById('secondInput').value;
+	  const phone = document.getElementById('phone').value;
+	  const postcode = document.getElementById('postcode').value;
+	  const address = document.getElementById('address').value;
+	  const detailAddress = document.getElementById('detailAddress').value;
+	  const extraAddress = document.getElementById('extraAddress').value;
 
-    const formData = new FormData();
-    formData.append('email', email);
-    formData.append('password', password);
-    formData.append('confirmPassword', confirmPassword);
-    formData.append('fullName', fullName);
-    formData.append('regNumberFirst', regNumberFirst);
-    formData.append('regNumberSecond', regNumberSecond);
-    formData.append('phone', phone);
-    formData.append('postcode', postcode);
-    formData.append('address', address);
-    formData.append('detailAddress', detailAddress);
-    formData.append('extraAddress', extraAddress);
+	  const formData = new FormData();
+		  formData.append('email', email);
+		  formData.append('password', password);
+		  formData.append('confirmPassword', confirmPassword);
+		  formData.append('fullName', fullName);
+		  formData.append('regNumberFirst', regNumberFirst);
+		  formData.append('regNumberSecond', regNumberSecond);
+		  formData.append('phone', phone);
+		  formData.append('postcode', postcode);
+		  formData.append('address', address);
+		  formData.append('detailAddress', detailAddress);
+		  formData.append('extraAddress', extraAddress);
 
-    fetch('ponyRegOk', {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to submit form');
-      }
-      return response.json();
-    })
-    .then(data => {
-      // 서버에서 받은 응답 데이터를 처리
-      console.log(data);
-      // 성공적으로 회원가입이 완료되면 다음 단계로 이동하는 등의 처리를 추가할 수 있습니다.
-      alert('회원가입이 완료되었습니다!');
-      // 페이지를 다른 곳으로 리다이렉션하거나 추가적인 처리를 수행할 수 있습니다.
-    })
-    .catch(error => {
-      // 오류 처리
-      console.error('Error:', error);
-      alert('회원가입에 실패하였습니다. 다시 시도해주세요.');
-    });
-  }
+		 console.log("aaaaaaaaaaaaaaaaaaaaaaaa");
+		  
+	
+	fetch('ponyRegOk', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to submit form');
+    }
+    return response.json(); // JSON 형식으로 응답 파싱 (옵션이며, 응답 형식에 따라 사용)
+  })
+  .then(data => {
+    // 서버에서 받은 응답 데이터를 처리
+    console.log(data);
+    window.location.href = '/login';
+  })
+  .catch(error => {
+    // 오류 처리
+    console.error('Error:', error);
+  });  
+	
+	  
+	}
 
-  document.getElementById('regBtn').addEventListener('click', function() {
-    submitForm();
-  });
+
 </script>
 
 

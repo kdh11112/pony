@@ -35,23 +35,23 @@
 						<div class="card-body p-5 text-center">
 						
 						
-						<form action="login" method="post">
+						<form action="/login_proc" method="post">
 
 							<div class="form-outline mb-4">
-								<input type="email" name="email" id="typeEmailX-2" class="form-control form-control-lg shadow-sm" />
-								<label class="form-label" for="typeEmailX-2">Email</label>
+								<input type="email" name="email" id="email" class="form-control form-control-lg shadow-sm" />
+								<label class="form-label">Email</label>
 							</div>
 
 
 							<div class="form-outline mb-4">
-								<input type="password" id="typePasswordX-2" name="password" class="form-control form-control-lg shadow-sm" />
-								<label class="form-label" for="typePasswordX-2">Password</label>
+								<input type="password" id="password" name="password" class="form-control form-control-lg shadow-sm" />
+								<label class="form-label">Password</label>
 							</div>
 
 							<!-- Checkbox  체크박스 -->
 							<div class="form-check d-flex justify-content-start mb-4" >
-								<input class="form-check-input" type="checkbox" name="remember" value="" id="form1Example3" />
-								 <label class="form-check-label" for="form1Example3"> Remember password </label>
+								<input class="form-check-input" type="checkbox" name="remember" value="" id="" />
+								 <label class="form-check-label"> Remember password </label>
 							</div>
 							
 							<div align="center">

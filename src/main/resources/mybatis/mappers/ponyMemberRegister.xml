@@ -5,11 +5,17 @@
 <mapper namespace="kr.co.jhta.pony.dao.PonyMemberDAO">
 	
 	
-	<insert id="PonyMemberReg" parameterType="kr.co.jhta.pony.dto.PonyMemberDTO">
-       INSERT INTO member (memberEmail, memberPassword, memberName, memberBirthday, memberPhone, memberZip, memberAddress1, memberAddress2 )
+	<insert id="createPonyMember" parameterType="kr.co.jhta.pony.dto.PonyMemberDTO">
+       INSERT INTO MEMBER (memberEmail, memberPassword, memberName, memberBirthday, memberPhone, memberZip, memberAddress1, memberAddress2 )
        VALUES (#{memberEmail},#{memberPassword},#{memberName},#{memberBirthday},#{memberPhone}, #{memberZip}, #{memberAddress1}, #{memberAddress2} )
 		        
 
 	</insert>
+	
+	<select id="getMemberEmail" parameterType="String" resultType="kr.co.jhta.pony.dto.PonyMemberDTO">
+		SELECT *
+		FROM MEMBER
+		WHERE memberEmail = #{memberEmail}
+	</select>
 	
 </mapper>

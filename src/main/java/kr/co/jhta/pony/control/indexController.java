@@ -29,9 +29,8 @@ public class indexController {
 		
 	}
 	
-	
-	@PostMapping("/ponyRegOk")
-	public String ponyRegOk() {
+	@PostMapping("/login")// 아직 비활성화
+	public String loginOk() {
 		
 		return "/ponylogin";
 	}
