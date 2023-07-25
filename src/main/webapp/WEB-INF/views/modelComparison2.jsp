@@ -10,80 +10,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-$(document).ready(function() {
-    function valueComma(value) {
-        return value.replace(/\d+/, function(number) {
-            return parseInt(number).toLocaleString();
-        });
-    }
-
-    $(".comma").each(function() {
-        let value = $(this).text();
-        $(this).text(valueComma(value));
-    });
-});
-</script>
-<style>
-    .container{
-        margin-top: 100px;
-        
-    }
-    .top-title{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 150px;
-        background-color: rgb(247, 244, 239);
-    }
-    .top-title-text{
-        font-size: 80px;
-        font-weight:bold;
-        color: #5E5E5E;
-    }
-    .top-title-text2{
-        font-size: 15px;
-        font-weight:bold;
-        color: #5E5E5E;
-    }
- 
-    .model-name{
-        height: 70px;
-        background-color: #5E5E5E;
-        font-size: 45px;
-        font-weight: bold;
-        text-align: center;
-        color: aliceblue;
-    }
-   .grid{
-        margin-top: 100px;
-   }
-   .model-info-co1{
-        width: 100px;
-        background-color: white;
-        font-weight: bold;
-    }
-    .model-info-co2{
-        width: 120px;
-        font-weight: 600;
-        background-color: rgb(240, 240, 240);
-        
-    }
-    .model-info-co3,
-    .model-info-co4{
-        background-color: #EAEBE6;
-        font-size:15px;
-        font-weight: 600;
-        height:30px;
-        margin-left: 5px;
-    }
-    .just-bar{
-        height: 5px;
-        background-color: white;
-
-    }
-</style>
+<link rel="stylesheet" href="../css/model/modelComparison2.css">
 </head>
 <body>
 	<h2>${model.modelName}</h2>
@@ -259,5 +186,6 @@ $(document).ready(function() {
 		<div><a href="/modelComparison"><button type="button" class="btn btn-secondary" style="margin-top: 70px;">차량 다시 선택하기</button></a></div>
 	    </div>
 	</div>
+<script src="../js/model/modelComparison2.js"></script>
 </body>
 </html>
