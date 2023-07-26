@@ -22,6 +22,13 @@
 .board-table tfoot th {
   padding: 0px !important;
 }
+.btn-primary {
+	padding: 10 50px !important;
+	cursor: none !important;
+	display: none;
+	background: none;
+	font: black !important;
+}
 </style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
@@ -120,7 +127,10 @@
 								<tfoot>
 									<tr>
 										<th>답변</th>
-										<td class="td-answer" colspan="8">${detail.questionContents }</td>
+										<td class="td-answer">
+											<textarea name="" id="" cols="100" rows="5"></textarea>
+											<input type="submit" value="작성" id="write" class="btn btn-primary"/>
+										</td>
 									</tr>
 								</tfoot>
 							</table>

@@ -15,5 +15,6 @@ public interface QuestionDAO {
 	QuestionDTO selectOne(int questionNo);
 	int getTotal();
 	void deleteOne(QuestionDTO dto);
+	void insertOne(QuestionDTO dto);
 }
 

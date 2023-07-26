@@ -109,11 +109,11 @@
 												<c:forEach var="i" begin="${map.startPageNo }"
 													end="${map.endPageNo }">
 													<li class="page-item"><a class="page-link"
-														href="adminnotice?currentPage=${i }">${i }</a></li>
+														href="questionlist?currentPage=${i }">${i }</a></li>
 												</c:forEach>
 												<c:if test="${map.next }">
 													<li class="page-item"><a class="page-link"
-														href="adminnotice?currentPage=${map.currentPage+5 }">다음</a></li>
+														href="questionlist?currentPage=${map.currentPage+5 }">다음</a></li>
 												</c:if>
 											</ul>
 										</nav>

@@ -35,6 +35,12 @@ public class QuestionServiceImple implements QuestionService {
 	public void deleteOne(QuestionDTO dto) {
 		dao.deleteOne(dto);
 	}
+
+	@Override
+	public void insertOne(QuestionDTO dto) {
+		dao.insertOne(dto);
+		
+	}
 	
 	
 	

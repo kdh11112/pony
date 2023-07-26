@@ -23,9 +23,10 @@
 		WHERE questionNo = #{questionNo}
 	</select>
 	
-	<delete id="deleteOne">
+	<delete id="deleteOne" parameterType="int">
 		DELETE 
 		FROM QUESTION
 		WHERE questionNo = #{questionNo}
 	</delete>
+	
 </mapper>

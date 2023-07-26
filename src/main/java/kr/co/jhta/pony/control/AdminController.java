@@ -68,7 +68,8 @@ public class AdminController {
 	}
 	
 	@GetMapping("/questiondetail")
-	public String questiondetail() {
+	public String questiondetail(@RequestParam("questionNo")int questionNo, Model model) {
+		model.addAttribute("detail",qservice.selectOne(questionNo));
 		return "/admin/question/questionDetail";
 	}
 	
@@ -111,13 +112,13 @@ public class AdminController {
 	
 	//글 작성 저장
 	@PostMapping("/adminnoticewrite")
-		public String noticeWriteOk(@ModelAttribute NoticeDTO dto,HttpServletRequest req) {
+	public String noticeWriteOk(@ModelAttribute NoticeDTO dto,HttpServletRequest req) {
 		String contents = req.getParameter("contents");
 		String title = req.getParameter("title");
 		dto.setNoticeContents(contents);
 		dto.setNoticeTitle(title);
 		nservice.addOne(dto);
-
+	
 		return "redirect:/adminnotice";
 	}
 	

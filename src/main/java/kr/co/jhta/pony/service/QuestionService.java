@@ -12,4 +12,5 @@ public interface QuestionService {
 	public int getTotal();
 	public QuestionDTO selectOne(int questionNo);
 	public void deleteOne(QuestionDTO dto);
+	public void insertOne(QuestionDTO dto);
 }
