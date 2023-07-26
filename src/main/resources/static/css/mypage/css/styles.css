@@ -119,86 +119,6 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   line-height: 1.2;
 }
 
-
-#txt{
-	
-	position: relative; /* 부모 요소를 상대적으로 위치 지정 */
-     /*display: inline-block; 블록 요소를 인라인으로 표시하여 텍스트와 이미지가 한 줄에 표시되도록 함 */
- 	width:100%
-}
-.himg{									/*상단 이미지*/
-	position:absolute;
-	
-	width:100%;
-	height:300px;
-}
-
-.htitle{									/*상단 텍스트 큰거*/
-	width:300px;
-	position: absolute;
-	top:100px;
-	left:50%;
-	transform:translateX(-50%);
-	
-}
-.hp{									/*상단텍스트 작은거*/
-	width:460px;
-/*	position: absolute;*/
-	top:160px;
-	left:50%;
-/*	transform:translateX(-50%);*/
-}
-
-#wrapper{									/*잘모르겟음. 일단 냅둬보기 */
-  height: auto;
-  min-height: 100%;
-  padding-bottom: 100px; /*footer height*/
-}
-
-footer{											/*footer 푸터 높이 설정*/
-  height: 100px;
-  position : relative;
-transform : translateY(100%);
-  bottom:0px;
- width:100%;
-}
-
-#contents{
-position: absolute;
-	background-color: rgb(255, 255, 128);
-	/*width:30em;*/
-	top: 400px;
-	left:50%;
-transform:translateX(-50%);
-	/*--bs-gutter-x: 1.5rem;
- 	--bs-gutter-y: 0;*/
-  width: 100%;
-  /*padding-right: calc(var(--bs-gutter-x) * 0.5);
-  padding-left: calc(var(--bs-gutter-x) * 0.5);*/
-  /*margin-right: auto;
-  margin-left: auto;*/
-}
-
-.sidemenu{
-	width: 200px;
-}
-.sidemenulist{
-	list-style: none;
-	
-}
-.sidemenulist>a{
-	text-decoration: none;
-}
-
-.mypageqnalist{
-	position: absolute;
-	top:100px;
-	left: 350px;
-	background-color: #86b7fe;
-	width:70%;
-	height: 900px;
-}
-
 h1, .h1 {
   font-size: calc(1.375rem + 1.5vw);
 }
@@ -608,7 +528,6 @@ progress {
   font-size: calc(1.475rem + 2.7vw);
   font-weight: 300;
   line-height: 1.2;
-  
 }
 @media (min-width: 1200px) {
   .display-4 {
@@ -718,7 +637,7 @@ progress {
   width: 100%;
   padding-right: calc(var(--bs-gutter-x) * 0.5);
   padding-left: calc(var(--bs-gutter-x) * 0.5);
-  margin-right: auto;
+ 	margin-right: auto;
   margin-left: auto;
 }
 
@@ -3854,11 +3773,6 @@ textarea.form-control-lg {
   color: var(--bs-navbar-brand-color);
   text-decoration: none;
   white-space: nowrap;
-  
-}
-.navbar-brand>img{    				/*로고이미지 logo image*/
-	width:80px;
-	height:50px;
 }
 .navbar-brand:hover, .navbar-brand:focus {
   color: var(--bs-navbar-brand-hover-color);
@@ -7170,9 +7084,7 @@ textarea.form-control-lg {
 }
 
 .bottom-0 {
-	position: relative;
   bottom: 0 !important;
-  transform : translateY(-100%);
 }
 
 .bottom-50 {
@@ -7582,7 +7494,6 @@ textarea.form-control-lg {
 
 .m-0 {
   margin: 0 !important;
-  
 }
 
 .m-1 {
@@ -7870,10 +7781,10 @@ textarea.form-control-lg {
   padding-bottom: 1.5rem !important;
 }
 
-/*.py-5 {
+.py-5 {
   padding-top: 3rem !important;
   padding-bottom: 3rem !important;
-}*/
+}
 
 .pt-0 {
   padding-top: 0 !important;
@@ -8053,7 +7964,6 @@ textarea.form-control-lg {
 
 .fw-bolder {
   font-weight: bolder !important;
-  
 }
 
 .lh-1 {
@@ -8252,6 +8162,7 @@ textarea.form-control-lg {
 .bg-dark {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+  
 }
 
 .bg-black {
@@ -10914,3 +10825,85 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+
+/* Header */
+header {
+    position: relative;
+    text-align: center;
+    
+}
+
+header img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover; /* 이미지가 컨테이너에 꽉 채워지도록 설정 */
+}
+
+/* Overlay the text on the image */
+.header-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    
+}
+.content{
+	flex: 1;
+}
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+/* Footer 스타일 추가 */
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    #wrapper {
+      flex: 1;
+    }
+
+    footer {
+      margin-top: auto;
+    }
+     /* 검색창 스타일 */
+    .form-inline {
+      display: flex; /* 검색창과 버튼을 같은 행에 배치하기 위해 Flexbox 사용 */
+      align-items: center; /* 세로 중앙 정렬 */
+    }
+
+    /* 검색창 input 스타일 */
+    .form-control {
+      flex: 1; /* 남은 공간 모두 차지 */
+    }
+
+    /* 검색 버튼 스타일 */
+    .btn-outline-secondary {
+      margin-left: 10px; /* 검색창과 버튼 사이 간격 설정 */
+    }
+    li{
+		list-style: none;
+		padding-bottom: 5px;
+	}
+	.content-box,.head{
+		padding-bottom: 5px;
+	}
+	
+	.content-body {
+    display: flex; /* content-body를 Flexbox 컨테이너로 설정 */
+    flex-wrap: wrap; /* 요소들이 너비를 초과할 경우 다음 줄로 이동 */
+}
+
+
+.my-carIinfo {
+    /* my-carIinfo 클래스에 대한 스타일 정의 */
+    /* 추가한 스타일: 오른쪽으로 이동 */
+    margin-left: auto; /* 오른쪽 여백을 auto로 설정하여 오른쪽으로 이동 */
+    flex: 0 0 50%; /* Flexbox에서 차지하는 공간 비율 설정 (50%를 차지) */
+}
+

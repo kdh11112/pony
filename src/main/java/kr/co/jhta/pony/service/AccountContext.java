@@ -20,6 +20,7 @@ public class AccountContext extends User {
 	
 	public PonyMemberDTO getAccount() {
 		return dto;
+		
 	}
 	
 
