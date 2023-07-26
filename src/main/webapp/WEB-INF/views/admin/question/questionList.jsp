@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,11 +12,12 @@
 
 <title>PONY ADMIN</title>
 
-<!-- Favicon-->
+<!-- Favicon -->
 <link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="css/admin/css/styles.css" rel="stylesheet" />
 <link href="css/admin/css/board.css" rel="stylesheet" />
+
 </head>
 <body>
 	<div class="d-flex" id="wrapper">
@@ -64,47 +67,82 @@
         				</div>
     				</div>
 
-			  	<!-- board list area -->
-			    <div id="board-list">
-			        <div class="container">
-			            <table class="board-table">
-			                <thead>
-			                <tr>
-			                	<th scope="col" class="th-num">번호</th>
-			                    <th scope="col" class="th-title">제목</th>
-			                    <th scope="col" class="th-date">등록일</th>
-			                </tr>
-			                </thead>
-			                <tbody>
-			                <tr>
-			                    <td>3</td>
-			                    <th>
-			                      <a href="#!">[공지사항] 개인정보 처리방침 변경안내처리방침</a>
-			                      <p>테스트</p>
-			                    </th>
-			                    <td>2017.07.13</td>
-			                </tr>
-			                </tbody>
-			            </table>
-			        </div>
-			    </div>
-			
-			    <!-- board search area -->
-			    <div id="board-search">
-			        <div class="container">
-			            <div class="search-window">
-			                <form action="">
-			                    <div class="search-wrap">
-			                        <label for="search" class="blind">공지사항 내용 검색</label>
-			                        <input id="search" type="search" name="" placeholder="검색어를 입력해주세요." value="">
-			                        <button type="submit" class="btn btn-dark">검색</button>
-			                    </div>
-			                </form>
-			            </div>
-			        </div>
-			    </div>
-			    
-			</section>
+				  	<!-- board list area -->
+				    <div id="board-list">
+				        <div class="container">
+				            <table class="board-table">
+				                <thead>
+					                <tr>
+					                	<th scope="col" class="th-"> </th>
+					                	<th scope="col" class="th-num">번호</th>
+					                    <th scope="col" class="th-title">제목</th>
+					                    <th scope="col" class="th-member">작성자</th>
+					                    <th scope="col" class="th-date">등록일</th>
+					                    <th width="15%" scope="col" class="th-status">답변상태</th>
+					                </tr>
+				                </thead>
+				                <tbody>
+				                	<c:forEach var="list" items="${list }">
+						                <tr>
+						                    <td><input type="checkbox" name="checkbox" /></td>
+						                    <td>${list.questionNo }</td>
+						                    <th>
+						                      <a href="questiondetail?questionNo=${list.questionNo }">${list.questionTitle }</a>
+						                    </th>
+						                    <td>${list.memberNo }</td>
+						                    <td><fmt:parseDate var="dateString"
+													value="${list.questionDate }" pattern="yyyy-MM-dd HH:mm:ss" /> 
+												<fmt:formatDate
+													value="${dateString }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+						                    <td>${list.answerStatus }</td>
+						                </tr>
+						             </c:forEach>   
+				                </tbody>
+			                	<tr>
+									<td colspan="6">
+										<nav aria-label="Page navigation example">
+											<ul class="pagination">
+												<c:if test="${map.prev }">
+													<li class="page-item"><a class="page-link"
+														href="list?currentPage=${map.currentPage-5 }">이전</a></li>
+												</c:if>
+												<c:forEach var="i" begin="${map.startPageNo }"
+													end="${map.endPageNo }">
+													<li class="page-item"><a class="page-link"
+														href="adminnotice?currentPage=${i }">${i }</a></li>
+												</c:forEach>
+												<c:if test="${map.next }">
+													<li class="page-item"><a class="page-link"
+														href="adminnotice?currentPage=${map.currentPage+5 }">다음</a></li>
+												</c:if>
+											</ul>
+										</nav>
+									</td>
+								</tr>
+								
+				            </table>
+				        </div>
+				    </div>
+				    <!-- board seach area -->
+				    <div id="board-search">
+				        <div class="container">
+				            <div class="search-window">
+				                <form action="">
+				                    <div class="search-wrap">
+				                        <select name="type" class="choicetype">
+				                        	<option value="">--</option>		
+				                        	<option value="W">작성자</option>		
+				                        	<option value="T">제목</option>		
+				                        	<option value="C">내용</option>	
+				                    	</select>
+				                        <input id="search" type="search" name="" placeholder="검색어를 입력해주세요." value="">
+				                        <button type="submit" class="btn btn-dark">검색</button>
+				                    </div>
+				                </form>
+				            </div>
+				        </div>
+				    </div>
+				</section>
 	        </div>
         </div>
 	</div>

@@ -48,27 +48,18 @@
 			<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
 				<div class="container-fluid">
 					<img id="sidebarToggle" src="css/admin/assets/list.png">
-					<button class="navbar-toggler" type="button"
-						data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-						aria-controls="navbarSupportedContent" aria-expanded="false"
-						aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-							<li class="nav-item active"><a class="nav-link"
-								href="/admin">AdminHome</a></li>
-							<li class="nav-item"><a class="nav-link" href="/">UserPage</a></li>
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
-								role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-								aria-expanded="false">Dropdown</a>
-								<div class="dropdown-menu dropdown-menu-end"
-									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="#!">Action</a> <a
-										class="dropdown-item" href="#!">Another action</a>
-									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="#!">Something else here</a>
+							<li class="nav-item active"><a class="nav-link" href="/admin">AdminHome</a></li>
+	                        <li class="nav-item"><a class="nav-link" href="/">UserPage</a></li>
+	                        <li class="nav-item dropdown">
+	                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+	                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+	                                <a class="dropdown-item" href="#!">Action</a>
+	                                <a class="dropdown-item" href="#!">Another action</a>
+	                                <div class="dropdown-divider"></div>
+	                                <a class="dropdown-item" href="#!">Something else here</a>
 								</div>
 							</li>
 						</ul>
@@ -87,9 +78,6 @@
     				<!-- board list area -->
 				    <div id="board-list">
 				        <div class="container">
-							<a href="/noticewrite"><input type="button" 
-								class="btn btn-outline-secondary" value="글쓰기" />
-							</a>
 				            <table class="board-table">
 				                <thead>
 					                <tr>
@@ -100,20 +88,20 @@
 					                </tr>
 				                </thead>
 				                <tbody>
-				                <c:forEach var="list" items="${list }">
-					                <tr>
-					                    <td>${list.noticeNo }</td>
-					                    <th>
-					                      <a href="admindetail?noticeNo=${list.noticeNo}">${list.noticeTitle }</a>
-					                      <p>테스트</p>
-					                    </th>
-					                    <td><fmt:parseDate var="dateString"
-												value="${list.noticeDate }" pattern="yyyy-MM-dd" /> 
-											<fmt:formatDate
-												value="${dateString }" pattern="yyyy-MM-dd" /></td>
-					                    <td>${list.noticeHits }</td>
-					                </tr>
-				                </c:forEach>
+					                <c:forEach var="list" items="${list }">
+						                <tr>
+						                    <td>${list.noticeNo }</td>
+						                    <th>
+						                      <a href="admindetail?noticeNo=${list.noticeNo}">${list.noticeTitle }</a>
+						                      <p>테스트</p>
+						                    </th>
+						                    <td><fmt:parseDate var="dateString"
+													value="${list.noticeDate }" pattern="yyyy-MM-dd" /> 
+												<fmt:formatDate
+													value="${dateString }" pattern="yyyy-MM-dd" /></td>
+						                    <td>${list.noticeHits }</td>
+						                </tr>
+					                </c:forEach>
 				                </tbody>
 				                <tr>
 									<td colspan="4">
@@ -145,10 +133,9 @@
 				        <div class="container">
 				            <div class="search-window">
 				                <form action="">
-				                    <div class="search-wrap">
-				                        <label for="search" class="blind">공지사항 내용 검색</label>
-				                        <a href="/noticewrite"><button type="button" class="btn btn-dark" >글작성</button></a>
-				                    </div>
+			                        <a href="/noticewrite">
+			                        	<button type="button" class="btn btn-dark" >글작성</button>
+			                        </a>
 				                </form>
 				            </div>
 				        </div>
