@@ -8,31 +8,32 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- css링크 -->
 <link rel="stylesheet" href="../css/model/modelDetail.css">
 <script type="text/javascript">
 	let modelName = "${model.modelName}";
 </script>
 </head>
 <body>
-    <div><img src="../images/model/vs_top.png" alt="" width="100%;" style="height: 200px;"></div>
-    <div style="height: 100px; background-color: white;"></div>
+    <div><img src="../images/cloud.jpg" alt="" id="topImg"></div>
+    <div id="whiteBar"></div>
         <div class="top-title text-center">
             <h1 class="top-title-text">${model.modelName}</h1>
         </div>
         <div>
-            <img src="" alt="" width="70%" id="modelImg1">
+            <img src="" alt="" id="modelImg1">
         </div>
     
     <div class="container">
     	<div class="row design-info">
         	<div class="col-md-6" >HIGHLIGHT
-            	<h3 id="designContents1"></h3>
-                <p id="designContents2"></p>
-                <p id="designContents3"></p>
+            	<h3 id="highLight1"></h3>
+                <p id="highLight2"></p>
+                <p id="highLight3"></p>
             </div>
             <div class="col-md-6" id="info">INFOMATION
             	<div class="info row">
-            		<div class="model-info-co1 col-md-6" style="color:white">empty</div>
+            		<div class="model-info-co1 col-md-6" id="empty">empty</div>
 	            	<div id="modelName">${model.modelName}</div>
             	</div>
             	
@@ -40,10 +41,10 @@
         </div>
             <div class="row imgArea">
                 <div class="model-info-co1 col-md-6"><img src="" alt="" id="modelImg2"></div>
-	            <div class="accordion" id="accordionExample" style="width: 600px; margin-left: 230px;">
+	            <div class="accordion" id="accordionExample" >
                     <div class="accordion-item" >
                       <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                           차량 기본정보 및 제원 확인하기
                         </button>
                       </h2>
@@ -119,7 +120,7 @@
                                                             <option value="PALISADE">PALISADE</option>
                                                             <option value="TUCSON">TUCSON</option>
                                                         </select>
-                                                    <div><button class="btn btn-info" style="margin-top:20px; margin-left:320px;" id="selectOk">선택</button></div>
+                                                    <div><button class="btn btn-info" id="selectOk">선택</button></div>
                                                     <p class="card-text" style="height: 100px;"></p>
                                                     <img src="../images/model/vs_logo.jpg" class="card-img-top" alt="..." id="card-img1">
                                                     <div class="card-body"></div>
@@ -133,16 +134,22 @@
 					</div>
                 </div>
 	        </div>
+	    <div id="whiteBar3"></div>
+	    <div class="designArea">DESIGN
+	    	<p id="designContent1"></p>
+	    	<p id="designContent2"></p>
+	    </div>
         <div class="row imgArea">
-            <img src="" alt="" id="modelImg3" style="width:53.2%; height:500px;">
-            <img src="" alt="" id="modelImg4" style="width:46.8%; height:500px;">
+            <img src="" alt="" id="modelImg3">
+            <img src="" alt="" id="modelImg4">
         </div>
         <div class="row imgArea">
-        	<img src="" alt="" id="modelImg5" style="width:53.2%; height:500px;">
-            <img src="" alt="" id="modelImg6" style="width:46.8%; height:500px;">
+        	<img src="" alt="" id="modelImg5">
+            <img src="" alt="" id="modelImg6">
         </div>
 
 	</div>
+<!-- js링크 -->	
 <script src="../js/model/modelDetail.js"></script>
 </body>
 </html>
