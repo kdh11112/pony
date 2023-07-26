@@ -127,10 +127,15 @@
 								<tfoot>
 									<tr>
 										<th>답변</th>
-										<td class="td-answer">
-											<textarea name="" id="" cols="100" rows="5"></textarea>
-											<input type="submit" value="작성" id="write" class="btn btn-primary"/>
+										<td class="td-answer" id="answernullTd">
+											<form action="/answer" method="post">
+												<input type="hidden" name="questionNo" value="${detail.questionNo }">
+												<!-- 답변이 없는 경우 -->
+												<textarea name="answer" id="answerTextarea" cols="100" rows="5"></textarea>
+												<input type="submit" value="작성" id="write" class="btn btn-primary"/>
+											</form>
 										</td>
+										<td id="answerTd" style="display: none;">${answerdetail.answerContents }</td>
 									</tr>
 								</tfoot>
 							</table>
@@ -146,5 +151,30 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
 	<script src="css/admin/js/scripts.js"></script>
+	<script>
+    // JavaScript를 사용하여 답변이 있는지 여부를 확인하고 화면을 동적으로 변경하는 함수
+    function checkAnswerStatus() {
+        var answerTextarea = document.getElementById('answerTextarea');
+        var answerTd = document.getElementById('answerTd');
+        var writeButton = document.getElementById('write');
+
+        // answerdetail 객체의 answerContents 값을 가져옴
+        var answerContents = ${ answerdetail.getAnswerContents() };
+
+        // answerContents 값이 null이 아니면 (답변이 있는 경우)
+        if (answerContents) {
+            answerTextarea.style.display = 'none'; // textarea 숨김
+            answerTd.style.display = 'block'; // td 요소 보이기
+            writeButton.style.display = 'none'; // 작성 버튼 숨김
+        } else {
+            answerTextarea.style.display = 'block'; // textarea 보이기
+            answerTd.style.display = 'none'; // td 요소 숨김
+            writeButton.style.display = 'block'; // 작성 버튼 보이기
+        }
+    }
+
+    // 페이지 로드 시 답변 상태를 확인하여 화면을 설정함
+    checkAnswerStatus();
+</script>
 </body>
 </html>

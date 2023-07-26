@@ -1,5 +1,8 @@
 package kr.co.jhta.pony.control;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +16,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.jhta.pony.dto.AnswerDTO;
 import kr.co.jhta.pony.dto.NoticeDTO;
+import kr.co.jhta.pony.service.AnswerService;
 import kr.co.jhta.pony.service.NoticeService;
 import kr.co.jhta.pony.service.QuestionService;
 import kr.co.jhta.pony.util.ControllerAdvisor;
@@ -27,6 +32,9 @@ public class AdminController {
 	
 	@Autowired
 	QuestionService qservice;
+	
+	@Autowired
+	AnswerService aservice;
 	
 	@GetMapping("/admin")
 	public String admin() {
@@ -66,13 +74,23 @@ public class AdminController {
 		return "/admin/question/questionList";
 
 	}
-	
+	// 문의글 상세
 	@GetMapping("/questiondetail")
 	public String questiondetail(@RequestParam("questionNo")int questionNo, Model model) {
 		model.addAttribute("detail",qservice.selectOne(questionNo));
+		model.addAttribute("detailanswer", aservice.selectOne(questionNo));
 		return "/admin/question/questionDetail";
 	}
-	
+	// 답변 달기
+	@PostMapping("/answer")
+	public String answer(@ModelAttribute AnswerDTO dto,HttpServletRequest req) {
+		String answer = req.getParameter("answer");
+		int questionNo = Integer.parseInt(req.getParameter("questionNo"));
+		dto.setAnswerContents(answer);
+		dto.setQuestionNo(questionNo);
+		aservice.insertAnswer(dto);
+		return "redirect:/questiondetail?questionNo="+questionNo;
+	}
 	
 	// 공지사항 (유경님 코드)----------------------------------------------------
 	@GetMapping("/noticewrite")
