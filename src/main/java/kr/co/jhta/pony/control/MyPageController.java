@@ -1,6 +1,7 @@
 package kr.co.jhta.pony.control;
 
 
+import org.springframework.security.core.AuthenticatedPrincipal;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
@@ -12,7 +13,7 @@ public class MyPageController {
 
 	@GetMapping("/mypage")
 	public String mypage() {
-//		model.addAttribute("dto",service.memberAll());
+
 		return "mypage/mypage";
 	}
 	
