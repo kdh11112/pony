@@ -188,7 +188,7 @@
 										</div>
 										
 							<div align="center" >
-								<button id="regBtn" disabled="disabled" class="btn btn-primary btn-lg btn-block" style="width: 300px; height: 45px; margin-top: 20px;" onclick="submitForm()">Sign up</button>
+								<button id="regBtn" type="button" disabled="disabled" class="btn btn-primary btn-lg btn-block" style="width: 300px; height: 45px; margin-top: 20px;" onclick="submitForm()">Sign up</button>
 
 							</div>
 										
@@ -268,53 +268,11 @@
 </script>
 
 
-
-
-
 <script> // 핸드폰번호 입력시 자동 하이픈 추가
   $(document).on("keyup", ".phone", function() { 
 		$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
 	});
   	
-</script>
-  
-  
-<script> // 인증번호 확인 스크립트
-function autoemail() {
-	
-	const authInput = document.getElementById('authCode');
-	const authValue = authInput.value;
-	
-	const formData = new FormData();
-	formData.append('authcode', authValue);
-	
-	
-	fetch('autoEmailOk', {
-	  method: 'POST' ,
-	  body: formData
-	
-	})
-	 .then(data => { // 서버에서 받은 응답 데이터를 처리
-       
-	 if(data.status !== 200){
-    	   console.log("실패")
-    	   alert('실패하셧습니다.');
-     }else{
-       //성공하면 회원가입버튼 활성화
-       //console.log(data);
-    //   console.log("성공")
-       alert('인증에 성공하셨습니다.')
-       const regBtn = document.getElementById('regBtn');
-       regBtn.disabled =  false;
-       }
-     })
-     .catch(error => {
-       // 오류 처리
-       console.error('Error:', error);
-     });
-	
-}
-
 </script>
   
 <script> // 이메일 인증번호 발송 스크립트
@@ -324,17 +282,21 @@ function autoemail() {
 
     const emailInput = document.getElementById('ponyMemberEmail');
     const emailValue = emailInput.value;
+    const emailAlreadyElement = document.getElementById('emailAlready');
+
+    if (emailAlready.style.display === 'block') {
+        alert('사용중인 이메일입니다.');
+        return;
+      }
 
     // FormData를 사용하여 폼 데이터 생성
     const formData = new FormData();
     formData.append('email', emailValue);
-
     // fetch()를 사용하여 서버로 POST 요청 보냄
     fetch('mailConfirm', {
       method: 'POST',
       body: formData
     })
-      .then(response => response.json()) // JSON 형식으로 응답 파싱 (옵션이며, 응답 형식에 따라 사용)
       .then(data => {
         // 서버에서 받은 응답 데이터를 처리
         console.log(data);
@@ -347,6 +309,42 @@ function autoemail() {
   }
 
 </script>
+  
+  
+<script> // 인증번호 확인 스크립트
+function autoemail() {
+	
+	const authInput = document.getElementById('authCode');
+	const authValue = authInput.value;
+	
+	const formData = new FormData();
+	formData.append('authcode', authValue);
+	
+	$.ajax({
+		url : '/autoEmailOk',
+		method : "get",
+		data : {
+			authcode : authValue
+		},
+		success : function( data  ) {
+			if(data == "true"){
+				console.log("성공");
+				alert('인증에 성공하셨습니다.')
+		       const regBtn = document.getElementById('regBtn');
+		       regBtn.disabled =  false;
+			}else {
+				console.log("시이잉일패");
+				alert('실패하셧습니다.');
+			}
+		}
+		
+	});
+
+}
+
+</script>
+  
+
 
 
 <script>
@@ -397,7 +395,10 @@ function checkId(){
 
 <script>
 function submitForm() {
-	  const email = document.getElementById('ponyMemberEmail').value;
+	
+	console.log("눌렷니?");
+	
+/* 	  const email = document.getElementById('ponyMemberEmail').value;
 	  const password = document.getElementById('password').value;
 	  const confirmPassword = document.getElementById('password2').value;
 	  const fullName = document.getElementById('fullName').value;
@@ -408,8 +409,42 @@ function submitForm() {
 	  const address = document.getElementById('address').value;
 	  const detailAddress = document.getElementById('detailAddress').value;
 	  const extraAddress = document.getElementById('extraAddress').value;
+ */
+	  
+	// 폼의 'action' 속성을 원하는 주소로 변경합니다.
+	  
 
-	  const formData = new FormData();
+	  // 입력값을 각각 가져옵니다.
+	  var email = $('#ponyMemberEmail').val();
+	  var password = $('#password').val();
+	  var confirmPassword = $('#password2').val();
+	  var fullName = $('#fullName').val();
+	  var regNumberFirst = $('#firstInput').val();
+	  var regNumberSecond = $('#secondInput').val();
+	  var phone = $('#phone').val();
+	  var postcode = $('#postcode').val();
+	  var address = $('#address').val();
+	  var detailAddress = $('#detailAddress').val();
+	  var extraAddress = $('#extraAddress').val();
+
+	  // 폼에 입력값들을 설정합니다.
+	  $("#ponyMemberEmail").val(email);
+	  $("#password").val(password);
+	  $("#password2").val(confirmPassword);
+	  $("#fullName").val(fullName);
+	  $("#firstInput").val(regNumberFirst);
+	  $("#secondInput").val(regNumberSecond);
+	  $("#phone").val(phone);
+	  $("#postcode").val(postcode);
+	  $("#address").val(address);
+	  $("#detailAddress").val(detailAddress);
+	  $("#extraAddress").val(extraAddress);
+
+	  // 폼을 제출합니다.
+	  $("#frm").attr("method","get").attr("action", "/ponyRegOk").submit();
+	  
+	  
+/* 	  const formData = new FormData();
 		  formData.append('email', email);
 		  formData.append('password', password);
 		  formData.append('confirmPassword', confirmPassword);
@@ -420,34 +455,65 @@ function submitForm() {
 		  formData.append('postcode', postcode);
 		  formData.append('address', address);
 		  formData.append('detailAddress', detailAddress);
-		  formData.append('extraAddress', extraAddress);
+		  formData.append('extraAddress', extraAddress); */
 
-		 console.log("aaaaaaaaaaaaaaaaaaaaaaaa");
-		  
+		 /* console.log("aaaaaaaaaaaaaaaaaaaaaaaa"); */
 	
-	fetch('ponyRegOk', {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Failed to submit form');
-    }
-    return response.json(); // JSON 형식으로 응답 파싱 (옵션이며, 응답 형식에 따라 사용)
-  })
-  .then(data => {
-    // 서버에서 받은 응답 데이터를 처리
-    console.log(data);
-    window.location.href = '/login';
-  })
-  .catch(error => {
-    // 오류 처리
-    console.error('Error:', error);
-  });  
+		 
+/* 	$.ajax({
+		url : '/ponyRegOk',
+		method : "post",
+		data : {
+			email : email,
+			password : password,
+			confirmPassword : confirmPassword,
+			fullName : fullName,
+			regNumberFirst : regNumberFirst,
+			regNumberSecond : regNumberSecond,
+			phone : phone,
+			postcode : postcode,
+			address : address,
+			detailAddress : detailAddress,
+			extraAddress : extraAddress
+			
+		},
+		success : function(data  ) {
+			if(data == "true"){
+				console.log("성공");
+				alert('성공하셨습니다.')
+		       
+			}else {
+				console.log("시이잉일패");
+				alert('실패하셧습니다.');
+			}
+		}
+		
+	}); */
+		 
+		 
+		 
+/* 	fetch('ponyRegOk', {
+  method: 'POST',
+  body: formData
+})
+.then(response => {
+  if (!response.ok) {
+    throw new Error('Failed to submit form');
+  }
+  return response.text();
+})
+.then(data => {
+  // 서버에서 받은 응답 데이터를 처리
+  console.log(data);
+  window.location.href = '/login';
+})
+.catch(error => {
+  // 오류 처리
+  console.error('Error:', error);
+});   */
 	
 	  
-	}
-
+}
 
 </script>
 
