@@ -18,7 +18,7 @@ import kr.co.jhta.pony.util.PageUtil;
 
 @Controller
 public class AdminController {
-
+ 
 	@Autowired
 	NoticeService nservice;
 	
