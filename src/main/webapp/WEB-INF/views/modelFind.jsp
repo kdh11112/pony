@@ -13,7 +13,7 @@
 </head>
 <body>
 	<form action="/modelDetail" id="frm">
-	    <div><img src="../images/cloud.jpg" alt="" id="topImg"></div>
+	    <div><img src="../images/model/vs_top.png" alt="" id="topImg"></div>
 	    <div id="whiteBar"></div>
 	        <div id="whiteBar2">
 	            <div class="top-title text-center">
