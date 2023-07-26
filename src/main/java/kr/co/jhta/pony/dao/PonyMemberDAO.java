@@ -15,7 +15,7 @@ public interface PonyMemberDAO {
 
 	public void createPonyMember(PonyMemberDTO dto);
 	
-	
+	public int idChk(PonyMemberDTO dto) throws Exception;
 	
 	
 }

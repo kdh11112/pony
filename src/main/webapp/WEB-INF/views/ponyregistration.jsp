@@ -46,10 +46,11 @@
 								  <div class="row">
 								    <div class="col">
 								      <div class="form-floating">
-								        <input type="text" id="ponyMemberEmail" class="form-control form-control-lg shadow-sm" />
+								        <input type="text" id="ponyMemberEmail" class="form-control form-control-lg shadow-sm" oninput = "checkId()"/>
 								        <label>Email</label>
 								      </div>
 								      <span id="emailValidationMsg" style="color: red; display: none;">올바른 이메일 형식이 아닙니다.</span>
+								      <span id="emailAlready" style="color: red; display: none;">사용중인 이메일입니다.</span>
 								    </div>
 								    <div class="col-auto">
 								      <button class="btn btn-primary btn-lg" style="width: 82px; height: 45px" onclick="sendAuthCode()" disabled="disabled">인증</button>
@@ -369,6 +370,28 @@ function isValidEmail(email) {
 	  }
 	});
 
+</script>
+
+<script>
+function checkId(){
+        var id = $('#ponyMemberEmail').val(); //id값이 "id"인 입력란의 값을 저장
+        $.ajax({
+            url:'./idCheck', //Controller에서 요청 받을 주소
+            type:'post', //POST 방식으로 전달
+            data:{id:id},
+            success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+                if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
+                	emailAlready.style.display = 'none';
+                } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
+                	emailAlready.style.display = 'block';
+
+                }
+            },
+            error:function(){
+                alert("에러입니다");
+            }
+        });
+        };
 </script>
 
 

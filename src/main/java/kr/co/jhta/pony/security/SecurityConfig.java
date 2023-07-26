@@ -72,9 +72,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.and()
 			.formLogin()
 			.loginPage("/login") //우리가 사용할 커스텀 로그인페이지 요청주소  -> 위에서 접근불가 해놧기떄문에 permitAll 해줘야 접근할수있다.
-			.usernameParameter("email") // 파라미터
-			.passwordParameter("password") // 파라미터
-			.loginProcessingUrl("/login_proc") //로그인 처리할 url
+			.usernameParameter("email") // 파라미터 userDetails 에서 username으로 쓰인다.
+			.passwordParameter("password") // 파라미터 userDetails 에서 userpassword로 쓰인다.
+			.loginProcessingUrl("/login_proc") //로그인 처리할 url (로그인 버튼을 누르면 로그인 기능을 작동하는 요청주소)
 			.defaultSuccessUrl("/") // 로그인 성공시 주소, 기본값은 루트 디렉토리로 가라
 			.failureUrl("/login") // 로그인 실패시 다시 로그인 페이지
 			

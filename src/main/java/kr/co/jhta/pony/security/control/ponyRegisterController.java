@@ -5,6 +5,8 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -99,6 +101,19 @@ public class ponyRegisterController {
 	    	
 	    }
 	    
+
+	 // 이메일 중복 체크
+	    @ResponseBody
+	    @PostMapping("/idCheck")
+	    public int idChk(PonyMemberDTO dto, @RequestParam("id") String id) throws Exception {
+	    
+	    	//log.info("여기 왓니?" + id);
+	    	dto.setMemberEmail(id);
+	    	
+	    	int cnt = service.idChk(dto);
+	    	
+	      return cnt;
+	    }
 	    
 }
 	    

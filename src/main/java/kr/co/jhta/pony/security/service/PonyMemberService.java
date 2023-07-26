@@ -6,4 +6,6 @@ public interface PonyMemberService {
 
 	public PonyMemberDTO getMemberEmail(String email);
 	void createMember(PonyMemberDTO dto);
+	
+	public int idChk(PonyMemberDTO dto) throws Exception;
 }

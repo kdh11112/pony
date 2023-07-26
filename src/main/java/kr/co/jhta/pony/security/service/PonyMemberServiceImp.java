@@ -24,5 +24,12 @@ public class PonyMemberServiceImp implements PonyMemberService {
 
 		return dao.getMemberEmail(email);
 	}
+
+	@Override
+	public int idChk(PonyMemberDTO dto) throws Exception {
+		int result = dao.idChk(dto);
+		return result;
+	}
+	
 	
 }

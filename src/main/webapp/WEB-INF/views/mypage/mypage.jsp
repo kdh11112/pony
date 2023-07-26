@@ -49,7 +49,8 @@
             
                 <div id="txt">
                     <h1 class="htitle">마이페이지</h1>
-                    <p class="hp">이용 중인 현대자동차 서비스를 마이페이지에서 확인하세요.</p>
+                    <p class="hp">이용 중인 현대자동차 서비스를 마이페이지에서 확인하세요.    ${dto.memberName }</p>
+                    
      			</div>
 
 
