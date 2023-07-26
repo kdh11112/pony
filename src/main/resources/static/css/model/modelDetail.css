@@ -11,7 +11,7 @@
         justify-content: center;
         align-items: center;
         height: 150px;
-        background-color: rgb(247, 244, 239);
+        background-color: rgb(244, 250, 255);
         margin-bottom: 100px
     }
     .top-title-text{
@@ -38,14 +38,13 @@
         width: 120px;
         margin-left:40px;
         font-weight: 600;
-        background-color: rgb(130, 155, 225);
-        color: white;
+        background-color: rgb(249, 252, 255);
+        color: rgb(153, 174, 230);
         
     }
     .model-info-co3,
     .model-info-co4{
     	width:350px;
-        background-color: rgb(229, 235, 250);
         font-weight: 600;
         margin-left: 5px;
         color: rgb(115, 116, 117);
@@ -58,6 +57,9 @@
         display: flex;
         margin: auto;
     }
+    #modelImg2{
+		margin-bottom: 50px;
+	}
     #modelImg2,#modelImg3
    	,#modelImg4{
    		height:620px;
@@ -92,8 +94,73 @@
     	margin-left:-130px;
     	background-color: white;
     	font-size:30px;
-    	color: #6C757D;
+    	color:rgb(170, 206, 255);
     }
     .imgArea{
     	margin-top:20px;
     }
+    #accordionExample{
+		width:600px;
+		margin-left:230px;
+	}
+    #topImg{
+		width:100%;
+		height:200px;
+	}
+    #whiteBar{
+		height:30px;
+		background-color: white;
+	}
+    #modelImg1{
+		width:70%;
+	}
+    #empty{
+		color: white;
+	}
+	.card mx-auto{
+		width:25rem;
+	}
+	#selectOk{
+		margin-top: 20px;
+		margin-left:320px;
+		background-color: rgb(32, 103, 162);
+		border: 1px;
+		color: white;
+		font-weight: bold;
+		font-size:17px;
+	}
+    #modelImg3,
+    #modelImg5{
+		width:53.2%;
+		height: 500px;
+	}
+	#modelImg4,
+	#modelImg6{
+		width:46.8%;
+		height: 500px;
+	}
+	.accordion-button{
+		color:  #5E5E5E;
+		font-weight: bold;
+	}
+    .accordion-button:not(.collapsed){
+		background-color: rgb(193, 220, 255);
+		color: white;
+		font-weight: bold;
+		text-align: center;
+		font-size: 17px;
+	}
+	#selectModel{
+		font-weight: bold;
+		font-size: 17px;
+		background-color: rgb(134, 167, 236);
+		border: 0px;
+	}
+    .designArea{
+		font-size: 70px;
+		font-weight: bold;
+	}
+    .designArea > p {
+		font-size: 15px;
+		color: #6C757D;
+	}
