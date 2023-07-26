@@ -86,11 +86,9 @@
 							<div class="content-body" data-v-269e3e5f>
 								<div class="my-title" data-v-269e3e5f>
 									<div class="head" data-v-269e3e5f>
-										<strong data-v-269e3e5f><span data-v-269e3e5f>임유경</span>
+										<strong data-v-269e3e5f><span data-v-269e3e5f>${dto.memberName }</span>
 											님, 안녕하세요! </strong> <a
-											href="/kr/ko/mypage/my-information/modify-member-information/password-reconfirm"
-											data-link-area="마이페이지-메인" data-link-name="정보수정"
-											draggable="true" class="btn btn-more-blue" data-v-269e3e5f><span>정보수정
+											href="" class="btn btn-primary active"><span>정보수정
 												<!---->
 												
 										</span></a>
@@ -100,46 +98,19 @@
 								<div class="my-info" data-v-269e3e5f>
 									<ul data-v-269e3e5f>
 										<li data-v-269e3e5f><a
-											href="/kr/ko/mypage/membership-point/point-maintain"
+											href="#
 											data-link-area="마이페이지-메인" data-link-name="블루멤버스 포인트"
-											draggable="true" class="btn btn-more-white" data-v-269e3e5f><span>블루멤버스
+											draggable="true" class="btn btn-primary active" data-v-269e3e5f><span>블루멤버스
 													포인트 <!---->
 											</span></a> <strong data-v-269e3e5f>0 P</strong></li>
 										
 										<li data-v-269e3e5f><a
-											href="/kr/ko/mypage/my-activity/question"
-											data-link-area="마이페이지-메인" data-link-name="1:1 문의 내역"
-											draggable="true" class="btn btn-more-white" data-v-269e3e5f><span>1:1
+											class="btn btn-primary active" href="mypageqna" ><span>1:1
 													문의 내역 <!---->
 											</span></a> <strong data-v-269e3e5f>0 건</strong></li>
 									</ul>
 								</div>
-								<div class="my-carIinfo" data-v-269e3e5f>
-									<div class="my-hyundai" data-v-269e3e5f>
-										<div class="my-car" data-v-269e3e5f>
-											<div class="title" data-v-269e3e5f>
-												<strong data-v-269e3e5f> 나의 자동차 <span
-													data-v-269e3e5f>0대</span></strong>
-												
-											</div>
-											<div class="sub" data-v-269e3e5f>
-												<span data-v-269e3e5f>등록 차량의 자세한 정보를 확인하실 수 있습니다.</span> <a
-													href="/kr/ko/mypage/my-car-information/my-car-registration-management/retention-car"
-													data-link-area="마이페이지-메인" data-link-name="등록차량관리"
-													draggable="true" class="btn btn-more-blue" data-v-269e3e5f><span>등록
-														차량정보 확인 <!---->
-												</span></a>
-											</div>
-										</div>
-										<div class="no-car" data-v-269e3e5f>
-											<span class="ico-nocar" data-v-269e3e5f><i
-												data-v-269e3e5f>등록된 차가 없습니다.</i></span>
-											<p data-v-269e3e5f>등록된 차량이 없습니다.</p>
-										</div>
-
-									</div>
-
-								</div>
+								
 								<!---->
 								<div class="my-activity" data-v-269e3e5f>
 									<div class="category-title" data-v-269e3e5f></div>
@@ -157,8 +128,8 @@
 												data-v-269e3e5f>
 												<div class="content-box" data-v-269e3e5f>
 													<div class="title" data-v-269e3e5f>
-														<a href="/kr/ko/e/mypage/test-driving-history"
-															draggable="true" class="btn btn-more" data-v-269e3e5f><span>시승
+														<a href="#
+															draggable="true" class="btn btn-primary active"><span>시승
 																신청 내역 <!---->
 														</span></a>
 													</div>
@@ -172,8 +143,8 @@
 												<div class="content-box" data-v-269e3e5f>
 													<div class="title" data-v-269e3e5f>
 														<a
-															href="/kr/ko/mypage/my-car-information/inspection-and-service/service-booking.service-network"
-															draggable="true" class="btn btn-more" data-v-269e3e5f><span>
+															href="#
+															draggable="true" class="btn btn-primary active"><span>
 																정비 예약 신청 내역 <!---->
 														</span></a>
 													</div>
@@ -186,7 +157,32 @@
 							
 							
 						</div>
-						
+						<div class="my-carIinfo" data-v-269e3e5f>
+									<div class="my-hyundai" data-v-269e3e5f>
+										<div class="my-car" data-v-269e3e5f>
+											<div class="title" data-v-269e3e5f>
+												<strong data-v-269e3e5f> 나의 자동차 <span
+													data-v-269e3e5f>0대</span></strong>
+												
+											</div>
+											<div class="sub" data-v-269e3e5f>
+												<span data-v-269e3e5f>등록 차량의 자세한 정보를 확인하실 수 있습니다.</span> <a
+													href="/kr/ko/mypage/my-car-information/my-car-registration-management/retention-car"
+													data-link-area="마이페이지-메인" data-link-name="등록차량관리"
+													draggable="true" class="btn btn-primary active" data-v-269e3e5f><span>등록
+														차량정보 확인 <!---->
+												</span></a>
+											</div>
+										</div>
+										<div class="no-car" data-v-269e3e5f>
+											<span class="ico-nocar" data-v-269e3e5f><i
+												data-v-269e3e5f>등록된 차가 없습니다.</i></span>
+											<p data-v-269e3e5f>등록된 차량이 없습니다.</p>
+										</div>
+
+									</div>
+
+								</div>
 						<!---->
 						<!---->
 					</section>
