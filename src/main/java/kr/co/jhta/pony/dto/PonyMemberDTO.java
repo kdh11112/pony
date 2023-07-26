@@ -27,10 +27,11 @@ public class PonyMemberDTO {
 	private String memberUseYn;
 	private int memberLoginCounter;
 	private String memberAccountStatus;
-	
-	
-	
-	
-	
-	
+
+
 }
+	
+	
+	
+	
+	

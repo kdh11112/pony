@@ -1,7 +1,9 @@
-package kr.co.jhta.pony.service;
+package kr.co.jhta.pony.security.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,12 +15,15 @@ import org.springframework.stereotype.Service;
 
 import kr.co.jhta.pony.dao.PonyMemberDAO;
 import kr.co.jhta.pony.dto.PonyMemberDTO;
+import kr.co.jhta.pony.security.account.AccountContext;
 
 @Service("userDetailService")
-public class CustomMemberDetailsService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	PonyMemberService service;
+	
+	
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -1,4 +1,4 @@
-package kr.co.jhta.pony.config;
+package kr.co.jhta.pony.security;
 
 import java.io.IOException;
 
@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,6 +18,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
@@ -24,6 +27,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 
 @Configuration
 @EnableWebSecurity
+@Order(0)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
@@ -35,9 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		
-		auth.inMemoryAuthentication().withUser("admin@com").password("{noop}111").roles("ADMIN");
-		auth.inMemoryAuthentication().withUser("sys@com").password("{noop}111").roles("SYS"); //임시로 계정만듬. pw는 임시로 평문으로 만듬
 		
 		auth.userDetailsService(userDetailsService);
 		
@@ -61,17 +62,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	
-	
-	
-	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 //	.csrf().disable() 추가 작업해야함
 		http.csrf().disable()
 			.authorizeHttpRequests() //인가정책
-			.antMatchers("/no").hasRole("ADMIN") // 해당 페이지에는 해당 권한이 필요함
-			.anyRequest().permitAll(); // 기본적으로 인가 필요없음
-		http
+						//.antMatchers("/no").hasRole("ADMIN") // 해당 페이지에는 해당 권한이 필요함
+			.anyRequest().permitAll() // 기본적으로 인가 필요없음
+		.and()
 			.formLogin()
 			.loginPage("/login") //우리가 사용할 커스텀 로그인페이지 요청주소  -> 위에서 접근불가 해놧기떄문에 permitAll 해줘야 접근할수있다.
 			.usernameParameter("email") // 파라미터
@@ -103,6 +101,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			})
 			.permitAll() //이 기능은 누구나 접근가능
 			;
+		
 		http
 			.logout()
 			.logoutUrl("/logout") //로그아웃 요청 경로, 로그아웃은 기본값 Post임
@@ -135,3 +134,40 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 	}
 }
+
+@Configuration
+@Order(1)
+class SecurityConfig2 extends WebSecurityConfigurerAdapter {
+
+	
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+		auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder.encode("111")).roles("ADMIN");
+		auth.inMemoryAuthentication().withUser("sys").password(passwordEncoder.encode("111")).roles("SYS"); //임시로 계정만듬. pw는 임시로 평문으로 만듬
+		
+	}
+	
+	
+	
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+	
+		
+		http
+			.csrf().disable()
+			.authorizeHttpRequests() //인가정책
+			.antMatchers("/no").hasAnyRole("ADMIN")
+			.anyRequest().authenticated()
+		.and()
+			.httpBasic();
+			
+			
+		
+		
+	}
+	
+	
+}
+

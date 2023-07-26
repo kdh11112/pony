@@ -1,4 +1,4 @@
-package kr.co.jhta.pony.service;
+package kr.co.jhta.pony.security.service;
 
 import kr.co.jhta.pony.dto.PonyMemberDTO;
 

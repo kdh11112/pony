@@ -1,4 +1,4 @@
-package kr.co.jhta.pony.service;
+package kr.co.jhta.pony.security.util;
 
 import java.time.Duration;
 

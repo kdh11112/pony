@@ -1,4 +1,4 @@
-package kr.co.jhta.pony.control;
+package kr.co.jhta.pony.security.control;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.jhta.pony.dto.PonyMemberDTO;
-import kr.co.jhta.pony.service.PonyMemberService;
-import kr.co.jhta.pony.service.ponyEmailService;
-import kr.co.jhta.pony.service.redisUtil;
+import kr.co.jhta.pony.security.service.PonyMemberService;
+import kr.co.jhta.pony.security.service.ponyEmailService;
+import kr.co.jhta.pony.security.util.redisUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
