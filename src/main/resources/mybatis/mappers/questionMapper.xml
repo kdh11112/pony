@@ -25,8 +25,7 @@
 		        FROM QUESTION) 
 		    AS derived
     	WHERE rn BETWEEN #{startNo} AND #{endNo}
-	</select>
-	
+	</select> 
 	
 	
 	<select id="selectOne" parameterType="int" resultType="kr.co.jhta.pony.dto.QuestionDTO">
@@ -43,8 +42,8 @@
 	
 
 	<insert id="qnaAddOne" parameterType="kr.co.jhta.pony.dto.QuestionDTO">
-		INSERT INTO QUESTION (questionTitle, questionContents, questionDate,memberNo)
-  		VALUES (#{questionTitle}, #{questionContents}, now(),#{memberNo})
+		INSERT INTO QUESTION (questionTitle, questionContents, questionDate, memberNo, answerStatus)
+  		VALUES (#{questionTitle}, #{questionContents}, now(),#{memberNo}, 미답변)
 	</insert>
 	
 	<update id="qnaModifyOne" parameterType="kr.co.jhta.pony.dto.QuestionDTO">
@@ -52,5 +51,15 @@
 		questionTitle = #{questionTitle}, questionContents = #{questionContents}, questionDate = now()
 		WHERE questionNo = #{questionNo}
 	</update>
+	<update id="updateAnswerStatus" parameterType="kr.co.jhta.pony.dto.QuestionDTO">
+		UPDATE QUESTION
+		SET answerStatus = #{answerStatus}
+		WHERE questionNo = #{questionNo}
+	</update>
+	<delete id="deleteCheck" parameterType="String">
+		DELETE 
+		FROM QUESTION
+		WHERE questionNo = #{questionNo}
+	</delete>
 </mapper>
 

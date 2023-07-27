@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.jhta.pony.dto.AnswerDTO;
 import kr.co.jhta.pony.dto.NoticeDTO;
+import kr.co.jhta.pony.dto.QuestionDTO;
 import kr.co.jhta.pony.service.AnswerService;
 import kr.co.jhta.pony.service.NoticeService;
 import kr.co.jhta.pony.service.QuestionService;
@@ -79,18 +80,42 @@ public class AdminController {
 	// 답변 달기
 	@PostMapping("/answer")
 	public String answer(@ModelAttribute AnswerDTO dto,HttpServletRequest req) {
-		String answer = req.getParameter("answer");
 		int questionNo = Integer.parseInt(req.getParameter("questionNo"));
+		//기존 게시글 정보 가져오기
+		QuestionDTO qdto = qservice.selectOne(questionNo);		
+		
+		String answer = req.getParameter("answer");
 		dto.setAnswerContents(answer);
 		dto.setQuestionNo(questionNo);
+		
+		//답변상태 변경
+		qdto.setAnswerStatus("답변완료");
+		
+		//답변과 게시글 상태 각각 저장
 		aservice.insertAnswer(dto);
+		qservice.updateAnswerStatus(qdto);
 		return "redirect:/questiondetail?questionNo="+questionNo;
 	}
-	
+	//문의글 체크박스 선택 삭제
+	@PostMapping("delete")
+	public String ajaxTest(HttpServletRequest req, @RequestParam(name="currentPage", defaultValue = "1")int currentPage) {
+		String[] ajaxMsg = req.getParameterValues("valueArr");
+		int size = ajaxMsg.length;
+		for(int i=0 ; i<size ; i++) {
+			qservice.deletecheck(ajaxMsg[i]);
+		}
+	    return "redirect:/questionlist?currentPage=" + currentPage;
+	}
+	// 답변 삭제
 	@GetMapping("/deleteanswer")
 	public String deleteanswer(@ModelAttribute AnswerDTO dto,HttpServletRequest req) {
 		int questionNo = Integer.parseInt(req.getParameter("questionNo"));
+		//기존 게시글 정보 가져오기
+		QuestionDTO qdto = qservice.selectOne(questionNo);		
+		
+		qdto.setAnswerStatus("미답변");
 		aservice.deleteOne(questionNo);
+		qservice.updateAnswerStatus(qdto);
 		return "redirect:/questiondetail?questionNo="+questionNo;
 	}
 	

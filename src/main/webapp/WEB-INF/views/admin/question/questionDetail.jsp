@@ -29,6 +29,7 @@
 	background: none;
 	font: black !important;
 }
+
 </style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
@@ -113,7 +114,7 @@
 									</tr>
 									<tr>
 										<th>답변상태</th>
-										<td class="td-status">${detail.answerStatus }</td>
+										<td class="td-status">${detail.answerStatus}</td>
 									</tr>
 									<tr>
 										<th>제목</th>
@@ -123,10 +124,18 @@
 										<th>내용</th>
 										<td class="td-contents">${detail.questionContents }</td>
 									</tr>
-									<%-- <tr>
-										<th>답변</th>
-										<td>${detailanswer.answerContents }</td>
-									</tr> --%>
+									<tr>
+										<th>첨부파일</th>
+										<td>
+											<!-- 첨부파일이 존재하는 경우 -->
+											<c:if test="${detail.questionFile != 0}">
+												${detail.questionFile }
+											</c:if>
+											<!-- 첨부파일이 없는 경우 -->
+											<c:if test="${detail.questionFile == 0}">
+												등록된 파일이 없습니다.
+											</c:if>
+									</tr>
 									<tr>
 									    <th>답변</th>
 									    <td>
@@ -134,6 +143,7 @@
 									        <c:if test="${not empty detailanswer.answerContents}">
 									            ${detailanswer.answerContents}
 									            <a href="deleteanswer?questionNo=${detail.questionNo }"><input type="button" value="답변 삭제" class="btn btn-outline-danger"/></a>
+									        	
 									        </c:if>
 									        <%-- 답변이 없는 경우 --%>
 									        <form action="/answer" method="post">

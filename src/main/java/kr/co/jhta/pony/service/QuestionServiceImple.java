@@ -24,7 +24,7 @@ public class QuestionServiceImple implements QuestionService {
 
 		StartEnd se = new StartEnd(startNo, endNo);
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("memeberNo", memberNo);
+		map.put("memberNo", memberNo);
 		map.put("startNo", startNo);
 		map.put("endNo", endNo);
 		return dao.getAll(map);
@@ -60,6 +60,18 @@ public class QuestionServiceImple implements QuestionService {
 	public void qnaAddOne(QuestionDTO dto) {
 		dao.qnaAddOne(dto);
 
+	}
+
+	@Override
+	public void updateAnswerStatus(QuestionDTO dto) {
+		dao.updateAnswerStatus(dto);
+		
+	}
+
+	@Override
+	public void deletecheck(String no) {
+		dao.deleteCheck(no);
+		
 	}
 
 }

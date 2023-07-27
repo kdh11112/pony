@@ -18,6 +18,9 @@
 <link href="css/admin/css/styles.css" rel="stylesheet" />
 <link href="css/admin/css/board.css" rel="stylesheet" />
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- 체크박스 선택, 삭제 jquery -->
+<script src="../js/checkbox.js"></script>
 </head>
 <body>
 	<div class="d-flex" id="wrapper">
@@ -73,7 +76,7 @@
 				            <table class="board-table">
 				                <thead>
 					                <tr>
-					                	<th scope="col" class="th-"> </th>
+					                	<th scope="col" class="th-"><input type="checkbox" id="allCheck" name="allCheck"/></th>
 					                	<th scope="col" class="th-num">번호</th>
 					                    <th scope="col" class="th-title">제목</th>
 					                    <th scope="col" class="th-member">작성자</th>
@@ -84,17 +87,33 @@
 				                <tbody>
 				                	<c:forEach var="list" items="${list }">
 						                <tr>
-						                    <td><input type="checkbox" name="checkbox" /></td>
+						                    <td><input type="checkbox" name="RowCheck" value="${list.questionNo }"/></td>
 						                    <td>${list.questionNo }</td>
 						                    <th>
 						                      <a href="questiondetail?questionNo=${list.questionNo }">${list.questionTitle }</a>
+						                      <c:if test="${list.questionFile != 0 }">
+						                      	<img src="/admin/assets/file.png" alt="" />
+						                      </c:if>
 						                    </th>
 						                    <td>${list.memberNo }</td>
 						                    <td><fmt:parseDate var="dateString"
 													value="${list.questionDate }" pattern="yyyy-MM-dd HH:mm:ss" /> 
 												<fmt:formatDate
 													value="${dateString }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-						                    <td>${list.answerStatus }</td>
+							                    
+							                    <!-- 답변상태에 따른 글씨색 변화 -->
+							                    <c:choose>
+													<c:when test="${list.answerStatus == '미답변'}">
+													    <td class="td-status" style="color: red;">
+													        ${list.answerStatus}
+													    </td>
+													</c:when>
+													<c:when test="${list.answerStatus == '답변완료'}">
+													    <td class="td-status" style="color: black;">
+													        ${list.answerStatus}
+													    </td>
+													</c:when>
+												</c:choose>
 						                </tr>
 						             </c:forEach>   
 				                </tbody>
@@ -123,7 +142,7 @@
 				            </table>
 				        </div>
 				    </div>
-				    <!-- board seach area -->
+				    <!-- board search area -->
 				    <div id="board-search">
 				        <div class="container">
 				            <div class="search-window">
@@ -134,10 +153,13 @@
 				                        	<option value="W">작성자</option>		
 				                        	<option value="T">제목</option>		
 				                        	<option value="C">내용</option>	
+				                        	<option value="A">답변상태</option>	
 				                    	</select>
 				                        <input id="search" type="search" name="" placeholder="검색어를 입력해주세요." value="">
 				                        <button type="submit" class="btn btn-dark">검색</button>
 				                    </div>
+				                    
+										<input type="button" class="btn btn-dark" value="삭제" onclick="deleteValue();"/>
 				                </form>
 				            </div>
 				        </div>

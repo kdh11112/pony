@@ -15,7 +15,6 @@ public class AnswerServiceImple implements AnswerService{
 	@Override
 	public void insertAnswer(AnswerDTO dto) {
 		dao.insertAnswer(dto);
-		
 	}
 
 	@Override
@@ -29,6 +28,4 @@ public class AnswerServiceImple implements AnswerService{
 		
 	}
 
-	
-	
 }

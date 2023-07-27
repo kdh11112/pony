@@ -8,8 +8,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnswerDTO {
+	
 	private int answerNo;
+	
 	private String answerContents;
+	
 	private String answerDate;
+	
 	private int questionNo;
+	
 }

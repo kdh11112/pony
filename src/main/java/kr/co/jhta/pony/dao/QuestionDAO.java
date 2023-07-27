@@ -23,6 +23,8 @@ public interface QuestionDAO {
 	void qnaAddOne(QuestionDTO dto);
 	void qnaDeleteOne(QuestionDTO dto);
 	void qnaModifyOne(QuestionDTO dto);
+	void updateAnswerStatus(QuestionDTO dto);
+	void deleteCheck(String no);
 
 }
 

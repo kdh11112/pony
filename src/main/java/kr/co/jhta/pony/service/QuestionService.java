@@ -16,5 +16,7 @@ public interface QuestionService {
 
 	public List<QuestionDTO>  selectAllByAdmin(int startNo, int endNo);
 	public void qnaAddOne(QuestionDTO dto);
+	public void updateAnswerStatus(QuestionDTO qdto);
+	public void deletecheck(String no);	//체크박스 삭제
 
 }
