@@ -10,7 +10,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 public class PonyMailConfig {
-
+	
+	
 	@Configuration
 	@PropertySource("classpath:application.properties")
 	public class EmailConfig {

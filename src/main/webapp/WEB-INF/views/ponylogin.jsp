@@ -38,13 +38,13 @@
 						<form action="/login_proc" method="post">
 
 							<div class="form-outline mb-4">
-								<input type="email" name="email" id="email" class="form-control form-control-lg shadow-sm" />
+								<input type="email" name="email" id="email" class="form-control form-control-lg shadow-sm" value="djw2717@naver.com"/>
 								<label class="form-label">Email</label>
 							</div>
 
 
 							<div class="form-outline mb-4">
-								<input type="password" id="password" name="password" class="form-control form-control-lg shadow-sm" />
+								<input type="password" id="password" name="password" class="form-control form-control-lg shadow-sm" value="aaaa"/>
 								<label class="form-label">Password</label>
 							</div>
 

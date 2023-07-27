@@ -5,6 +5,8 @@
 <mapper namespace="kr.co.jhta.pony.dao.PonyMemberDAO">
 	
 	 
+	 
+	 
 	<insert id="createPonyMember" parameterType="kr.co.jhta.pony.dto.PonyMemberDTO">
        INSERT INTO MEMBER (memberEmail, memberPassword, memberName, memberBirthday, memberPhone, memberZip, memberAddress1, memberAddress2 )
        VALUES (#{memberEmail},#{memberPassword},#{memberName},#{memberBirthday},#{memberPhone}, #{memberZip}, #{memberAddress1}, #{memberAddress2} )

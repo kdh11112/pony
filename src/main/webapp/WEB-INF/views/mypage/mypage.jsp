@@ -117,6 +117,7 @@
 									<div class="details" data-v-269e3e5f>
 										<div class="el-row"
 											style="margin-left: -10px; margin-right: -10px;"
+											
 											data-v-269e3e5f></div>
 									</div>
 									<div class="history-list" data-v-269e3e5f>

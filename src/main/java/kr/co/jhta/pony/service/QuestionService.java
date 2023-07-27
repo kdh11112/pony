@@ -8,8 +8,10 @@ import kr.co.jhta.pony.dto.QuestionDTO;
 
 public interface QuestionService {
 
-	public List<QuestionDTO> selectAll(int startNo, int endNo);
+	public List<QuestionDTO> selectAll(int startNo, int endNo, int memberNo);
 	public int getTotal();
 	public QuestionDTO selectOne(int questionNo);
 	public void deleteOne(QuestionDTO dto);
+	public List<QuestionDTO>  selectAllByAdmin(int startNo, int endNo);
+	public void qnaAddOne(QuestionDTO dto);
 }

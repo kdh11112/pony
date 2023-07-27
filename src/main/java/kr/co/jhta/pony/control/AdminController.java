@@ -60,7 +60,7 @@ public class AdminController {
 		int startNo = (int)map.get("startNo");
 		int endNo = (int)map.get("endNo");
 		
-		model.addAttribute("list", qservice.selectAll(startNo, endNo));
+		model.addAttribute("list", qservice.selectAllByAdmin(startNo, endNo));
 		model.addAttribute("map", map);
 
 		return "/admin/question/questionList";
