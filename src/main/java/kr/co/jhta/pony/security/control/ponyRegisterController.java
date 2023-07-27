@@ -1,5 +1,7 @@
 package kr.co.jhta.pony.security.control;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -56,7 +58,7 @@ public class ponyRegisterController {
 	    
 	    @PostMapping("/autoEmailOk")
 	    @ResponseBody
-	    public String autoEmailOk(@RequestParam String authcode, Model model) throws Exception {
+	    public String autoEmailOk(@RequestParam String authcode, Model model, HttpSession session) throws Exception {
 	         
 	    	// redisUtil.getData를 사용하여 레디스에 저장된 이메일주소를 얻어옴.(authcode 는 view에서 사용자가 입력한 인증번호, code는 해당 인증번호를 레디스에 입력하여 반환받은 이메일주소(키, 밸류값) 
 	    	String email = redisUtil.getData(authcode);
@@ -65,12 +67,15 @@ public class ponyRegisterController {
 //	            throw new ChangeSetPersister.NotFoundException();
 //	        }
 //	    	
+	    	String authenticated = passwordEncoder.encode(authcode + email);
 	    	
 	    	if (email != null  && email.equals(redisUtil.getData(authcode))) { // 인증번호로 얻어온 이메일주소가, 레디스에 저장된 인증번호에 대응하는 이메일인지 확인
 	    	        // 인증 성공
 	    			log.info(authcode);
 	    			log.info(email);
 	    			log.info("성공");
+	    			
+	    			session.setAttribute("authenticated", authenticated);
 	    	        return "true";
 	    	} else {
 	    	        
@@ -94,12 +99,15 @@ public class ponyRegisterController {
 	    								@RequestParam(name = "address", defaultValue="미입력")String memberAddress1,
 	    								@RequestParam(name = "detailAddress", defaultValue="미입력" )String memberAddress2,
 	    								@RequestParam(name = "extraAddress", defaultValue="미입력")String memberAddress3,
-	    						PonyMemberDTO dto) throws Exception {
+	    						PonyMemberDTO dto, HttpSession session) throws Exception {
+	    	String authenticated = (String)session.getAttribute("authenticated");
 	    	
+	    	log.info(authenticated);
 	    	log.info("요청 수신");
 	    	dto.setMemberEmail(memberEmail);
 	    	int cnt = service.idChk(dto);
-	    	if(cnt==0) {
+
+	    	if(cnt==0&&authenticated==session.getAttribute("authenticated")) {
 	    		
 	    		dto.setMemberEmail(memberEmail);
 	    		dto.setMemberPassword(passwordEncoder.encode(memberPassword));
@@ -114,7 +122,7 @@ public class ponyRegisterController {
 	    		
 	    		service.createMember(dto);
 	    	}else {
-	    		log.info("인증 코드보내기 실패 아이디중복");
+	    		log.info("실패 아이디중복 또는 비정상 접근");
 	    	}
 	    	
 	    	return "/ponylogin";

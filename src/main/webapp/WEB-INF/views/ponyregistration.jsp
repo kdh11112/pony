@@ -476,7 +476,7 @@ function checkId(){
 
 //모든 유효성검사를 통과한 상태로 가입하기 버튼을 누르면 폼데이터를 제출
 function submitForm() {
-	cnt++
+	
  	//console.log("눌렷니?");
 	  const pw = document.getElementById('password').value;
 	  const pw2 = document.getElementById('password2').value;
@@ -484,10 +484,9 @@ function submitForm() {
 	  const validationMsg2 = document.getElementById("passwordValidationMsg2");
 	  const emailValidationMsg = document.getElementById('emailValidationMsg');
 	  const authButton = document.querySelector('.btn-primary');
-		cnt ++;
+		
 	  if (validationMsg.innerText !== '' || validationMsg2.style.display === "block" || emailValidationMsg.style.display === "block" || authButton.disabled) {
 	    alert("입력값을 확인하세요.");
-	    console.log("hohoho");
 	  } else {
 	   $("#frm").attr("method", "post").attr("action", "/ponyRegOk").submit();
 	  }
