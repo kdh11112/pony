@@ -16,6 +16,9 @@
                 }else if(selectedModel1 === "TUCSON"){
                     $("#card-img1").attr("src","https://search.pstatic.net/common?quality=75&direct=true&ttype=input&src=https://dbscthumb-phinf.pstatic.net/5662_000_8/20220713140508604_CLPS0GTFK.png/20220713140232_Z.png?type=m1500")
                 }
+                /*=============스크롤 이동===============*/
+                let offset = $("select").offset();
+				$('html').animate({scrollTop : offset.top},1);
                 
                 if(selectedModel2 === "") {
                     $("#card-img2").attr("src", "../images/model/vs_logo.jpg");
