@@ -98,13 +98,13 @@ public class AdminController {
 	}
 	//문의글 체크박스 선택 삭제
 	@PostMapping("delete")
-	public String ajaxTest(HttpServletRequest req, @RequestParam(name="currentPage", defaultValue = "1")int currentPage) {
+	public String ajaxTest(HttpServletRequest req) {
 		String[] ajaxMsg = req.getParameterValues("valueArr");
 		int size = ajaxMsg.length;
 		for(int i=0 ; i<size ; i++) {
 			qservice.deletecheck(ajaxMsg[i]);
 		}
-	    return "redirect:/questionlist?currentPage=" + currentPage;
+	    return "redirect:/questionlist";
 	}
 	// 답변 삭제
 	@GetMapping("/deleteanswer")
@@ -117,6 +117,10 @@ public class AdminController {
 		aservice.deleteOne(questionNo);
 		qservice.updateAnswerStatus(qdto);
 		return "redirect:/questiondetail?questionNo="+questionNo;
+	}
+	@GetMapping("/modifyanswer")
+	public void modifyanswer(@ModelAttribute AnswerDTO dto, HttpServletRequest req) {
+		
 	}
 	
 	// 공지사항 (유경님 코드)----------------------------------------------------

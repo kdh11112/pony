@@ -109,11 +109,7 @@
     <artifactId>spring-security-taglibs</artifactId>
 </dependency>
 
-				<dependency>
-					<groupId>kr.co.jhta</groupId>
-					<artifactId>springbootex12_board</artifactId>
-					<version>0.0.1-SNAPSHOT</version>
-				</dependency>
+
 	</dependencies>
 
 	<build>

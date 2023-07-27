@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.co.jhta.pony.dto.NoticeDTO;
 import kr.co.jhta.pony.service.NoticeService;
 import kr.co.jhta.pony.util.PageUtil;
-import kr.co.jhta.springboot12.dto.BoardDTO;
 
 
 @Controller

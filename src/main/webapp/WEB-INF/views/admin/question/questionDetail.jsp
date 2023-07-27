@@ -143,7 +143,7 @@
 									        <c:if test="${not empty detailanswer.answerContents}">
 									            ${detailanswer.answerContents}
 									            <a href="deleteanswer?questionNo=${detail.questionNo }"><input type="button" value="답변 삭제" class="btn btn-outline-danger"/></a>
-									        	
+									            <a href="modifyanswer?questionNo=${detail.questionNo }"><input type="button" value="답변 수정" class="btn btn-outline-primary"/></a>
 									        </c:if>
 									        <%-- 답변이 없는 경우 --%>
 									        <form action="/answer" method="post">
