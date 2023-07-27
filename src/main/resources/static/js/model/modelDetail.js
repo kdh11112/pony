@@ -62,7 +62,6 @@ $(document).ready(function(){
             $("#designContent1").text("센슈어스 스포티니스를 완벽히 구현하였습니다.")
             $("#designContent2").text("")
         }
-		
 		 function valueComma(value) {
 		 	return value.replace(/\d+/, function(number) {
 		    	return parseInt(number).toLocaleString();
@@ -100,4 +99,6 @@ $(document).ready(function(){
             		document.getElementById("frm").submit();
             	}
             })
+            
     })
+ 
