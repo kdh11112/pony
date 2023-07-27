@@ -1,15 +1,11 @@
 package kr.co.jhta.pony.control;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,7 +17,6 @@ import kr.co.jhta.pony.dto.NoticeDTO;
 import kr.co.jhta.pony.service.AnswerService;
 import kr.co.jhta.pony.service.NoticeService;
 import kr.co.jhta.pony.service.QuestionService;
-import kr.co.jhta.pony.util.ControllerAdvisor;
 import kr.co.jhta.pony.util.PageUtil;
 
 @Controller
@@ -89,6 +84,13 @@ public class AdminController {
 		dto.setAnswerContents(answer);
 		dto.setQuestionNo(questionNo);
 		aservice.insertAnswer(dto);
+		return "redirect:/questiondetail?questionNo="+questionNo;
+	}
+	
+	@GetMapping("/deleteanswer")
+	public String deleteanswer(@ModelAttribute AnswerDTO dto,HttpServletRequest req) {
+		int questionNo = Integer.parseInt(req.getParameter("questionNo"));
+		aservice.deleteOne(questionNo);
 		return "redirect:/questiondetail?questionNo="+questionNo;
 	}
 	

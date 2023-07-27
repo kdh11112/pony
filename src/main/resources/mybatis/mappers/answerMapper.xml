@@ -12,4 +12,9 @@
 		FROM ANSWER
 		WHERE questionNo = #{questionNo}
 	</select>
+	<delete id="deleteOne" parameterType="int">
+		DELETE 
+		FROM ANSWER
+		WHERE questionNo = #{questionNo}
+	</delete>
 </mapper>
