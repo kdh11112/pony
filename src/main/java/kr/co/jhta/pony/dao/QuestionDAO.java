@@ -16,7 +16,6 @@ public interface QuestionDAO {
 	QuestionDTO selectOne(int questionNo);
 	int getTotal();
 	void deleteOne(QuestionDTO dto);
-
 	void insertOne(QuestionDTO dto);
 
 	List<QuestionDTO> getAllByAdmin(StartEnd se);
@@ -24,7 +23,7 @@ public interface QuestionDAO {
 	void qnaDeleteOne(QuestionDTO dto);
 	void qnaModifyOne(QuestionDTO dto);
 	void updateAnswerStatus(QuestionDTO dto);
-	void deleteCheck(String no);
+	void deleteCheck(String no); //체크박스 삭제
 
 }
 
