@@ -2,9 +2,12 @@ package kr.co.jhta.pony.security.control;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
-@RestController
+@Controller
 public class ponyRegisterController {
 	 
 	private final ponyEmailService emailService;
@@ -35,6 +38,7 @@ public class ponyRegisterController {
     
 	
 	    @PostMapping("/mailConfirm")
+	    @ResponseBody
 	    public void mailConfirm(@RequestParam String email, PonyMemberDTO dto) throws Exception {
 	    	
 	    	dto.setMemberEmail(email);
@@ -46,12 +50,11 @@ public class ponyRegisterController {
 	    		log.info("인증 코드보내기 실패 아이디중복");
 	    	}
 	    	
-	        
 //	        return code;
 	    }
 	    
 	    
-	    @GetMapping("/autoEmailOk")
+	    @PostMapping("/autoEmailOk")
 	    @ResponseBody
 	    public String autoEmailOk(@RequestParam String authcode, Model model) throws Exception {
 	         
@@ -81,18 +84,19 @@ public class ponyRegisterController {
 	    }
 	    
 	    
-	    @GetMapping("/ponyRegOk")
-	    public void createPonyMember( @RequestParam(name = "email", required = false) String memberEmail,
-	    								@RequestParam("password")String memberPassword ,
-	    								@RequestParam("fullName")String memberName ,
-	    								@RequestParam("regNumberFirst")String memberBirthday ,
-	    								@RequestParam("phone")String memberPhone ,
-	    								@RequestParam("postcode")String memberZip ,
-	    								@RequestParam("address")String memberAddress1,
-	    								@RequestParam("detailAddress")String memberAddress2,
-	    								@RequestParam("extraAddress")String memberAddress3,
-	    						PonyMemberDTO dto, @RequestParam String email) throws Exception {
+	    @RequestMapping(value = "/ponyRegOk", method = RequestMethod.POST)
+	    public String createPonyMember( @RequestParam(name = "email") String memberEmail,
+	    								@RequestParam(name ="password", defaultValue="1")String memberPassword ,
+	    								@RequestParam(name = "fullName", defaultValue="미입력")String memberName ,
+	    								@RequestParam(name = "regNumberFirst", defaultValue="미입력")String memberBirthday ,
+	    								@RequestParam(name = "phone", defaultValue="미입력")String memberPhone ,
+	    								@RequestParam(name = "postcode", defaultValue="미입력")String memberZip ,
+	    								@RequestParam(name = "address", defaultValue="미입력")String memberAddress1,
+	    								@RequestParam(name = "detailAddress", defaultValue="미입력" )String memberAddress2,
+	    								@RequestParam(name = "extraAddress", defaultValue="미입력")String memberAddress3,
+	    						PonyMemberDTO dto) throws Exception {
 	    	
+	    	log.info("요청 수신");
 	    	dto.setMemberEmail(memberEmail);
 	    	int cnt = service.idChk(dto);
 	    	if(cnt==0) {
@@ -113,13 +117,13 @@ public class ponyRegisterController {
 	    		log.info("인증 코드보내기 실패 아이디중복");
 	    	}
 	    	
-	    	
+	    	return "/ponylogin";
 	    }
 	    
 
 	 // 이메일 중복 체크
-	    @ResponseBody
 	    @PostMapping("/idCheck")
+	    @ResponseBody
 	    public int idChk(PonyMemberDTO dto, @RequestParam("id") String id) throws Exception {
 	    
 	    	//log.info("여기 왓니?" + id);

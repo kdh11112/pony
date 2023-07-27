@@ -40,20 +40,20 @@
 							<div class="card-body p-5 text-center">
 
 
-								<form action="ponyRegOk" id="frm" method="post" onsubmit="return false;">
+								<form action="ponyRegOk" id="frm" method="post">
 
 								<div class="form-outline mb-4">
 								  <div class="row">
 								    <div class="col">
 								      <div class="form-floating">
-								        <input type="text" id="ponyMemberEmail" class="form-control form-control-lg shadow-sm" oninput = "checkId()"/>
+								        <input type="text" id="ponyMemberEmail" name="email" class="form-control form-control-lg shadow-sm" oninput = "checkId()"/>
 								        <label>Email</label>
 								      </div>
 								      <span id="emailValidationMsg" style="color: red; display: none;">올바른 이메일 형식이 아닙니다.</span>
 								      <span id="emailAlready" style="color: red; display: none;">사용중인 이메일입니다.</span>
 								    </div>
 								    <div class="col-auto">
-								      <button class="btn btn-primary btn-lg" style="width: 82px; height: 45px" onclick="sendAuthCode()" disabled="disabled">인증</button>
+								      <button type="button" class="btn btn-primary btn-lg" style="width: 82px; height: 45px" onclick="sendAuthCode()" disabled="disabled">인증</button>
 								    </div>
 								  </div>
 								</div>
@@ -69,7 +69,7 @@
 											</div>
 
 											<div class="col-auto">
-												<button class="btn btn-primary btn-lg" style="width: 82px; height: 45px" onclick="autoemail()">확인</button> <!-- 여기 누르면 Post요청 보내기 -->
+												<button class="btn btn-primary btn-lg" style="width: 82px; height: 45px" type="button" onclick="autoemail()">확인</button> <!-- 여기 누르면 Post요청 보내기 -->
 											</div>
 
 										</div>
@@ -79,8 +79,9 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="password" id="password" value="aaaa" class="form-control form-control-lg shadow-sm" />
+													<input type="password" id="password" name="password" value="aaaa" class="form-control form-control-lg shadow-sm" />
 													<label>Password</label>
+													<span id="passwordValidationMsg" style="color: red; display: block;">비밀번호를 입력해주세요.</span>
 												</div>
 											</div>
 										</div>
@@ -92,6 +93,7 @@
 												<div class="form-floating">
 													<input type="password" id="password2" value="aaaa" class="form-control form-control-lg shadow-sm" />
 													<label>ConfirmPassword</label>
+													<span id="passwordValidationMsg2" style="color: red; display: none;">비밀번호와 일치하지 않습니다.</span>
 												</div>
 											</div>
 										</div>
@@ -102,7 +104,7 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="text" id="fullName" value="Test" class="form-control form-control-lg shadow-sm" />
+													<input type="text" id="fullName" name="fullName" value="Test" class="form-control form-control-lg shadow-sm" />
 													<label>FullName</label>
 												</div>
 											</div>
@@ -116,13 +118,13 @@
 									        <div class="d-flex align-items-center">
 									            <div style="flex: 0 0 155px;">
 									                <div class="form-floating">
-									                    <input type="text" id="firstInput" class="form-control form-control-lg shadow-sm" maxlength="6" />
+									                    <input type="text" id="firstInput" name="regNumberFirst" class="form-control form-control-lg shadow-sm" maxlength="6" />
 									                    <label>RegNumberFist</label>
 									                </div>
 									            </div>
 									            
 									            <div style="margin-left: 10px;">
-									                <input type="text" id="secondInput" value="888888" class="form-control form-control-lg shadow-sm" maxlength="1" style="width: 30px; height: 58px;" />
+									                <input type="text" id="secondInput" value="3" class="form-control form-control-lg shadow-sm" maxlength="1" style="width: 30px; height: 58px;" />
 									            </div>
 									            <div class="d-flex align-items-center">
 									                <span style="margin-right: 5px">* * * * * *</span>
@@ -139,7 +141,7 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="text" id="phone" value="01055555555" class="form-control form-control-lg shadow-sm phone" maxlength="13" />
+													<input type="text" id="phone" name="phone" value="01055555555" class="form-control form-control-lg shadow-sm phone" maxlength="13" />
 													<label>Phone</label>
 												</div>
 											</div>
@@ -151,7 +153,7 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="text" id="postcode" class="form-control form-control-lg shadow-sm">
+													<input type="text" id="postcode" name="postcode" class="form-control form-control-lg shadow-sm">
 													<label>ZipCode</label>
 												</div>
 											</div>
@@ -164,7 +166,7 @@
 									
 										<div class="col">
 											<div class="form-floating">
-												<input type="text" id="address" class="form-control form-control-lg shadow-sm">
+												<input type="text" id="address" name="address" class="form-control form-control-lg shadow-sm">
 												<label>주소</label>
 											</div>
 										</div>
@@ -172,7 +174,7 @@
 										<div class="form-outline mb-4 row">
 										    <div class="col">
 										        <div class="form-floating">
-										            <input type="text" id="detailAddress" class="form-control form-control-lg shadow-sm">
+										            <input type="text" id="detailAddress" name="detailAddress" class="form-control form-control-lg shadow-sm">
 										            <label>상세 주소</label>
 										            <span id="guide" style="color:#999;display:none"></span>
 										        </div>
@@ -180,7 +182,7 @@
 										
 										    <div class="col">
 										        <div class="form-floating">
-										            <input type="text" id="extraAddress" class="form-control form-control-lg shadow-sm">
+										            <input type="text" id="extraAddress" name="extraAddress" class="form-control form-control-lg shadow-sm">
 										            <label>참고항목</label>
 										            <span id="guide" style="color:#999;display:none"></span>
 										        </div>
@@ -322,7 +324,7 @@ function autoemail() {
 	
 	$.ajax({
 		url : '/autoEmailOk',
-		method : "get",
+		method : "post",
 		data : {
 			authcode : authValue
 		},
@@ -371,6 +373,54 @@ function isValidEmail(email) {
 </script>
 
 <script>
+function isValidPassword(password) {
+  const pwRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+  const hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+  const id = document.getElementById('ponyMemberEmail').value;
+  let errorMsg = '';
+
+  if (!pwRegex.test(password)) {
+    errorMsg = '비밀번호는 8자 이상이어야 하며, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.';
+  } else if (/(\w)\1\1\1/.test(password)) {
+    errorMsg = '같은 문자를 4번 이상 사용하실 수 없습니다.';
+  } else if (password.includes(id)) {
+    errorMsg = '비밀번호에 아이디가 포함될 수 없습니다.';
+  } else if (password.includes(' ')) {
+    errorMsg = '비밀번호는 공백 없이 입력해주세요.';
+  } else if (hangulcheck.test(password)) {
+    errorMsg = '비밀번호에 한글을 사용 할 수 없습니다.';
+  }
+
+  return errorMsg;
+}
+
+function passwordsMatch(password, confirmPassword) {
+  return password === confirmPassword;
+}
+
+document.getElementById('password').addEventListener('input', function() {
+  const pw = document.getElementById('password');
+  const validationMsg = document.getElementById("passwordValidationMsg");
+  const validationResult = isValidPassword(pw.value);
+
+  validationMsg.innerHTML = validationResult;
+});
+
+document.getElementById('password2').addEventListener('input', function() {
+  const pw = document.getElementById('password');
+  const pw2 = document.getElementById('password2');
+  const validationMsg2 = document.getElementById("passwordValidationMsg2");
+
+  if (!passwordsMatch(pw.value, pw2.value)) {
+    validationMsg2.style.display = "block";
+  } else {
+    validationMsg2.style.display = "none";
+  }
+});
+
+</script>
+
+<script>
 function checkId(){
         var id = $('#ponyMemberEmail').val(); //id값이 "id"인 입력란의 값을 저장
         $.ajax({
@@ -395,123 +445,8 @@ function checkId(){
 
 <script>
 function submitForm() {
-	
-	console.log("눌렷니?");
-	
-/* 	  const email = document.getElementById('ponyMemberEmail').value;
-	  const password = document.getElementById('password').value;
-	  const confirmPassword = document.getElementById('password2').value;
-	  const fullName = document.getElementById('fullName').value;
-	  const regNumberFirst = document.getElementById('firstInput').value;
-	  const regNumberSecond = document.getElementById('secondInput').value;
-	  const phone = document.getElementById('phone').value;
-	  const postcode = document.getElementById('postcode').value;
-	  const address = document.getElementById('address').value;
-	  const detailAddress = document.getElementById('detailAddress').value;
-	  const extraAddress = document.getElementById('extraAddress').value;
- */
-	  
-	// 폼의 'action' 속성을 원하는 주소로 변경합니다.
-	  
-
-	  // 입력값을 각각 가져옵니다.
-	  var email = $('#ponyMemberEmail').val();
-	  var password = $('#password').val();
-	  var confirmPassword = $('#password2').val();
-	  var fullName = $('#fullName').val();
-	  var regNumberFirst = $('#firstInput').val();
-	  var regNumberSecond = $('#secondInput').val();
-	  var phone = $('#phone').val();
-	  var postcode = $('#postcode').val();
-	  var address = $('#address').val();
-	  var detailAddress = $('#detailAddress').val();
-	  var extraAddress = $('#extraAddress').val();
-
-	  // 폼에 입력값들을 설정합니다.
-	  $("#ponyMemberEmail").val(email);
-	  $("#password").val(password);
-	  $("#password2").val(confirmPassword);
-	  $("#fullName").val(fullName);
-	  $("#firstInput").val(regNumberFirst);
-	  $("#secondInput").val(regNumberSecond);
-	  $("#phone").val(phone);
-	  $("#postcode").val(postcode);
-	  $("#address").val(address);
-	  $("#detailAddress").val(detailAddress);
-	  $("#extraAddress").val(extraAddress);
-
-	  // 폼을 제출합니다.
-	  $("#frm").attr("method","get").attr("action", "/ponyRegOk").submit();
-	  
-	  
-/* 	  const formData = new FormData();
-		  formData.append('email', email);
-		  formData.append('password', password);
-		  formData.append('confirmPassword', confirmPassword);
-		  formData.append('fullName', fullName);
-		  formData.append('regNumberFirst', regNumberFirst);
-		  formData.append('regNumberSecond', regNumberSecond);
-		  formData.append('phone', phone);
-		  formData.append('postcode', postcode);
-		  formData.append('address', address);
-		  formData.append('detailAddress', detailAddress);
-		  formData.append('extraAddress', extraAddress); */
-
-		 /* console.log("aaaaaaaaaaaaaaaaaaaaaaaa"); */
-	
-		 
-/* 	$.ajax({
-		url : '/ponyRegOk',
-		method : "post",
-		data : {
-			email : email,
-			password : password,
-			confirmPassword : confirmPassword,
-			fullName : fullName,
-			regNumberFirst : regNumberFirst,
-			regNumberSecond : regNumberSecond,
-			phone : phone,
-			postcode : postcode,
-			address : address,
-			detailAddress : detailAddress,
-			extraAddress : extraAddress
-			
-		},
-		success : function(data  ) {
-			if(data == "true"){
-				console.log("성공");
-				alert('성공하셨습니다.')
-		       
-			}else {
-				console.log("시이잉일패");
-				alert('실패하셧습니다.');
-			}
-		}
-		
-	}); */
-		 
-		 
-		 
-/* 	fetch('ponyRegOk', {
-  method: 'POST',
-  body: formData
-})
-.then(response => {
-  if (!response.ok) {
-    throw new Error('Failed to submit form');
-  }
-  return response.text();
-})
-.then(data => {
-  // 서버에서 받은 응답 데이터를 처리
-  console.log(data);
-  window.location.href = '/login';
-})
-.catch(error => {
-  // 오류 처리
-  console.error('Error:', error);
-});   */
-	
+	//console.log("눌렷니?");
+	$("#frm").attr("method","post").attr("action", "/ponyRegOk").submit();
 	  
 }
 
