@@ -22,6 +22,13 @@ public class AnswerServiceImple implements AnswerService{
 	public AnswerDTO selectOne(int questionNo) {
 		return dao.selectOne(questionNo);
 	}
+
+	@Override
+	public void deleteOne(int questionNo) {
+		dao.deleteOne(questionNo);
+		
+	}
+
 	
 	
 }

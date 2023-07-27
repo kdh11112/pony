@@ -14,6 +14,7 @@ public interface AnswerDAO {
 	List<AnswerDTO> getAll(StartEnd se);
 	void insertAnswer(AnswerDTO dto);
 	AnswerDTO selectOne(int questionNo);
+	void deleteOne(int questionNo);
 	
 
 }
