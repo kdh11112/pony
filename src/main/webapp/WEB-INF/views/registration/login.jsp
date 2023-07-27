@@ -40,12 +40,12 @@
   	    <div class="col-xs-7">
         </div>
         <div class="col-xs-5">
-    <select name="shopNo" class="form-control">
-        <c:forEach items="${list}" var="shop">
-            <option value="${shop.shopNo}">
-                ${shop.shopArea} / ${shop.shopAreaPoint}
-            </option>
-        </c:forEach>
+    	<select name="shopNo" class="form-control">
+	        <c:forEach items="${list}" var="shop">
+	            <option value="${shop.shopNo}">
+	                ${shop.shopArea} / ${shop.shopAreaPoint}
+	            </option>
+	        </c:forEach>
 		</select>
 	    </div>
     </div>
@@ -61,7 +61,7 @@
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox"> Remember Me
+              <input type="checkbox"> 아이디 저장
             </label>
           </div>
         </div>

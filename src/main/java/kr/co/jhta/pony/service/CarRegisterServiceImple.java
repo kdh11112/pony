@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.jhta.pony.dao.CarRegisterDAO;
 import kr.co.jhta.pony.dto.CarRegisterDTO;
+import kr.co.jhta.pony.dto.MechanicRegisterDTO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -34,6 +35,7 @@ public class CarRegisterServiceImple implements CarRegisterService{
 
 
 	@Override
+//	public List<CarRegisterDTO> regRegistration(String clientVin) {
 	public CarRegisterDTO regRegistration(String clientVin) {
 		return dao.regRegistrationSelect(clientVin);
 	}
@@ -41,8 +43,17 @@ public class CarRegisterServiceImple implements CarRegisterService{
 	@Override
 	public void regAndcorr(CarRegisterDTO regCarDTO) {
 		
-		dao.regAndcorrInsertAndUpdate(regCarDTO);
 		
+		dao.regAndcorrInsert(regCarDTO);
+		
+	}
+
+
+
+	@Override
+	public List<MechanicRegisterDTO> mechanicChoice(int word) {
+		
+		return dao.mechanicSelect(word);
 	}
 
 

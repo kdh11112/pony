@@ -45,7 +45,7 @@
 				memberName,
 				memberEmail,
 				memberPhone,
-				registrationNumber,
+				
 				registrationClientRequests,
 				registrationSignificant,
 				r.mechanicNo,
@@ -66,6 +66,18 @@
 
 	</select>
 	
+	<select id="mechanicSelect" parameterType="int" resultType="kr.co.jhta.pony.dto.MechanicRegisterDTO">
+		SELECT  m.mechanicNo ,
+				m.mechanicName 
+		FROM MECHANIC m LEFT JOIN SHOP s 
+		ON m.shopNo = s.shopNo 
+		WHERE m.shopNo = #{word}
+	</select>
+	
+	<insert id="regAndcorrInsert" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+	INSERT INTO REGISTRATION(registrationClientRequests,registrationSignificant,mechanicNo,clientVin,shopNo,registrationDate) 
+				values(#{registrationClientRequests},#{registrationSignificant},#{mechanicNo},#{clientVin},#{shopNo},DATE_FORMAT(NOW(),'%Y%m%d'))
+	</insert>
 	
 
 </mapper>

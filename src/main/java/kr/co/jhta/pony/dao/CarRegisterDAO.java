@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import kr.co.jhta.pony.dto.CarRegisterDTO;
+import kr.co.jhta.pony.dto.MechanicRegisterDTO;
 
 @Mapper
 @Repository
@@ -19,9 +20,12 @@ public interface CarRegisterDAO {
 
 	public List<CarRegisterDTO> SearchSelect(String clientVin, String clientCarNumber, String memberName);
 
+//	public List<CarRegisterDTO> regRegistrationSelect(String clientVin);
 	public CarRegisterDTO regRegistrationSelect(String clientVin);
 
-	public void regAndcorrInsertAndUpdate(CarRegisterDTO regCarDTO);
+	public void regAndcorrInsert(CarRegisterDTO regCarDTO);
+
+	public List<MechanicRegisterDTO> mechanicSelect(int word);
 
 
 }

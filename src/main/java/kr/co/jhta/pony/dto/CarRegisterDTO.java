@@ -32,10 +32,10 @@ public class CarRegisterDTO {
 	private int registrationNumber; //접수번호
 	private String registrationClientRequests; //고객요청사항
 	private String registrationSignificant; //특이사항
-	private String mechanicNo; //지정정비사
+	private int mechanicNo; //지정정비사
 	private String registrationReservationDueDate; //입고예정일
 	private String registrationDate; //접수일자
-	private String shopno;
+	private int shopNo;
 	private String shopArea;
 	private String shopAreaPoint;
 	
