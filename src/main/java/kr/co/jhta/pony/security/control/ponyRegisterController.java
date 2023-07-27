@@ -63,10 +63,8 @@ public class ponyRegisterController {
 	    	// redisUtil.getData를 사용하여 레디스에 저장된 이메일주소를 얻어옴.(authcode 는 view에서 사용자가 입력한 인증번호, code는 해당 인증번호를 레디스에 입력하여 반환받은 이메일주소(키, 밸류값) 
 	    	String email = redisUtil.getData(authcode);
 	    	System.out.println(email + " 이게 이메일");
-//	    	if (email == null) {
-//	            throw new ChangeSetPersister.NotFoundException();
-//	        }
-//	    	
+
+	    	
 	    	String authenticated = passwordEncoder.encode(authcode + email);
 	    	
 	    	if (email != null  && email.equals(redisUtil.getData(authcode))) { // 인증번호로 얻어온 이메일주소가, 레디스에 저장된 인증번호에 대응하는 이메일인지 확인
