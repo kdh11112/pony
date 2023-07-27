@@ -344,7 +344,6 @@
     // 초기 호출
     updateTimer();
   }
-
   
 // 인증번호 확인 스크립트 인증 성공시 가입하기 버튼 활성화
 function autoemail() {
@@ -367,6 +366,12 @@ function autoemail() {
 				alert('인증에 성공하셨습니다.')
 		       const regBtn = document.getElementById('regBtn');
 		       regBtn.disabled =  false;
+
+		       const authCodeTimer = document.getElementById('authCodeTimer');
+		       authCodeTimer.style.color = 'blue'; // 파란색 글씨로 변경
+		       authCodeTimer.innerText = '인증이 완료되었습니다.';
+		       clearInterval(timer); // 타이머를 멈춤
+				
 			}else {
 				console.log("실패");
 				alert('실패하셧습니다.');
