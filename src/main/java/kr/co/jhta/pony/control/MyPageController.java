@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.jhta.pony.dto.NoticeDTO;
 import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.dto.QuestionDTO;
 import kr.co.jhta.pony.service.PonyMemberService;
@@ -61,6 +62,7 @@ public class MyPageController {
 		
 		int startNo = (int)map.get("startNo");
 		int endNo = (int)map.get("endNo");
+		log.info("QuestionService : {} ", qService);
 		List<QuestionDTO> qnalist =  qService.selectAll(startNo, endNo, dto.getMemberNo());
 		model.addAttribute("qnalist",qService.selectAll(startNo, endNo, dto.getMemberNo()));
 		log.info("qnalist   {}"  ,qnalist);
@@ -71,7 +73,7 @@ public class MyPageController {
 		@GetMapping("/mypageqnadetail")
 		public String detail(@RequestParam("questionNo")int questionNo,Model model) {
 			model.addAttribute("detail",qService.selectOne(questionNo));
-			service.increaseHits(questionNo);
+			//service.increaseHits(questionNo);
 			
 			return "/mypage/qnadetail";
 		}
@@ -82,17 +84,48 @@ public class MyPageController {
 			
 			return "/mypage/qnawriteform";
 		}
-		
+		//글쓰기 완료
 		@PostMapping("/qnawriteform")
-		public String writeOk(@ModelAttribute QuestionDTO dto,HttpServletRequest req) {
+		public String writeOk(HttpSession session,@ModelAttribute QuestionDTO dto,
+								HttpServletRequest req,Principal p,Model model) {
+			PonyMemberDTO dto2 = service.getMemberEmail(p.getName());
+			session.setAttribute("dto",dto2);
+			log.info("dto2 {} ",dto2);
+			int memberNo = dto2.getMemberNo();
+			String contents = req.getParameter("contents");
+			String title = req.getParameter("title");
+			dto.setQuestionTitle(title);
+			dto.setMemberNo(memberNo);
+			dto.setQuestionContents(contents);
+			qService.qnaAddOne(dto);
 			
+			return "redirect:/mypageqna";
+		}
+		
+		//글 수정 페이지
+		@GetMapping("/qnamodify")
+		public String modifyform(@RequestParam("questionNo") int questionNo, Model model,HttpSession session,Principal p) {
+			PonyMemberDTO dto3 = service.getMemberEmail(p.getName());
+			int memberNo = dto3.getMemberNo();
+			session.setAttribute("mdto", dto3);
+			model.addAttribute("dto", qService.selectOne(questionNo));
+			return "/mypage/qnamodifyform";
+		}
+		
+		//글 수정
+		@PostMapping("/qnamodifyOk")
+		public String modifyOk(@ModelAttribute QuestionDTO dto, HttpServletRequest req) {
 			String contents = req.getParameter("contents");
 			String title = req.getParameter("title");
 			dto.setQuestionTitle(title);
 			dto.setQuestionContents(contents);
-			qService.qnaAddOne(dto);
+			qService.qnamodifyOne(dto);
 			return "redirect:/mypageqna";
 		}
-		
+		@GetMapping("/qnadelete")
+		public String delete(@ModelAttribute QuestionDTO dto) {
+			qService.deleteOne(dto);
+			return "redirect:/mypageqna";
+		}
 }
 

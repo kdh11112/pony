@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.jhta.pony.dao.QuestionDAO;
+import kr.co.jhta.pony.dto.NoticeDTO;
 import kr.co.jhta.pony.dto.QuestionDTO;
 import kr.co.jhta.pony.dto.StartEnd;
 import lombok.extern.slf4j.Slf4j;
@@ -22,11 +23,12 @@ public class QuestionServiceImple implements QuestionService {
 	public List<QuestionDTO> selectAll(int startNo, int endNo, int memberNo) {
 		log.info(" 여기도 오고 있지 {} {} {}", startNo, endNo, memberNo);
 		
-		StartEnd se =  new StartEnd(startNo, endNo);
+		//StartEnd se =  new StartEnd(startNo, endNo);
 		HashMap<String, Object> map = new HashMap<>();
-				map.put("memeberNo", memberNo);
+				map.put("memberNo", memberNo);
 				map.put("startNo", startNo);
 				map.put("endNo", endNo);
+				log.info("map : {} {} {} ", map, map.get("memberNo"), map.get("startNo"));
 		return dao.getAll(map);
 	}
 
@@ -56,6 +58,13 @@ public class QuestionServiceImple implements QuestionService {
 	public void qnaAddOne(QuestionDTO dto) {
 		dao.qnaAddOne(dto);
 	}
+
+	@Override
+	public void qnamodifyOne(QuestionDTO dto) {
+		dao.qnaModifyOne(dto);
+		
+	}
+
 	
 	
 	

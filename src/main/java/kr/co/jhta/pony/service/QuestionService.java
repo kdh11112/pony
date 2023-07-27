@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.jhta.pony.dto.NoticeDTO;
 import kr.co.jhta.pony.dto.QuestionDTO;
 
 public interface QuestionService {
@@ -14,4 +15,5 @@ public interface QuestionService {
 	public void deleteOne(QuestionDTO dto);
 	public List<QuestionDTO>  selectAllByAdmin(int startNo, int endNo);
 	public void qnaAddOne(QuestionDTO dto);
+	public void qnamodifyOne(QuestionDTO dto);
 }

@@ -49,7 +49,7 @@
 	float: left;
 }
 
-.qnaWriteform {
+.qnaModifyform {
 	border: 1px solid #dedede;
 	box-sizing: border-box;
 	width: 800px;
@@ -155,7 +155,7 @@ width:100%;
 						<div class="content-body" data-v-269e3e5f>
 							<div class="my-title" data-v-269e3e5f>
 								<div class="head" data-v-269e3e5f>
-									<strong data-v-269e3e5f><span data-v-269e3e5f>${dto.memberName }</span>
+									<strong data-v-269e3e5f><span data-v-269e3e5f>${mdto.memberName }</span>
 										님, 안녕하세요! </strong> <a href=""
 										class="btn btn-primary active infomodify_btn"><span>정보수정
 											<!---->
@@ -231,10 +231,10 @@ width:100%;
 
 					</div>
 
-					<!-- 1:1문의 글쓰기 -->
+					<!-- 1:1문의 글수정 -->
 		
 					<div class="container-fluid">
-						<section class="qnaWriteform">
+						<section class="qnaModifyform">
 							<div class="page-title">
 								<div class="container">
 									<h3>1:1문의</h3>
@@ -242,33 +242,33 @@ width:100%;
 							</div>
 
 							<!-- board list area -->
-							<div id="board-list">
-								<div class="container">
-									<form action="/qnawriteform" method=post>
-										<table class="board-table">
-											<thead>
-												<tr>
-													<th colspan="6">제목</th>
-													<td><input type="text" name="title" value="" class="boardtitle"/></td>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<th colspan="6">내용</th>
-													<td><textarea name="textareacontents" id="summernote"
-															 rows="30"></textarea></td>
-												</tr>
-												<tr>
-													<td colspan="10"><input type="submit"
-														class="btn btn-outline-secondary" value="저장" /> <a
-														href="qnawrite"><input type="button"
-															class="btn btn-outline-dark" value="취소" /></a></td>
-												</tr>
-											</tbody>
-										</table>
-									</form>
-								</div>
-							</div>
+				    <div id="board-list">
+						<div class="container">
+							<form action="qnamodifyOk" method="post">
+								<table class="board-table">
+									<thead>
+										<tr>
+											<input type="hidden" name="questionNo" value="${dto.questionNo }" />
+											<th colspan="6">제목</th>
+											<td><input type="text" name="title" id="" value="${dto.questionTitle }"/></td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th colspan="6">내용</th>
+											<td><textarea name="contents" id="summernote" cols="30" rows="10" >${dto.questionContents }</textarea></td>
+										</tr>
+										<tr>
+											<td colspan="10">
+												<a href="/mypageqna"><input type="button" class="btn btn-outline-dark" value="목록" /></a> 
+												<a href="/mypageqna"><input type="submit" class="btn btn-outline-dark" value="수정" /></a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</form>
+						</div>
+					</div>
 						</section>
 					</div>
 
