@@ -99,6 +99,14 @@ $(document).ready(function(){
             		document.getElementById("frm").submit();
             	}
             })
+            $("#headingOne").on("click",function(){
+				let offset = $("#modelName").offset();
+				$('html').animate({scrollTop : offset.top},1);
+  			});
+			$("#headingTwo").on("click",function(){
+				let offset = $("#modelName").offset();
+				$('html').animate({scrollTop : offset.top},1);
+  			});
             
     })
  
