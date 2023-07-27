@@ -25,20 +25,24 @@ import kr.co.jhta.pony.util.PageUtil;
 @Controller
 public class AdminController {
   
+	private final NoticeService nservice;
+	private final QuestionService qservice;
+	private final AnswerService aservice;
+	private final OrderDetailService odservice;
+	private final OrderService oservice;
+
 	@Autowired
-	NoticeService nservice;
-	
-	@Autowired
-	QuestionService qservice;
-	
-	@Autowired
-	AnswerService aservice;
-	
-	@Autowired
-	OrderDetailService odservice;
-	
-	@Autowired
-	OrderService oservice;
+	public AdminController(NoticeService nservice,
+						   QuestionService qservice,
+						   AnswerService aservice,
+						   OrderDetailService odservice,
+						   OrderService oservice) {
+		this.nservice = nservice;
+		this.qservice = qservice;
+		this.aservice = aservice;
+		this.odservice = odservice;
+		this.oservice = oservice;
+		}
 	
 	@GetMapping("/admin1")
 	public String admin() {

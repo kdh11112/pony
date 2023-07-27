@@ -8,7 +8,7 @@
 		VALUES (#{answerContents}, now(), #{questionNo})
 	</insert>
 	<select id="selectOne" parameterType="int" resultType="kr.co.jhta.pony.dto.AnswerDTO">
-		SELECT *
+		SELECT answerNo, answerContents, answerDate, questionNo
 		FROM ANSWER
 		WHERE questionNo = #{questionNo}
 	</select>

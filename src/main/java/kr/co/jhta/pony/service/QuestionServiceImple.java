@@ -68,10 +68,10 @@ public class QuestionServiceImple implements QuestionService {
 		
 	}
 
+	//체크박스 삭제
 	@Override
 	public void deletecheck(String no) {
 		dao.deleteCheck(no);
-		
 	}
 
 }
