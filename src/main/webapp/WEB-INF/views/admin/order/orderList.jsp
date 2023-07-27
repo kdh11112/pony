@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +14,9 @@
 <link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="css/admin/css/styles.css" rel="stylesheet" />
+<link href="css/admin/css/board.css" rel="stylesheet" />
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	<div class="d-flex" id="wrapper">
@@ -52,7 +57,112 @@
 	        </nav>
 	        <!-- Page content-->
 	        <div class="container-fluid">
-	        	<p>내용 입력</p>
+	        	<section class="notice">
+  					<div class="page-title">
+        				<div class="container">
+            				<h3>고객 주문목록</h3>
+        				</div>
+    				</div>
+    				<!-- board list area -->
+				    <div id="board-list">
+				        <div class="container">
+				            <table class="board-table">
+				                <thead>
+					                <tr>
+					                	<th scope="col" class="th-"><input type="checkbox" id="allCheck" name="allCheck"/></th>
+					                	<th scope="col" class="th-num">주문번호</th>
+					                    <th scope="col" class="th-total">주문금액</th>
+					                    <th scope="col" class="th-member">고객번호</th>
+					                    <th scope="col" class="th-date">주문일</th>
+					                    <th width="15%" scope="col" class="th-status">주문상태</th>
+					                </tr>
+				                </thead>
+				                <tbody>
+				                	<c:forEach var="list" items="${list }">
+						                <tr>
+						                	<!-- 주문번호를 value로 줘서 체크하면 주문번호가 배열로 담기게 -->
+						                    <td><input type="checkbox" name="RowCheck" value="${list.orderNo }"/></td>
+						                    <td>
+						                      <a href="orderdetail?orderNo=${list.orderNo }">${list.orderNo }</a>
+						                    </td>
+						                    <td>
+						                      <a href="orderdetail?orderNo=${list.orderNo }">${list.orderTotal }</a>
+						                    </td>
+						                    <td>${list.memberNo }</td>
+						                    <td><fmt:parseDate var="dateString"
+													value="${list.orderDate }" pattern="yyyy-MM-dd HH:mm:ss" /> 
+												<fmt:formatDate
+													value="${dateString }" pattern="yyyy-MM-dd HH:mm" />
+											</td>
+							                    <!-- 답변상태에 따른 글씨색 변화 -->
+							                    <c:choose>
+													<c:when test="${list.orderStatus == '배송준비중'}">
+													    <td class="td-status" style="color: blue;">
+													        ${list.orderStatus}
+													    </td>
+													</c:when>
+													<c:when test="${list.orderStatus == '배송중' || '배송완료'}">
+													    <td class="td-status" style="color: black;">
+													        ${list.orderStatus}
+													    </td>
+													</c:when>
+													<c:when test="${list.orderStatus == '주문취소'}">
+													    <td class="td-status" style="color: red;">
+													        ${list.orderStatus}
+													    </td>
+													</c:when>
+												</c:choose>
+						                </tr>
+						             </c:forEach>   
+				                </tbody>
+			                	<tr>
+									<td colspan="6">
+										<nav aria-label="Page navigation example">
+											<ul class="pagination">
+												<c:if test="${map.prev }">
+													<li class="page-item"><a class="page-link"
+														href="list?currentPage=${map.currentPage-5 }">이전</a></li>
+												</c:if>
+												<c:forEach var="i" begin="${map.startPageNo }"
+													end="${map.endPageNo }">
+													<li class="page-item"><a class="page-link"
+														href="questionlist?currentPage=${i }">${i }</a></li>
+												</c:forEach>
+												<c:if test="${map.next }">
+													<li class="page-item"><a class="page-link"
+														href="questionlist?currentPage=${map.currentPage+5 }">다음</a></li>
+												</c:if>
+											</ul>
+										</nav>
+									</td>
+								</tr>
+								
+				            </table>
+				        </div>
+				    </div>
+				    <!-- board search area -->
+				    <div id="board-search">
+				        <div class="container">
+				            <div class="search-window">
+				                <form action="">
+				                    <div class="search-wrap">
+				                        <select name="type" class="choicetype">
+				                        	<option value="">--</option>		
+				                        	<option value="W">작성자</option>		
+				                        	<option value="T">제목</option>		
+				                        	<option value="C">내용</option>	
+				                        	<option value="A">답변상태</option>	
+				                    	</select>
+				                        <input id="search" type="search" name="" placeholder="검색어를 입력해주세요." value="">
+				                        <button type="submit" class="btn btn-dark">검색</button>
+				                    </div>
+				                    
+										<input type="button" class="btn btn-dark" value="삭제" onclick="deleteValue();"/>
+				                </form>
+				            </div>
+				        </div>
+				    </div>
+				</section>
 	        </div>
         </div>
 	</div>

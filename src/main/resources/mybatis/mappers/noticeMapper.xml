@@ -4,13 +4,6 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="kr.co.jhta.pony.dao.NoticeDAO">
   	<select id="getAll" resultType="kr.co.jhta.pony.dto.NoticeDTO" parameterType="kr.co.jhta.pony.dto.StartEnd">
-  		<!-- select rn,noticeNo,noticeTitle,noticeContents,noticeDate,noticeHits
-		from (select rownum rn,noticeNo,noticeTitle,noticeContents,noticeDate,noticeHits
-		from(select noticeNo,noticeTitle,noticeContents, noticeDate,noticeHits
-		from NOTICE 
-		order by noticeNo desc) as sub
-		where rownum &lt;=#{endNo}) as derived
-		where rn &gt;=#{startNo} -->
 		SELECT rn, noticeNo, noticeTitle, noticeContents, noticeDate, noticeHits
     	FROM (
         SELECT ROW_NUMBER() OVER (ORDER BY noticeNo DESC) AS rn,

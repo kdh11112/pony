@@ -15,6 +15,7 @@ public interface AnswerDAO {
 	void insertAnswer(AnswerDTO dto);
 	AnswerDTO selectOne(int questionNo);
 	void deleteOne(int questionNo);
+	void modifyAnswer(AnswerDTO dto);
 	
 
 }
