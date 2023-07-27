@@ -3,15 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Font Awesome -->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-<!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
-<!-- MDB -->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet" />
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -197,14 +195,8 @@
 										
 									</div>
 
-
-
-								
 						</form>
 
-
-						
-							
 
 							</div>
 						</div>
@@ -213,11 +205,9 @@
 			</div>
 	</section>
 	
-	
-	
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+</body>
+
 
 <script>
     function execDaumPostcode() {
@@ -270,14 +260,17 @@
 </script>
 
 
-<script> // 핸드폰번호 입력시 자동 하이픈 추가
+
+
+<script>
+
+// 핸드폰번호 입력시 자동 하이픈 추가
   $(document).on("keyup", ".phone", function() { 
 		$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
 	});
   	
-</script>
-  
-<script> // 이메일 인증번호 발송 스크립트
+
+// 이메일 인증번호 발송 스크립트 이미 가입된 이메일이면 메세지를 출력하고 메세지 발송안함
   function sendAuthCode() {
     // 인증 버튼을 눌렀을 때 실행되는 비동기 POST 요청
     // 폼 데이터를 가져와서 fetch() 메서드를 사용하여 서버로 POST 요청 보냄
@@ -310,10 +303,8 @@
       });
   }
 
-</script>
   
-  
-<script> // 인증번호 확인 스크립트
+// 인증번호 확인 스크립트 인증 성공시 가입하기 버튼 활성화
 function autoemail() {
 	
 	const authInput = document.getElementById('authCode');
@@ -335,23 +326,17 @@ function autoemail() {
 		       const regBtn = document.getElementById('regBtn');
 		       regBtn.disabled =  false;
 			}else {
-				console.log("시이잉일패");
+				console.log("실패");
 				alert('실패하셧습니다.');
 			}
 		}
-		
 	});
 
 }
 
-</script>
-  
-
-
-
-<script>
+//이메일 유효성검사
 function isValidEmail(email) {
-	  // 간단한 이메일 형식 검사를 위한 정규식
+	  // 이메일 형식 검사를 위한 정규식
 	  const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 	  return emailRegex.test(email);
 	}
@@ -370,9 +355,8 @@ function isValidEmail(email) {
 	  }
 	});
 
-</script>
-
-<script>
+	
+//패스워드 유효성 검사
 function isValidPassword(password) {
   const pwRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
   const hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
@@ -394,10 +378,13 @@ function isValidPassword(password) {
   return errorMsg;
 }
 
+//패스워드 패스워드확인이 일치하는지 확인하는 코드
 function passwordsMatch(password, confirmPassword) {
   return password === confirmPassword;
 }
 
+
+//실시간으로 패스워드를 감시하고 유효성검사에 따른 errorMsg 출력
 document.getElementById('password').addEventListener('input', function() {
   const pw = document.getElementById('password');
   const validationMsg = document.getElementById("passwordValidationMsg");
@@ -406,6 +393,8 @@ document.getElementById('password').addEventListener('input', function() {
   validationMsg.innerHTML = validationResult;
 });
 
+
+//실시간으로 패스워드 확인을 감시하고 패스워드랑 일치하지 않으면 메세지 출력
 document.getElementById('password2').addEventListener('input', function() {
   const pw = document.getElementById('password');
   const pw2 = document.getElementById('password2');
@@ -418,9 +407,8 @@ document.getElementById('password2').addEventListener('input', function() {
   }
 });
 
-</script>
 
-<script>
+//실시간으로 이메일주소를 감시하고 중복체크 (DB 확인)
 function checkId(){
         var id = $('#ponyMemberEmail').val(); //id값이 "id"인 입력란의 값을 저장
         $.ajax({
@@ -439,19 +427,33 @@ function checkId(){
                 alert("에러입니다");
             }
         });
-        };
-</script>
+};
+
+        
 
 
-<script>
+//모든 유효성검사를 통과한 상태로 가입하기 버튼을 누르면 폼데이터를 제출
 function submitForm() {
-	//console.log("눌렷니?");
-	$("#frm").attr("method","post").attr("action", "/ponyRegOk").submit();
-	  
-}
+	cnt++
+ 	//console.log("눌렷니?");
+	  const pw = document.getElementById('password').value;
+	  const pw2 = document.getElementById('password2').value;
+	  const validationMsg = document.getElementById("passwordValidationMsg");
+	  const validationMsg2 = document.getElementById("passwordValidationMsg2");
+	  const emailValidationMsg = document.getElementById('emailValidationMsg');
+	  const authButton = document.querySelector('.btn-primary');
+		cnt ++;
+	  if (validationMsg.innerText !== '' || validationMsg2.style.display === "block" || emailValidationMsg.style.display === "block" || authButton.disabled) {
+	    alert("입력값을 확인하세요.");
+	    console.log("hohoho");
+	  } else {
+	   $("#frm").attr("method", "post").attr("action", "/ponyRegOk").submit();
+	  }
+
+ 	//console.log(cnt);
+	}
 
 </script>
 
 
-</body>
 </html>
