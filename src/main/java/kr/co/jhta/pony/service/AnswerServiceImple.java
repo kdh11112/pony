@@ -28,4 +28,10 @@ public class AnswerServiceImple implements AnswerService{
 		
 	}
 
+	@Override
+	public void modifyAnswer(AnswerDTO dto) {
+		dao.modifyAnswer(dto);
+		
+	}
+
 }

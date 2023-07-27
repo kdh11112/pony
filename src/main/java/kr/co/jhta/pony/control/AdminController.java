@@ -17,6 +17,8 @@ import kr.co.jhta.pony.dto.NoticeDTO;
 import kr.co.jhta.pony.dto.QuestionDTO;
 import kr.co.jhta.pony.service.AnswerService;
 import kr.co.jhta.pony.service.NoticeService;
+import kr.co.jhta.pony.service.OrderDetailService;
+import kr.co.jhta.pony.service.OrderService;
 import kr.co.jhta.pony.service.QuestionService;
 import kr.co.jhta.pony.util.PageUtil;
 
@@ -32,9 +34,15 @@ public class AdminController {
 	@Autowired
 	AnswerService aservice;
 	
-	@GetMapping("/admin")
+	@Autowired
+	OrderDetailService odservice;
+	
+	@Autowired
+	OrderService oservice;
+	
+	@GetMapping("/admin1")
 	public String admin() {
-		return "/admin/admin";
+		return "/admin/admin1";
 	}
 
 	// 재고 관리 ------------------------------------------------------------
@@ -45,9 +53,26 @@ public class AdminController {
 	
 	// 주문 목록 ------------------------------------------------------------
 	@GetMapping("/adminorderlist")
-	public String adminorderlist() {
+	public String adminorderlist(Model model, @RequestParam(name="currentPage",defaultValue="1")int currentPage) {
+		
+		//총게시물수
+		int totalNumber = oservice.getTotal();
+		
+		//페이지당 게시물수
+		int recordPerPage = 10;
+		
+		//총페이지수, 한페이지당 수, 현재 페이지 번호
+		Map<String, Object> map = PageUtil.getPageData(totalNumber, recordPerPage, currentPage);
+		
+		int startNo = (int)map.get("startNo");
+		int endNo = (int)map.get("endNo");
+		
+		model.addAttribute("list",oservice.getAllByAdmin(startNo, endNo));
+		model.addAttribute("map", map);
 		return "/admin/order/orderList";
-	}
+		}
+	
+	
 	
 	// 고객 문의 ------------------------------------------------------------
 	@GetMapping("/questionlist")
@@ -68,8 +93,8 @@ public class AdminController {
 		model.addAttribute("map", map);
 
 		return "/admin/question/questionList";
-
 	}
+	
 	// 문의글 상세
 	@GetMapping("/questiondetail")
 	public String questiondetail(@RequestParam("questionNo")int questionNo, Model model) {
@@ -77,6 +102,7 @@ public class AdminController {
 		model.addAttribute("detailanswer", aservice.selectOne(questionNo));
 		return "/admin/question/questionDetail";
 	}
+	
 	// 답변 달기
 	@PostMapping("/answer")
 	public String answer(@ModelAttribute AnswerDTO dto,HttpServletRequest req) {
@@ -96,6 +122,7 @@ public class AdminController {
 		qservice.updateAnswerStatus(qdto);
 		return "redirect:/questiondetail?questionNo="+questionNo;
 	}
+	
 	//문의글 체크박스 선택 삭제
 	@PostMapping("delete")
 	public String ajaxTest(HttpServletRequest req) {
@@ -106,7 +133,8 @@ public class AdminController {
 		}
 	    return "redirect:/questionlist";
 	}
-	// 답변 삭제
+	
+	//답변 삭제
 	@GetMapping("/deleteanswer")
 	public String deleteanswer(@ModelAttribute AnswerDTO dto,HttpServletRequest req) {
 		int questionNo = Integer.parseInt(req.getParameter("questionNo"));
@@ -118,9 +146,23 @@ public class AdminController {
 		qservice.updateAnswerStatus(qdto);
 		return "redirect:/questiondetail?questionNo="+questionNo;
 	}
+	
+	//답변 수정 페이지
 	@GetMapping("/modifyanswer")
-	public void modifyanswer(@ModelAttribute AnswerDTO dto, HttpServletRequest req) {
-		
+	public String modifyAnswer(Model model, @RequestParam("questionNo")int questionNo) {
+		//기존 답변 정보 가져오기
+		model.addAttribute("detail",qservice.selectOne(questionNo));
+		model.addAttribute("detailanswer", aservice.selectOne(questionNo));
+		return "/admin/question/answerModify";
+	}
+
+	//답변 수정
+	@PostMapping("/modifyanswer")
+	public String modifyAnswerOk(@ModelAttribute AnswerDTO dto, HttpServletRequest req, @RequestParam("questionNo")int questionNo) {
+		String contents = req.getParameter("answer");
+		dto.setAnswerContents(contents);
+		aservice.modifyAnswer(dto);
+		return "redirect:/questiondetail?questionNo="+questionNo;
 	}
 	
 	// 공지사항 (유경님 코드)----------------------------------------------------

@@ -17,4 +17,9 @@
 		FROM ANSWER
 		WHERE questionNo = #{questionNo}
 	</delete>
+	<update id="modifyAnswer" parameterType="kr.co.jhta.pony.dto.AnswerDTO">
+		UPDATE ANSWER 
+		SET answerContents = #{answerContents}
+		WHERE questionNo = #{questionNo}
+	</update>
 </mapper>
