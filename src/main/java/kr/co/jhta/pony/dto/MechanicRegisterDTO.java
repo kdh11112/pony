@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MechanicRegisterDTO {
 	
-	private int mechanicNo;
-	private String mechanicPw;
-	private String mechanicName;
+	private int mechanicNo; //아이디
+	private String mechanicPw; //비밀번호
+	private String mechanicName; //이름
 	
-	private int shopNo;
-	private String shopArea;
-	private String shopAreaPoint;
+	private int shopNo; //지점번호
+	private String shopArea; //지역
+	private String shopAreaPoint; //지점
 
 }

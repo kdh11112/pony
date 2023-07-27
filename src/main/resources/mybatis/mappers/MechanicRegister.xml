@@ -24,7 +24,7 @@
 	</update>
 	
 	<select id="loginCheck" resultType="int" parameterType="kr.co.jhta.pony.dto.MechanicRegisterDTO">
-		SELECT count(*) FROM MECHANIC WHERE mechanicNo = #{mechanicNo} AND mechanicPw = #{mechanicPw}
+		SELECT count(*) FROM MECHANIC WHERE mechanicNo = #{mechanicNo} AND mechanicPw = #{mechanicPw} AND shopNo = #{shopNo}
 	</select>
 
 </mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+<mapper namespace="kr.co.jhta.pony.dao.CarRegisterDAO">
+
+	<insert id="CarInsert" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+		INSERT INTO CLIENT(clientVin,clientCarNumber,clientDistanceDriven,clientCarType,clientShipDate,clientProductionDate,clientColor,memberNo) VALUES(#{regCarDTO.clientVin},#{regCarDTO.clientCarNumber},#{regCarDTO.clientDistanceDriven},#{regCarDTO.clientCarType},#{regCarDTO.clientShipDate},#{regCarDTO.clientProductionDate},#{regCarDTO.clientColor},#{no})
+	</insert>
+	
+	<insert id="ClientInsert" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+		INSERT INTO MEMBER(memberEmail,memberName,memberPhone,memberPassword) VALUES(#{memberEmail},#{memberName},#{memberPhone},#{memberName})
+	</insert>
+	
+	<select id="ClientSelectNo" resultType="int" parameterType="int">
+		SELECT memberNo FROM MEMBER m ORDER BY memberNo DESC LIMIT 1
+	</select>
+	
+	<select id="SearchSelect" resultType="kr.co.jhta.pony.dto.CarRegisterDTO" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+		SELECT clientVin, clientCarNumber, memberName
+		FROM CLIENT c
+		LEFT JOIN MEMBER m ON c.memberNo = m.memberNo
+		  <where>
+		    <if test="clientVin != null and clientVin != ''">
+		      AND c.clientVin LIKE CONCAT('%', #{clientVin}, '%')
+		    </if>
+		    <if test="clientCarNumber != null and clientCarNumber != ''">
+		      AND c.clientCarNumber LIKE CONCAT('%', #{clientCarNumber}, '%')
+		    </if>
+		    <if test="memberName != null and memberName != ''">
+		      AND m.memberName LIKE CONCAT('%', #{memberName}, '%')
+		    </if>
+		  </where> 
+	</select>
+	
+	<select id="regRegistrationSelect" resultType="kr.co.jhta.pony.dto.CarRegisterDTO" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+		SELECT 	c.clientVin,
+				clientCarNumber,
+				clientDistanceDriven,
+				clientCarType,
+				clientShipDate,
+				clientProductionDate,
+				clientColor,
+				memberName,
+				memberEmail,
+				memberPhone,
+				registrationNumber,
+				registrationClientRequests,
+				registrationSignificant,
+				r.mechanicNo,
+				registrationReservationDueDate,
+				registrationDate,
+				r.shopno,
+				s.shopArea,
+				s.shopAreaPoint
+		FROM CLIENT c LEFT JOIN MEMBER m 
+		ON c.memberNo = m.memberNo
+		LEFT JOIN REGISTRATION r 
+		ON c.clientVin = r.clientVin
+		LEFT JOIN MECHANIC m2 
+		ON r.mechanicNo = m2.mechanicNo 
+		LEFT JOIN SHOP s 
+		On m2.shopNo = s.shopNo
+		WHERE c.clientVin =#{clientVin}
+
+	</select>
+	
+	
+
+</mapper>
