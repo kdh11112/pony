@@ -129,9 +129,12 @@
 		margin: auto;
 		background-color: rgb(32, 103, 162);
 	}
-	.accordion-button{
-		color:  #5E5E5E;
+	.accordion-button:not(.collapsed){
+		background-color: rgb(193, 220, 255);
+		color: white;
 		font-weight: bold;
+		text-align: center;
+		font-size: 17px;
 	}
 	#flexCheckDefault1,
 	#flexCheckDefault2,
@@ -143,6 +146,9 @@
 		color:white;
 		background-color: rgb(32, 103, 162);
 		font-weight: bold;
+	}
+	.accordion-button:not(.collapsed){
+		border-bottom-color: red;
 	}
 </style>
 
@@ -179,7 +185,7 @@
 	<div class="accordion" id="accordionExample">
 		<div class="accordion-item">
 			<h2 class="accordion-header" id="headingOne">
-				<button class="accordion-button collapsed" id="headingOneBtn" type="button"  data-bs-target="#collapseOne" aria-expanded="flase" aria-controls="collapseOne">
+				<button class="accordion-button collapsed" id="headingOneBtn" type="button" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
 		  			시승모델 선택하기
 				</button>
 	    	</h2>
