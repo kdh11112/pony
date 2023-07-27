@@ -63,6 +63,7 @@
 												<div class="form-floating">
 													<input type="text" id="authCode" class="form-control form-control-lg shadow-sm" />
 													<label>인증번호</label>
+													<span id="authCodeTimer" style="color: red; display: none;">남은시간 : </span>
 												</div>
 											</div>
 
@@ -270,8 +271,11 @@
 	});
   	
 
+
+
 // 이메일 인증번호 발송 스크립트 이미 가입된 이메일이면 메세지를 출력하고 메세지 발송안함
   function sendAuthCode() {
+	
     // 인증 버튼을 눌렀을 때 실행되는 비동기 POST 요청
     // 폼 데이터를 가져와서 fetch() 메서드를 사용하여 서버로 POST 요청 보냄
 
@@ -294,13 +298,51 @@
     })
       .then(data => {
         // 서버에서 받은 응답 데이터를 처리
+        clearTimeout(timer); //기존 타이머 초기화
         console.log(data);
+        startTimer(60);
+        
       })
       .catch(error => {
         // 오류 처리
         
         console.error('Error:', error);
       });
+    
+ }
+
+
+//타이머 초기화를 위해 함수 바깥에 선언
+  let timer;
+  let remainingTime; // 전역 변수로 선언
+
+  // 타이머 함수
+  function startTimer(seconds) {
+    remainingTime = seconds; // 전역 변수에 남은 시간 설정
+    const authCodeTimer = document.getElementById('authCodeTimer');
+    authCodeTimer.style.display = 'block';
+
+    // 타이머 갱신 함수
+    function updateTimer() {
+      if (remainingTime > 0) {
+        authCodeTimer.innerText = '남은시간: ' + remainingTime + '초';
+        remainingTime--;
+      } else {
+        authCodeTimer.innerText = '시간 초과';
+        // 타이머 종료 후에도 텍스트 값을 초기화
+        setTimeout(() => {
+          authCodeTimer.innerText = '';
+          authCodeTimer.style.display = 'none'; // 타이머 숨김
+        }, 3000); // 3초 후에 텍스트 값을 초기화하고 숨김
+        clearInterval(timer); // 타이머 정지
+      }
+    }
+
+    // 1초마다 updateTimer 함수를 호출하여 타이머 갱신
+    timer = setInterval(updateTimer, 1000);
+
+    // 초기 호출
+    updateTimer();
   }
 
   
