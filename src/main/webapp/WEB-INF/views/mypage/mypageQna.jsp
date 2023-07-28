@@ -136,7 +136,7 @@
 							<div class="content-body" data-v-269e3e5f>
 								<div class="my-title" data-v-269e3e5f>
 									<div class="head" data-v-269e3e5f>
-										<strong data-v-269e3e5f><span data-v-269e3e5f>${dto.memberName }</span>
+										<strong data-v-269e3e5f><a href="/mypage"><span data-v-269e3e5f>${dto.memberName }</span></a>
 											님, 안녕하세요! </strong> <a href="" class="btn btn-primary active infomodify_btn" ><span>정보수정
 												<!---->
 

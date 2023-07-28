@@ -68,7 +68,23 @@
 .mycarTitle{
 	margin-top:20px;
 }
-
+#carregibox{
+	float: right;
+}
+.my-car{
+	float: left;
+}
+.carregiGo{
+	float:right;
+	margin-left:10px;
+	margin-right:30px;
+}
+.carregidelete{
+	float: right;
+}
+#carregibox{
+	margin-top:20px;
+}
 </style>
 </head>
 <body>
@@ -137,7 +153,7 @@
 							<div class="content-body" data-v-269e3e5f>
 								<div class="my-title" data-v-269e3e5f>
 									<div class="head" data-v-269e3e5f>
-										<strong data-v-269e3e5f><span data-v-269e3e5f>${dto.memberName }</span>
+										<strong data-v-269e3e5f><a href="/mypage"><span data-v-269e3e5f>${dto.memberName }</span></a>
 											님, 안녕하세요! </strong> <a href="" class="btn btn-primary active infomodify_btn" ><span>정보수정
 												<!---->
 
@@ -162,7 +178,48 @@
 									</ul>
 								</div>
 								<!-- 포인트 1:1문의내역 end-->
+								<!--나의자동차 -->
+								<div class="my-activity" data-v-269e3e5f>
+									<div class="category-title" data-v-269e3e5f></div>
+									<div class="details" data-v-269e3e5f>
+										<div class="el-row"
+											style="margin-left: -10px; margin-right: -10px;"
+											data-v-269e3e5f></div>
+									</div>
+									<div class="history-list" data-v-269e3e5f>
+										<div class="el-row"
+											style="margin-left: -10px; margin-right: -10px;"
+											data-v-269e3e5f>
+											<div class="el-col el-col-8"
+												style="padding-left: 10px; padding-right: 10px;"
+												data-v-269e3e5f>
+												<div class="content-box" data-v-269e3e5f>
+													<div class="title" data-v-269e3e5f>
+														<div class="">나의 자동차</div>
+														<a href="carmanagement" class="btn btn-primary active"><span>차량등록관리 <!---->
+														</span></a>
+													</div>
+													<!---->
+												</div>
+											</div>
 
+											<div class="el-col el-col-8"
+												style="padding-left: 10px; padding-right: 10px;"
+												data-v-269e3e5f>
+												<div class="content-box" data-v-269e3e5f>
+													<div class="title" data-v-269e3e5f>
+														<a href="#
+															draggable="
+															true" class="btn btn-primary active"><span> 차량기본관리 <!---->
+														</span></a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- 시승신청내역 정비예약내역 end -->
+								
 								<!--시승신청내역 정비예약내역-->
 								<div class="my-activity" data-v-269e3e5f>
 									<div class="category-title" data-v-269e3e5f></div>
@@ -180,9 +237,7 @@
 												data-v-269e3e5f>
 												<div class="content-box" data-v-269e3e5f>
 													<div class="title" data-v-269e3e5f>
-														<a href="#
-															draggable="
-															true" class="btn btn-primary active"><span>시승
+														<a href="/carmanagement" class="btn btn-primary active"><span>시승
 																신청 내역 <!---->
 														</span></a>
 													</div>
@@ -219,15 +274,22 @@
 
 								</div>
 								<div class="sub" data-v-269e3e5f>
-									<span data-v-269e3e5f>등록 차량의 자세한 정보를 확인하실 수 있습니다.</span> <a
-										href="/carregi" class="btn btn-primary active"><span>등록 차량정보 확인 <!---->
-									</span></a>
+									<span data-v-269e3e5f>등록 차량의 자세한 정보를 확인하실 수 있습니다.</span> 
+								</div>
+							
+								<div class="no-car" data-v-269e3e5f>
+									<span class="ico-nocar" data-v-269e3e5f><i
+										data-v-269e3e5f>등록된 차가 없습니다.</i></span>
+									<p data-v-269e3e5f>등록된 차량이 없습니다.</p>
 								</div>
 							</div>
-							<div class="no-car" data-v-269e3e5f>
-								<span class="ico-nocar" data-v-269e3e5f><i
-									data-v-269e3e5f>등록된 차가 없습니다.</i></span>
-								<p data-v-269e3e5f>등록된 차량이 없습니다.</p>
+							<div id="carregibox">
+								<div class="carregiGo">
+									<input type="button" value="차량등록하기" />
+								</div>
+								<div class="carregidelete">
+									<input type="button" value="차량등록삭제" />
+								</div>
 							</div>
 						</div>
 
