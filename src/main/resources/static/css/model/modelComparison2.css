@@ -83,5 +83,12 @@
 		font-weight: bold;
 	}
 	.btn{
+		height: 50px;
 		margin-top: 70px;
+	}
+	.row{
+		margin-left: 10%;		
+	}
+	#whiteBar3{
+		height: 100px;
 	}

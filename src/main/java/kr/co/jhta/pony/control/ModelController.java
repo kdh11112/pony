@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import kr.co.jhta.pony.dao.ModelDAO;
+import kr.co.jhta.pony.service.ModelService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -15,11 +15,11 @@ import lombok.extern.slf4j.Slf4j;
 public class ModelController {
 
 	@Autowired
-	ModelDAO dao;
+	private ModelService service;
 	
 	@RequestMapping("/modelComparison")
 	public String modelSelect(Model model) {
-		model.addAttribute("model",dao.ModelInfo());
+		model.addAttribute("model",service.ModelInfo());
 		return "modelComparison1";
 	}
 	
@@ -27,8 +27,8 @@ public class ModelController {
 	public String modelInfo(@RequestParam("selectModel1")String modelName1,@RequestParam("selectModel2")String modelName2, Model model) {
 		log.info("modelName1 : " + modelName1);
 		log.info("modelName2 : " + modelName2);
-		model.addAttribute("model1",dao.ModelOne(modelName1));
-		model.addAttribute("model2",dao.ModelOne(modelName2));
+		model.addAttribute("model1",service.ModelOne(modelName1));
+		model.addAttribute("model2",service.ModelOne(modelName2));
 		return "modelComparison2";
 	}
 	
@@ -39,7 +39,7 @@ public class ModelController {
 	}
 	@GetMapping("/modelDetail")
 	public String modelDetail(@RequestParam("selectModel")String modelName, Model model) {
-		model.addAttribute("model", dao.ModelOne(modelName));
+		model.addAttribute("model", service.ModelOne(modelName));
 		return "modelDetail";
 	}
 	

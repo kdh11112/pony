@@ -28,14 +28,8 @@
    .grid{
         margin-top: 100px;
    }
-   .model-info-co1{
-        width: 1000px;
-    }
-    .model-info-co1 > img{
-        width: 100%;
-    }
     .model-info-co2{
-        width: 120px;
+        width: 30%;
         margin-left:40px;
         font-weight: 600;
         background-color: rgb(249, 252, 255);
@@ -44,7 +38,7 @@
     }
     .model-info-co3,
     .model-info-co4{
-    	width:350px;
+    	width:60%;
         font-weight: 600;
         margin-left: 5px;
         color: rgb(115, 116, 117);
@@ -58,14 +52,12 @@
         margin: auto;
     }
     #modelImg2{
-		margin-bottom: 50px;
-	}
-    #modelImg2,#modelImg3
-   	,#modelImg4{
+		width:180%;
    		height:620px;
    	}
     .row{
         width: 100%;
+        font-size:15px;
     }
     .design-info{
         font-size: 50px;
@@ -81,8 +73,7 @@
         color: #6C757D;
     }
     #info{
-        margin-left: 430px;
-        width: 400px;
+		text-align: center;
     }
     #cardArea{
     	margin-top:-100px;
@@ -90,19 +81,16 @@
     }
     #modelName{
     	width:200px;
-    	margin-top:30px;
-    	margin-left:-130px;
+    	margin-top:100px;
     	background-color: white;
     	font-size:30px;
     	color:rgb(170, 206, 255);
     }
     .imgArea{
     	margin-top:20px;
+    	margin-left: 2px;
     }
-    #accordionExample{
-		width:600px;
-		margin-left:230px;
-	}
+
     #topImg{
 		width:100%;
 		height:300px;
@@ -131,12 +119,12 @@
 	}
     #modelImg3,
     #modelImg5{
-		width:53.2%;
+		width: 100%;
 		height: 500px;
 	}
 	#modelImg4,
 	#modelImg6{
-		width:46.8%;
+		width: 100%;
 		height: 500px;
 	}
 	.accordion-button{
@@ -159,8 +147,12 @@
     .designArea{
 		font-size: 70px;
 		font-weight: bold;
+		margin-left: 10px;
 	}
     .designArea > p {
 		font-size: 15px;
 		color: #6C757D;
+	}
+	img{
+		margin-bottom: 22px;
 	}
