@@ -1,5 +1,6 @@
 package kr.co.jhta.pony.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,11 +51,30 @@ public class CarRegisterServiceImple implements CarRegisterService{
 
 
 
+//	@Override
+//	public List<MechanicRegisterDTO> mechanicChoice(int word) {
+//		
+//		return dao.mechanicSelect(word);
+//	}
+
+
+
 	@Override
-	public List<MechanicRegisterDTO> mechanicChoice(int word) {
-		
-		return dao.mechanicSelect(word);
+	public CarRegisterDTO resNum(int registrationNumber, LocalDate registrationDate) {
+		return dao.resNumSelect(registrationNumber,registrationDate);
 	}
+
+
+	@Override
+	public List<MechanicRegisterDTO> regChiceMechanic(Integer mechanicNo, String mechanicName, int word) {
+		return dao.resMechanicSelect(mechanicNo,mechanicName,word);
+	}
+
+	@Override
+	public MechanicRegisterDTO registrationChiceMechanicInput(int mechanicNo) {
+		return dao.registrationChiceMechanicInputSelect(mechanicNo);
+	}
+
 
 
 }

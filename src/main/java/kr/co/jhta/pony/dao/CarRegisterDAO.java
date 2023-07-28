@@ -1,5 +1,6 @@
 package kr.co.jhta.pony.dao;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -25,7 +26,11 @@ public interface CarRegisterDAO {
 
 	public void regAndcorrInsert(CarRegisterDTO regCarDTO);
 
-	public List<MechanicRegisterDTO> mechanicSelect(int word);
+	public CarRegisterDTO resNumSelect(int registrationNumber, LocalDate registrationDate);
+
+	public List<MechanicRegisterDTO> resMechanicSelect(Integer mechanicNo, String mechanicName, int word);
+
+	public MechanicRegisterDTO registrationChiceMechanicInputSelect(int mechanicNo);
 
 
 }

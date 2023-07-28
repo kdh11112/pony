@@ -35,6 +35,55 @@
 	</select>
 	
 	<select id="regRegistrationSelect" resultType="kr.co.jhta.pony.dto.CarRegisterDTO" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+		
+			SELECT
+			    c.clientVin,
+			    clientCarNumber,
+			    clientDistanceDriven,
+			    clientCarType,
+			    clientShipDate,
+			    clientProductionDate,
+			    clientColor,
+			    memberName,
+			    memberEmail,
+			    memberPhone,
+			    registrationClientRequests,
+			    registrationSignificant,
+			    registrationReservationDueDate,
+			    MAX(registrationDate) AS registrationDate,
+			    s.shopArea,
+			    s.shopAreaPoint
+			FROM CLIENT c
+			LEFT JOIN MEMBER m ON c.memberNo = m.memberNo
+			LEFT JOIN REGISTRATION r ON c.clientVin = r.clientVin
+			LEFT JOIN MECHANIC m2 ON r.mechanicNo = m2.mechanicNo
+			LEFT JOIN SHOP s ON m2.shopNo = s.shopNo
+			WHERE c.clientVin = #{clientVin}
+			GROUP BY c.clientVin
+			ORDER BY registrationDate DESC;
+
+	</select>
+	
+	<select id="resMechanicSelect" parameterType="kr.co.jhta.pony.dto.MechanicRegisterDTO" resultType="kr.co.jhta.pony.dto.MechanicRegisterDTO">
+		SELECT  m.mechanicNo ,
+				m.mechanicName 
+		FROM MECHANIC m LEFT JOIN SHOP s 
+		ON m.shopNo = s.shopNo 
+		WHERE m.shopNo = #{word}
+		<if test="mechanicNo != null and mechanicNo != ''">
+		AND m.mechanicNo LIKE CONCAT('%', #{mechanicNo}, '%')
+		</if>
+		<if test="mechanicName != null and mechanicName != ''">
+		AND m.mechanicName LIKE CONCAT('%', #{mechanicName}, '%')
+		</if>
+	</select>
+	
+	<insert id="regAndcorrInsert" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+	INSERT INTO REGISTRATION(registrationClientRequests,registrationSignificant,mechanicNo,clientVin,shopNo,registrationDate) 
+				values(#{registrationClientRequests},#{registrationSignificant},#{mechanicNo},#{clientVin},#{shopNo},DATE_FORMAT(NOW(), '%Y-%m-%d'))
+	</insert>
+	
+	<select id="resNumSelect" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO" resultType="kr.co.jhta.pony.dto.CarRegisterDTO">
 		SELECT 	c.clientVin,
 				clientCarNumber,
 				clientDistanceDriven,
@@ -42,42 +91,34 @@
 				clientShipDate,
 				clientProductionDate,
 				clientColor,
+				c.memberNo,
 				memberName,
-				memberEmail,
 				memberPhone,
-				
+				registrationNumber,
 				registrationClientRequests,
 				registrationSignificant,
 				r.mechanicNo,
+				mechanicName,
 				registrationReservationDueDate,
 				registrationDate,
-				r.shopno,
-				s.shopArea,
-				s.shopAreaPoint
-		FROM CLIENT c LEFT JOIN MEMBER m 
-		ON c.memberNo = m.memberNo
-		LEFT JOIN REGISTRATION r 
+				shopArea,
+				shopAreaPoint
+		FROM REGISTRATION r left join CLIENT c
 		ON c.clientVin = r.clientVin
-		LEFT JOIN MECHANIC m2 
-		ON r.mechanicNo = m2.mechanicNo 
-		LEFT JOIN SHOP s 
-		On m2.shopNo = s.shopNo
-		WHERE c.clientVin =#{clientVin}
-
+		left join `MEMBER` m
+		ON c.memberNo = m.memberNo
+		left join MECHANIC m2
+		ON r.mechanicNo = m2.mechanicNo
+		left join SHOP s 
+		ON m2.shopNo = s.shopNo
+		where registrationNumber = #{registrationNumber}
+		and registrationDate = #{registrationDate}
 	</select>
 	
-	<select id="mechanicSelect" parameterType="int" resultType="kr.co.jhta.pony.dto.MechanicRegisterDTO">
-		SELECT  m.mechanicNo ,
-				m.mechanicName 
-		FROM MECHANIC m LEFT JOIN SHOP s 
-		ON m.shopNo = s.shopNo 
-		WHERE m.shopNo = #{word}
+	<select id="registrationChiceMechanicInputSelect" resultType="kr.co.jhta.pony.dto.MechanicRegisterDTO" parameterType="int">
+		select mechanicName  from MECHANIC m 
+		WHERE mechanicNo = #{mechanicNo}
 	</select>
-	
-	<insert id="regAndcorrInsert" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
-	INSERT INTO REGISTRATION(registrationClientRequests,registrationSignificant,mechanicNo,clientVin,shopNo,registrationDate) 
-				values(#{registrationClientRequests},#{registrationSignificant},#{mechanicNo},#{clientVin},#{shopNo},DATE_FORMAT(NOW(),'%Y%m%d'))
-	</insert>
 	
 
 </mapper>

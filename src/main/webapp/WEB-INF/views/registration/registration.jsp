@@ -48,7 +48,7 @@ $("#vin").on("click", function() {
 	  var nameSearchIdValue = $("#nameSearchId").val();
 
 	  $.ajax({
-	    url: "/reg/modal", // 요청을 보낼 URL
+	    url: "/reg/registration/modal", // 요청을 보낼 URL
 	    method: "GET", // GET 요청
 	    data: {
 	      clientVin: vinSearchValue, // 서버로 보낼 데이터
@@ -93,6 +93,8 @@ $("#vin").on("click", function() {
 
 	        // tr을 tbody에 추가
 	        tbody.appendChild(row);
+	        
+	        
 	          (function(index) { // 클로저 함수
         	    $("#row" + (index + 1)).on("click", function() { // id값은 "row" + (index + 1)입니다.
         	      //console.log(index + 1); // id값이 1부터 시작하므로 인덱스에 1을 더해줍니다.
@@ -105,8 +107,33 @@ $("#vin").on("click", function() {
         	    	    },
         	    	    success: function(response) {
         	    	    	console.log(response);
+							
+        	    	    	/* for (let responses of response) {  리스트로 받아올시
+        	    	    	
+        	    	    		
+        	    	    	$("#vinIdHi").val(responses.clientVin);//차대번호
+        	    	    	$("#carIdHi").val(responses.clientCarNumber); //차량번호
+        	    	    	$("#memberNameIdHi").val(responses.memberName);//고객명
+        	    	    	
 
         	    	    	
+        	    	    	$("#vinId").val(responses.clientVin);//차대번호
+        	    	    	$("#carId").val(responses.clientCarNumber); //차량번호
+        	    	    	$("#carTypeId").val(responses.clientCarType);//차종
+        	    	    	$("#carColorId").val(responses.clientColor);//색상
+        	    	    	$("#toDayId").val(responses.registrationDate);//접수일
+        	    	    	$("#beforDrivenId").val(responses.clientDistanceDriven);//기존주행거리
+        	    	    	$("#afterDrivenId").val(responses.clientDistanceDriven);//현재주행거리
+        	    	    	$("#ShipDateId").val(responses.clientShipDate);//출고일
+        	    	    	$("#ProductionDateId").val(responses.clientProductionDate);//생산일
+        	    	    	$("#ReservationDueDateId").val(responses.registrationReservationDueDate);//입고예정일
+        	    	    	$("#memberNameId").val(responses.memberName);//고객명
+        	    	    	$("#NumberId").val(responses.memberPhone);//고객전화번호
+        	    	    	$("#shopAreaId").val(responses.shopArea+responses.shopAreaPoint);//최종정비사업소
+        	    	    	$("#SignificantId").val(responses.registrationSignificant);//특이사항
+        	    	    	$("#ClientRequestsId").val(responses.registrationClientRequests);//고객요청사항
+        	    	    	$("#regDateId").val(responses.registrationDate); //최종입고일
+        	    	    	} */
         	    	    	
         	    	    	$("#vinIdHi").val(response.clientVin);//차대번호
         	    	    	$("#carIdHi").val(response.clientCarNumber); //차량번호
@@ -116,7 +143,7 @@ $("#vin").on("click", function() {
         	    	    	$("#carId").val(response.clientCarNumber); //차량번호
         	    	    	$("#carTypeId").val(response.clientCarType);//차종
         	    	    	$("#carColorId").val(response.clientColor);//색상
-        	    	    	$("#toDayId").val(response.registrationDate);//접수일
+        	    	    	//$("#toDayId").val(response.registrationDate);//접수일
         	    	    	$("#beforDrivenId").val(response.clientDistanceDriven);//기존주행거리
         	    	    	$("#afterDrivenId").val(response.clientDistanceDriven);//현재주행거리
         	    	    	$("#ShipDateId").val(response.clientShipDate);//출고일
@@ -124,10 +151,11 @@ $("#vin").on("click", function() {
         	    	    	$("#ReservationDueDateId").val(response.registrationReservationDueDate);//입고예정일
         	    	    	$("#memberNameId").val(response.memberName);//고객명
         	    	    	$("#NumberId").val(response.memberPhone);//고객전화번호
-        	    	    	$("#shopAreaId").val(response.shopArea,response.shopAreaPoint);//최종정비사업소
+        	    	    	$("#shopAreaId").val(response.shopArea+' '+response.shopAreaPoint);//최종정비사업소
         	    	    	$("#SignificantId").val(response.registrationSignificant);//특이사항
         	    	    	$("#ClientRequestsId").val(response.registrationClientRequests);//고객요청사항
-        	    	    	
+        	    	    	$("#regDateId").val(response.registrationDate); //최종입고일
+        	    	    
         	    	    	$('#exampleModal').modal('hide');
         	    	    	
         	    	    },
@@ -157,12 +185,100 @@ $("#vin").on("click", function() {
   }
 
   $("input[value='차량접수/수정']").on("click",function(){
-	
+	//?? 안되는거 아닌가?
 	  document.frm.method="post";
 	  document.frm.action="/reg/registrations";
 	  $("#Form").submit(); 
 	  
   });
+  
+  $("#meId").on("click",function(){
+	  ajaxMC();
+		
+  })
+  
+  $("#meName").on("click",function(){
+	  $("#mechanicId").val("");
+	  ajaxMC();
+  })
+  
+  function ajaxMC(){
+	  let mechanicNoValue = $("#mechanicNoId").val();
+	  let mechanicNameValue = $("#mechanicNameId").val();
+	  
+	  $.ajax({
+		url: "/reg/registration/modal/mechanic",
+		method:"GET",
+		data:{
+			mechanicNo: mechanicNoValue,
+			mechanicName: mechanicNameValue
+			
+		},
+		success:function(data){
+			console.log(data);
+			
+			let mctable = document.getElementById("mcTable");
+			
+			mctable.innerHTML = "";
+			
+			for(let i=0; i<data.length; i++){
+				var row = document.createElement("tr");
+				row.id = "row" + (i+1);
+				
+				var mechanicNoData = data[i].mechanicNo;
+				var mechanicNameData = data[i].mechanicName;
+				
+				var cell = document.createElement("td");
+				var cell1 = document.createElement("td");
+				var cell2 = document.createElement("td");
+				
+				cell.innerText = i+1;
+				cell1.innerText = mechanicNoData;
+				cell2.innerText = mechanicNameData;
+				
+				row.appendChild(cell);
+				row.appendChild(cell1);
+				row.appendChild(cell2);
+				
+				mctable.appendChild(row);
+				
+				(function(index){
+					$("#row" + (index + 1)).on("click",function(){
+						console.log(data[index].mechanicNo);
+						console.log("찍힘?")
+						
+						$.ajax({
+							type:'get',
+							url: '/reg/registration/modal/mechanicInput',
+							data: {
+								mechanicNo : data[index].mechanicNo
+							},
+							success: function(response){
+								console.log(response);
+							$("#mechanicId").val(response.mechanicName);
+							$('#mechanicModal').modal('hide');
+								
+							},
+							error: function(xhr, status, error) {
+	        	    	        console.log(xhr.responseText);
+							}
+						})
+						
+					})
+				})(i)
+				
+			}
+			
+		},
+		error: function(xhr,status,error){
+			console.error("요청실패",xhr,status,error);
+		}
+		  
+		  
+	  });
+		  
+	  
+  }
   
   
 });
@@ -213,7 +329,7 @@ $j(function() {
         <div class="col-md-12" >
             <div class="card card-user " style="height: 85px;">
               <div class="card-body" >
-                <form>
+                <form action="/reg/registration" method="get">
                   <div class="row">
                     <div class="Search">
                        <div class="form-row align-items-center">
@@ -240,10 +356,10 @@ $j(function() {
                     <div class="Search">
                        <div class="form-row align-items-center">
                        		<div>
-					      		<input type="text" id="datePicker" class="form-control" value="">
+					      		<input type="text" id="datePicker" class="form-control" value="" name="registrationDateHi" style="height: 40px">
 					      	</div>
 					      <div class="form-group mb-0">
-					        <input type="text" class="form-control" placeholder="접수번호">
+					        <input type="text" class="form-control" name="registrationNumber" value="${searchOne.registrationNumber }" placeholder="접수번호">
 					      </div>
 					      <button type="submit" class="btn btn-primary btn-round" id="nameSearch">검색</button>
 					      <!-- <button type="submit" class="btn btn-primary btn-round">차량접수/수정</button> -->
@@ -322,42 +438,42 @@ $j(function() {
           <div class="col-md-12">
             <div class="card card-user">
               <div class="card-body">
-                <form action="/reg/registrations" method="post" name="frm" id="Form">
+                <form action="/reg/registration/edit" method="post" name="frm" id="Form">
                   <div class="row">
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>차대번호</label>
-                        <input type="text" class="form-control" id="vinId" name="clientVin" readonly>
+                        <input type="text" class="form-control" id="vinId" name="clientVin" value="${searchOne.clientVin}" readonly>
                       </div>
                     </div>
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>차량번호</label>
-                        <input type="text" class="form-control" id="carId" name="clientCarNumber">
+                        <input type="text" class="form-control" id="carId" name="clientCarNumber" value="${searchOne.clientCarNumber}">
                       </div>
                     </div>
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>차종</label>
-                        <input type="text" class="form-control" id="carTypeId" name="clientCarType" readonly>
+                        <input type="text" class="form-control" id="carTypeId" name="clientCarType" value="${searchOne.clientCarType}" readonly>
                       </div>
                     </div>
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>색상</label>
-                        <input type="text" class="form-control" id="carColorId" name="clientColor" readonly>
+                        <input type="text" class="form-control" id="carColorId" name="clientColor" value="${searchOne.clientColor}" readonly>
                       </div>
                     </div>
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>접수일</label>
-                        <input type="text" class="form-control" id="toDayId" name="registrationDate" readonly>
+                        <input type="text" class="form-control" id="toDayId" name="registrationDate" value="${searchOne.registrationDate}" readonly>
                       </div>
                     </div>
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
-                        <!-- <label>접수번호</label> -->
-                        <input type="hidden" class="form-control" id="registrationNumberId" name="registrationNumber1" readonly>
+                         <label>접수번호 히든처리</label>
+                        <input type="text" class="form-control" id="registrationNumberId" name="registrationNumber1" value="${searchOne.registrationNumber}" readonly>
                       </div>
                     </div>
                   </div>
@@ -365,31 +481,31 @@ $j(function() {
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>기존주행거리</label>
-                        <input type="text" class="form-control" id="beforDrivenId" name="clientDistanceDriven" readonly >
+                        <input type="text" class="form-control" id="beforDrivenId" name="clientDistanceDriven" value="${searchOne.clientDistanceDriven}" readonly >
                       </div>
                     </div>
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>현재주행거리</label>
-                        <input type="text" class="form-control" id="afterDrivenId" name="clientDistanceDriven">
+                        <input type="text" class="form-control" id="afterDrivenId" name="clientDistanceDriven" value="${searchOne.clientDistanceDriven}">
                       </div>
                     </div>
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>출고일</label>
-                        <input type="text" class="form-control" id="ShipDateId" name="clientShipDate" readonly>
+                        <input type="text" class="form-control" id="ShipDateId" name="clientShipDate" value="${searchOne.clientShipDate}" readonly>
                       </div>
                     </div>
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>생산일</label>
-                        <input type="text" class="form-control" id="ProductionDateId" name="clientProductionDate" readonly>
+                        <input type="text" class="form-control" id="ProductionDateId" name="clientProductionDate" value="${searchOne.clientProductionDate}" readonly>
                       </div>
                     </div>
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>입고예정일</label>
-                        <input type="text" class="form-control" id="ReservationDueDateId" name="registrationReservationDueDate" readonly>
+                        <input type="text" class="form-control" id="ReservationDueDateId" name="registrationReservationDueDate" value="${searchOne.registrationReservationDueDate}" readonly>
                       </div>
                     </div>
                   </div>
@@ -397,38 +513,31 @@ $j(function() {
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>고객명</label>
-                        <input type="text" class="form-control" id="memberNameId" name="memberName">
+                        <input type="text" class="form-control" id="memberNameId" name="memberName" value="${searchOne.memberName}">
                       </div>
                     </div>
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>전화번호</label>
-                        <input type="text" class="form-control" id="NumberId" name="memberPhone">
+                        <input type="text" class="form-control" id="NumberId" name="memberPhone" value="${searchOne.memberPhone}">
                       </div>
                     </div>
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>지정정비사</label>
-                        <select class="form-control" id="mechanicId" name="mechanicNo">
-                            	<option value="0">미지정</option>
-					        <c:forEach items="${mechanic}" var="mechanic">
-					            <option value="${mechanic.mechanicNo}">
-					                ${mechanic.mechanicNo} / ${mechanic.mechanicName}
-					            </option>
-					        </c:forEach>
-						</select>
+						<input type="text" class="form-control" id="mechanicId" name="mechanicNo" value=""  data-toggle="modal" data-target="#mechanicModal" data-whatever="@mdo">
                       </div>
                     </div>
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>최종정비공장</label>
-                        <input type="text" class="form-control" id="shopAreaId" name="shopAreaName" readonly>
+                        <input type="text" class="form-control" id="shopAreaId" name="shopAreaName" value="${searchOne.shopArea} ${searchOne.shopAreaPoint}" readonly>
                       </div>
                     </div>
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>최종입고일</label>
-                        <input type="text" class="form-control" name="registrationDate" readonly>
+                        <input type="text" class="form-control" id="regDateId" name="registrationDate" value="${searchOne.registrationDate}" readonly>
                       </div>
                     </div>
                   </div>
@@ -436,7 +545,7 @@ $j(function() {
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>고객요청내역</label>
-                        <textarea class="form-control textarea" id="ClientRequestsId" name="registrationClientRequests"></textarea>
+                        <textarea class="form-control textarea" id="ClientRequestsId" name="registrationClientRequests" >${searchOne.registrationClientRequests}</textarea>
                       </div>
                     </div>
                   </div>
@@ -444,7 +553,7 @@ $j(function() {
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>특이사항</label>
-                        <textarea class="form-control textarea" id="SignificantId" name="registrationSignificant"></textarea>
+                        <textarea class="form-control textarea" id="SignificantId" name="registrationSignificant" >${searchOne.registrationSignificant}</textarea>
                       </div>
                     </div>
                   </div>
@@ -456,6 +565,55 @@ $j(function() {
       </div>
     </div>
   </div>
+  <div class="modal fade" id="mechanicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">조회</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="col-md-12">
+			  <div class="modal-body">
+			    <form name="frmMechanic" action="/reg/registration/modal/mechanic" method="get">
+			      <div class="row">
+					<div class="Search">
+	                      <div class="form-row align-items-center">
+					      <div class="form-group mb-0">
+					        <input type="text" class="form-control" placeholder="아이디" name="mechanicNo" id="mechanicNoId">
+					      </div>
+					      <button type="button" class="btn btn-primary btn-round" id="meId">검색</button>
+					  </div>
+	                   </div>
+					<div class="Search">
+	                      <div class="form-row align-items-center">
+					      <div class="form-group mb-0">
+					        <input type="text" class="form-control" placeholder="이름" name="mechanicName" id="mechanicNameId">
+					      </div>
+					      <button type="button" class="btn btn-primary btn-round" id="meName">검색</button>
+					  </div>
+	                   </div>
+			      </div>
+			    </form>
+			    <table class="table table-hover">
+				  <thead>
+				    <tr>
+				      <th scope="col">#</th>
+				      <th scope="col">아이디</th>
+				      <th scope="col">이름</th>
+				    </tr>
+				  </thead>
+				  <tbody id="mcTable">
+				  </tbody>
+				</table>
+			  </div>
+			</div>
+	      <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal" id="mm">취소</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 </body>
-
 </html>
