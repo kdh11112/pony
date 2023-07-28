@@ -35,7 +35,6 @@ public class NoticeSerciceImple implements NoticeService{
 
 	@Override
 	public int getTotal() {
-		
 		return dao.getTotal();
 	}
 

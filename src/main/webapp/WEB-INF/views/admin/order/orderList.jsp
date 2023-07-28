@@ -57,7 +57,7 @@
 	        </nav>
 	        <!-- Page content-->
 	        <div class="container-fluid">
-	        	<section class="notice">
+	        	<section class="boardsection">
   					<div class="page-title">
         				<div class="container">
             				<h3>고객 주문목록</h3>
@@ -148,10 +148,9 @@
 				                    <div class="search-wrap">
 				                        <select name="type" class="choicetype">
 				                        	<option value="">--</option>		
-				                        	<option value="W">작성자</option>		
-				                        	<option value="T">제목</option>		
-				                        	<option value="C">내용</option>	
-				                        	<option value="A">답변상태</option>	
+				                        	<option value="W">고객번호</option>		
+				                        	<option value="T">주문일</option>	
+				                        	<option value="A">주문상태</option>	
 				                    	</select>
 				                        <input id="search" type="search" name="" placeholder="검색어를 입력해주세요." value="">
 				                        <button type="submit" class="btn btn-dark">검색</button>

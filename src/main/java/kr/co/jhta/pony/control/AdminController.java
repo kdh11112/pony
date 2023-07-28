@@ -10,10 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.jhta.pony.dto.AnswerDTO;
 import kr.co.jhta.pony.dto.NoticeDTO;
+import kr.co.jhta.pony.dto.OrderDTO;
 import kr.co.jhta.pony.dto.QuestionDTO;
 import kr.co.jhta.pony.service.AnswerService;
 import kr.co.jhta.pony.service.NoticeService;
@@ -75,6 +77,32 @@ public class AdminController {
 		model.addAttribute("map", map);
 		return "/admin/order/orderList";
 		}
+	
+	// 주문 목록 상세
+	@GetMapping("/orderdetail")
+	public String orderdetail(@RequestParam("orderNo")int orderNo, Model model) {
+		model.addAttribute("order",oservice.selectOne(orderNo));
+		model.addAttribute("list", odservice.getOrderDetailsByOrderNo(orderNo));
+		
+		
+		return "/admin/order/orderDetail";
+	}
+	
+	// 주문 상태 변경 - 체크박스
+	 
+	@RequestMapping("/delivery") 
+	public String changeDelivery(HttpServletRequest	req, @ModelAttribute OrderDTO odto ) { 
+		String[] partCheck = req.getParameterValues("partCheck"); 
+		int size = partCheck.length;
+	
+		for(int i=0 ; i<size ; i++) { 
+			oservice.changeDelivery(partCheck[i]); 
+			} 
+		int orderNo = Integer.parseInt(req.getParameter("orderNo")); 
+		odto = oservice.selectOne(orderNo); 
+		odto.setOrderStatus("배송중"); 
+		return "redirect:/adminorderlist"; 
+	}
 	
 	
 	

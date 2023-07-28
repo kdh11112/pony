@@ -20,7 +20,8 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- 체크박스 선택, 삭제 jquery -->
-<script src="../js/checkbox.js"></script>
+<script src="../js/checkboxAllcheck.js"></script>
+<script src="../js/checkboxDelete.js"></script>
 </head>
 <body>
 	<div class="d-flex" id="wrapper">
@@ -63,7 +64,7 @@
 	        </nav>
 	        <!-- Page content-->
 	        <div class="container-fluid">
-	        	<section class="notice">
+	        	<section class="boardsection">
   					<div class="page-title">
         				<div class="container">
             				<h3>고객문의</h3>

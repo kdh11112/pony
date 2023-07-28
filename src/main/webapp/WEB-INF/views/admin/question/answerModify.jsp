@@ -85,7 +85,7 @@
             
             <!-- Page content-->
 	        <div class="container-fluid">
-	        	<section class="notice">
+	        	<section class="boardsection">
   					<div class="page-title">
 						<div class="container">
 							<h3>고객문의</h3>
