@@ -186,6 +186,7 @@
 	        </div>
 		<div><a href="/modelComparison"><button type="button" class="btn btn-secondary">차량 다시 선택하기</button></a></div>
 	    </div>
+	    <div id="whiteBar3"></div>
 	</div>
 <!-- js링크 -->	
 <script src="../js/model/modelComparison2.js"></script>

@@ -147,11 +147,44 @@
 		background-color: rgb(32, 103, 162);
 		font-weight: bold;
 	}
-	.accordion-button:not(.collapsed){
-		border-bottom-color: red;
+	#shopAreaFind{
+		width: 70%;
+		margin-top:50px;
+		margin-bottom: 20px;
 	}
-</style>
+	.btn{
+		background-color: rgb(32, 103, 162);
+		border:1px;
+	}
+	.shop-area{
+		margin-bottom: 10px;
+	}
+	.btn-primary{
+		--bs-btn-hover-bg:rgb(193, 220, 255);
+	}
+	.shop-area-point{
+		margin-top: 30px;
+		border-top: 2px solid #D1D1D1;
+	}
+	.shop-detail{
+		margin-top: 30px;
+	}.shop-detail > p{
+		font-size:15px;
+	}.shop-detail > h4{
+		font-weight:bold;
+		color: #5E5E5E;
+	}
+	.shop-no-btn{
+		background-color: #f19797;
+		font-weight: bold;
+	}
+	.accordion-button{
+		color: #5E5E5E;
+		background-color:#f9f9f9;
+		font-weight: bold;
+	}
 
+</style>
 <body>
 
 <div><img src="../images/model/vs_top.png" alt="" id="topImg"></div>
@@ -218,12 +251,40 @@
 		    </h2>
 	    	<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
 	      		<div class="accordion-body">
-	      			<p>준비중</p>
-	      			<p>준비중</p>
-	      			<p>준비중</p>
-	      			<p>준비중</p>
-	      			<p>준비중</p>
-	      			<p>준비중</p>
+		      		<div class="find-shop-area row">
+		      			<div class="col-md-6" style="border-right: 1px solid #D1D1D1;">
+		      				<div>
+		      					<input type="text" value="" placeholder="검색할 지역을 입력해주세요" id="shopAreaFind" name="shopAreaFind"/>
+		      				</div>
+		      				<div><button type="button" class="btn btn-primary" id="shopFindBtn">검색</button></div>
+		      			</div>
+		      			<div class="col-md-6">
+		      				<div class="shop-area">
+			      				<button type="button" class="shop-area-btn btn btn-primary" value="서울" id="서울" >서울</button>
+			      				<button type="button" class="shop-area-btn btn btn-primary" value="부산" id="부산" >부산</button>
+			      				<button type="button" class="shop-area-btn btn btn-primary" value="대구" id="대구">대구</button>
+			      				<button type="button" class="shop-area-btn btn btn-primary" value="인천" id="인천">인천</button>
+			      				<button type="button" class="shop-area-btn btn btn-primary" value="광주" id="광주">광주</button>
+		      				</div>
+		      				<div class="shop-area">
+			      				<button type="button" class="shop-area-btn btn btn-primary" value="대전" id="대전">대전</button>
+			      				<button type="button" class="shop-area-btn btn btn-primary" value="경기" id="경기">경기</button>
+			      				<button type="button" class="shop-area-btn btn btn-primary" value="경남" id="경남">경남</button>
+			      				<button type="button" class="shop-area-btn btn btn-primary" value="경북" id="경북">경북</button>
+			      				<button type="button" class="shop-area-btn btn btn-primary" value="전남" id="전남">전남</button>
+		      				</div>
+		      				<div class="shop-area">
+			      				<button type="button" class="shop-area-btn btn btn-primary" value="전북" id="전북">전북</button>
+			      				<button type="button" class="shop-area-btn btn btn-primary" value="제주" id="제주">제주</button>
+			      				<button type="button" class="shop-area-btn btn btn-primary" value="충남" id="충남">충남</button>
+			      				<button type="button" class="shop-area-btn btn btn-primary" value="충북" id="충북">충북</button>
+			      				<button type="button" class="shop-area-btn btn btn-primary" value="세종" id="세종">세종</button>
+		      				</div>
+		      			</div>
+		      		</div>
+		      		<div class="shop-area-point row">
+		      			
+		      		</div>
 	      		</div>
 			</div>
 		</div>
