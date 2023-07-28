@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.jhta.pony.dto.NoticeDTO;
 import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.dto.QuestionDTO;
 import kr.co.jhta.pony.service.PonyMemberService;
@@ -37,7 +38,7 @@ public class MyPageController {
 	PonyMemberService service;
 	@Autowired
 	QuestionService qService;
-
+	//---------------------------마이페이지 메인
 	@GetMapping("/mypage")
 	public String mypage(Principal p, HttpSession session) {
 		
@@ -45,7 +46,7 @@ public class MyPageController {
 		session.setAttribute("dto", dto); //세션에 dto값을 담음.
 		return "mypage/mypage"; //
 	}
-	
+	//--------------------------------마이페이지 1:1문의 리스트페이지로이동
 	@GetMapping("/mypageqna")
 	public String mypageQna(HttpSession session, Principal p,Model model,@RequestParam(name="currentPage",defaultValue="1")int currentPage) {
 		PonyMemberDTO dto = service.getMemberEmail(p.getName());
@@ -61,38 +62,95 @@ public class MyPageController {
 		
 		int startNo = (int)map.get("startNo");
 		int endNo = (int)map.get("endNo");
+		log.info("QuestionService : {} ", qService);
 		List<QuestionDTO> qnalist =  qService.selectAll(startNo, endNo, dto.getMemberNo());
 		model.addAttribute("qnalist",qService.selectAll(startNo, endNo, dto.getMemberNo()));
 		log.info("qnalist   {}"  ,qnalist);
 		model.addAttribute("map", map);
 		return "mypage/mypageQna";
 	}
-	//글 상세 페이지
+	//-------------------------------글 상세 페이지이동
 		@GetMapping("/mypageqnadetail")
 		public String detail(@RequestParam("questionNo")int questionNo,Model model) {
 			model.addAttribute("detail",qService.selectOne(questionNo));
-			service.increaseHits(questionNo);
+			//service.increaseHits(questionNo);
 			
 			return "/mypage/qnadetail";
 		}
 		
-		//1:1 글쓰기
+		//-----------------------1:1 글쓰기이동
 		@GetMapping("/qnawrite")
 		public String write() {	
 			
 			return "/mypage/qnawriteform";
 		}
-		
+		//-------------------------글쓰기 완료
 		@PostMapping("/qnawriteform")
-		public String writeOk(@ModelAttribute QuestionDTO dto,HttpServletRequest req) {
+		public String writeOk(HttpSession session,@ModelAttribute QuestionDTO dto,
+								HttpServletRequest req,Principal p,Model model) {
+			PonyMemberDTO dto2 = service.getMemberEmail(p.getName());
+			session.setAttribute("dto",dto2);
+			log.info("dto2 {} ",dto2);
+			int memberNo = dto2.getMemberNo();
+			String contents = req.getParameter("contents");
+			String title = req.getParameter("title");
+			dto.setQuestionTitle(title);
+			dto.setMemberNo(memberNo);
+			dto.setQuestionContents(contents);
+			qService.qnaAddOne(dto);
 			
+			return "redirect:/mypageqna";
+		}
+		
+		//------------------------글 수정 페이지이동
+		@GetMapping("/qnamodify")
+		public String modifyform(@RequestParam("questionNo") int questionNo, Model model,HttpSession session,Principal p) {
+			PonyMemberDTO dto3 = service.getMemberEmail(p.getName());
+			int memberNo = dto3.getMemberNo();
+			session.setAttribute("mdto", dto3);
+			model.addAttribute("dto", qService.selectOne(questionNo));
+			return "/mypage/qnamodifyform";
+		}
+		
+		//---------------------------1:1 문의글 수정 ok
+		@PostMapping("/qnamodifyOk")
+		public String modifyOk(@ModelAttribute QuestionDTO dto, HttpServletRequest req) {
 			String contents = req.getParameter("contents");
 			String title = req.getParameter("title");
 			dto.setQuestionTitle(title);
 			dto.setQuestionContents(contents);
-			qService.qnaAddOne(dto);
+			qService.qnamodifyOne(dto);
 			return "redirect:/mypageqna";
 		}
 		
+		//----------------------------1:1문의내역삭제페이지
+		@GetMapping("/qnadelete")
+		public String delete(@ModelAttribute QuestionDTO dto) {
+			qService.deleteOne(dto);
+			return "redirect:/mypageqna";
+		}
+		
+		// --------------------------등록차량확인페이지
+		@GetMapping("/carregi")
+		public String carregi() {
+			return "/mypage/carregi";
+		}
+		
+		//-----------------------------차량관리페이지이동
+		@GetMapping("/carmanagement")
+		public String carmanagement() {
+			return "/mypage/carmanagement";
+		}
+		
+		//-----------------------차량등록하기페이지이동
+		@GetMapping("/carregigo")
+		public String carregigo() {
+			return "/mypage/carregiGo";
+		}
+		//------------------------차량등록폼페이지
+		@PostMapping("/carregiok")
+		public String carregiok() {
+			return "redirect:/carregi";
+		}
 }
 

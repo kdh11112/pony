@@ -246,7 +246,7 @@ sup {
 
 a {
   color: var(--bs-link-color);
-  text-decoration: underline;
+  text-decoration: none;
 }
 a:hover {
   color: var(--bs-link-hover-color);
@@ -256,6 +256,7 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
   color: inherit;
   text-decoration: none;
 }
+
 
 pre,
 code,
@@ -10848,9 +10849,7 @@ header img {
     z-index: 1;
     
 }
-.content{
-	flex: 1;
-}
+
 #wrapper {
   display: flex;
   flex-direction: column;
@@ -10893,17 +10892,8 @@ header img {
 	.content-box,.head{
 		padding-bottom: 5px;
 	}
-	
-	.content-body {
-    display: flex; /* content-body를 Flexbox 컨테이너로 설정 */
-    flex-wrap: wrap; /* 요소들이 너비를 초과할 경우 다음 줄로 이동 */
-}
 
-
-.my-carIinfo {
-    /* my-carIinfo 클래스에 대한 스타일 정의 */
-    /* 추가한 스타일: 오른쪽으로 이동 */
-    margin-left: auto; /* 오른쪽 여백을 auto로 설정하여 오른쪽으로 이동 */
-    flex: 0 0 50%; /* Flexbox에서 차지하는 공간 비율 설정 (50%를 차지) */
+div{
+	font-family: 'Orbit', sans-serif;
 }
 
