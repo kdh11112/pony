@@ -19,6 +19,6 @@ public class OrderDetailDTO {
 	
 	private int orderdetailOrderQuantity;
 	
-	private int orderDetailAmount;
+	private int orderdetailAmount;
 	
 }

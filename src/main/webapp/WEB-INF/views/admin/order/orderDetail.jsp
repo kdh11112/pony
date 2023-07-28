@@ -13,14 +13,21 @@
 <title>PONY ADMIN</title>
 
 <style>
+.board-table thead td {
+	colspan: 5 !important;
+}
 .board-table tbody td, 
 .board-table tfoot td {
   text-align: left !important;
 }
-
-.board-table tbody th, 
+.board-table thead th, 
 .board-table tfoot th {
   padding: 0px !important;
+  text-align: left !important;
+}
+.board-table tbody th {
+  padding: 0px !important;
+  text-align: center !important;	
 }
 .btn-primary {
 	padding: 10 50px !important;
@@ -29,8 +36,14 @@
 	background: none;
 	font: black !important;
 }
-
+thead {
+	background : #EBEDEE;
+}
+#bodytd{
+	text-align: center !important;	
+}
 </style>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
@@ -38,10 +51,16 @@
 
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="css/admin/css/styles.css" rel="stylesheet" />
 <link href="css/admin/css/board.css" rel="stylesheet" />
 
+<!-- jquery CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- 체크박스 선택, 삭제 jquery -->
+<script src="../js/checkboxAllcheck.js"></script>
+<script src="../js/checkboxDelivery.js"></script>
 </head>
 <body>
 	<div class="d-flex" id="wrapper">
@@ -88,77 +107,98 @@
 	        	<section class="boardsection">
   					<div class="page-title">
 						<div class="container">
-							<h3>고객문의</h3>
+							<h3>고객 주문목록</h3>
         				</div>
     				</div>
-    							
     				<!-- board list area -->
 				    <div id="board-list">
 						<div class="container">
 							<table class="board-table">
-								<tbody>
+								<thead>
 									<tr>	
-										<th>번호</th>
-										<td class="td-no">${detail.questionNo }</td>
+										<th colspan="2">주문번호</th>
+										<td class="td-no" colspan="4">${order.orderNo }</td>
+										<td><input type="hidden" name="orderNo" value="${order.orderNo }"></td>
 									</tr>
 									<tr>
-										<th>작성자</th>
-										<td class="td-writer">${detail.memberNo }</td>
-									</tr>
-									<tr>
-										<th>등록일</th>
-										<td class="td-date">
-											<fmt:parseDate var="dateString" value="${detail.questionDate }" pattern="yyyy-MM-dd HH:mm:ss" /> 
+										<th colspan="2">주문일</th>
+										<td class="td-date" colspan="4">
+											<fmt:parseDate var="dateString" value="${order.orderDate }" pattern="yyyy-MM-dd HH:mm:ss" /> 
 											<fmt:formatDate value="${dateString }" pattern="yyyy-MM-dd HH:mm:ss" />
 										</td>
 									</tr>
 									<tr>
-										<th>답변상태</th>
-										<td class="td-status">${detail.answerStatus}</td>
+										<th colspan="2">주문자 번호</th>
+										<td class="td-mphone" colspan="4">${order.memberNo }</td>
 									</tr>
 									<tr>
-										<th>제목</th>
-										<td class="td-title">${detail.questionTitle }</td>
+										<th colspan="2">수령인</th>
+										<td class="td-recipient" colspan="4">${order.orderRecipientName }</td>
 									</tr>
 									<tr>
-										<th>내용</th>
-										<td class="td-contents">${detail.questionContents }</td>
+										<th colspan="2">연락처</th>
+										<td class="td-rphone" colspan="4">${order.orderRecipientPhone }</td>
 									</tr>
 									<tr>
-										<th>첨부파일</th>
-										<td>
-											<!-- 첨부파일이 존재하는 경우 -->
-											<c:if test="${detail.questionFile != 0}">
-												${detail.questionFile }
-											</c:if>
-											<!-- 첨부파일이 없는 경우 -->
-											<c:if test="${detail.questionFile == 0}">
-												등록된 파일이 없습니다.
-											</c:if>
+										<th colspan="2">배송지</th>
+										<td class="td-addrs" colspan="4">${order.memberNo }</td>
 									</tr>
 									<tr>
-									    <th>답변</th>
-									    <td>
-									        <%-- 답변이 존재하는 경우 --%>
-									        <c:if test="${not empty detailanswer.answerContents}">
-									            ${detailanswer.answerContents}
-									            <a href="deleteanswer?questionNo=${detail.questionNo }"><input type="button" value="답변 삭제" class="btn btn-outline-danger"/></a>
-									            <a href="modifyanswer?questionNo=${detail.questionNo }"><input type="button" value="답변 수정" class="btn btn-outline-primary"/></a>
-									        </c:if>
-									        <%-- 답변이 없는 경우 --%>
-									        <form action="/answer" method="post">
-												<input type="hidden" name="questionNo" value="${detail.questionNo }">
-										        <c:if test="${empty detailanswer.answerContents}">
-										            <textarea name="answer" id="answerTextarea" cols="100" rows="5"></textarea>
-										            <input type="submit" value="작성" id="write" class="btn btn-primary"/>
-										        </c:if>
-									        </form>
-									    </td>
+										<th colspan="2">주문상태</th>
+										<td class="td-status" colspan="4">${order.orderStatus} 
+											<a href="/delivery"><input type="button" class="btn btn-dark" value="배송시작" onclick="changeDelivery();"/></a>
+										</td>
 									</tr>
+								</thead>
+							</table>
+							<table class="board-table">
+								<tbody>
+									<tr>
+										<th width="5%"><input type="checkbox" id="allCheck" /></th>
+										<th width="15%">부품번호</th>
+										<th width="50%">부품명</th>
+										<th width="15%">주문 수량</th>
+										<th width="15%">판매가</th>
+									</tr>
+									<c:forEach var="list" items="${list }" >
+										<tr>
+											<td id="bodytd"><input type="checkbox" name="RowCheck" value="${list.partNumber }" /></td>
+											<!-- 부품번호 -->
+											<td class="td-member" id="bodytd">${list.partNumber }</td>
+											<!-- 부품명 -->
+											<td class="td-member">${order.memberNo }</td>
+											<!-- 주문수량 -->
+											<td class="td-member" id="bodytd">${list.orderdetailOrderQuantity }</td>
+											<!-- 판매가 -->
+											<td class="td-amount" id="bodytd">${list.orderdetailAmount }</td>
+										</tr>
+									</c:forEach>
 								</tbody>
 							</table>
-							<a href="/questionlist"><input type="button" class="btn btn-outline-dark" value="목록" /></a>
-							<a href="questiondelete?questionNo=${detail.questionNo }"><input type="button" class="btn btn-outline-danger" value="삭제" /></a>		
+							<table class="board-table">
+								<tfoot>
+									
+									<tr>
+										<th>배송비</th>
+										<td class="td-delivery">${order.orderDeliveryCharge }</td>
+									</tr>
+									<tr>
+										<th>사용 포인트</th>
+										<td class="td-point">- ${order.orderPoint }</td>
+									</tr>
+									<tr>
+										<th>총 주문금액</th>
+										<td class="td-total">${order.orderTotal }</td>
+									</tr>
+									<tr>
+										<th>포인트 혜택</th>
+										<td class="td-member">${order.memberNo }</td>
+									</tr>		
+								</tfoot>
+							</table>
+							<a href="/adminorderlist"><input type="button" class="btn btn-outline-dark" value="배송시작" /></a>
+							<a href="/adminorderlist"><input type="button" class="btn btn-outline-dark" value="목록" /></a>
+							<a href="orderdelete?orderNo=${order.orderNo }"><input type="button" class="btn btn-outline-danger" value="삭제" /></a>		
 						</div>
 					</div>
 				</section>

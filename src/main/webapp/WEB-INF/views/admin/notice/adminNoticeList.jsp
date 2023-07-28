@@ -68,7 +68,7 @@
 			</nav>
 			<!-- Page content-->
 	        <div class="container-fluid">
-	        	<section class="notice">
+	        	<section class="boardsection">
   					<div class="page-title">
 						<div class="container">
 							<h3>공지사항</h3>

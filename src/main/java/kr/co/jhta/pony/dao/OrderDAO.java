@@ -20,4 +20,15 @@ public interface OrderDAO {
 	int getTotal();
 
 	void deleteOne(OrderDTO dto);
+	
+	//배송비 조회
+	int getOrderDeliveryCharge(int orderNo);
+	
+	//포인트 사용금액 조회
+	int getOrderPoint(int orderNo);
+	
+	//합산된 물건 비용 + 배송비 - 포인트 사용금액 계산 값 orderTotal로 업데이트
+	void updateOrderTotal(int orderNo, int orderTotal);
+
+	void changeDelivery(String no);
 }

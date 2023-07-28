@@ -23,7 +23,7 @@ public class OrderDTO {
 	
 	private String orderStatus;
 	
-	private int orderdeliveryCharge;
+	private int orderDeliveryCharge;
 	
 	private int orderPoint;
 	

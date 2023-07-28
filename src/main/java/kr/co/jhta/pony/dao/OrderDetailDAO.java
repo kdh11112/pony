@@ -1,6 +1,5 @@
 package kr.co.jhta.pony.dao;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -11,6 +10,9 @@ import kr.co.jhta.pony.dto.OrderDetailDTO;
 @Repository
 @Mapper
 public interface OrderDetailDAO {
-	List<OrderDetailDTO> selectOne(HashMap<String, Object> map);
 
+	List<OrderDetailDTO> getOrderDetailsByOrderNo(int orderNo);
+	
+	//주문의 여러 부품 비용 합산
+	int getOrderTotalPrice(int orderNo);
 }
