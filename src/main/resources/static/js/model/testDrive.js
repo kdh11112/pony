@@ -30,6 +30,7 @@
 		let offset = $("#headingThree").offset();
 		 checkbox.checked = true;
 		 $("#modal2").modal("hide");
+		 $("#headingOneBtn").attr("class","accordion-button show");
 		 $("#collapseOne").addClass("show");
 		 $('html').animate({scrollTop : offset.top},1);
   	});
@@ -75,7 +76,10 @@
 			alert("모델을 선택해주세요");
 			return false;
 		}else{
+			alert("ModelName : " + selectedModel + "를 선택했습니다");
 			$("#collapseOne").removeClass("show");
+			$("#headingOneBtn").attr("class","accordion-button show collapsed");
+			$("#headingTwoBtn").attr("class","accordion-button show");
 			$("#collapseTwo").addClass("show");
 		}
 	})

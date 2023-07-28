@@ -27,10 +27,10 @@ public class TestDriveController {
 	
 	@GetMapping("/shopFind")
 	@ResponseBody
-	public List<ShopDTO> shopFind(@RequestParam("shopAreaFind")String shopArea, Model model) {
-//		model.addAttribute("shop", ss.ShopOne(shopArea));
-		log.info(""+ss.ShopOne(shopArea));
-		return ss.ShopOne(shopArea);
+	public List<ShopDTO> shopArea(@RequestParam("shopAreaFind")String shopArea,@RequestParam("shopAreaFind")String shopAreaPoint, Model model) {
+		model.addAttribute("shop", ss.shopArea(shopArea,shopAreaPoint));
+		log.info(""+ss.shopArea(shopArea,shopAreaPoint));
+		return ss.shopArea(shopArea,shopAreaPoint);
 	}
 	
 }

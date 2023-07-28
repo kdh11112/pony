@@ -147,15 +147,10 @@
 		background-color: rgb(32, 103, 162);
 		font-weight: bold;
 	}
-	.accordion-button:not(.collapsed){
-		border-bottom-color: red;
-	}
 	#shopAreaFind{
 		width: 70%;
 		margin-top:50px;
 		margin-bottom: 20px;
-	}
-	#서울{
 	}
 	.btn{
 		background-color: rgb(32, 103, 162);
@@ -183,6 +178,12 @@
 		background-color: #f19797;
 		font-weight: bold;
 	}
+	.accordion-button{
+		color: #5E5E5E;
+		background-color:#f9f9f9;
+		font-weight: bold;
+	}
+
 </style>
 <body>
 

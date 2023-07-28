@@ -15,8 +15,9 @@ public class ShopServiceImple implements ShopService{
 	ShopDAO dao;
 	
 	@Override
-	public List<ShopDTO> ShopOne(String shopArea) {
-		return dao.ShopOne(shopArea);
+	public List<ShopDTO> shopArea(String shopArea, String shopAreaPoint) {
+		return dao.shopArea(shopArea,shopAreaPoint);
 	}
+
 
 }

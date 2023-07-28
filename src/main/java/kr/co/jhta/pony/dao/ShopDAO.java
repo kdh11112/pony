@@ -10,5 +10,5 @@ import kr.co.jhta.pony.dto.ShopDTO;
 @Repository
 @Mapper
 public interface ShopDAO {
-	public List<ShopDTO> ShopOne(String shopArea);
+	public List<ShopDTO> shopArea(String shopArea,String shopAreaPoint);
 }
