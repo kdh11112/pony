@@ -16,8 +16,8 @@ public class OrderDetailServiceImple implements OrderDetailService{
 	private final OrderDetailDAO dao;
 	
 	@Autowired
-	public OrderDetailServiceImple(OrderDetailDAO oddao) {
-		this.dao = oddao;
+	public OrderDetailServiceImple(OrderDetailDAO orderDetaildao) {
+		this.dao = orderDetaildao;
 	}
 	
 	@Override

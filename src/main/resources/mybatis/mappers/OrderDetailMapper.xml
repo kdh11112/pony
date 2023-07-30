@@ -8,6 +8,7 @@
 		SELECT orderDetailNo, partNumber, orderNo, orderdetailOrderQuantity, orderdetailAmount
 		FROM ORDERDETAIL
 		WHERE orderNo = #{orderNo}
+		ORDER BY partNumber ASC
 	</select>
 
     <select id="getOrderTotalPrice" resultType="int">

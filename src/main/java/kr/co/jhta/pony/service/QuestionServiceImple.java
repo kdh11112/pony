@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.jhta.pony.dao.QuestionDAO;
-import kr.co.jhta.pony.dto.NoticeDTO;
 import kr.co.jhta.pony.dto.QuestionDTO;
 import kr.co.jhta.pony.dto.StartEnd;
 import lombok.extern.slf4j.Slf4j;

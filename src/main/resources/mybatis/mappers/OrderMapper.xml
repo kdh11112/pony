@@ -53,7 +53,7 @@
     SET orderTotal = #{orderTotal} 
     WHERE orderNo = #{orderNo}
 </update>
-
+<!-- 배송상태 변경 목적 -->
 <update id="changeDelivery" parameterType="String">
 	UPDATE 'ORDER'
 	SET orderStatus = #{orderStatus}

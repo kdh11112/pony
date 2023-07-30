@@ -11,10 +11,15 @@ import kr.co.jhta.pony.dto.StartEnd;
 @Repository
 @Mapper
 public interface AnswerDAO {
+	
 	List<AnswerDTO> getAll(StartEnd se);
+	
 	void insertAnswer(AnswerDTO dto);
+	
 	AnswerDTO selectOne(int questionNo);
+	
 	void deleteOne(int questionNo);
+	
 	void modifyAnswer(AnswerDTO dto);
 	
 

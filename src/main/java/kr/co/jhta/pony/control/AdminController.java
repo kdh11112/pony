@@ -46,15 +46,15 @@ public class AdminController {
 		this.oservice = oservice;
 		}
 	
-	@GetMapping("/admin1")
+	@GetMapping("/admin")
 	public String admin() {
-		return "/admin/admin1";
+		return "/admin/admin";
 	}
 
 	// 재고 관리 ------------------------------------------------------------
-	@GetMapping("/partlist")
+	@GetMapping("/adminpartlist")
 	public String partlist() {
-		return "/admin/part/partList";
+		return "/admin/part/adminPartList";
 	}
 	
 	// 주문 목록 ------------------------------------------------------------
@@ -75,17 +75,17 @@ public class AdminController {
 		
 		model.addAttribute("list",oservice.getAllByAdmin(startNo, endNo));
 		model.addAttribute("map", map);
-		return "/admin/order/orderList";
+		return "/admin/order/adminOrderAll";
 		}
 	
 	// 주문 목록 상세
-	@GetMapping("/orderdetail")
+	@GetMapping("/adminorderdetail")
 	public String orderdetail(@RequestParam("orderNo")int orderNo, Model model) {
 		model.addAttribute("order",oservice.selectOne(orderNo));
 		model.addAttribute("list", odservice.getOrderDetailsByOrderNo(orderNo));
 		
 		
-		return "/admin/order/orderDetail";
+		return "/admin/order/adminOrderDetail";
 	}
 	
 	// 주문 상태 변경 - 체크박스
@@ -156,7 +156,7 @@ public class AdminController {
 	}
 	
 	//문의글 체크박스 선택 삭제
-	@PostMapping("delete")
+	@PostMapping("/delete")
 	public String ajaxTest(HttpServletRequest req) {
 		String[] ajaxMsg = req.getParameterValues("valueArr");
 		int size = ajaxMsg.length;

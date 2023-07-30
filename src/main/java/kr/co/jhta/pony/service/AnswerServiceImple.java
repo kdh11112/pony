@@ -10,9 +10,14 @@ import kr.co.jhta.pony.dto.AnswerDTO;
 @Service
 public class AnswerServiceImple implements AnswerService{
 
-	@Autowired
-	private AnswerDAO dao;
+	
+	private final AnswerDAO dao;
 
+	@Autowired
+	public AnswerServiceImple(AnswerDAO answerdao) {
+		this.dao = answerdao;
+	}
+	
 	@Override
 	@Transactional
 	public void insertAnswer(AnswerDTO dto) {

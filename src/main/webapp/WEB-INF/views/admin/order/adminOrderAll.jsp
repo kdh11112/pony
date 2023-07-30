@@ -25,7 +25,7 @@
 	        <div class="sidebar-heading border-bottom bg-light">
 	        <img alt="" src="css/admin/assets/invi.png"> <a class="logo-link" href="/admin"> PONY Admin</a></div>
 	        <div class="list-group list-group-flush">
-	            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/partlist">재고관리</a>
+	            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/adminpartlist">재고관리</a>
 	            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/adminorderlist">주문목록</a>
 	            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/questionlist">고객문의</a>
 	            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/adminnotice">공지사항</a>
@@ -83,10 +83,10 @@
 						                	<!-- 주문번호를 value로 줘서 체크하면 주문번호가 배열로 담기게 -->
 						                    <td><input type="checkbox" name="RowCheck" value="${list.orderNo }"/></td>
 						                    <td>
-						                      <a href="orderdetail?orderNo=${list.orderNo }">${list.orderNo }</a>
+						                      <a href="adminorderdetail?orderNo=${list.orderNo }">${list.orderNo }</a>
 						                    </td>
 						                    <td>
-						                      <a href="orderdetail?orderNo=${list.orderNo }">${list.orderTotal }</a>
+						                      <a href="adminorderdetail?orderNo=${list.orderNo }">${list.orderTotal }</a>
 						                    </td>
 						                    <td>${list.memberNo }</td>
 						                    <td><fmt:parseDate var="dateString"
@@ -121,16 +121,16 @@
 											<ul class="pagination">
 												<c:if test="${map.prev }">
 													<li class="page-item"><a class="page-link"
-														href="list?currentPage=${map.currentPage-5 }">이전</a></li>
+														href="adminorderlist?currentPage=${map.currentPage-5 }">이전</a></li>
 												</c:if>
 												<c:forEach var="i" begin="${map.startPageNo }"
 													end="${map.endPageNo }">
 													<li class="page-item"><a class="page-link"
-														href="questionlist?currentPage=${i }">${i }</a></li>
+														href="adminorderlist?currentPage=${i }">${i }</a></li>
 												</c:forEach>
 												<c:if test="${map.next }">
 													<li class="page-item"><a class="page-link"
-														href="questionlist?currentPage=${map.currentPage+5 }">다음</a></li>
+														href="adminorderlist?currentPage=${map.currentPage+5 }">다음</a></li>
 												</c:if>
 											</ul>
 										</nav>

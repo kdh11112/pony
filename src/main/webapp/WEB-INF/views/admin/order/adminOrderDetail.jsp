@@ -71,7 +71,7 @@ thead {
      			<a class="logo-link" href="/admin"> PONY Admin</a>
      		</div>
             <div class="list-group list-group-flush">
-            	<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/partlist">재고관리</a>
+            	<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/adminpartlist">재고관리</a>
             	<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/adminorderlist">주문목록</a>
             	<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/questionlist">고객문의</a>
             	<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/adminnotice">공지사항</a>
@@ -164,11 +164,11 @@ thead {
 										<tr>
 											<td id="bodytd"><input type="checkbox" name="RowCheck" value="${list.partNumber }" /></td>
 											<!-- 부품번호 -->
-											<td class="td-member" id="bodytd">${list.partNumber }</td>
+											<td class="td-partno" id="bodytd">${list.partNumber }</td>
 											<!-- 부품명 -->
-											<td class="td-member">${order.memberNo }</td>
+											<td class="td-partname">${order.memberNo }</td>
 											<!-- 주문수량 -->
-											<td class="td-member" id="bodytd">${list.orderdetailOrderQuantity }</td>
+											<td class="td-quantity" id="bodytd">${list.orderdetailOrderQuantity }</td>
 											<!-- 판매가 -->
 											<td class="td-amount" id="bodytd">${list.orderdetailAmount }</td>
 										</tr>
