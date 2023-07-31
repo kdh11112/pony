@@ -67,7 +67,7 @@ public class OrderServiceImple implements OrderService{
 	}
 
 	// 배송상태 변경 (배송준비중 => 배송중)
-	//배송상태변경 -지울ㄹ지도,,
+	// 배송상태변경 -지울ㄹ지도,,
 	@Override
 	public void changeDelivery(String no) {
 		orderdao.changeDelivery(no);

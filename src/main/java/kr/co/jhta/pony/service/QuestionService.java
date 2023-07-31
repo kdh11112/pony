@@ -15,7 +15,7 @@ public interface QuestionService {
 	public void deleteOne(QuestionDTO dto);
 	public void insertOne(QuestionDTO dto);
 
-	public List<QuestionDTO>  selectAllByAdmin(int startNo, int endNo);
+	public List<QuestionDTO> selectAllByAdmin(int startNo, int endNo);
 	public void qnaAddOne(QuestionDTO dto);
 
 	public void updateAnswerStatus(QuestionDTO qdto);

@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PageUtil {
+	
+	//페이지당 게시글 수
+	public static final int recodePerPage = 10;
 
 //	페이징에 관련된 로직을 유틸클래스로 만듦. 
 	public static Map<String, Object> getPageData(int totalNumber, int countPerPage, int currentPage) {

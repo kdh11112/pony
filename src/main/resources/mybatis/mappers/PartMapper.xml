@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.jhta.pony.dao.PartDAO">
+	
+	<!-- 부품 전체 목록(페이징) -->
+	<select id="getPartAll" resultType="kr.co.jhta.pony.dto.PartDTO">
+		SELECT partNumber, partName, partNo, partPrice
+		FROM (SELECT partNumber, partName, partNo, partPrice
+				FROM PART ORDER BY partNumber DESC) AS T1
+		LIMIT #{skip}, #{perPageNum}
+	</select>
+
+	<!-- 부품 총 갯수 -->
+	<select id="getTotal" resultType="int">
+		SELECT count(*)
+		FROM PART
+	</select>
+
+	<!-- 관리자 부품 추가 -->
+	<insert id="adminInsertOne" parameterType="kr.co.jhta.pony.dto.PartDTO">
+		INSERT INTO PART (partName, partNo, partPrice)
+		VALUES (#{partName}, #{partNo}, #{partPrice})
+	</insert>
+
+	<!-- 관리자 부품 수정 -->
+	<update id="adminModifyOne" parameterType="kr.co.jhta.pony.dto.PartDTO">
+		UPDATE PART 
+		SET partName = #{partName}, partNo = #{partNo}, partPrice = #{partPrice}
+		WHERE partNumber = #{partNumber}
+	</update>
+
+	<!-- 관리자 부품 삭제(체크박스) -->
+	<delete id="adminDeleteCheck" parameterType="String">
+		DELETE
+		FROM QUESTION
+		WHERE questionNo = #{questionNo}
+	</delete>
+	
+</mapper>

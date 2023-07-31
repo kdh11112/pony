@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <html lang="ko">
-<style type="text/css" id="_jmc_no_tap_highlight_tag_"></style>
 <head>
 
 <title>PONY MOTORS</title>
@@ -287,6 +287,7 @@
 					<input type="hidden" name="_callback" value="nmp.front.order.order_sheet.refreshPage">
 				</form>
 
+			</div>
 			</div>
 			<div style="padding: 30px;"></div>
 	</section>

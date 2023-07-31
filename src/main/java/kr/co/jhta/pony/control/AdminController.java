@@ -63,12 +63,9 @@ public class AdminController {
 		
 		//총게시물수
 		int totalNumber = oservice.getTotal();
-		
-		//페이지당 게시물수
-		int recordPerPage = 10;
-		
-		//총페이지수, 한페이지당 수, 현재 페이지 번호
-		Map<String, Object> map = PageUtil.getPageData(totalNumber, recordPerPage, currentPage);
+
+		//총 게시물 수, 한 페이지당 게시글 수, 현재 페이지 번호
+		Map<String, Object> map = PageUtil.getPageData(totalNumber, PageUtil.recodePerPage, currentPage);
 		
 		int startNo = (int)map.get("startNo");
 		int endNo = (int)map.get("endNo");
@@ -76,6 +73,7 @@ public class AdminController {
 		model.addAttribute("list",oservice.getAllByAdmin(startNo, endNo));
 		model.addAttribute("map", map);
 		return "/admin/order/adminOrderAll";
+		
 		}
 	
 	// 주문 목록 상세
@@ -111,12 +109,9 @@ public class AdminController {
 	public String questionlist(Model model, @RequestParam(name="currentPage", defaultValue = "1")int currentPage) {
 		//총게시물수
 		int totalNumber = qservice.getTotal();
-		
-		//페이지당 게시물수
-		int recordPerPage = 10;
-		
-		//총페이지수, 한페이지당 수, 현재 페이지 번호
-		Map<String, Object> map = PageUtil.getPageData(totalNumber, recordPerPage, currentPage);
+
+		//총 게시물 수, 한 페이지당 게시글 수, 현재 페이지 번호
+		Map<String, Object> map = PageUtil.getPageData(totalNumber, PageUtil.recodePerPage, currentPage);
 		
 		int startNo = (int)map.get("startNo");
 		int endNo = (int)map.get("endNo");
@@ -209,12 +204,9 @@ public class AdminController {
 	
 	//총게시물수
 	int totalNumber = nservice.getTotal();
-	
-	//페이지당 게시물수
-	int recordPerPage = 10;
-	
-	//총페이지수, 한페이지당 수, 현재 페이지 번호
-	Map<String, Object> map = PageUtil.getPageData(totalNumber, recordPerPage, currentPage);
+
+	//총 게시물 수, 한 페이지당 게시글 수, 현재 페이지 번호
+	Map<String, Object> map = PageUtil.getPageData(totalNumber, PageUtil.recodePerPage, currentPage);
 	
 	int startNo = (int)map.get("startNo");
 	int endNo = (int)map.get("endNo");
