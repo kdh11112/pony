@@ -31,12 +31,10 @@
 		WHERE questionNo = #{questionNo}
 	</select>
 	
-<<<<<<< HEAD
+
 	<delete id="deleteOne" parameterType="int">
-=======
-	
-	<delete id="deleteOne">
->>>>>>> refs/remotes/origin/yuyu_myPage
+
+
 		DELETE 
 		FROM QUESTION
 		WHERE questionNo = #{questionNo}
@@ -44,10 +42,7 @@
 	
 
 	<insert id="qnaAddOne" parameterType="kr.co.jhta.pony.dto.QuestionDTO">
-<<<<<<< HEAD
-		INSERT INTO QUESTION (questionTitle, questionContents, questionDate, memberNo, answerStatus)
-  		VALUES (#{questionTitle}, #{questionContents}, now(),#{memberNo}, 미답변)
-=======
+
 		<!-- INSERT INTO QUESTION (questionTitle, questionContents, questionDate,memberNo)
   		VALUES (#{questionTitle}, #{questionContents}, now(),#{memberNo}) -->
   		
@@ -64,7 +59,7 @@
 		    MEMBER M
 		  WHERE
 		    M.memberNo = #{memberNo}; -->
->>>>>>> refs/remotes/origin/yuyu_myPage
+
 	</insert>
 	
 	<update id="qnaModifyOne" parameterType="kr.co.jhta.pony.dto.QuestionDTO">

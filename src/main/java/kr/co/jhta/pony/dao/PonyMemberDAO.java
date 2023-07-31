@@ -28,6 +28,10 @@ public interface PonyMemberDAO {
 	public void modifyOne(NoticeDTO dto);
 
 	public void deleteOne(NoticeDTO dto);
+
+	public PonyMemberDTO selectMem(int memberNo);
+
+	public void myinfomodifyOne(PonyMemberDTO dto);
 	
 	
 	

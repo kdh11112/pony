@@ -14,6 +14,8 @@ public interface PonyMemberService {
 	public Object selectOne(int questionNo);
 	void modifyOne(QuestionDTO dto);
 	void deleteOne(QuestionDTO dto);
+	public PonyMemberDTO selectMem(int memberNo);
+	public void myinfomodifyOne(PonyMemberDTO dto);
 }
 
 
