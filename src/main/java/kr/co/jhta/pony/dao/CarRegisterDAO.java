@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.jhta.pony.dto.CarRegisterDTO;
 import kr.co.jhta.pony.dto.MechanicRegisterDTO;
+import lombok.extern.slf4j.Slf4j;
 
 @Mapper
 @Repository
@@ -31,6 +32,10 @@ public interface CarRegisterDAO {
 	public List<MechanicRegisterDTO> resMechanicSelect(Integer mechanicNo, String mechanicName, int word);
 
 	public MechanicRegisterDTO registrationChiceMechanicInputSelect(int mechanicNo);
+	
+	public CarRegisterDTO registrationTodayCases();
+
+	public void regAndEditUpdate(CarRegisterDTO carRegisterDTO);
 
 
 }

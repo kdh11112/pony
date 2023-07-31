@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.co.jhta.pony.dto.CarRegisterDTO;
 import kr.co.jhta.pony.dto.MechanicRegisterDTO;
 import kr.co.jhta.pony.service.CarRegisterService;
-import kr.co.jhta.pony.service.MechanicRegisterService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -62,9 +61,9 @@ public class RegistrationController {
 			@RequestParam(name = "registrationNumber" ,required = false) Integer registrationNumber,
 			@RequestParam(name = "registrationDateHi" ,required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate registrationDate
 			) {
-
+		model.addAttribute("count", cs.registrationTodayCases());
 		if(registrationNumber != null) {
-			log.info("되나? {}",cs.resNum(registrationNumber,registrationDate));
+			//log.info("검색 {}",cs.resNum(registrationNumber,registrationDate));
 	    model.addAttribute("searchOne", cs.resNum(registrationNumber,registrationDate));
 		}
 		return "/registration/registration";
@@ -86,30 +85,53 @@ public class RegistrationController {
 	@PostMapping("/reg/registration")
 	@ResponseBody
 //	public List<CarRegisterDTO> regRegistration(@RequestParam(name = "clientVin",required = false)String clientVin ,Model model) {
-	public CarRegisterDTO regRegistration(@RequestParam(name = "clientVin",required = false)String clientVin ,Model model) {
+	public CarRegisterDTO regRegistration(@RequestParam(name = "clientVin",required = false)String clientVin) {
 	    return cs.regRegistration(clientVin);
 	}
 	
 	//일반접수-차량접수/수정
 	@PostMapping("/reg/registration/edit")
-	public String regRegistrationAndcorrection(@ModelAttribute CarRegisterDTO regCarDTO, @RequestParam("mechanicNo") int mechanicNo,HttpSession session) {
+	public String regRegistrationAndcorrection(@ModelAttribute CarRegisterDTO regCarDTO, @RequestParam(name = "mechanicNoParam", defaultValue = "0", required = false) int mechanicNo,HttpSession session, @RequestParam(name = "registrationNumberHidden" ,required = false) String registrationNumber) {
 		int word = (Integer)session.getAttribute("shopNo");
 		
-		CarRegisterDTO carRegisterDTO = CarRegisterDTO
-	    		.builder()
-	            .clientVin(regCarDTO.getClientVin())
-	            .clientCarNumber(regCarDTO.getClientCarNumber())
-	            .clientDistanceDriven(regCarDTO.getClientDistanceDriven())
-	            .memberEmail(regCarDTO.getMemberEmail())
-	            .memberName(regCarDTO.getMemberName())
-	            .memberPhone(regCarDTO.getMemberPhone())
-	            .registrationClientRequests(regCarDTO.getRegistrationClientRequests())
-	            .registrationSignificant(regCarDTO.getRegistrationSignificant())
-	            .mechanicNo(mechanicNo)
-	            .shopNo(word)
-	            .registrationDate(regCarDTO.getRegistrationDate())
-	            .build();
-		cs.regAndcorr(carRegisterDTO);
+		if(registrationNumber == null || registrationNumber == "") {
+			log.info("registrationNumber : {}",registrationNumber);
+
+			CarRegisterDTO carRegisterDTO = CarRegisterDTO
+		    		.builder()
+		            .clientVin(regCarDTO.getClientVin())
+		            .clientCarNumber(regCarDTO.getClientCarNumber())
+		            .clientDistanceDriven(regCarDTO.getClientDistanceDriven())
+		            .memberEmail(regCarDTO.getMemberEmail())
+		            .memberName(regCarDTO.getMemberName())
+		            .memberPhone(regCarDTO.getMemberPhone())
+		            .registrationClientRequests(regCarDTO.getRegistrationClientRequests())
+		            .registrationSignificant(regCarDTO.getRegistrationSignificant())
+		            .mechanicNo(mechanicNo)
+		            .shopNo(word)
+		            .registrationDate(regCarDTO.getRegistrationDate())
+		            .build();
+			
+			cs.regAndcorr(carRegisterDTO);
+		}else if(registrationNumber != null) {
+			int regiNum = Integer.parseInt(registrationNumber);
+			CarRegisterDTO carRegisterDTO = CarRegisterDTO
+		    		.builder()
+		    		.clientCarNumber(regCarDTO.getClientCarNumber())
+		    		.clientDistanceDriven(regCarDTO.getClientDistanceDriven())
+		    		.memberName(regCarDTO.getMemberName())
+		            .memberPhone(regCarDTO.getMemberPhone())
+		            .registrationClientRequests(regCarDTO.getRegistrationClientRequests())
+		            .registrationSignificant(regCarDTO.getRegistrationSignificant())
+		            .registrationNumber(regiNum)
+		            .registrationDate(regCarDTO.getRegistrationDate())
+		            .build();
+			log.info("registrationNumber :  {}  ",registrationNumber);
+			cs.regAndEdit(carRegisterDTO);
+		}
+		
+		
+
 		return "redirect:/reg/registration";
 		 
 	}
@@ -117,30 +139,18 @@ public class RegistrationController {
 	//지정 정비사 확인
 	@GetMapping("/reg/registration/modal/mechanic")
 	@ResponseBody
-	public List<MechanicRegisterDTO> regRegistrationChiceMechanic(@RequestParam(name = "mechanicNo", required = false) Integer mechanicNo,@RequestParam(name = "mechanicName" , required = false) String mechanicName,HttpSession session) {
+	public List<MechanicRegisterDTO> regRegistrationChiceMechanic(@RequestParam(name = "mechanicNoParam", defaultValue = "0", required = false) int mechanicNo,@RequestParam(name = "mechanicName" , required = false) String mechanicName,HttpSession session) {
 		int word = (Integer)session.getAttribute("shopNo");
-//		log.info(""+mechanicNo);
-//		if(mechanicNo != null) {
-//			MechanicRegisterDTO dto = MechanicRegisterDTO	.builder()
-//												.mechanicNo(mechanicNo)
-//												.mechanicName(mechanicName)
-//												.shopNo(word)
-//												.build();
-////			log.info("되? {}",cs.regChiceMechanic(dto,word));
-			log.info("dto : "+cs.regChiceMechanic(mechanicNo,mechanicName,word));
-			return cs.regChiceMechanic(mechanicNo,mechanicName,word);
+			
+		return cs.regChiceMechanic(mechanicNo,mechanicName,word);
 		
 	}
 	
-	@GetMapping("/reg/registration/modal/mechanicInput")
+	@PostMapping("/reg/registration/modal/mechanicInput")
 	@ResponseBody
 	public MechanicRegisterDTO regRegistrationChiceMechanicModal(@RequestParam("mechanicNo")int mechanicNo) {
-		
 		return cs.registrationChiceMechanicInput(mechanicNo);
 	}
-	
-	
-
 	
 	//차량 등록
 	@GetMapping("/reg/carRegister")

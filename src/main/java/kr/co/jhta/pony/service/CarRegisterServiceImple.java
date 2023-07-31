@@ -48,21 +48,21 @@ public class CarRegisterServiceImple implements CarRegisterService{
 		dao.regAndcorrInsert(regCarDTO);
 		
 	}
-
-
-
-//	@Override
-//	public List<MechanicRegisterDTO> mechanicChoice(int word) {
-//		
-//		return dao.mechanicSelect(word);
-//	}
-
-
+	
+	@Override
+	public void regAndEdit(CarRegisterDTO carRegisterDTO) {
+		
+		dao.regAndEditUpdate(carRegisterDTO);
+		
+	}
+	
 
 	@Override
 	public CarRegisterDTO resNum(int registrationNumber, LocalDate registrationDate) {
 		return dao.resNumSelect(registrationNumber,registrationDate);
 	}
+	
+	
 
 
 	@Override
@@ -74,6 +74,13 @@ public class CarRegisterServiceImple implements CarRegisterService{
 	public MechanicRegisterDTO registrationChiceMechanicInput(int mechanicNo) {
 		return dao.registrationChiceMechanicInputSelect(mechanicNo);
 	}
+
+	@Override
+	public CarRegisterDTO registrationTodayCases() {
+		return dao.registrationTodayCases();
+	}
+
+
 
 
 

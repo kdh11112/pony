@@ -98,7 +98,7 @@ $("#vin").on("click", function() {
 	          (function(index) { // 클로저 함수
         	    $("#row" + (index + 1)).on("click", function() { // id값은 "row" + (index + 1)입니다.
         	      //console.log(index + 1); // id값이 1부터 시작하므로 인덱스에 1을 더해줍니다.
-        	      console.log(data[index].clientVin);
+        	      console.log("clientVin"+data[index].clientVin);
         	      $.ajax({
         	    	    type: 'post',
         	    	    url: '/reg/registration',
@@ -106,8 +106,9 @@ $("#vin").on("click", function() {
         	    	        clientVin: data[index].clientVin
         	    	    },
         	    	    success: function(response) {
+        	    	    	console.log("-----------------------");
         	    	    	console.log(response);
-							
+        	    	    	console.log("-----------------------");
         	    	    	/* for (let responses of response) {  리스트로 받아올시
         	    	    	
         	    	    		
@@ -198,7 +199,6 @@ $("#vin").on("click", function() {
   })
   
   $("#meName").on("click",function(){
-	  $("#mechanicId").val("");
 	  ajaxMC();
   })
   
@@ -222,8 +222,8 @@ $("#vin").on("click", function() {
 			mctable.innerHTML = "";
 			
 			for(let i=0; i<data.length; i++){
-				var row = document.createElement("tr");
-				row.id = "row" + (i+1);
+				var rows = document.createElement("tr");
+				rows.id = "rows" + (i+1);
 				
 				var mechanicNoData = data[i].mechanicNo;
 				var mechanicNameData = data[i].mechanicName;
@@ -236,26 +236,27 @@ $("#vin").on("click", function() {
 				cell1.innerText = mechanicNoData;
 				cell2.innerText = mechanicNameData;
 				
-				row.appendChild(cell);
-				row.appendChild(cell1);
-				row.appendChild(cell2);
+				rows.appendChild(cell);
+				rows.appendChild(cell1);
+				rows.appendChild(cell2);
 				
-				mctable.appendChild(row);
-				
+				mctable.appendChild(rows);
 				(function(index){
-					$("#row" + (index + 1)).on("click",function(){
+					$("#rows" + (index + 1)).on("click",function(){
 						console.log(data[index].mechanicNo);
-						console.log("찍힘?")
 						
 						$.ajax({
-							type:'get',
+							type:'post',
 							url: '/reg/registration/modal/mechanicInput',
 							data: {
 								mechanicNo : data[index].mechanicNo
 							},
 							success: function(response){
-								console.log(response);
-							$("#mechanicId").val(response.mechanicName);
+							console.log("response : "+response);
+							console.log("response.mechanicNo : "+response.mechanicNo); 
+							console.log("response.mechanicName : "+response.mechanicName); 
+							$("#mechanicId").val(response.mechanicNo);
+							$("#mechanicNameId").val(response.mechanicName);
 							$('#mechanicModal').modal('hide');
 								
 							},
@@ -472,8 +473,8 @@ $j(function() {
                     </div>
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
-                         <label>접수번호 히든처리</label>
-                        <input type="text" class="form-control" id="registrationNumberId" name="registrationNumber1" value="${searchOne.registrationNumber}" readonly>
+                         <!-- <label>접수번호 히든처리</label> -->
+                        <input type="text" class="form-control" id="registrationNumberId" name="registrationNumberHidden" value="${searchOne.registrationNumber}" readonly>
                       </div>
                     </div>
                   </div>
@@ -508,6 +509,11 @@ $j(function() {
                         <input type="text" class="form-control" id="ReservationDueDateId" name="registrationReservationDueDate" value="${searchOne.registrationReservationDueDate}" readonly>
                       </div>
                     </div>
+                    <div class="col-md-2 pr-1">
+					  <div class="form-group button-container" style="display: flex; align-items: center; justify-content: center; height: 80px;">
+					    <button type="button" class="btn btn-secondary" style="width: 100px;"> 당일건수 : <span class="badge text-bg-info">${count.registrationNumber}</span></button>
+					  </div>
+					</div>
                   </div>
                   <div class="row">
                     <div class="col-md-2 pr-1">
@@ -525,7 +531,8 @@ $j(function() {
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>지정정비사</label>
-						<input type="text" class="form-control" id="mechanicId" name="mechanicNo" value=""  data-toggle="modal" data-target="#mechanicModal" data-whatever="@mdo">
+						<input type="hidden" class="form-control" id="mechanicId" name="mechanicNoParam" data-toggle="modal" data-target="#mechanicModal" data-whatever="@mdo">
+						<input type="text" class="form-control" id="mechanicNameId" name="mechanicName" value=""  data-toggle="modal" data-target="#mechanicModal" data-whatever="@mdo">
                       </div>
                     </div>
                     <div class="col-md-2 pr-1">
@@ -537,7 +544,7 @@ $j(function() {
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>최종입고일</label>
-                        <input type="text" class="form-control" id="regDateId" name="registrationDate" value="${searchOne.registrationDate}" readonly>
+                        <input type="text" class="form-control" id="regDateId" name="registrationDateLast" value="${searchOne.registrationDate}" readonly>
                       </div>
                     </div>
                   </div>

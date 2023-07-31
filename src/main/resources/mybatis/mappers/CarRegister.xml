@@ -34,9 +34,9 @@
 		  </where> 
 	</select>
 	
-	<select id="regRegistrationSelect" resultType="kr.co.jhta.pony.dto.CarRegisterDTO" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+	<select id="regRegistrationSelect" resultType="kr.co.jhta.pony.dto.CarRegisterDTO" parameterType="String">
 		
-			SELECT
+			select * from(SELECT
 			    c.clientVin,
 			    clientCarNumber,
 			    clientDistanceDriven,
@@ -50,17 +50,22 @@
 			    registrationClientRequests,
 			    registrationSignificant,
 			    registrationReservationDueDate,
-			    MAX(registrationDate) AS registrationDate,
+			    registrationDate,
+			    row_number() over(order by registrationDate desc) rowNum,
 			    s.shopArea,
 			    s.shopAreaPoint
-			FROM CLIENT c
-			LEFT JOIN MEMBER m ON c.memberNo = m.memberNo
-			LEFT JOIN REGISTRATION r ON c.clientVin = r.clientVin
-			LEFT JOIN MECHANIC m2 ON r.mechanicNo = m2.mechanicNo
-			LEFT JOIN SHOP s ON m2.shopNo = s.shopNo
+			FROM CLIENT c LEFT JOIN MEMBER m 
+			ON c.memberNo = m.memberNo 
+			LEFT JOIN REGISTRATION r 
+			ON c.clientVin = r.clientVin
+			LEFT JOIN SHOP s 
+			ON r.shopNo = s.shopNo
+			LEFT JOIN MECHANIC m2 
+			ON r.mechanicNo = m2.mechanicNo
 			WHERE c.clientVin = #{clientVin}
-			GROUP BY c.clientVin
-			ORDER BY registrationDate DESC;
+			order by rowNum asc) aa
+			GROUP by aa.clientVin
+
 
 	</select>
 	
@@ -80,8 +85,25 @@
 	
 	<insert id="regAndcorrInsert" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
 	INSERT INTO REGISTRATION(registrationClientRequests,registrationSignificant,mechanicNo,clientVin,shopNo,registrationDate) 
-				values(#{registrationClientRequests},#{registrationSignificant},#{mechanicNo},#{clientVin},#{shopNo},DATE_FORMAT(NOW(), '%Y-%m-%d'))
+				values(#{registrationClientRequests},#{registrationSignificant},#{mechanicNo},#{clientVin},#{shopNo},CONVERT_TZ(NOW(), '+00:00', '+09:00'))
 	</insert>
+	
+	<update id="regAndEditUpdate" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+		UPDATE REGISTRATION r 
+			left join CLIENT c ON c.clientVin = r.clientVin
+			left join `MEMBER` m ON c.memberNo = m.memberNo
+			left join MECHANIC m2 ON r.mechanicNo = m2.mechanicNo
+			left join SHOP s ON r.shopNo = s.shopNo 
+		SET r.registrationClientRequests = #{registrationClientRequests},
+			r.registrationSignificant = #{registrationSignificant},
+			c.clientCarNumber = #{clientCarNumber}, 
+			c.clientDistanceDriven = #{clientDistanceDriven},
+			m.memberName = #{memberName}, 
+			m.memberPhone = #{memberPhone}
+		WHERE r.registrationNumber = #{registrationNumber}
+		AND DATE(r.registrationDate) = #{registrationDate}
+	</update>
+	
 	
 	<select id="resNumSelect" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO" resultType="kr.co.jhta.pony.dto.CarRegisterDTO">
 		SELECT 	c.clientVin,
@@ -107,17 +129,26 @@
 		ON c.clientVin = r.clientVin
 		left join `MEMBER` m
 		ON c.memberNo = m.memberNo
+		left join SHOP s 
+		ON r.shopNo = s.shopNo
 		left join MECHANIC m2
 		ON r.mechanicNo = m2.mechanicNo
-		left join SHOP s 
-		ON m2.shopNo = s.shopNo
 		where registrationNumber = #{registrationNumber}
-		and registrationDate = #{registrationDate}
+		and DATE(registrationDate) = #{registrationDate}
 	</select>
 	
 	<select id="registrationChiceMechanicInputSelect" resultType="kr.co.jhta.pony.dto.MechanicRegisterDTO" parameterType="int">
-		select mechanicName  from MECHANIC m 
+		select mechanicNo ,mechanicName  from MECHANIC m 
 		WHERE mechanicNo = #{mechanicNo}
+	</select>
+	
+	<select id="registrationTodayCases" resultType="kr.co.jhta.pony.dto.CarRegisterDTO" parameterType="int">
+	    SELECT
+	        COUNT(registrationNumber) AS registrationNumber
+	    FROM
+	        REGISTRATION
+	    WHERE
+	        DATE(registrationDate) = CURDATE()
 	</select>
 	
 

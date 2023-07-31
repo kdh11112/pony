@@ -17,13 +17,15 @@ public interface CarRegisterService {
 
 	public void regAndcorr(CarRegisterDTO regCarDTO);
 
-//	public List<MechanicRegisterDTO> mechanicChoice(int word);
-
 	public CarRegisterDTO resNum(int registrationNumber, LocalDate registrationDate);
 
 	public List<MechanicRegisterDTO> regChiceMechanic(Integer mechanicNo, String mechanicName,int word);
 
 	public MechanicRegisterDTO registrationChiceMechanicInput(int mechanicNo);
+
+	public CarRegisterDTO registrationTodayCases();
+
+	public void regAndEdit(CarRegisterDTO carRegisterDTO);
 
 
 
