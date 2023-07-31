@@ -104,27 +104,21 @@
 					                </c:forEach>
 				                </tbody>
 				                <tr>
-									<td colspan="4">
+									<td colspan="6" class="pagetd">
 										<nav aria-label="Page navigation example">
 											<ul class="pagination">
-												<c:if test="${map.prev }">
-													<li class="page-item"><a class="page-link"
-														href="list?currentPage=${map.currentPage-5 }">이전</a></li>
-												</c:if>
-												<c:forEach var="i" begin="${map.startPageNo }"
-													end="${map.endPageNo }">
-													<li class="page-item"><a class="page-link"
-														href="adminnotice?currentPage=${i }">${i }</a></li>
+												<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+													<li class="page-item"><a class="page-link" href="${num }">${num }</a></li>
 												</c:forEach>
-												<c:if test="${map.next }">
-													<li class="page-item"><a class="page-link"
-														href="adminnotice?currentPage=${map.currentPage+5 }">다음</a></li>
-												</c:if>
 											</ul>
 										</nav>
 									</td>
 								</tr>
-				            </table>
+							</table>
+							<form id="moveForm" method="get">
+								<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+								<input type="hidden" name="perPageNum" value="${pageMaker.cri.perPageNum }">
+							</form>
 				        </div>
 				    </div>
 				    
@@ -149,5 +143,30 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
 	<script src="css/admin/js/scripts.js"></script>
+	<script>
+		/* 수정, 조회 후 현재 페이지로 다시 리다이렉트하게 하기 위해 hidden으로 현재 페이지 정보 넘겨줌 */
+		let moveForm = $("#moveForm");
+
+		$(".move").on("click", function(e) {
+			e.preventDefault();
+			moveForm.append("<input type='hidden' name='noticeNo' value='"
+							+ $(this).attr("href") + "'>");
+			moveForm.attr("action", "/adminnotice");
+			moveForm.submit();
+		});		
+		
+		/* 페이징 버튼 동작시키기 위한 코드*/
+		$(".page-link").on("click", function(e) {
+
+			e.preventDefault();
+			/* form 태그 내부 pageNum과 관련된 input 태그의 value 값을 클릭한 a태그의 페이지 번호로 삽입 */
+			moveForm.find("input[name='pageNum']").val($(this).attr("href"));
+			/* form태그 action 속성 추가 및 "/partall"을 속성값으로 추가 */
+			moveForm.attr("action", "/adminnotice");
+			/* form 태그 서버 전송 */
+			moveForm.submit();
+
+		});
+	</script>
 </body>
 </html>
