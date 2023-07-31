@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.jhta.pony.dao.OrderDAO;
 import kr.co.jhta.pony.dao.OrderDetailDAO;
 import kr.co.jhta.pony.dto.OrderDTO;
-import kr.co.jhta.pony.dto.OrderDetailDTO;
-import kr.co.jhta.pony.dto.StartEnd;
+import kr.co.jhta.pony.util.Criteria;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -25,10 +25,10 @@ public class OrderServiceImple implements OrderService{
 		this.orderDetaildao = oddao;
 	}
 	
+	// 전체 목록(페이징)
 	@Override
-	public List<OrderDTO> getAllByAdmin(int startNo, int endNo) {
-		StartEnd se = new StartEnd(startNo, endNo);
-		return orderdao.getAllByAdmin(se);
+	public List<OrderDTO> getAllByAdmin(Criteria cri) {
+		return orderdao.getAllByAdmin(cri);
 	}
 
 	@Override
@@ -42,6 +42,7 @@ public class OrderServiceImple implements OrderService{
 	}
 
 	@Override
+	@Transactional
 	public void deleteOne(OrderDTO dto) {
 		orderdao.deleteOne(dto);
 		
@@ -62,6 +63,7 @@ public class OrderServiceImple implements OrderService{
 	}
 
 	@Override
+	@Transactional
 	public void updateOrderTotal(int orderNo, int orderTotal) {
 		orderdao.updateOrderTotal(orderNo, orderTotal);
 	}

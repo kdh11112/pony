@@ -7,12 +7,13 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.jhta.pony.dto.AnswerDTO;
 import kr.co.jhta.pony.dto.StartEnd;
+import kr.co.jhta.pony.util.Criteria;
 
 @Repository
 @Mapper
 public interface AnswerDAO {
 	
-	List<AnswerDTO> getAll(StartEnd se);
+	List<AnswerDTO> getAll(Criteria cri);
 	
 	void insertAnswer(AnswerDTO dto);
 	

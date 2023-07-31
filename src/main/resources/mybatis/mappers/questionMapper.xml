@@ -15,13 +15,11 @@
 		FROM QUESTION
 	</select>
 	
-	<select id="getAllByAdmin" resultType="kr.co.jhta.pony.dto.QuestionDTO" parameterType="kr.co.jhta.pony.dto.StartEnd">
-		SELECT rn, questionNo, questionTitle, questionContents, questionFile, questionDate, memberNo, answerStatus
-    	FROM (SELECT ROW_NUMBER() OVER (ORDER BY questionNo DESC) 
-    		AS rn, questionNo, questionTitle, questionContents, questionFile, questionDate, memberNo, answerStatus
-		        FROM QUESTION) 
-		    AS derived
-    	WHERE rn BETWEEN #{startNo} AND #{endNo}
+	<select id="getAllByAdmin" resultType="kr.co.jhta.pony.dto.QuestionDTO">
+		SELECT questionNo, questionTitle, questionContents, questionFile, questionDate, memberNo, answerStatus
+    	FROM (SELECT questionNo, questionTitle, questionContents, questionFile, questionDate, memberNo, answerStatus
+    	FROM QUESTION ORDER BY questionNo DESC) AS T1
+    	LIMIT #{skip}, #{perPageNum}
 	</select> 
 	
 	

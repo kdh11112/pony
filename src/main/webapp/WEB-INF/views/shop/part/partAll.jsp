@@ -56,12 +56,29 @@
 	width: 1040px;
 }
 
-.btn_addCart {
-	border-left-width: 900px;
+.choicetype {
+	-o-appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	height: 35px;
+	padding: 5px 10px 5px 10px;
+	border-radius: 4px;
+	outline: 0 none;
+	border-color: silver;
 }
 
-.pagetd {
-	color: #fff !important;
+#option_car {
+	width: 150px;
+}
+
+#option_count {
+	width: 50px;
+}
+
+.table th, td {
+	text-align: center;
+}
 }
 </style>
 </head>
@@ -108,15 +125,15 @@
 		<!-- Section-->
 		<section class="py-5 two-column-layout">
 			<div class="container">
-				<form action="" method="post">
+				<form action="" method="get">
 					<table class="table">
 						<colgroup>
 							<col width="130">
-							<col width="500">
+							<col width="400">
 							<col width="190">
-							<col width="190">
+							<col width="150">
 							<col width="130">
-
+							<col width="50">
 						</colgroup>
 						<tr>
 							<th>부품번호</th>
@@ -124,13 +141,14 @@
 							<th>옵션</th>
 							<th>수량</th>
 							<th>금액</th>
+							<th></th>
 						</tr>
 						<c:forEach var="partlist" items="${partlist }">
 							<tr>
 								<td>${partlist.partNumber }</td>
-								<td>${partlist.partName }</td>
+								<td style="text-align: left !important; padding-left: 50px;">${partlist.partName }</td>
 								<td>
-									<select name="option" class="choicetype">
+									<select name="option" class="choicetype" id="option_car">
 										<option value=" ">--</option>
 										<option value="AVANTE">AVANTE</option>
 										<option value="SONATA">SONATA</option>
@@ -140,7 +158,7 @@
 									</select>
 								</td>
 								<td>
-									<select name="type" class="choicetype">
+									<select name="type" class="choicetype" id="option_count">
 										<option value="1">1</option>
 										<option value="2">2</option>
 										<option value="3">3</option>
@@ -148,8 +166,12 @@
 										<option value="5">5</option>
 									</select>
 								</td>
-								<td>${partlist.partPrice }</td>
-								<td><a href=""><img src="css/admin/assets/cart.png" style="width:10px; height:10px;" /></a></td>
+								<td style="text-align: right !important; padding-right: 35px;">${partlist.partPrice }</td>
+								<td>
+
+									<input type="hidden" name="" value="${partlist.partNumber }" />
+									<input type="image" src="css/admin/assets/cart.png" style="width: 12px; height: 12px;" />
+								</td>
 							</tr>
 						</c:forEach>
 						<tr>
@@ -188,18 +210,18 @@
 	<script>
 		/* 수정, 조회 후 현재 페이지로 다시 리다이렉트하게 하기 위해 hidden으로 현재 페이지 정보 넘겨줌 */
 		let moveForm = $("#moveForm");
-		
-		$(".move").on("click", function(e){
+
+		$(".move").on("click", function(e) {
 			e.preventDefault();
-			
-			moveForm.append("<input type='hidden' name='partno' value='"+$(this).attr("href")+"'>");
-			moveForm.attr("action", "/board/get");
+			moveForm.append("<input type='hidden' name='partno' value='"
+							+ $(this).attr("href") + "'>");
+			moveForm.attr("action", "/partall");
 			moveForm.submit();
-		});
+		});		
 		
 		/* 페이징 버튼 동작시키기 위한 코드*/
-		$(".page-link").on("click", function(e){
-			
+		$(".page-link").on("click", function(e) {
+
 			e.preventDefault();
 			/* form 태그 내부 pageNum과 관련된 input 태그의 value 값을 클릭한 a태그의 페이지 번호로 삽입 */
 			moveForm.find("input[name='pageNum']").val($(this).attr("href"));
@@ -207,7 +229,7 @@
 			moveForm.attr("action", "/partall");
 			/* form 태그 서버 전송 */
 			moveForm.submit();
-			
+
 		});
 	</script>
 </body>

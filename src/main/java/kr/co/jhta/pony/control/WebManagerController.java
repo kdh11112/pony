@@ -1,7 +1,5 @@
 package kr.co.jhta.pony.control;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.jhta.pony.dto.NoticeDTO;
+import kr.co.jhta.pony.dto.PageMakeDTO;
 import kr.co.jhta.pony.service.NoticeService;
-import kr.co.jhta.pony.util.PageUtil;
+import kr.co.jhta.pony.util.Criteria;
 
 
 @Controller
@@ -24,22 +23,12 @@ public class WebManagerController {
 	NoticeService service;
 	
 	@GetMapping("/notice")
-	public String notice(Model model,
-			@RequestParam(name="currentPage",defaultValue="1")int currentPage
-			) {
+	public String notice(Model model, Criteria cri) {
 //		총게시물수
-		int totalNumber = service.getTotal();
-		//페이지당 게시물수
-		int recordPerPage = 10;
+		int totalNumber = service.getTotal();;
 		
-		//총페이지수, 한페이지당 수, 현재 페이지 번호
-		Map<String, Object> map = PageUtil.getPageData(totalNumber, recordPerPage, currentPage);
-		
-		int startNo = (int)map.get("startNo");
-		int endNo = (int)map.get("endNo");
-		
-		model.addAttribute("list",service.selectAll(startNo, endNo));
-		model.addAttribute("map", map);
+		model.addAttribute("list",service.selectAll(cri));
+		model.addAttribute("pageMaker", new PageMakeDTO(cri, totalNumber));
 		return "noticelist";
 	}
 	

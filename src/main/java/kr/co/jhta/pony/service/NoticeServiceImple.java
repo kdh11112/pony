@@ -8,17 +8,17 @@ import org.springframework.stereotype.Service;
 import kr.co.jhta.pony.dao.NoticeDAO;
 import kr.co.jhta.pony.dto.NoticeDTO;
 import kr.co.jhta.pony.dto.StartEnd;
+import kr.co.jhta.pony.util.Criteria;
  
 @Service
-public class NoticeSerciceImple implements NoticeService{
+public class NoticeServiceImple implements NoticeService{
 
 	@Autowired
 	private NoticeDAO dao;
 	
 	@Override
-	public List<NoticeDTO> selectAll(int startNo, int endNo) {
-		StartEnd se =  new StartEnd(startNo, endNo);
-		return dao.getAll(se);
+	public List<NoticeDTO> selectAll(Criteria cri) {
+		return dao.getAll(cri);
 	}
 
 	@Override

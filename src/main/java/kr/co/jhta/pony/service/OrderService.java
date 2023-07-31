@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.jhta.pony.dto.OrderDTO;
 import kr.co.jhta.pony.dto.StartEnd;
+import kr.co.jhta.pony.util.Criteria;
 
 public interface OrderService {
 	
@@ -13,7 +14,7 @@ public interface OrderService {
 	
 	void deleteOne(OrderDTO dto);
 	
-	List<OrderDTO> getAllByAdmin(int startNo, int endNo);
+	List<OrderDTO> getAllByAdmin(Criteria cri);
 	
 	//주문의 총 금액(orderTotal) 계산
 	int calculateOrderTotal(int orderNo);

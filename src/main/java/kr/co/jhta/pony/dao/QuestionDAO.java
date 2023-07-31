@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.jhta.pony.dto.QuestionDTO;
 import kr.co.jhta.pony.dto.StartEnd;
+import kr.co.jhta.pony.util.Criteria;
 
 @Repository
 @Mapper
@@ -18,7 +19,7 @@ public interface QuestionDAO {
 	void deleteOne(QuestionDTO dto);
 	void insertOne(QuestionDTO dto);
 
-	List<QuestionDTO> getAllByAdmin(StartEnd se);
+	List<QuestionDTO> getAllByAdmin(Criteria cri);
 	void qnaAddOne(QuestionDTO dto);
 	void qnaDeleteOne(QuestionDTO dto);
 	void qnaModifyOne(QuestionDTO dto);

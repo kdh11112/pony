@@ -5,18 +5,25 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.jhta.pony.dao.PartDAO;
 import kr.co.jhta.pony.dao.QuestionDAO;
 import kr.co.jhta.pony.dto.QuestionDTO;
 import kr.co.jhta.pony.dto.StartEnd;
+import kr.co.jhta.pony.util.Criteria;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
 public class QuestionServiceImple implements QuestionService {
 
+	private final QuestionDAO qdao;
+	
 	@Autowired
-	private QuestionDAO dao;
+	public QuestionServiceImple(QuestionDAO questiondao) {
+		this.qdao = questiondao;
+	}
 
 	@Override
 	public List<QuestionDTO> selectAll(int startNo, int endNo, int memberNo) {
@@ -34,56 +41,59 @@ public class QuestionServiceImple implements QuestionService {
 				map.put("endNo", endNo);
 				log.info("map : {} {} {} ", map, map.get("memberNo"), map.get("startNo"));
 
-		return dao.getAll(map);
+		return qdao.getAll(map);
 	}
 
 	@Override
 	public int getTotal() {
-		return dao.getTotal();
+		return qdao.getTotal();
 	}
 
 	@Override
 	public QuestionDTO selectOne(int questionNo) {
-		return dao.selectOne(questionNo);
+		return qdao.selectOne(questionNo);
 	}
 
 	@Override
+	@Transactional
 	public void deleteOne(QuestionDTO dto) {
-		dao.deleteOne(dto);
+		qdao.deleteOne(dto);
 	}
 
 	@Override
 	public void insertOne(QuestionDTO dto) {
-		dao.insertOne(dto);
+		qdao.insertOne(dto);
 	}
 
-	public List<QuestionDTO> selectAllByAdmin(int startNo, int endNo) {
-
-		StartEnd se = new StartEnd(startNo, endNo);
-		return dao.getAllByAdmin(se);
+	public List<QuestionDTO> selectAllByAdmin(Criteria cri) {
+		return qdao.getAllByAdmin(cri);
 	}
 
 	@Override
+	@Transactional
 	public void qnaAddOne(QuestionDTO dto) {
-		dao.qnaAddOne(dto);
+		qdao.qnaAddOne(dto);
 
 	}
 
 	@Override
-
+	@Transactional
 	public void updateAnswerStatus(QuestionDTO dto) {
-		dao.updateAnswerStatus(dto);
+		qdao.updateAnswerStatus(dto);
 		
 	}
 
 	//체크박스 삭제
 	@Override
+	@Transactional
 	public void deletecheck(String no) {
-		dao.deleteCheck(no);
+		qdao.deleteCheck(no);
 	}
-
+	
+	@Override
+	@Transactional
 	public void qnamodifyOne(QuestionDTO dto) {
-		dao.qnaModifyOne(dto);
+		qdao.qnaModifyOne(dto);
 		
 	}
 

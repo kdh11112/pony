@@ -1,7 +1,5 @@
 package kr.co.jhta.pony.control;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.co.jhta.pony.dto.AnswerDTO;
 import kr.co.jhta.pony.dto.NoticeDTO;
 import kr.co.jhta.pony.dto.OrderDTO;
+import kr.co.jhta.pony.dto.PageMakeDTO;
 import kr.co.jhta.pony.dto.QuestionDTO;
 import kr.co.jhta.pony.service.AnswerService;
 import kr.co.jhta.pony.service.NoticeService;
 import kr.co.jhta.pony.service.OrderDetailService;
 import kr.co.jhta.pony.service.OrderService;
 import kr.co.jhta.pony.service.QuestionService;
-import kr.co.jhta.pony.util.PageUtil;
+import kr.co.jhta.pony.util.Criteria;
 
 @Controller
 public class AdminController {
@@ -59,19 +58,12 @@ public class AdminController {
 	
 	// 주문 목록 ------------------------------------------------------------
 	@GetMapping("/adminorderlist")
-	public String adminorderlist(Model model, @RequestParam(name="currentPage",defaultValue="1")int currentPage) {
+	public String adminorderlist(Model model, Criteria cri) {
 		
-		//총게시물수
-		int totalNumber = oservice.getTotal();
+		model.addAttribute("orderlist",oservice.getAllByAdmin(cri));
 
-		//총 게시물 수, 한 페이지당 게시글 수, 현재 페이지 번호
-		Map<String, Object> map = PageUtil.getPageData(totalNumber, PageUtil.recodePerPage, currentPage);
+		model.addAttribute("pageMaker", new PageMakeDTO(cri, oservice.getTotal()));
 		
-		int startNo = (int)map.get("startNo");
-		int endNo = (int)map.get("endNo");
-		
-		model.addAttribute("list",oservice.getAllByAdmin(startNo, endNo));
-		model.addAttribute("map", map);
 		return "/admin/order/adminOrderAll";
 		
 		}
@@ -106,18 +98,12 @@ public class AdminController {
 	
 	// 고객 문의 ------------------------------------------------------------
 	@GetMapping("/questionlist")
-	public String questionlist(Model model, @RequestParam(name="currentPage", defaultValue = "1")int currentPage) {
-		//총게시물수
+	public String questionlist(Model model, Criteria cri) {
+		//총 게시물수
 		int totalNumber = qservice.getTotal();
 
-		//총 게시물 수, 한 페이지당 게시글 수, 현재 페이지 번호
-		Map<String, Object> map = PageUtil.getPageData(totalNumber, PageUtil.recodePerPage, currentPage);
-		
-		int startNo = (int)map.get("startNo");
-		int endNo = (int)map.get("endNo");
-		
-		model.addAttribute("list", qservice.selectAllByAdmin(startNo, endNo));
-		model.addAttribute("map", map);
+		model.addAttribute("pageMaker", new PageMakeDTO(cri, totalNumber) );
+		model.addAttribute("list", qservice.selectAllByAdmin(cri));
 
 		return "/admin/question/questionList";
 	}
@@ -200,19 +186,11 @@ public class AdminController {
 	
 	//게시글 목록
 	@GetMapping("/adminnotice")
-	public String notice(Model model, @RequestParam(name="currentPage",defaultValue="1")int currentPage) {
+	public String notice(Model model, Criteria cri) {
 	
-	//총게시물수
-	int totalNumber = nservice.getTotal();
-
-	//총 게시물 수, 한 페이지당 게시글 수, 현재 페이지 번호
-	Map<String, Object> map = PageUtil.getPageData(totalNumber, PageUtil.recodePerPage, currentPage);
+	model.addAttribute("list",nservice.selectAll(cri));
+	model.addAttribute("pageMaker", new PageMakeDTO(cri, nservice.getTotal()));
 	
-	int startNo = (int)map.get("startNo");
-	int endNo = (int)map.get("endNo");
-	
-	model.addAttribute("list",nservice.selectAll(startNo, endNo));
-	model.addAttribute("map", map);
 	return "/admin/notice/adminNoticeList";
 	}
 	

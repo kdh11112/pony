@@ -19,6 +19,7 @@ public class CartServiceImple implements CartService{
 		this.dao = cartdao;
 	}
 	
+	// 접속한 회원의 장바구니
 	@Override
 	public List<CartDTO> cartAll(String memberNo) {
 		return dao.cartAll(memberNo);

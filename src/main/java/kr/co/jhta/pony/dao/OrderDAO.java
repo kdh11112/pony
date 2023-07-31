@@ -8,12 +8,13 @@ import org.springframework.stereotype.Repository;
 import kr.co.jhta.pony.dto.NoticeDTO;
 import kr.co.jhta.pony.dto.OrderDTO;
 import kr.co.jhta.pony.dto.StartEnd;
+import kr.co.jhta.pony.util.Criteria;
 
 @Repository
 @Mapper
 public interface OrderDAO {
 
-	List<OrderDTO> getAllByAdmin(StartEnd se);
+	List<OrderDTO> getAllByAdmin(Criteria cri);
 
 	OrderDTO selectOne(int orderNo);
 
