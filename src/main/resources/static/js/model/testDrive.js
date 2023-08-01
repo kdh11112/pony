@@ -119,7 +119,6 @@ $("#shopFindBtn, .shop-area-btn").on("click", function() {
 		url: "/shopFind",
 		data: { shopAreaFind: selectedVal },
 		success: function(reponse) {
-			console.dir(reponse);
 			for (let i = 0; i < reponse.length; i++) {
 				var data = "<div class='shop-detail col-md-4' > <h4>"
 					+ reponse[i].shopAreaPoint + "</h4><p>"
@@ -259,6 +258,14 @@ function leftPad(value) {
 	return value;
 }
 
+
+let shopAreaPoint = "";
+$(document).on("click", ".shop-no-btn", function() {
+    shopAreaPoint = $(this).closest(".shop-detail").find("h4").text();
+
+    // 이하 코드 생략
+});
+
 let selectedSchedule = ""; // 시간 선택 값을 저장할 변수를 빈 문자열로 초기화합니다.
 let testDriveSchedule = "";
 let buttonTime = "";
@@ -273,7 +280,7 @@ function handleButtonClick(event) {
 	$("#testDriveSchedule").val(testDriveSchedule + buttonTime);
     $("#buttonTime").val(buttonTime);
 	
-    alert("선택한 날짜 : " + buttonYear+ "년 " + buttonMonth + "월 " + buttonDate + "일 " + buttonTime+"시");
+    alert("선택한 차량: " + $("#selectModel option:selected").text() + "\n" + "선택한 지점: " + shopAreaPoint + "\n" + "선택한 날짜: " + testDriveSchedule + "\n" + "선택한 시간: " + buttonTime);
     let offset = $("#OkBtn").offset();
     $('html').animate({ scrollTop: offset.top }, 1);
 }
@@ -291,6 +298,5 @@ $("#OkBtn").on("click", function () {
     $("#shopNo").val(shopNo);
     $("#selectedModel").val(selectedModel);
     $("#buttonTime").val(buttonTime);
-    console.log(testDriveSchedule +"\n" +  shopNo +"\n" + selectedModel +"\n" + buttonTime)
     document.getElementById("frm").submit();
 });
