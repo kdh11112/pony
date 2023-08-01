@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -283,6 +285,51 @@
 									<p data-v-269e3e5f>등록된 차량이 없습니다.</p>
 								</div>
 							</div>
+							<c:if test="${!empty userCars  }">
+					        	<!-- 1:1문의내역 리스트 -->
+									<div class="container-fluid">
+										<section class="inquiry">
+											<div class="page-title">
+												<div class="container">
+													<h3>나의 차량목록</h3>
+												</div>
+											</div>
+
+											<!-- board list area -->
+											<div id="inquiry_list">
+												<div class="container">
+													<table class="board-table">
+														<thead>
+															<tr>
+														
+																<th scope="col" class="th-num">차대번호</th>
+																<th scope="col" class="th-title">차량번호</th>
+																<th scope="col" class="th-date">주행거리</th>
+																<th scope="col" class="th-date">차종</th>
+																<th scope="col" class="th-date">출고일</th>
+																<th scope="col" class="th-date">생산일</th>
+																<th scope="col" class="th-date">색상</th>
+															</tr>
+														</thead>
+														<tbody>
+															<c:forEach var="clist" items="${userCars }">
+																<tr class="list">
+																	<td>${clist.clientVin }</td>
+																	<td>${clist.clientCarNumber }</td>
+																	<td>${clist.clientDistanceDriven }</td>
+																	<td>${clist.clientCarType }</td>
+																	<td>${clist.clientShipDate }</td>
+																	<td>${clist.clientProductionDate }</td>
+																	<td>${clist.clientColor }</td>
+																</tr>
+															</c:forEach>
+															
+														</tbody>
+
+													</table>
+												</div>
+											</div>
+					        </c:if>
 							<div id="carregibox">
 								<div class="carregiGo">
 									<a href="/carregigo"><input type="button" value="차량등록하기" /></a>

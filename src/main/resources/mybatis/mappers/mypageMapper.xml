@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.jhta.pony.dao.PonyMemberDAO">
+	<!-- 1:1문의 전체리스트 -->
 	<select id="getAll" resultType="kr.co.jhta.pony.dto.QuestionDTO" parameterType="kr.co.jhta.pony.dto.StartEnd">
 		SELECT rn, questionNo, questionTitle, questionContents, questionFile, questionDate, memberNo, answerStatus
     	FROM (SELECT ROW_NUMBER() OVER (ORDER BY questionNo DESC) 
@@ -12,20 +13,44 @@
     	WHERE rn BETWEEN #{startNo} AND #{endNo}
     	
 	</select>
+	<!-- 1:1문의 전체개수 -->
 	<select id="getTotal" resultType="int">
 		SELECT count(*) cnt
 		FROM QUESTION
 	</select>
-	
+	<!-- 1:1문의 가져오기 -->
 	<select id="selectOne" parameterType="int" resultType="kr.co.jhta.pony.dto.QuestionDTO">
 		SELECT * 
 		FROM QUESTION
 		WHERE questionNo = #{questionNo}
 	</select>
-	
+	<!-- 1:1문의삭제 -->
 	<delete id="deleteOne">
 		DELETE 
 		FROM QUESTION
 		WHERE questionNo = #{questionNo}
 	</delete>
+	<!-- 회원정보가져오기 -->
+	<select id="selectMem" parameterType="int" resultType="kr.co.jhta.pony.dto.PonyMemberDTO">
+			SELECT 
+		    	memberNo,memberEmail,memberPassword,memberName,memberBirthday,memberPhone,
+			    memberZip,memberAddress1, memberAddress2
+			FROM
+			    MEMBER
+			WHERE
+			    memberNo = #{memberNo};
+	</select>
+	<!-- 회원정보 업데이트 -->
+	<update id="myinfomodifyOne" parameterType="kr.co.jhta.pony.dto.PonyMemberDTO">
+		UPDATE MEMBER
+	    SET
+	        memberPassword = #{memberPassword},
+	        memberName = #{memberName},
+	        memberBirthday = #{memberBirthday},
+	        memberPhone = #{memberPhone},
+	        memberAddress1 = #{memberAddress1},
+	        memberAddress2 = #{memberAddress2}
+	    WHERE
+	        memberNo = #{memberNo}
+	</update>
 </mapper>

@@ -30,8 +30,11 @@
 		FROM QUESTION
 		WHERE questionNo = #{questionNo}
 	</select>
+	
 
 	<delete id="deleteOne" parameterType="int">
+
+
 		DELETE 
 		FROM QUESTION
 		WHERE questionNo = #{questionNo}
@@ -39,8 +42,7 @@
 	
 
 	<insert id="qnaAddOne" parameterType="kr.co.jhta.pony.dto.QuestionDTO">
-		<!-- INSERT INTO QUESTION (questionTitle, questionContents, questionDate, memberNo, answerStatus)
-  		VALUES (#{questionTitle}, #{questionContents}, now(),#{memberNo}, 미답변) -->
+
 		<!-- INSERT INTO QUESTION (questionTitle, questionContents, questionDate,memberNo)
   		VALUES (#{questionTitle}, #{questionContents}, now(),#{memberNo}) -->
   		
@@ -57,6 +59,7 @@
 		    MEMBER M
 		  WHERE
 		    M.memberNo = #{memberNo}; -->
+
 	</insert>
 	
 	<update id="qnaModifyOne" parameterType="kr.co.jhta.pony.dto.QuestionDTO">
@@ -75,4 +78,5 @@
 		WHERE questionNo = #{questionNo}
 	</delete>
 </mapper>
+
 

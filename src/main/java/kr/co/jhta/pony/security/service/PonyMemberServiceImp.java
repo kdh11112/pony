@@ -69,6 +69,19 @@ public class PonyMemberServiceImp implements PonyMemberService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public PonyMemberDTO selectMem(int memberNo) {
+		
+		return dao.selectMem(memberNo);
+	}
+
+	@Override
+	public void myinfomodifyOne(PonyMemberDTO dto) {
+		dao.myinfomodifyOne(dto);
+		
+	}
+	
 	
 	
 	
