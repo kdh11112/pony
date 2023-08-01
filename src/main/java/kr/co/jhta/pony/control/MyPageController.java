@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +17,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import kr.co.jhta.pony.dto.NoticeDTO;
+import kr.co.jhta.pony.dto.ClientDTO;
 import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.dto.QuestionDTO;
-import kr.co.jhta.pony.service.PonyMemberService;
+import kr.co.jhta.pony.security.service.PonyMemberService;
+import kr.co.jhta.pony.service.ClientService;
 import kr.co.jhta.pony.service.QuestionService;
 import kr.co.jhta.pony.util.PageUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -35,16 +37,47 @@ import lombok.extern.slf4j.Slf4j;
 public class MyPageController {
 
 	@Autowired
+	PasswordEncoder passwordEncoder;
+	@Autowired
 	PonyMemberService service;
 	@Autowired
 	QuestionService qService;
+	@Autowired
+	ClientService cService;
 	//---------------------------마이페이지 메인
 	@GetMapping("/mypage")
-	public String mypage(Principal p, HttpSession session) {
+//	public String mypage(Principal p, HttpSession session) {
+//		
+//		PonyMemberDTO dto  = service.getMemberEmail(p.getName()); //dto에 service에 있는 getMemberEmail 메서드에 인증정보값을 담아 비교?
+//		session.setAttribute("dto", dto); //세션에 dto값을 담음.
+//		return "mypage/mypage"; //
+//	}
+	
+	public String mypage(Principal p, @ModelAttribute ClientDTO dto,
+			HttpSession session, Model model, HttpServletRequest req) {
+		PonyMemberDTO dto5 = service.getMemberEmail(p.getName());
+		session.setAttribute("dto", dto5);
+		session.setAttribute("cdto", dto);
 		
-		PonyMemberDTO dto  = service.getMemberEmail(p.getName()); //dto에 service에 있는 getMemberEmail 메서드에 인증정보값을 담아 비교?
-		session.setAttribute("dto", dto); //세션에 dto값을 담음.
-		return "mypage/mypage"; //
+		
+		// 로그인한 사용자의 회원번호를 가져옴
+		int memberNo = dto5.getMemberNo();
+		dto.setMemberNo(memberNo);
+		// 회원번호를 기준으로 등록된 차량 정보를 조회
+		List<ClientDTO> userCars = cService.carList(memberNo);
+		log.info(">>>>>>>>>>>>>>>>>>>>>"+userCars);
+		String pw =passwordEncoder.encode("자바");//비밀번호 암호화
+		log.info(">>>>>>>>>>>>>>>>>>>>>"+pw);
+		// 등록된 차량 정보가 없을 경우의 처리
+        if (userCars.isEmpty()) {
+            model.addAttribute("hasCars", false);
+        } else {
+            model.addAttribute("hasCars", true);
+            model.addAttribute("userCars", userCars);
+        }
+        model.addAttribute("carcnt",cService.getOwnedCarCount(memberNo));
+        
+		return "mypage/mypage";
 	}
 	//--------------------------------마이페이지 1:1문의 리스트페이지로이동
 	@GetMapping("/mypageqna")
@@ -132,25 +165,162 @@ public class MyPageController {
 		
 		// --------------------------등록차량확인페이지
 		@GetMapping("/carregi")
-		public String carregi() {
+//		public String carregi() {
+//			return "/mypage/carregi";
+//		}
+		public String carregi(Principal p, @ModelAttribute ClientDTO dto,
+				HttpSession session, Model model, HttpServletRequest req) {
+			PonyMemberDTO dto5 = service.getMemberEmail(p.getName());
+			session.setAttribute("dto", dto5);
+			// 로그인한 사용자의 회원번호를 가져옴
+			int memberNo = dto5.getMemberNo();
+			dto.setMemberNo(memberNo);
+			// 회원번호를 기준으로 등록된 차량 정보를 조회
+			List<ClientDTO> userCars = cService.carList(memberNo);
+			log.info(">>>>>>>>>>>>>>>>>>>>>"+userCars);
+			// 등록된 차량 정보가 없을 경우의 처리
+	        if (userCars.isEmpty()) {
+	            model.addAttribute("hasCars", false);
+	        } else {
+	            model.addAttribute("hasCars", true);
+	            model.addAttribute("userCars", userCars);
+	        }
 			return "/mypage/carregi";
 		}
 		
 		//-----------------------------차량관리페이지이동
-		@GetMapping("/carmanagement")
-		public String carmanagement() {
-			return "/mypage/carmanagement";
-		}
+//		@GetMapping("/carmanagement")
+//		public String carmanagement() {
+//			return "/mypage/carmanagement";
+//		}
+//		public String carlist(Principal p, @ModelAttribute ClientDTO dto,
+//				HttpSession session, Model model, HttpServletRequest req) {
+//			PonyMemberDTO dto5 = service.getMemberEmail(p.getName());
+//			session.setAttribute("dto", dto5);
+//			// 로그인한 사용자의 회원번호를 가져옴
+//			int memberNo = dto5.getMemberNo();
+//			dto.setMemberNo(memberNo);
+//			// 회원번호를 기준으로 등록된 차량 정보를 조회
+//			List<ClientDTO> userCars = cService.carList(memberNo);
+//			log.info(">>>>>>>>>>>>>>>>>>>>>"+userCars);
+//			// 등록된 차량 정보가 없을 경우의 처리
+//	        if (userCars.isEmpty()) {
+//	            model.addAttribute("hasCars", false);
+//	        } else {
+//	            model.addAttribute("hasCars", true);
+//	            model.addAttribute("userCars", userCars);
+//	        }
+//			return "/mypage/carmanagement";
+//		}
 		
-		//-----------------------차량등록하기페이지이동
+		//-----------------------차량등록하기페이지이동 //등록차량 출력
 		@GetMapping("/carregigo")
-		public String carregigo() {
+		public String carregigo(Principal p, @ModelAttribute ClientDTO dto,
+				HttpSession session, Model model, HttpServletRequest req) {
+			PonyMemberDTO dto5 = service.getMemberEmail(p.getName());
+			session.setAttribute("dto", dto5);
+			// 로그인한 사용자의 회원번호를 가져옴
+			int memberNo = dto5.getMemberNo();
+			dto.setMemberNo(memberNo);
+			// 회원번호를 기준으로 등록된 차량 정보를 조회
+			List<ClientDTO> userCars = cService.carList(memberNo);
+			log.info(">>>>>>>>>>>>>>>>>>>>>"+userCars);
+			// 등록된 차량 정보가 없을 경우의 처리
+	        if (userCars.isEmpty()) {
+	            model.addAttribute("hasCars", false);
+	        } else {
+	            model.addAttribute("hasCars", true);
+	            model.addAttribute("userCars", userCars);
+	        }
+	        
 			return "/mypage/carregiGo";
 		}
-		//------------------------차량등록폼페이지
+		
+		@GetMapping("/carregistration")
+	    public String myPage(Model model, Principal p,HttpSession session) {
+			PonyMemberDTO dto = service.getMemberEmail(p.getName());
+			session.setAttribute("dto", dto);
+	        List<ClientDTO> userCars = cService.selectAll(dto.getMemberNo());
+	        model.addAttribute("userCars", userCars);
+	        return "mypage";
+	    }
+		
+		//------------------------차량등록ok
 		@PostMapping("/carregiok")
-		public String carregiok() {
+		public String carregiok(Principal p, @ModelAttribute ClientDTO dto,  
+			   HttpSession session,Model model , HttpServletRequest req) {
+			PonyMemberDTO dto4 = service.getMemberEmail(p.getName());
+			session.setAttribute("dto", dto4);
+			int memberNo = dto4.getMemberNo();
+			dto.setMemberNo(memberNo);
+			
+			cService.addOne(dto);
+			
+			log.info("차량등록 {} ",dto);
 			return "redirect:/carregi";
 		}
+		//------------------------------등록차량삭제
+		@GetMapping("/deleteCar")
+		public String cardelete(Principal p,   
+				   HttpSession session,Model model , HttpServletRequest req ,@RequestParam String clientVin) {
+		
+			cService.deleteOne(clientVin);
+			
+			// 선택된 차대번호들을 순회하면서 삭제 처리
+		   // String cv = clientVin;
+		   //     log.info("cv 넘어옴? : " + cv);
+
+		        // 각 차대번호에 해당하는 차량을 삭제하는 서비스 호출
+		        
+		        
+		    
+			return "redirect:/carregi";
+		}
+		
+		//-----------------------------회원정보페이지
+		@GetMapping("/myinfo")
+		public String myinfo(Model model,Principal p,HttpSession session) {
+			PonyMemberDTO dto6 = service.getMemberEmail(p.getName());
+			session.setAttribute("dto", dto6);
+			int memberNo=dto6.getMemberNo();
+			model.addAttribute("dto",service.selectMem(memberNo));
+			log.info("dto>>>>>>"+service.selectMem(memberNo));
+			return "mypage/myInfo";
+		}
+		//-----------------회원정보수정페이지
+		@GetMapping("/myinfomodify")
+		public String myinfomodify(@ModelAttribute PonyMemberDTO dto, HttpServletRequest req,HttpSession session, Model model,Principal p) {
+			PonyMemberDTO dto7 = service.getMemberEmail(p.getName());
+			int memberNo = dto7.getMemberNo();
+			session.setAttribute("mdto", dto7);
+			model.addAttribute("dto", service.selectOne(memberNo));
+			return "mypage/myinfomodifyform";
+		}
+		
+		//-------------------------회원정보 수정ok
+		@PostMapping("/myinfomodifyOk")
+		public String myinfomodifyOk(@ModelAttribute PonyMemberDTO dto, HttpServletRequest req,HttpSession session, Model model,Principal p) {
+			PonyMemberDTO dto8 = service.getMemberEmail(p.getName());
+			int memberNo = dto8.getMemberNo();
+			session.setAttribute("mdto", dto8);
+			model.addAttribute("dto", service.selectOne(memberNo));
+			String name = req.getParameter("memberName");
+			String pw = req.getParameter("memberPassword");
+			String birth = req.getParameter("memberBirthday");
+			String phone = req.getParameter("memberPhone");
+			String addr1 = req.getParameter("memberAddress1");
+			String addr2 = req.getParameter("memberAddress2");
+			dto.setMemberName(name);
+			dto.setMemberPassword(pw);
+			dto.setMemberBirthday(birth);
+			dto.setMemberPhone(phone);
+			dto.setMemberAddress1(addr1);
+			dto.setMemberAddress2(addr2);
+			service.myinfomodifyOne(dto);
+	
+			return "redirect:/myinfo";
+		}
 }
+
+
 

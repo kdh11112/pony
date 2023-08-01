@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+<mapper namespace="kr.co.jhta.pony.dao.CarRegisterDAO">
+
+	<insert id="CarInsert" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+		INSERT INTO CLIENT(clientVin,clientCarNumber,clientDistanceDriven,clientCarType,clientShipDate,clientProductionDate,clientColor,memberNo) VALUES(#{regCarDTO.clientVin},#{regCarDTO.clientCarNumber},#{regCarDTO.clientDistanceDriven},#{regCarDTO.clientCarType},#{regCarDTO.clientShipDate},#{regCarDTO.clientProductionDate},#{regCarDTO.clientColor},#{no})
+	</insert>
+	
+	<insert id="ClientInsert" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+		INSERT INTO MEMBER(memberEmail,memberName,memberPhone,memberPassword) VALUES(#{memberEmail},#{memberName},#{memberPhone},#{memberName})
+	</insert>
+	
+	<select id="ClientSelectNo" resultType="int" parameterType="int">
+		SELECT memberNo FROM MEMBER m ORDER BY memberNo DESC LIMIT 1
+	</select>
+	
+	<select id="SearchSelect" resultType="kr.co.jhta.pony.dto.CarRegisterDTO" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+		SELECT clientVin, clientCarNumber, memberName
+		FROM CLIENT c
+		LEFT JOIN MEMBER m ON c.memberNo = m.memberNo
+		  <where>
+		    <if test="clientVin != null and clientVin != ''">
+		      AND c.clientVin LIKE CONCAT('%', #{clientVin}, '%')
+		    </if>
+		    <if test="clientCarNumber != null and clientCarNumber != ''">
+		      AND c.clientCarNumber LIKE CONCAT('%', #{clientCarNumber}, '%')
+		    </if>
+		    <if test="memberName != null and memberName != ''">
+		      AND m.memberName LIKE CONCAT('%', #{memberName}, '%')
+		    </if>
+		  </where> 
+	</select>
+	
+	<select id="regRegistrationSelect" resultType="kr.co.jhta.pony.dto.CarRegisterDTO" parameterType="String">
+		
+			select * from(SELECT
+			    c.clientVin,
+			    clientCarNumber,
+			    clientDistanceDriven,
+			    clientCarType,
+			    clientShipDate,
+			    clientProductionDate,
+			    clientColor,
+			    memberName,
+			    memberEmail,
+			    memberPhone,
+			    registrationClientRequests,
+			    registrationSignificant,
+			    registrationReservationDueDate,
+			    registrationDate,
+			    row_number() over(order by registrationDate desc) rowNum,
+			    s.shopArea,
+			    s.shopAreaPoint
+			FROM CLIENT c LEFT JOIN MEMBER m 
+			ON c.memberNo = m.memberNo 
+			LEFT JOIN REGISTRATION r 
+			ON c.clientVin = r.clientVin
+			LEFT JOIN SHOP s 
+			ON r.shopNo = s.shopNo
+			LEFT JOIN MECHANIC m2 
+			ON r.mechanicNo = m2.mechanicNo
+			WHERE c.clientVin = #{clientVin}
+			order by rowNum asc) aa
+			GROUP by aa.clientVin
+
+
+	</select>
+	
+	<select id="resMechanicSelect" parameterType="kr.co.jhta.pony.dto.MechanicRegisterDTO" resultType="kr.co.jhta.pony.dto.MechanicRegisterDTO">
+		SELECT  m.mechanicNo ,
+				m.mechanicName 
+		FROM MECHANIC m LEFT JOIN SHOP s 
+		ON m.shopNo = s.shopNo 
+		WHERE m.shopNo = #{word}
+		<if test="mechanicNo != null and mechanicNo != ''">
+		AND m.mechanicNo LIKE CONCAT('%', #{mechanicNo}, '%')
+		</if>
+		<if test="mechanicName != null and mechanicName != ''">
+		AND m.mechanicName LIKE CONCAT('%', #{mechanicName}, '%')
+		</if>
+	</select>
+	
+	<insert id="regAndcorrInsert" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+	INSERT INTO REGISTRATION(registrationClientRequests,registrationSignificant,mechanicNo,clientVin,shopNo,registrationDate) 
+				values(#{registrationClientRequests},#{registrationSignificant},#{mechanicNo},#{clientVin},#{shopNo},CONVERT_TZ(NOW(), '+00:00', '+09:00'))
+	</insert>
+	
+	<update id="regAndEditUpdate" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+		UPDATE REGISTRATION r 
+			left join CLIENT c ON c.clientVin = r.clientVin
+			left join `MEMBER` m ON c.memberNo = m.memberNo
+			left join MECHANIC m2 ON r.mechanicNo = m2.mechanicNo
+			left join SHOP s ON r.shopNo = s.shopNo 
+		SET r.registrationClientRequests = #{registrationClientRequests},
+			r.registrationSignificant = #{registrationSignificant},
+			c.clientCarNumber = #{clientCarNumber}, 
+			c.clientDistanceDriven = #{clientDistanceDriven},
+			m.memberName = #{memberName}, 
+			m.memberPhone = #{memberPhone}
+		WHERE r.registrationNumber = #{registrationNumber}
+		AND DATE(r.registrationDate) = #{registrationDate}
+	</update>
+	
+	
+	<select id="resNumSelect" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO" resultType="kr.co.jhta.pony.dto.CarRegisterDTO">
+		SELECT 	c.clientVin,
+				clientCarNumber,
+				clientDistanceDriven,
+				clientCarType,
+				clientShipDate,
+				clientProductionDate,
+				clientColor,
+				c.memberNo,
+				memberName,
+				memberPhone,
+				registrationNumber,
+				registrationClientRequests,
+				registrationSignificant,
+				r.mechanicNo,
+				mechanicName,
+				registrationReservationDueDate,
+				registrationDate,
+				shopArea,
+				shopAreaPoint
+		FROM REGISTRATION r left join CLIENT c
+		ON c.clientVin = r.clientVin
+		left join `MEMBER` m
+		ON c.memberNo = m.memberNo
+		left join SHOP s 
+		ON r.shopNo = s.shopNo
+		left join MECHANIC m2
+		ON r.mechanicNo = m2.mechanicNo
+		where registrationNumber = #{registrationNumber}
+		and DATE(registrationDate) = #{registrationDate}
+	</select>
+	
+	<select id="registrationChiceMechanicInputSelect" resultType="kr.co.jhta.pony.dto.MechanicRegisterDTO" parameterType="int">
+		select mechanicNo ,mechanicName  from MECHANIC m 
+		WHERE mechanicNo = #{mechanicNo}
+	</select>
+	
+	<select id="registrationTodayCases" resultType="kr.co.jhta.pony.dto.CarRegisterDTO" parameterType="int">
+	    SELECT
+	        COUNT(registrationNumber) AS registrationNumber
+	    FROM
+	        REGISTRATION
+	    WHERE
+	        DATE(registrationDate) = CURDATE()
+	</select>
+	
+
+</mapper>

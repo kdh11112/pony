@@ -20,4 +20,9 @@
 		WHERE memberEmail = #{memberEmail}
 	</select>
 	
+	<select id="idChk" resultType="int">
+  		SELECT COUNT(*) FROM MEMBER
+  		WHERE memberEmail = #{memberEmail}
+		</select>
+	
 </mapper>

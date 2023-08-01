@@ -130,11 +130,6 @@
 		<section class="py-5 two-column-layout">
 
 
-			<%-- 
-	<p><sec:authentication property="principal"/></p>
-	<p>user : <sec:authentication property="principal.username"/></p>
-	<p>password : <sec:authentication property="principal.password"/></p> --%>
-
 			<div class="contant-area">
 				<div id="mypage" class="container" data-v-269e3e5f>
 					<!--   -->
@@ -145,9 +140,9 @@
 						<div class="content-body" data-v-269e3e5f>
 							<div class="my-title" data-v-269e3e5f>
 								<div class="head" data-v-269e3e5f>
-									<strong data-v-269e3e5f><a href="/mypage"><span
-											data-v-269e3e5f>${dto.memberName }</span></a> 님, 안녕하세요! </strong> <a
-										href="" class="btn btn-primary active infomodify_btn"><span>정보수정
+									<strong data-v-269e3e5f><span data-v-269e3e5f>${dto.memberName }</span>
+										님, 안녕하세요! </strong> <a href="/myinfo"
+										class="btn btn-primary active infomodify_btn"><span>정보수정
 											<!---->
 
 									</span></a>
@@ -171,49 +166,6 @@
 								</ul>
 							</div>
 							<!-- 포인트 1:1문의내역 end-->
-							<!--나의자동차 -->
-							<div class="my-activity" data-v-269e3e5f>
-								<div class="category-title" data-v-269e3e5f></div>
-								<div class="details" data-v-269e3e5f>
-									<div class="el-row"
-										style="margin-left: -10px; margin-right: -10px;"
-										data-v-269e3e5f></div>
-								</div>
-								<div class="history-list" data-v-269e3e5f>
-									<div class="el-row"
-										style="margin-left: -10px; margin-right: -10px;"
-										data-v-269e3e5f>
-										<div class="el-col el-col-8"
-											style="padding-left: 10px; padding-right: 10px;"
-											data-v-269e3e5f>
-											<div class="content-box" data-v-269e3e5f>
-												<div class="title" data-v-269e3e5f>
-													<div class="">나의 자동차</div>
-													<a href="/carregigo" class="btn btn-primary active"><span>차량등록관리
-															<!---->
-													</span></a>
-												</div>
-												<!---->
-											</div>
-										</div>
-
-										<div class="el-col el-col-8"
-											style="padding-left: 10px; padding-right: 10px;"
-											data-v-269e3e5f>
-											<div class="content-box" data-v-269e3e5f>
-												<div class="title" data-v-269e3e5f>
-													<a href="#
-															draggable="
-														true" class="btn btn-primary active"><span>
-															차량기본관리 <!---->
-													</span></a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- 시승신청내역 정비예약내역 end -->
 
 							<!--시승신청내역 정비예약내역-->
 							<div class="my-activity" data-v-269e3e5f>
@@ -232,7 +184,9 @@
 											data-v-269e3e5f>
 											<div class="content-box" data-v-269e3e5f>
 												<div class="title" data-v-269e3e5f>
-													<a href="#" class="btn btn-primary active"><span>시승
+													<a href="#
+															draggable="
+														true" class="btn btn-primary active"><span>시승
 															신청 내역 <!---->
 													</span></a>
 												</div>
@@ -245,8 +199,10 @@
 											data-v-269e3e5f>
 											<div class="content-box" data-v-269e3e5f>
 												<div class="title" data-v-269e3e5f>
-													<a href="#" class="btn btn-primary active"><span>
-															정비 예약 신청 내역 <!---->
+													<a href="#
+															draggable="
+														true" class="btn btn-primary active"><span> 정비
+															예약 신청 내역 <!---->
 													</span></a>
 												</div>
 											</div>
@@ -259,67 +215,44 @@
 
 
 					</div>
-
+					<!-- 회원정보수정div -->
 					<div id="mycarinfo">
-						<div class="my-car" data-v-269e3e5f>
-							<div class="title mycarTitle" data-v-269e3e5f>
-								<strong data-v-269e3e5f> 나의 자동차 <span data-v-269e3e5f>0대</span></strong>
 
-							</div>
-							<div class="sub" data-v-269e3e5f>
-								<span data-v-269e3e5f>등록 차량의 자세한 정보를 확인하실 수 있습니다.</span>
-							</div>
-						</div>
-						<div class="no-car" data-v-269e3e5f>
-							<span class="ico-nocar" data-v-269e3e5f><i data-v-269e3e5f>등록된
-									차가 없습니다.</i></span>
-							<p data-v-269e3e5f>등록된 차량이 없습니다.</p>
-						</div>
-						<c:if test="${!empty userCars  }">
-							<!-- 1:1문의내역 리스트 -->
-							<%-- <div class="container-fluid">
-										<section class="inquiry"> --%>
-							<div class="page-title">
-								<div class="container">
-									<h3>나의 차량목록</h3>
+						<div class="container-fluid">
+							<section class="inquiry">
+								<div class="page-title">
+									<div class="container">
+										<h3>회원정보</h3>
+									</div>
 								</div>
-							</div>
 
-							<!-- board list area -->
-							<div id="inquiry_list">
-								<div class="container">
-									<table class="board-table">
-										<thead>
-											<tr>
+								<!-- board list area -->
+								<div id="inquiry_list">
+									<div class="container">
+										<table class="board-table">
+											
+											<tbody>
 
-												<th scope="col" class="th-num">차대번호</th>
-												<th scope="col" class="th-title">차량번호</th>
-												<th scope="col" class="th-date">주행거리</th>
-												<th scope="col" class="th-date">차종</th>
-												<th scope="col" class="th-date">출고일</th>
-												<th scope="col" class="th-date">생산일</th>
-												<th scope="col" class="th-date">색상</th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach var="clist" items="${userCars }">
-												<tr class="list">
-													<td>${clist.clientVin }</td>
-													<td>${clist.clientCarNumber }</td>
-													<td>${clist.clientDistanceDriven }</td>
-													<td>${clist.clientCarType }</td>
-													<td>${clist.clientShipDate }</td>
-													<td>${clist.clientProductionDate }</td>
-													<td>${clist.clientColor }</td>
+													<tr><th scope="col" class="th-name">이름</th><td colspan="5">${dto.memberName }</td></tr>
+													<tr><th scope="col" class="th-title">이메일</th><td colspan="5">${dto.memberEmail }</td></tr>
+													<tr><th scope="col" class="th-date">비밀번호</th><td colspan="5">${dto.memberPassword }</td></tr>
+													<tr><th scope="col" class="th-date">비밀번호확인</th><td colspan="5">${dto.memberPassword }</td></tr>
+													<tr><th scope="col" class="th-date">생일</th><td colspan="5">${dto.memberBirthday }</td></tr>
+													<tr><th scope="col" class="th-date">핸드폰</th><td colspan="5">${dto.memberPhone }</td></tr>
+													<tr><th scope="col" class="th-status">주소</th><td colspan="5">${dto.memberAddress1 } 상세주소 ${dto.memberAddress2 }</td><tr>
+												<tr>
+													<td><a href="/myinfomodify"><button type="button"
+																class="btn btn-dark inquiryGo">회원정보수정</button></a></td>
 												</tr>
-											</c:forEach>
-
-										</tbody>
-
-									</table>
+											</tbody>
+										</table>
+									</div>
 								</div>
-							</div>
-						</c:if>
+								
+							</section>
+						</div>
+
+						<!-- 1:1문의내역 리스트 end -->
 					</div>
 
 					<!---->

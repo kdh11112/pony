@@ -2,9 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +49,7 @@
 	float: left;
 }
 
-#mycarinfo {
+.qnaModifyform {
 	border: 1px solid #dedede;
 	box-sizing: border-box;
 	width: 800px;
@@ -76,6 +76,19 @@
 
 .mycarTitle {
 	margin-top: 20px;
+}
+
+#summernote {
+	width: 100%;
+	boarder: 0.5px solid #dedede;
+}
+
+textarea {
+	resize: none;
+}
+
+.boardtitle {
+	width: 100%;
 }
 </style>
 </head>
@@ -145,9 +158,9 @@
 						<div class="content-body" data-v-269e3e5f>
 							<div class="my-title" data-v-269e3e5f>
 								<div class="head" data-v-269e3e5f>
-									<strong data-v-269e3e5f><a href="/mypage"><span
-											data-v-269e3e5f>${dto.memberName }</span></a> 님, 안녕하세요! </strong> <a
-										href="" class="btn btn-primary active infomodify_btn"><span>정보수정
+									<strong data-v-269e3e5f><span data-v-269e3e5f>${mdto.memberName }</span>
+										님, 안녕하세요! </strong> <a href=""
+										class="btn btn-primary active infomodify_btn"><span>정보수정
 											<!---->
 
 									</span></a>
@@ -171,49 +184,6 @@
 								</ul>
 							</div>
 							<!-- 포인트 1:1문의내역 end-->
-							<!--나의자동차 -->
-							<div class="my-activity" data-v-269e3e5f>
-								<div class="category-title" data-v-269e3e5f></div>
-								<div class="details" data-v-269e3e5f>
-									<div class="el-row"
-										style="margin-left: -10px; margin-right: -10px;"
-										data-v-269e3e5f></div>
-								</div>
-								<div class="history-list" data-v-269e3e5f>
-									<div class="el-row"
-										style="margin-left: -10px; margin-right: -10px;"
-										data-v-269e3e5f>
-										<div class="el-col el-col-8"
-											style="padding-left: 10px; padding-right: 10px;"
-											data-v-269e3e5f>
-											<div class="content-box" data-v-269e3e5f>
-												<div class="title" data-v-269e3e5f>
-													<div class="">나의 자동차</div>
-													<a href="/carregigo" class="btn btn-primary active"><span>차량등록관리
-															<!---->
-													</span></a>
-												</div>
-												<!---->
-											</div>
-										</div>
-
-										<div class="el-col el-col-8"
-											style="padding-left: 10px; padding-right: 10px;"
-											data-v-269e3e5f>
-											<div class="content-box" data-v-269e3e5f>
-												<div class="title" data-v-269e3e5f>
-													<a href="#
-															draggable="
-														true" class="btn btn-primary active"><span>
-															차량기본관리 <!---->
-													</span></a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- 시승신청내역 정비예약내역 end -->
 
 							<!--시승신청내역 정비예약내역-->
 							<div class="my-activity" data-v-269e3e5f>
@@ -232,7 +202,9 @@
 											data-v-269e3e5f>
 											<div class="content-box" data-v-269e3e5f>
 												<div class="title" data-v-269e3e5f>
-													<a href="#" class="btn btn-primary active"><span>시승
+													<a href="#
+															draggable="
+														true" class="btn btn-primary active"><span>시승
 															신청 내역 <!---->
 													</span></a>
 												</div>
@@ -245,8 +217,10 @@
 											data-v-269e3e5f>
 											<div class="content-box" data-v-269e3e5f>
 												<div class="title" data-v-269e3e5f>
-													<a href="#" class="btn btn-primary active"><span>
-															정비 예약 신청 내역 <!---->
+													<a href="#
+															draggable="
+														true" class="btn btn-primary active"><span> 정비
+															예약 신청 내역 <!---->
 													</span></a>
 												</div>
 											</div>
@@ -260,67 +234,67 @@
 
 					</div>
 
-					<div id="mycarinfo">
-						<div class="my-car" data-v-269e3e5f>
-							<div class="title mycarTitle" data-v-269e3e5f>
-								<strong data-v-269e3e5f> 나의 자동차 <span data-v-269e3e5f>0대</span></strong>
+					<!-- 1:1문의 글수정 -->
 
-							</div>
-							<div class="sub" data-v-269e3e5f>
-								<span data-v-269e3e5f>등록 차량의 자세한 정보를 확인하실 수 있습니다.</span>
-							</div>
-						</div>
-						<div class="no-car" data-v-269e3e5f>
-							<span class="ico-nocar" data-v-269e3e5f><i data-v-269e3e5f>등록된
-									차가 없습니다.</i></span>
-							<p data-v-269e3e5f>등록된 차량이 없습니다.</p>
-						</div>
-						<c:if test="${!empty userCars  }">
-							<!-- 1:1문의내역 리스트 -->
-							<%-- <div class="container-fluid">
-										<section class="inquiry"> --%>
+					<div class="container-fluid">
+						<section class="qnaModifyform">
 							<div class="page-title">
 								<div class="container">
-									<h3>나의 차량목록</h3>
+									<h3>회원정보수정</h3>
 								</div>
 							</div>
 
 							<!-- board list area -->
-							<div id="inquiry_list">
+							<div id="board-list">
 								<div class="container">
-									<table class="board-table">
-										<thead>
-											<tr>
+									<form action="myinfomodifyOk" method="post">
+										<table class="board-table">
 
-												<th scope="col" class="th-num">차대번호</th>
-												<th scope="col" class="th-title">차량번호</th>
-												<th scope="col" class="th-date">주행거리</th>
-												<th scope="col" class="th-date">차종</th>
-												<th scope="col" class="th-date">출고일</th>
-												<th scope="col" class="th-date">생산일</th>
-												<th scope="col" class="th-date">색상</th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach var="clist" items="${userCars }">
-												<tr class="list">
-													<td>${clist.clientVin }</td>
-													<td>${clist.clientCarNumber }</td>
-													<td>${clist.clientDistanceDriven }</td>
-													<td>${clist.clientCarType }</td>
-													<td>${clist.clientShipDate }</td>
-													<td>${clist.clientProductionDate }</td>
-													<td>${clist.clientColor }</td>
+											<tbody>
+												<input type="hidden" name="memberNo" value="${dto.memberNo }" />
+												<tr>
+													<th scope="col" class="th-name">이름</th>
+													<td colspan="5"><input type="text" name="" id="" value="${dto.memberName }"/></td>
 												</tr>
-											</c:forEach>
-
-										</tbody>
-
-									</table>
+												<tr>
+													<th scope="col" class="th-title">이메일</th>
+													<td colspan="5">${dto.memberEmail }</td>
+												</tr>
+												<tr>
+													<th scope="col" class="th-date">비밀번호</th>
+													<td colspan="5"><input type="text" name="" id="" value="${dto.memberPassword }"/></td>
+												</tr>
+												<tr>
+													<th scope="col" class="th-date">비밀번호확인</th>
+													<td colspan="5"><input type="text" name="" id="" value="${dto.memberPassword }"/></td>
+												</tr>
+												<tr>
+													<th scope="col" class="th-date">생일</th>
+													<td colspan="5"><input type="text" name="" id="" value="${dto.memberBirthday }"/></td>
+												</tr>
+												<tr>
+													<th scope="col" class="th-date">핸드폰</th>
+													<td colspan="5"><input type="text" name="" id="" value="${dto.memberPhone }"/></td>
+												</tr>
+												<tr>
+													<th scope="col" class="th-status">주소</th>
+													<td colspan="5"><input type="text" name="" id="" value="${dto.memberAddress1 }"/>상세주소
+														<input type="text" name="" id="" value="${dto.memberAddress2 }"/></td>
+												<tr>
+												<tr>
+													<td colspan="10">
+														<a href="/myinfo"><input type="submit"
+															class="btn btn-outline-dark" value="정보수정" /></a></td>
+												</tr>
+											</tbody>
+										</table>
+									</form>
 								</div>
 							</div>
-						</c:if>
+						</section>
 					</div>
+
+					<!-- 1:1문의내역 리스트 end -->
 
 					<!---->
 					<!---->
@@ -342,5 +316,21 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
 	<script src="css/mypage/js/scripts.js"></script>
+	<!-- Bootstrap core JS-->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="css/mypage/js/scripts.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#summernote').summernote({
+				height : 300,
+				minHeight : null,
+				maxHeight : null,
+				lang : "ko-KR",
+				palceholder : '여기에 글을 작성하세요.'
+			});
+		});
+	</script>
 </body>
 </html>

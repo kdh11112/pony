@@ -8,7 +8,11 @@ public interface MechanicRegisterService {
 	
 	public List<MechanicRegisterDTO> shopName();
 
-	public void register(int shopNo, int mechanicPw, String mechanicName);
+	public void register(int shopNo, String mechanicPw, String mechanicName);
+
+	public void ChangePw(int mechanicNo,int shopNo, String mechanicPw);
+
+	public boolean loginCheck(MechanicRegisterDTO dto);
 
 
 	

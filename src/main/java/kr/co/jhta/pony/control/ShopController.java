@@ -10,8 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import kr.co.jhta.pony.dto.PageMakeDTO;
+import kr.co.jhta.pony.security.service.PonyMemberService;
 import kr.co.jhta.pony.service.PartService;
-import kr.co.jhta.pony.service.PonyMemberService;
 import kr.co.jhta.pony.util.Criteria;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j

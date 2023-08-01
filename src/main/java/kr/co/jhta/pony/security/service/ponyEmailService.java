@@ -1,4 +1,4 @@
-package kr.co.jhta.pony.service;
+package kr.co.jhta.pony.security.service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
@@ -14,6 +14,7 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import kr.co.jhta.pony.security.util.redisUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -93,6 +94,7 @@ import lombok.extern.slf4j.Slf4j;
 	        }
 	        return ePw; // 메일로 보냈던 인증 코드를 서버로 리턴
 	    }
+	    
 	    
 
 	

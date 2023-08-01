@@ -1,10 +1,9 @@
-package kr.co.jhta.pony.service;
+package kr.co.jhta.pony.security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.jhta.pony.dao.PonyMemberDAO;
-import kr.co.jhta.pony.dto.NoticeDTO;
 import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.dto.QuestionDTO;
 import kr.co.jhta.pony.dto.StartEnd;
@@ -28,6 +27,12 @@ public class PonyMemberServiceImp implements PonyMemberService {
 		return dao.getMemberEmail(email);
 	}
 
+	@Override
+	public int idChk(PonyMemberDTO dto) throws Exception {
+		int result = dao.idChk(dto);
+		return result;
+	}
+	
 	@Override
 	public Object selectAll(int startNo, int endNo) {
 		StartEnd se =  new StartEnd(startNo, endNo);
@@ -64,8 +69,20 @@ public class PonyMemberServiceImp implements PonyMemberService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public PonyMemberDTO selectMem(int memberNo) {
+		
+		return dao.selectMem(memberNo);
+	}
+
+	@Override
+	public void myinfomodifyOne(PonyMemberDTO dto) {
+		dao.myinfomodifyOne(dto);
+		
+	}
+	
+	
+	
 	
 }
-
-
-
