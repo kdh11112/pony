@@ -10,7 +10,19 @@
  * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
- 
+ /* 화면 너비가 768px 이하일 때 */
+@media (max-width: 768px) {
+  .element {
+    /* 768px 이하의 화면에서 적용되는 스타일 설정 */
+  }
+}
+
+/* 화면 너비가 576px 이하일 때 */
+@media (max-width: 576px) {
+  .element {
+    /* 576px 이하의 화면에서 적용되는 스타일 설정 */
+  }
+}
 
 :root {
   --bs-blue: #0d6efd;

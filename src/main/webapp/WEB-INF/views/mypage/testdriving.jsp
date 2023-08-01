@@ -2,9 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +13,8 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>MyInformation</title>
+<title>mypage</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Bootstrap icons-->
@@ -27,6 +28,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap"
 	rel="stylesheet">
+
 
 <style>
 .content {
@@ -77,11 +79,23 @@
 .mycarTitle {
 	margin-top: 20px;
 }
+
+#summernote {
+	width: 100%;
+	boarder: 0.5px solid #dedede;
+}
+
+textarea {
+	resize: none;
+}
+
+.boardtitle {
+	width: 100%;
+}
 </style>
 </head>
 <body>
 	<div id="wrapper">
-	
 		<!-- Navigation-->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container">
@@ -121,7 +135,7 @@
 
 			<img src="images/cloud.jpg" alt="" />
 			<div class="header-content text-center text-black">
-				<h1 class="display-4 fw-bolder">마이페이지</h1>
+				<h1 class="display-4 fw-bolder">시승신청예약내역</h1>
 				<p class="lead fw-normal text-black-50 mb-0">이용 중인 현대자동차 서비스를
 					마이페이지에서 확인하세요.</p>
 			</div>
@@ -131,6 +145,11 @@
 		<section class="py-5 two-column-layout">
 
 
+			<%-- 
+	<p><sec:authentication property="principal"/></p>
+	<p>user : <sec:authentication property="principal.username"/></p>
+	<p>password : <sec:authentication property="principal.password"/></p> --%>
+
 			<div class="contant-area">
 				<div id="mypage" class="container" data-v-269e3e5f>
 					<!--   -->
@@ -138,11 +157,11 @@
 					<!--   -->
 					<div class="content" data-v-269e3e5f>
 						<!---->
-						<div class="content-body " data-v-269e3e5f>
+						<div class="content-body" data-v-269e3e5f>
 							<div class="my-title" data-v-269e3e5f>
 								<div class="head" data-v-269e3e5f>
-									<strong data-v-269e3e5f><span data-v-269e3e5f>${dto.memberName }</span>
-										님, 안녕하세요! </strong> <a href="/myinfo"
+									<strong data-v-269e3e5f><span data-v-269e3e5f>${mdto.memberName }</span>
+										님, 안녕하세요! </strong> <a href=""
 										class="btn btn-primary active infomodify_btn"><span>정보수정
 											<!---->
 
@@ -216,64 +235,74 @@
 
 
 					</div>
-					<!-- 회원정보수정div -->
+
+					<!-- 시승신청내역 -->
+
 					<div id="mycarinfo">
+						<div class="my-car" data-v-269e3e5f>
+							<div class="title mycarTitle" data-v-269e3e5f>
+								<strong data-v-269e3e5f> 나의 자동차 <span data-v-269e3e5f>0대</span></strong>
 
-						<div class="container-fluid">
-							<section class="inquiry">
-								<div class="page-title">
-									<div class="container">
-										<h3>회원정보</h3>
-									</div>
+							</div>
+							<div class="sub" data-v-269e3e5f>
+								<span data-v-269e3e5f>등록 차량의 자세한 정보를 확인하실 수 있습니다.</span>
+							</div>
+
+							<c:if test="${!hasCars}">
+								<div class="no-car" data-v-269e3e5f>
+									<span class="ico-nocar" data-v-269e3e5f><i
+										data-v-269e3e5f>등록된 차가 없습니다.</i></span>
+									<p data-v-269e3e5f>등록된 차량이 없습니다.</p>
 								</div>
+							</c:if>
+							<c:if test="${!empty userCars  }">
+								<!-- 등록차량리스트 -->
+								
+										<div class="page-title">
+											<div class="container">
+												<h3>나의 차량목록</h3>
+											</div>
+										</div>
 
-								<!-- board list area -->
-								<div id="inquiry_list">
-									<div class="container">
-										<table class="board-table">
+										<!-- board list area -->
 
-											<tbody>
 
-												<tr>
-													<th scope="col" class="th-name">이름</th>
-													<td colspan="5">${dto.memberName }</td>
-												</tr>
-												<tr>
-													<th scope="col" class="th-title">이메일</th>
-													<td colspan="5">${dto.memberEmail }</td>
-												</tr>
-												<tr>
-													<th scope="col" class="th-date">비밀번호</th>
-													<td colspan="5"><input type="hidden" name=""
-														value="${dto.memberPassword }" />*************</td>
-												</tr>
-												<tr>
-													<th scope="col" class="th-date">생일</th>
-													<td colspan="5">${dto.memberBirthday }</td>
-												</tr>
-												<tr>
-													<th scope="col" class="th-date">핸드폰</th>
-													<td colspan="5">${dto.memberPhone }</td>
-												</tr>
-												<tr>
-													<th scope="col" class="th-status">주소</th>
-													<td colspan="5">${dto.memberAddress1 }상세주소
-														${dto.memberAddress2 }</td>
-												<tr>
-												<tr>
-													<td><a href="/myinfomodify"><button type="button"
-																class="btn btn-dark inquiryGo">회원정보수정</button></a></td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
 
-							</section>
+										 <div id="inquiry_list">
+											<div class="container">
+												<table class="board-table">
+													<thead>
+														<tr>
+															<th scope="col" class="th-num">시승신청모델</th>
+															<th scope="col" class="th-num">시승신청지점</th>
+															<th scope="col" class="th-title">시승신청일자</th>
+															<th scope="col" class="th-date">시승신청시간</th>
+														</tr>
+													</thead>
+													<tbody>
+														<c:forEach var="clist" items="${userCars }">
+															<tr class="list">
+																<td>
+																	<!-- 등록된 차량 삭제 체크 박스 --> <input type="checkbox"
+																	name="selectedCars" value="${clist.clientVin}"
+																	id="selectedCarsId">
+																</td>
+																<td>${clist.clientVin }</td>
+																<td>${clist.clientCarNumber }</td>
+																<td>${clist.clientDistanceDriven }</td>
+																<td>${clist.clientCarType }</td>
+															</tr>
+														</c:forEach>
+
+													</tbody>
+
+												</table>
+											</div>
+										</div> 
+							</c:if>
 						</div>
 
-						<!-- 1:1문의내역 리스트 end -->
-					</div>
+					<!-- 1:1문의내역 리스트 end -->
 
 					<!---->
 					<!---->
@@ -290,10 +319,7 @@
 			</div>
 		</footer>
 	</div>
-	<!-- Bootstrap core JS-->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- Core theme JS-->
-	<script src="css/mypage/js/scripts.js"></script>
+	
+	
 </body>
 </html>

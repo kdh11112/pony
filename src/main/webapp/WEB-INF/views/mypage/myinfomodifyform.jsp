@@ -14,6 +14,7 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>mypage</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Bootstrap icons-->
@@ -27,6 +28,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap"
 	rel="stylesheet">
+
 
 <style>
 .content {
@@ -247,14 +249,16 @@ textarea {
 							<!-- board list area -->
 							<div id="board-list">
 								<div class="container">
-									<form action="myinfomodifyOk" method="post">
+									<form action="myinfomodifyOk" method="post" onsubmit="return validateForm();">
 										<table class="board-table">
 
 											<tbody>
 												<input type="hidden" name="memberNo" value="${dto.memberNo }" />
 												<tr>
 													<th scope="col" class="th-name">이름</th>
-													<td colspan="5"><input type="text" name="" id="" value="${dto.memberName }"/></td>
+													<td colspan="5"><input type="text" name="memberName" id="memberName" value="${dto.memberName }"/>
+													<span id="nameValidationMsg" style="color: red; display: block;">이름을 입력해주세요.</span>
+													</td>
 												</tr>
 												<tr>
 													<th scope="col" class="th-title">이메일</th>
@@ -262,24 +266,29 @@ textarea {
 												</tr>
 												<tr>
 													<th scope="col" class="th-date">비밀번호</th>
-													<td colspan="5"><input type="text" name="" id="" value="${dto.memberPassword }"/></td>
+													<td colspan="5"><input type="password" name="memberPassword" id="memberPassword" value=""/>
+													<span id="passwordValidationMsg" style="color: red; display: block;">비밀번호를 입력해주세요.</span>
+													</td>
 												</tr>
 												<tr>
 													<th scope="col" class="th-date">비밀번호확인</th>
-													<td colspan="5"><input type="text" name="" id="" value="${dto.memberPassword }"/></td>
+													<td colspan="5"><input type="password" name="memberPassword" id="memberPassword2" value=""/><span id="passwordValidationMsg2" style="color: red; display: none;">비밀번호와 일치하지 않습니다.</span>
+													</td>
 												</tr>
 												<tr>
-													<th scope="col" class="th-date">생일</th>
-													<td colspan="5"><input type="text" name="" id="" value="${dto.memberBirthday }"/></td>
+												    <th scope="col" class="th-date">생일</th>
+												    <td colspan="5">
+												        <input type="date" name="memberBirthday" id="memberBirthday" value="${dto.memberBirthday }" />
+												    </td>
 												</tr>
 												<tr>
 													<th scope="col" class="th-date">핸드폰</th>
-													<td colspan="5"><input type="text" name="" id="" value="${dto.memberPhone }"/></td>
+													<td colspan="5"><input type="text" name="memberPhone" id="memberPhone" value="${dto.memberPhone }"/></td>
 												</tr>
 												<tr>
 													<th scope="col" class="th-status">주소</th>
-													<td colspan="5"><input type="text" name="" id="" value="${dto.memberAddress1 }"/>상세주소
-														<input type="text" name="" id="" value="${dto.memberAddress2 }"/></td>
+													<td colspan="5"><input type="text" name="memberAddress1" id="address_kakao" value="${dto.memberAddress1 }" readonly />상세주소
+														<input type="text" name="memberAddress2" id="address_detail" value="${dto.memberAddress2 }"/></td>
 												<tr>
 												<tr>
 													<td colspan="10">
@@ -312,17 +321,17 @@ textarea {
 		</footer>
 	</div>
 	<!-- Bootstrap core JS-->
+	<!-- <script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	Core theme JS
+	<script src="css/mypage/js/scripts.js"></script>
+	Bootstrap core JS
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- Core theme JS-->
-	<script src="css/mypage/js/scripts.js"></script>
-	<!-- Bootstrap core JS-->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- Core theme JS-->
-	<script src="css/mypage/js/scripts.js"></script>
+	Core theme JS
+	<script src="css/mypage/js/scripts.js"></script> -->
 	<script>
-		$(document).ready(function() {
+		/* $(document).ready(function() {
 			$('#summernote').summernote({
 				height : 300,
 				minHeight : null,
@@ -330,7 +339,161 @@ textarea {
 				lang : "ko-KR",
 				palceholder : '여기에 글을 작성하세요.'
 			});
+		}); */
+		// 핸드폰번호 입력시 자동 하이픈 추가
+		  $(document).on("keyup", "#memberPhone", function() { 
+				$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
+			});
+		//패스워드 유효성 검사
+		function isValidPassword(memberPassword) {
+		  const pwRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+		  const hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+	//	  const id = document.getElementById('ponyMemberEmail').value;
+		  let errorMsg = '';
+
+		  if (!pwRegex.test(memberPassword)) {
+		    errorMsg = '비밀번호는 8자 이상이어야 하며, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.';
+		  } else if (/(\w)\1\1\1/.test(memberPassword)) {
+		    errorMsg = '같은 문자를 4번 이상 사용하실 수 없습니다.';
+		  } else if (memberPassword.includes(' ')) {
+		    errorMsg = '비밀번호는 공백 없이 입력해주세요.';
+		  } else if (hangulcheck.test(memberPassword)) {
+		    errorMsg = '비밀번호에 한글을 사용 할 수 없습니다.';
+		  }
+
+		  return errorMsg;
+		}
+		// 이름 유효성 검사
+		function isValidName(memberName) {
+		  const hangulRegex = /^[가-힣]{1,10}$/; // 한글 이름을 허용하는 정규식
+		  const englishRegex = /^[A-Za-z]{1,20}$/; // 영어 이름을 허용하는 정규식
+		  const consonantRegex = /[ㄱ-ㅎ]/;
+		  const vowelRegex = /[ㅏ-ㅣ]/;
+		  const numberRegex = /[0-9]/;
+		  const specialCharRegex = /[!@#$%^&*()_+=[\]{};':"\\|,.<>/?]/;
+
+		  let errorMsg1 = '';
+
+		  if (!hangulRegex.test(memberName) && !englishRegex.test(memberName)) {
+		    errorMsg1 = '이름은 한글 또는 영어로만 입력해주세요.';
+		  } else if (memberName.length > 10) {
+		    errorMsg1 = '이름은 10글자까지만 입력 가능합니다.';
+		  } else if (hangulRegex.test(memberName)) {
+		    if (consonantRegex.test(memberName) && !vowelRegex.test(memberName)) {
+		      errorMsg1 = '한글 이름에는 자음과 모음을 단독으로 사용할 수 없습니다.';
+		    } else if (numberRegex.test(memberName) || specialCharRegex.test(memberName)) {
+		      errorMsg1 = '한글 이름에는 숫자나 특수문자를 포함할 수 없습니다.';
+		    }
+		  } else if (englishRegex.test(memberName)) {
+		    if (numberRegex.test(memberName) || specialCharRegex.test(memberName)) {
+		      errorMsg1 = '영어 이름에는 숫자나 특수문자를 포함할 수 없습니다.';
+		    }
+		  }
+
+		  return errorMsg1;
+		}
+
+		//패스워드 패스워드확인이 일치하는지 확인하는 코드
+		function passwordsMatch(memberPassword, confirmPassword) {
+		  return memberPassword === confirmPassword;
+		}
+
+
+		//실시간으로 패스워드를 감시하고 유효성검사에 따른 errorMsg 출력
+		document.getElementById('memberPassword').addEventListener('input', function() {
+		  const pw = document.getElementById('memberPassword');
+		  const validationMsg = document.getElementById("passwordValidationMsg");
+		  const validationResult = isValidPassword(pw.value);
+		  validationMsg.innerHTML = validationResult;
+		  
 		});
+		//실시간으로 이름을 감시하고 유효성검사에 따른 errorMsg 출력
+		/* document.getElementById('memberName').addEventListener('input', function() {
+		  const name = document.getElementById('memberName');
+		  const validationMsg = document.getElementById("nameValidationMsg");
+		  const validationResult = isValidName(name.value);
+		  validationMsg.innerHTML = validationResult;
+		  
+		}); */
+		document.getElementById('memberName').addEventListener('input', function() {
+			  const name = document.getElementById('memberName');
+			  const validationMsg = document.getElementById("nameValidationMsg");
+			  const validationResult = isValidName(name.value);
+			  validationMsg.innerHTML = validationResult; // 오류 메시지 갱신
+
+			});
+		//실시간으로 패스워드 확인을 감시하고 패스워드랑 일치하지 않으면 메세지 출력
+		document.getElementById('memberPassword2').addEventListener('input', function() {
+		  const pw = document.getElementById('memberPassword');
+		  const pw2 = document.getElementById('memberPassword2');
+		  const validationMsg2 = document.getElementById("passwordValidationMsg2");
+
+		  if (!passwordsMatch(pw.value, pw2.value)) {
+		    validationMsg2.style.display = "block";
+		  } else {
+		    validationMsg2.style.display = "none";
+		  }
+		});
+		//사용자가 필수정보를 입력하지 않았을때 경고창
+		
+		function validateForm() {
+		    const memberName = document.getElementById('memberName').value;
+		    const memberBirthday = document.getElementById('memberBirthday').value;
+		    const memberPassword = document.getElementById('memberPassword').value;
+		    const memberPassword2 = document.getElementById('memberPassword2').value;
+		    const memberPhone = document.getElementById('memberPhone').value;
+		    const address_kakao = document.getElementById('address_kakao').value;
+		    
+		    if (memberName.trim() === '') {
+		        alert('이름을 입력해주세요.');
+		        return false;
+		    }
+		    
+		    if (memberBirthday.trim() === '') {
+		        alert('생일을 입력해주세요.');
+		        return false;
+		    }
+		    
+		    if (memberPassword.trim() === '') {
+		        alert('비밀번호를 입력해주세요.');
+		        return false;
+		    }
+		    
+		    if (memberPassword !== memberPassword2) {
+		        alert('비밀번호와 비밀번호확인이 일치하지 않습니다.');
+		        return false;
+		    }
+		    
+		    if (memberPhone.trim() === '') {
+		        alert('핸드폰번호를 입력해주세요.');
+		        return false;
+		    }
+		    
+		    if (address_kakao.trim() === '') {
+		        alert('주소를 입력해주세요.');
+		        return false;
+		    }
+		    
+		    // 모든 필수 입력 필드가 입력되었으므로 폼을 제출합니다.
+		    return true;
+		}
 	</script>
+	
+	<!-- 카카오 주소API -->
+		
+		<script>
+		window.onload = function(){
+		    document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
+		        //카카오 지도 발생
+		        new daum.Postcode({
+		            oncomplete: function(data) { //선택시 입력값 세팅
+		                document.getElementById("address_kakao").value = data.address; // 주소 넣기
+		                document.querySelector("input[name=memberAddress2]").focus(); //상세입력 포커싱
+		            }
+		        }).open();
+		    });
+		}
+		</script>
+		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </body>
 </html>
