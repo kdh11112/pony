@@ -26,18 +26,24 @@ public class PartServiceImple implements PartService{
 		return partdao.getPartAll(cri);
 	}
 
-	// 부품 검색  - 아직 코드 X
-	@Override
-	public List<PartDTO> searchPartList() {
-		return null;
-	}
-
 	// 부품 총 갯수
 	@Override
 	public int getTotal() {
 		return partdao.getTotal();
 	}
 
+	// 검색된 부품 목록(페이징) - 검색 조건: 차종명, 부품명   
+	@Override
+	public List<PartDTO> searchPartList(Criteria cri) {
+		return partdao.searchPartList(cri);
+	}
+	
+	// 검색된 부품 총 갯수 (조건문에 사용할 keyword 데이터 전달받기 위해 파라미터로 Criteria)
+	@Override
+	public int searchPartTotal(Criteria cri) {
+		return partdao.searchPartTotal(cri);
+	}
+	
 	// 관리자 부품 추가
 	@Override
 	@Transactional
@@ -58,6 +64,7 @@ public class PartServiceImple implements PartService{
 	public void adminDeleteCheck(String no) {
 		partdao.adminDeleteCheck(no);
 	}
+
 
 
 

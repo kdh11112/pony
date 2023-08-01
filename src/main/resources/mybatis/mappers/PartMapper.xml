@@ -3,12 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.jhta.pony.dao.PartDAO">
-	
+
 	<!-- 부품 전체 목록(페이징) -->
 	<select id="getPartAll" resultType="kr.co.jhta.pony.dto.PartDTO">
-		SELECT partNumber, partName, partNo, partPrice
-		FROM (SELECT partNumber, partName, partNo, partPrice
-				FROM PART ORDER BY partNumber DESC) AS T1
+		SELECT partNumber, partName, partNo, partPrice, modelNo
+		FROM (SELECT partNumber, partName, partNo, partPrice, modelNo
+		FROM PART ORDER BY partNumber DESC) AS T1
 		LIMIT #{skip}, #{perPageNum}
 	</select>
 
@@ -16,6 +16,27 @@
 	<select id="getTotal" resultType="int">
 		SELECT count(*)
 		FROM PART
+	</select>
+
+	<!-- 검색된 부품 목록(페이징) -->
+	<select id="searchPartList" resultType="kr.co.jhta.pony.dto.PartDTO">
+		SELECT p.partNumber, p.partName, p.partNo, p.partPrice, m.modelName
+		FROM PART p
+		LEFT OUTER JOIN MODEL m ON p.modelNo = m.modelNo
+		<if test="keyword != null">
+			WHERE (p.partName LIKE CONCAT('%', #{keyword}, '%'))
+		</if>
+		ORDER BY p.partNumber DESC
+		LIMIT #{skip}, #{perPageNum}
+	</select>
+
+	<!-- 검색된 부품 총 갯수 -->
+	<select id="searchPartTotal" resultType="int">
+		SELECT count(*) 
+		FROM PART
+		<if test="keyword != null">
+			WHERE (partName LIKE CONCAT('%', #{keyword}, '%'))
+		</if>
 	</select>
 
 	<!-- 관리자 부품 추가 -->
@@ -26,7 +47,7 @@
 
 	<!-- 관리자 부품 수정 -->
 	<update id="adminModifyOne" parameterType="kr.co.jhta.pony.dto.PartDTO">
-		UPDATE PART 
+		UPDATE PART
 		SET partName = #{partName}, partNo = #{partNo}, partPrice = #{partPrice}
 		WHERE partNumber = #{partNumber}
 	</update>
@@ -37,5 +58,5 @@
 		FROM QUESTION
 		WHERE questionNo = #{questionNo}
 	</delete>
-	
+
 </mapper>
