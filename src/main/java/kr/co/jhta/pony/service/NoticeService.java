@@ -3,10 +3,11 @@ package kr.co.jhta.pony.service;
 import java.util.List;
 
 import kr.co.jhta.pony.dto.NoticeDTO;
+import kr.co.jhta.pony.util.Criteria;
  
 
 public interface NoticeService {
-	public List<NoticeDTO> selectAll(int startNo, int endNo);
+	public List<NoticeDTO> selectAll(Criteria cri);
 
 	public void addOne(NoticeDTO dto);
 	

@@ -28,7 +28,7 @@
                 <div class="sidebar-heading border-bottom bg-light">
                 <img alt="" src="css/admin/assets/invi.png"> <a class="logo-link" href="/admin"> PONY Admin</a></div>
                 <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/partlist">재고관리</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/adminpartlist">재고관리</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/adminorderlist">주문목록</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/questionlist">고객문의</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/adminnotice">공지사항</a>
@@ -44,7 +44,7 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                                 <li class="nav-item active"><a class="nav-link" href="/admin">AdminHome</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/">UserPage</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/login">UserPage</a></li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

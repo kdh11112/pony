@@ -33,7 +33,7 @@
   	    <div class="col-xs-7">
         </div>
         <div class="col-xs-5">
-    <select name="shopNo">
+    <select name="shopNo" class="form-control">
         <c:forEach items="${list}" var="shop">
             <option value="${shop.shopNo}">
                 ${shop.shopArea} / ${shop.shopAreaPoint}
@@ -57,6 +57,7 @@
       </div> -->
       <div class="row">
         <div class="col-xs-8">
+        <p>비밀번호 미설정시 <br/>사원번호+이름의 조합을 가짐</p>
         </div>
         <!-- /.col -->
         <div class="col-xs-4">

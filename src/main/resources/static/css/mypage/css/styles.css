@@ -10,6 +10,8 @@
  * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ 
+
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -117,50 +119,6 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-bottom: 0.5rem;
   font-weight: 500;
   line-height: 1.2;
-}
-
-
-#txt{
-	
-	position: relative; /* 부모 요소를 상대적으로 위치 지정 */
-     /*display: inline-block; 블록 요소를 인라인으로 표시하여 텍스트와 이미지가 한 줄에 표시되도록 함 */
- 	width:100%
-}
-.himg{									/*상단 이미지*/
-	position:absolute;
-	
-	width:100%;
-	height:300px;
-}
-
-.htitle{									/*상단 텍스트 큰거*/
-	width:200px;
-	position: absolute;
-	top:100px;
-	left:50%;
-	transform:translateX(-50%);
-	
-}
-.hp{									/*상단텍스트 작은거*/
-	width:460px;
-	position: absolute;
-	top:160px;
-	left:50%;
-	transform:translateX(-50%);
-}
-
-#wrapper{									/*잘모르겟음. 일단 냅둬보기 */
-  height: auto;
-  min-height: 100%;
-  padding-bottom: 100px; /*footer height*/
-}
-
-footer{											/*footer 푸터 높이 설정*/
-  height: 100px;
-  position : absolute;
-  /*transform : translateY(0%);*/
-  bottom:0px;
- width:100%;
 }
 
 h1, .h1 {
@@ -290,7 +248,7 @@ sup {
 
 a {
   color: var(--bs-link-color);
-  text-decoration: underline;
+  text-decoration: none;
 }
 a:hover {
   color: var(--bs-link-hover-color);
@@ -300,6 +258,7 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
   color: inherit;
   text-decoration: none;
 }
+
 
 pre,
 code,
@@ -401,6 +360,7 @@ textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
+  border: 0.5px solid #f3f3f3;
 }
 
 button,
@@ -572,7 +532,6 @@ progress {
   font-size: calc(1.475rem + 2.7vw);
   font-weight: 300;
   line-height: 1.2;
-  
 }
 @media (min-width: 1200px) {
   .display-4 {
@@ -682,7 +641,7 @@ progress {
   width: 100%;
   padding-right: calc(var(--bs-gutter-x) * 0.5);
   padding-left: calc(var(--bs-gutter-x) * 0.5);
-  margin-right: auto;
+ 	margin-right: auto;
   margin-left: auto;
 }
 
@@ -2889,10 +2848,10 @@ textarea.form-control-lg {
 }
 
 .btn-primary {
-  --bs-btn-color: #fff;
+/*  --bs-btn-color: #fff;*/
   --bs-btn-bg: #0d6efd;
   --bs-btn-border-color: #0d6efd;
-  --bs-btn-hover-color: #fff;
+ /* --bs-btn-hover-color: #fff;*/
   --bs-btn-hover-bg: #0b5ed7;
   --bs-btn-hover-border-color: #0a58ca;
   --bs-btn-focus-shadow-rgb: 49, 132, 253;
@@ -3818,11 +3777,6 @@ textarea.form-control-lg {
   color: var(--bs-navbar-brand-color);
   text-decoration: none;
   white-space: nowrap;
-  
-}
-.navbar-brand>img{    				/*로고이미지 logo image*/
-	width:80px;
-	height:50px;
 }
 .navbar-brand:hover, .navbar-brand:focus {
   color: var(--bs-navbar-brand-hover-color);
@@ -7134,9 +7088,7 @@ textarea.form-control-lg {
 }
 
 .bottom-0 {
-	position: relative;
   bottom: 0 !important;
-  transform : translateY(-100%);
 }
 
 .bottom-50 {
@@ -7546,7 +7498,6 @@ textarea.form-control-lg {
 
 .m-0 {
   margin: 0 !important;
-  
 }
 
 .m-1 {
@@ -7834,10 +7785,10 @@ textarea.form-control-lg {
   padding-bottom: 1.5rem !important;
 }
 
-/*.py-5 {
+.py-5 {
   padding-top: 3rem !important;
   padding-bottom: 3rem !important;
-}*/
+}
 
 .pt-0 {
   padding-top: 0 !important;
@@ -8017,7 +7968,6 @@ textarea.form-control-lg {
 
 .fw-bolder {
   font-weight: bolder !important;
-  
 }
 
 .lh-1 {
@@ -8216,6 +8166,7 @@ textarea.form-control-lg {
 .bg-dark {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+  
 }
 
 .bg-black {
@@ -10878,3 +10829,74 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+
+/* Header */
+header {
+    position: relative;
+    text-align: center;
+    
+}
+
+header img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover; /* 이미지가 컨테이너에 꽉 채워지도록 설정 */
+}
+
+/* Overlay the text on the image */
+.header-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    
+}
+
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+/* Footer 스타일 추가 */
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    #wrapper {
+      flex: 1;
+    }
+
+    footer {
+      margin-top: auto;
+    }
+     /* 검색창 스타일 */
+    .form-inline {
+      display: flex; /* 검색창과 버튼을 같은 행에 배치하기 위해 Flexbox 사용 */
+      align-items: center; /* 세로 중앙 정렬 */
+    }
+
+    /* 검색창 input 스타일 */
+    .form-control {
+      flex: 1; /* 남은 공간 모두 차지 */
+    }
+
+    /* 검색 버튼 스타일 */
+    .btn-outline-secondary {
+      margin-left: 10px; /* 검색창과 버튼 사이 간격 설정 */
+    }
+    li{
+		list-style: none;
+		padding-bottom: 5px;
+	}
+	.content-box,.head{
+		padding-bottom: 5px;
+	}
+
+div{
+	font-family: 'Orbit', sans-serif;
+}
+

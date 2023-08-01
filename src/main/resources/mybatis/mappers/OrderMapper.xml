@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.jhta.pony.dao.OrderDAO">
+
+	<!-- ORDER는 예약어이므로 ''로 감싸 테이블임을 표시해야 함 -->
+
+	<select id="getAllByAdmin" resultType="kr.co.jhta.pony.dto.OrderDTO">
+		SELECT orderNo, orderDate, memberNo, orderRecipientName, orderRecipientPhone, orderStatus, orderDeliveryCharge, orderPoint, orderTotal
+		FROM (SELECT orderNo, orderDate, memberNo, orderRecipientName, orderRecipientPhone, orderStatus, orderDeliveryCharge, orderPoint, orderTotal
+		FROM `ORDER` ORDER BY orderNo DESC) AS T1
+		LIMIT #{skip}, #{perPageNum}
+	</select>
+
+	<!-- selectOne -->
+	<select id="selectOne" parameterType="int" resultType="kr.co.jhta.pony.dto.OrderDTO">
+		SELECT orderNo, orderDate, memberNo, orderRecipientName, orderRecipientPhone, orderStatus, orderDeliveryCharge, orderPoint, orderTotal
+		FROM `ORDER`
+		WHERE orderNo = #{orderNo}
+	</select>
+
+	<!-- getTotal 전체 건수 카운트 -->
+	<select id="getTotal" resultType="int">
+		SELECT count(*)
+		FROM `ORDER`
+	</select>
+
+	<!-- deleteOne -->
+	<delete id="deleteOne" parameterType="int">
+		DELETE
+		FROM `ORDER`
+		WHERE orderNo = #{orderNo}
+	</delete>
+
+	<!-- 배송비 조회 -->
+	<select id="getOrderDeliveryCharge" resultType="int">
+		SELECT orderDeliveryCharge
+		FROM `ORDER`
+		WHERE orderNo = #{orderNo}
+	</select>
+
+	<!-- 포인트 사용금액 조회 -->
+	<select id="getOrderPoint" resultType="int">
+		SELECT orderPoint
+		FROM `ORDER`
+		WHERE orderNo = #{orderNo}
+	</select>
+
+	<!-- 총 금액 업데이트 -->
+	<update id="updateOrderTotal">
+		UPDATE `ORDER`
+		SET orderTotal = #{orderTotal}
+		WHERE orderNo = #{orderNo}
+	</update>
+	
+	<!-- 배송상태 변경 목적 -->
+	<update id="changeDelivery" parameterType="String">
+		UPDATE `ORDER`
+		SET orderStatus = #{orderStatus}
+		WHERE orderNo = #{orderNo}
+	</update>
+
+</mapper>

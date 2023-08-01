@@ -1,0 +1,173 @@
+@charset "utf-8";
+@import url('chk_n_snb.css');
+/* NHN Technology Services UI Development 3Team LYM 141013 */
+
+/* Common */
+body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select{margin:0;padding:0}
+body,input,textarea,select,button,table{font-family:'나눔고딕',NanumGothic,'맑은고딕',MalgunGothic,'돋움',Dotum,Helvetica,sans-serif;font-size:12px}
+img,fieldset{border:0}
+ul,ol{list-style:none}
+em,address{font-style:normal}
+a{text-decoration:none}
+a:hover,a:active,a:focus{text-decoration:underline}
+.blind{visibility:hidden;overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;font-size:0;line-height:0}
+
+/* skip navigation */
+#u_skip{position:absolute;z-index:99999}
+#u_skip a{position:absolute;left:0;top:-30px;width:128px;background:url(../../images/customer/sp_u_skip.png) repeat-x 0 -21px;border:1px solid #4ec53d;text-align:center;outline:none}
+#u_skip a:active,#u_skip a:focus{top:0;text-decoration:none;cursor:pointer;zoom:1}
+#u_skip span{display:inline-block;padding:1px 6px 1px 0;background:url(../../images/customer/sp_u_skip.png) no-repeat 100% 11px;font-size:11px;letter-spacing:-1px;color:#fff;line-height:26px}
+
+/* Header */
+#header{width:100%;min-width:1130px;margin-bottom:30px;background:url(../../images/customer/common_img/bg_header.jpg) repeat-x 0 100%}
+#header .hd_inner{width:1130px;height:110px;margin:0 auto}
+#header .gnb_sc{height:36px;margin-bottom:2px;padding:0 6px 0 8px}
+#header .gnb_sc:after{display:block;clear:both;content:''}
+#header .gnb_sc .site{overflow:hidden;float:left;height:100%}
+#header .gnb_sc .site a{float:left;padding:10px 7px 11px}
+#header .gnb_sc .site a span{display:inline-block;overflow:hidden;height:15px;background:url(../../images/customer/common_img/sp_m_header.png) no-repeat;line-height:1000px}
+#header .gnb_sc .site a.s_link1{background:none}
+#header .gnb_sc .site a.s_link1 span{width:47px;background-position:0 0}
+#header .gnb_sc .site a.s_link2 span{width:53px;background-position:0 -20px}
+#header .gnb_sc .chkout_gnb_wrap{float:right;height:100%}
+#header .gnb_sc .chkout_gnb_wrap .link{float:left;margin-right:16px}
+#header .gnb_sc .chkout_gnb_wrap .link a {
+    position: relative;
+    padding-left: 20px;
+    font-size: 11px;
+    line-height: 36px;
+    color: #fff;
+    text-decoration: none;
+    text-decoration-color: transparent;
+    vertical-align: top;
+}
+#header .gnb_sc .chkout_gnb_wrap .link a .icon_cart {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 17px;
+    height: 16px;
+    margin-top: -9px;
+    background: url(../../images/customer/common_img/sp_m_header.png) no-repeat;
+    background-position: 0 -40px;
+    vertical-align: top;
+}
+#header .gnb_sc .chkout_gnb_wrap #gnb{float:left;margin:3px 0 5px}
+#header .gnb_sc .chkout_gnb_wrap .gnb_my_namebox a.gnb_emp{color:rgba(255,255,255,0.5) !important}
+#header .gnb_sc .chkout_gnb_wrap .cart_count {
+    display: inline-block;
+    position: relative;
+    height: 15px;
+    margin: 10px 7px 11px;
+    background-color: #0A58CA;
+    line-height: 15px;
+    vertical-align: top;
+}
+#header .gnb_sc .chkout_gnb_wrap .cart_count em{font-weight:bold;font-family:Tahoma,Geneva,sans-serif;line-height:normal;color:#fff}
+#header .gnb_sc .chkout_gnb_wrap .cart_count span{display:inline-block;position:absolute;top:0;width:7px;height:15px;background:url(../../images/customer/2014_img/sp_png_ico.png) no-repeat}
+#header .gnb_sc .chkout_gnb_wrap .cart_count .l_bg{left:-7px;background-position:-60px 0}
+#header .gnb_sc .chkout_gnb_wrap .cart_count .r_bg{right:-7px;background-position:-70px 0}
+#header .lnb_sc{height:72px;padding:0 10px 0 15px}
+#header .lnb_sc:after{display:block;clear:both;content:''}
+#header .lnb_sc .sta{overflow:hidden;float:left;padding:20px 0 0}
+#header .lnb_sc .sta a{float:left}
+#header .lnb_sc .sta a span{display:inline-block;overflow:hidden;height:33px;background:url(../../images/customer/common_img/sp_m_header.png) no-repeat;line-height:10000px;vertical-align:top}
+#header .lnb_sc .sta a.logo_naver span{width:33px;background-position:0 -100px}
+#header .lnb_sc .sta a.logo_chkout{margin-left:6px}
+#header .lnb_sc .sta a.logo_chkout span{width:42px;background-position:-37px -100px}
+#header .lnb_sc .lnb{float:right;padding:26px 0 0}
+#header .lnb_sc .lnb ul{overflow:hidden}
+#header .lnb_sc .lnb li{float:left;margin-left:39px}
+#header .lnb_sc .lnb li a{float:left;padding:0 5px}
+#header .lnb_sc .lnb li a span{display:inline-block;overflow:hidden;height:18px;background:url(../../images/customer/common_img/sp_m_header.png) no-repeat;line-height:1000px}
+#header .lnb_sc .lnb li a.menu1 span{width:56px;background-position:0 -140px}
+#header .lnb_sc .lnb li a.menu2 span{width:43px;background-position:0 -160px}
+#header .lnb_sc .lnb li a.menu3 span{width:30px;background-position:0 -180px}
+#header .lnb_sc .lnb li a.menu4 span{width:67px;background-position:0 -200px}
+#header .lnb_sc .lnb li a.menu5 span{width:66px;background-position:0 -220px}
+#header .lnb_sc .lnb li a.menu6 span{width:66px;background-position:0 -240px}
+#header .lnb_sc .lnb li a.menu7 span{width:59px;background-position:0 -260px}
+#header .lnb_sc .lnb li a.menu8 span{width:44px;background-position:0 -280px}
+#header .lnb_sc .lnb li.on a.menu1 span,
+#header .lnb_sc .lnb li a.menu1:hover span{width:56px;background-position:-100px -140px}
+#header .lnb_sc .lnb li.on a.menu2 span,
+#header .lnb_sc .lnb li a.menu2:hover span{width:43px;background-position:-100px -160px}
+#header .lnb_sc .lnb li.on a.menu3 span,
+#header .lnb_sc .lnb li a.menu3:hover span{width:30px;background-position:-100px -180px}
+#header .lnb_sc .lnb li.on a.menu4 span,
+#header .lnb_sc .lnb li a.menu4:hover span{width:67px;background-position:-100px -200px}
+#header .lnb_sc .lnb li.on a.menu5 span,
+#header .lnb_sc .lnb li a.menu5:hover span{width:66px;background-position:-100px -220px}
+#header .lnb_sc .lnb li.on a.menu6 span,
+#header .lnb_sc .lnb li a.menu6:hover span{width:66px;background-position:-100px -240px}
+#header .lnb_sc .lnb li.on a.menu7 span,
+#header .lnb_sc .lnb li a.menu7:hover span{width:59px;background-position:-100px -260px}
+#header .lnb_sc .lnb li.on a.menu8 span,
+#header .lnb_sc .lnb li a.menu8:hover span{width:44px;background-position:-100px -280px}
+
+/* Footer */
+#footer{clear:both;min-width: 1000px;padding:38px 0 56px;border-top:1px solid #e2e2e2;background-color:#fff;font-size:12px;text-align:center}
+#footer .info_site ul{display:inline-block;*display:inline;zoom:1}
+#footer .info_site li{float:left;margin-left:5px;padding-left:6px;background:url(../../images/customer/2014_img/sp_bar.png) no-repeat 0 -18px}
+#footer .info_site li:first-child{margin:0;padding:0;background:none}
+#footer .info_site li a .fold{display:inline-block;width:7px;height:4px;margin-left:4px;background:url(../../images/customer/2014_img/sp_ico.gif) no-repeat -40px -20px;vertical-align:middle}
+#footer .info_site li a.on .fold{background-position:-50px -20px}
+#footer .info_site li a{color:#000;text-decoration:none}
+#footer .info_site li a:hover{text-decoration:underline}
+#footer .s_center{width:1100px;height:35px;margin:6px auto 18px;border:1px solid #f1f1f2;background-color:#f9f9fa}
+#footer .s_center dl{margin:10px 0 14px}
+#footer .s_center dt,
+#footer .s_center dd{display:inline-block;*display:inline;zoom:1}
+#footer .s_center dt{margin:0 7px;font-weight:bold;vertical-align:top}
+#footer .s_center dd{color:#000}
+#footer .s_center dd a{color:#000;text-decoration:underline}
+#footer .s_center dd a:hover{color:#000}
+#footer .f_marketing{margin:14px 0 15px;color:#999}
+#footer address{margin:15px 0;line-height:19px}
+#footer address a{color:#000}
+#footer address span{display:inline-block;width:1px;height:11px;margin:-1px 2px 1px 1px;background:url(../../images/customer/2014_img/sp_bar.png) no-repeat 0 -20px;vertical-align:middle}
+#footer .f_cr{font-family:Verdana,Geneva,sans-serif;font-size:9px;line-height:14px;color:#999}
+#footer .f_cr .logo{display:inline-block;margin-top:2px;vertical-align:top}
+#footer .f_cr a{font-family:Tahoma,Geneva,sans-serif;font-size:9px;font-weight:bold;color:#999}
+#footer .f_cr em{padding-left:4px}
+#footer .ico_talk {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background: url(../../images/customer/ico_talktalk.png) no-repeat;
+    vertical-align: middle;
+}
+
+/* SNB가 있는페이지 */
+.t_sction{position:relative;background:#fff url(../../images/customer/img2015/bg_snb.gif) repeat-y 0 0}
+.t_sction:after{display:block;clear:both;content:''}
+
+/* error */
+.error_wrap{height:659px;text-align:center}
+.error_wrap .v_box,
+.error_wrap .valign{display:inline-block;*display:inline;vertical-align:middle;*zoom:1}
+.error_wrap .valign{min-height:100%}
+.error_msg{min-width:492px;margin-top:-30px}
+.error_msg .sp_error_icon{background:url(../../images/customer/sp_error_icon.png) no-repeat}
+.error_msg .icon_error{display:block;width:36px;height:36px;margin:0 auto 26px;background-position:0 0}
+.error_msg .icon_loading {
+    display:inline-block;
+    margin:0 auto 26px;
+}
+.error_msg .error_heading .title{font-size:22px;font-weight:bold;color:#20232c;line-height:28px}
+.error_msg .error_heading .point_color{color:#239afe}
+.error_msg .error_heading + .detail{margin-top:22px}
+.error_msg .detail .txt{color:#565960;line-height:18px}
+.error_msg .detail .pointtxt{color:#0A58CA}
+.error_msg .detail .txt strong{font-weight:normal;color:#0A58CA}
+.error_msg .detail .txt .pointtxt{color:#0A58CA}
+.error_msg .add_comment{padding-top:11px;border-top:1px solid #f5f5f5;color:#8e929c;line-height:18px}
+.error_msg .add_comment a{text-decoration:underline;color:inherit}
+.error_msg .button a{display:inline-block;*display:inline;height:39px;padding:0 30px;font-weight:bold;line-height:39px;*zoom:1}
+.error_msg .button a + a{margin-left:2px}
+.error_msg .button input:first-child{margin-right:5px}
+.error_msg .button .btn_base{border:1px solid #d7d7d7;background:#fff;color:#3e3e3e}
+.error_msg .button .btn_emph{border:1px solid #0A58CA;background:#0A58CA;color:#fff}
+.error_msg .txt + .add_comment{margin-top:27px}
+.error_msg .add_comment + .button{margin-top:37px}
+.error_msg .txt + .button{margin-top:37px}

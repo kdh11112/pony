@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.jhta.pony.dao.ClientDAO">
+	<!-- 차량정보입력 -->
+	<insert id="addOne"
+		parameterType="kr.co.jhta.pony.dto.ClientDTO">
+		INSERT INTO CLIENT (clientVin, clientCarNumber, clientDistanceDriven,
+		clientCarType,clientShipDate,clientProductionDate,clientColor,memberNo)
+		VALUES
+		(#{clientVin},#{clientCarNumber},#{clientDistanceDriven},#{clientCarType},#{clientShipDate},#{clientProductionDate},#{clientColor},#{memberNo})
+	</insert>
+	<!-- 차량정보 출력 -->
+	<select id="carList" resultType="kr.co.jhta.pony.dto.ClientDTO"
+		parameterType="int">
+		SELECT clientVin,clientCarNumber,clientDistanceDriven,
+				clientCarType,clientShipDate,clientProductionDate,
+				clientColor,memberNo
+			FROM CLIENT
+			WHERE memberNo = #{memberNo};
+	</select>
+	<select id="getOwnedCarCount" resultType="int" parameterType="kr.co.jhta.pony.dto.ClientDTO">
+	  SELECT COUNT(*) AS count
+	  FROM CLIENT
+	  WHERE memberNo = #{memberNo}
+	</select>
+	<delete id="deleteOne" parameterType="String">
+		DELETE FROM CLIENT
+		WHERE clientVin = #{clientVin}
+	</delete>
+</mapper>

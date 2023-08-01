@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.jhta.pony.dao.QuestionDAO">
+	<select id="getAll" resultType="kr.co.jhta.pony.dto.QuestionDTO" parameterType="java.util.HashMap">
+    	SELECT questionNo, questionTitle, questionContents, questionFile, questionDate, memberNo, answerStatus
+		FROM QUESTION
+		WHERE memberNo =#{memberNo}
+		LIMIT #{startNo} ,#{endNo}
+	</select>
+
+	<select id="getTotal" resultType="int">
+		SELECT count(*) cnt
+		FROM QUESTION
+	</select>
+	
+	<select id="getAllByAdmin" resultType="kr.co.jhta.pony.dto.QuestionDTO">
+		SELECT questionNo, questionTitle, questionContents, questionFile, questionDate, memberNo, answerStatus
+    	FROM (SELECT questionNo, questionTitle, questionContents, questionFile, questionDate, memberNo, answerStatus
+    	FROM QUESTION ORDER BY questionNo DESC) AS T1
+    	LIMIT #{skip}, #{perPageNum}
+	</select> 
+	
+	
+	<select id="selectOne" parameterType="int" resultType="kr.co.jhta.pony.dto.QuestionDTO">
+		SELECT * 
+		FROM QUESTION
+		WHERE questionNo = #{questionNo}
+	</select>
+	
+
+	<delete id="deleteOne" parameterType="int">
+
+
+		DELETE 
+		FROM QUESTION
+		WHERE questionNo = #{questionNo}
+	</delete>
+	
+
+	<insert id="qnaAddOne" parameterType="kr.co.jhta.pony.dto.QuestionDTO">
+
+		<!-- INSERT INTO QUESTION (questionTitle, questionContents, questionDate,memberNo)
+  		VALUES (#{questionTitle}, #{questionContents}, now(),#{memberNo}) -->
+  		
+  		  INSERT INTO QUESTION (questionTitle, questionContents, questionFile, questionDate, memberNo, answerStatus)
+  		  VALUES (#{questionTitle}, #{questionContents}, NULL, now(),#{memberNo}, '미답변')
+		  <!-- SELECT
+		    #{questionTitle},
+		    #{questionContents},
+		    NULL,  blob 타입인 questionFile은 NULL로 설정
+		    #{questionDate},
+		    M.memberNo,
+		    '미답변'
+		  FROM
+		    MEMBER M
+		  WHERE
+		    M.memberNo = #{memberNo}; -->
+
+	</insert>
+	
+	<update id="qnaModifyOne" parameterType="kr.co.jhta.pony.dto.QuestionDTO">
+		UPDATE QUESTION SET
+		questionTitle = #{questionTitle}, questionContents = #{questionContents}, questionDate = now()
+		WHERE questionNo = #{questionNo}
+	</update>
+	<update id="updateAnswerStatus" parameterType="kr.co.jhta.pony.dto.QuestionDTO">
+		UPDATE QUESTION
+		SET answerStatus = #{answerStatus}
+		WHERE questionNo = #{questionNo}
+	</update>
+	<delete id="deleteCheck" parameterType="String">
+		DELETE 
+		FROM QUESTION
+		WHERE questionNo = #{questionNo}
+	</delete>
+</mapper>
+
+
