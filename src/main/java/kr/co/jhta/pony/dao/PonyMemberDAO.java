@@ -3,7 +3,6 @@ package kr.co.jhta.pony.dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import kr.co.jhta.pony.dto.ModelDTO;
 import kr.co.jhta.pony.dto.NoticeDTO;
 import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.dto.StartEnd;
@@ -30,8 +29,7 @@ public interface PonyMemberDAO {
 	public void deleteOne(NoticeDTO dto);
 	
 	public int idChk(PonyMemberDTO dto) throws Exception;
-	
-	
+
 	
 	
 }

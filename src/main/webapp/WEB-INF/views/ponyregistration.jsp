@@ -3,15 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Font Awesome -->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-<!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
-<!-- MDB -->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet" />
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -40,19 +38,20 @@
 							<div class="card-body p-5 text-center">
 
 
-								<form action="ponyRegOk" id="frm" method="post" onsubmit="return false;">
+								<form action="ponyRegOk" id="frm" method="post">
 
 								<div class="form-outline mb-4">
 								  <div class="row">
 								    <div class="col">
 								      <div class="form-floating">
-								        <input type="text" id="ponyMemberEmail" class="form-control form-control-lg shadow-sm" />
+								        <input type="text" id="ponyMemberEmail" name="email" class="form-control form-control-lg shadow-sm" oninput = "checkId()"/>
 								        <label>Email</label>
 								      </div>
 								      <span id="emailValidationMsg" style="color: red; display: none;">올바른 이메일 형식이 아닙니다.</span>
+								      <span id="emailAlready" style="color: red; display: none;">사용중인 이메일입니다.</span>
 								    </div>
 								    <div class="col-auto">
-								      <button class="btn btn-primary btn-lg" style="width: 82px; height: 45px" onclick="sendAuthCode()" disabled="disabled">인증</button>
+								      <button type="button" class="btn btn-primary btn-lg" style="width: 82px; height: 45px" onclick="sendAuthCode()" disabled="disabled">인증</button>
 								    </div>
 								  </div>
 								</div>
@@ -64,11 +63,12 @@
 												<div class="form-floating">
 													<input type="text" id="authCode" class="form-control form-control-lg shadow-sm" />
 													<label>인증번호</label>
+													<span id="authCodeTimer" style="color: red; display: none;">남은시간 : </span>
 												</div>
 											</div>
 
 											<div class="col-auto">
-												<button class="btn btn-primary btn-lg" style="width: 82px; height: 45px" onclick="autoemail()">확인</button> <!-- 여기 누르면 Post요청 보내기 -->
+												<button class="btn btn-primary btn-lg" style="width: 82px; height: 45px" type="button" onclick="autoemail()">확인</button> <!-- 여기 누르면 Post요청 보내기 -->
 											</div>
 
 										</div>
@@ -78,8 +78,9 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="password" id="password" value="aaaa" class="form-control form-control-lg shadow-sm" />
+													<input type="password" id="password" name="password" value="aaaa" class="form-control form-control-lg shadow-sm" />
 													<label>Password</label>
+													<span id="passwordValidationMsg" style="color: red; display: block;">비밀번호를 입력해주세요.</span>
 												</div>
 											</div>
 										</div>
@@ -91,6 +92,7 @@
 												<div class="form-floating">
 													<input type="password" id="password2" value="aaaa" class="form-control form-control-lg shadow-sm" />
 													<label>ConfirmPassword</label>
+													<span id="passwordValidationMsg2" style="color: red; display: none;">비밀번호와 일치하지 않습니다.</span>
 												</div>
 											</div>
 										</div>
@@ -101,7 +103,7 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="text" id="fullName" value="Test" class="form-control form-control-lg shadow-sm" />
+													<input type="text" id="fullName" name="fullName" value="Test" class="form-control form-control-lg shadow-sm" />
 													<label>FullName</label>
 												</div>
 											</div>
@@ -115,13 +117,13 @@
 									        <div class="d-flex align-items-center">
 									            <div style="flex: 0 0 155px;">
 									                <div class="form-floating">
-									                    <input type="text" id="firstInput" class="form-control form-control-lg shadow-sm" maxlength="6" />
+									                    <input type="text" id="firstInput" name="regNumberFirst" class="form-control form-control-lg shadow-sm" maxlength="6" />
 									                    <label>RegNumberFist</label>
 									                </div>
 									            </div>
 									            
 									            <div style="margin-left: 10px;">
-									                <input type="text" id="secondInput" value="888888" class="form-control form-control-lg shadow-sm" maxlength="1" style="width: 30px; height: 58px;" />
+									                <input type="text" id="secondInput" value="3" class="form-control form-control-lg shadow-sm" maxlength="1" style="width: 30px; height: 58px;" />
 									            </div>
 									            <div class="d-flex align-items-center">
 									                <span style="margin-right: 5px">* * * * * *</span>
@@ -138,7 +140,7 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="text" id="phone" value="01055555555" class="form-control form-control-lg shadow-sm phone" maxlength="13" />
+													<input type="text" id="phone" name="phone" value="01055555555" class="form-control form-control-lg shadow-sm phone" maxlength="13" />
 													<label>Phone</label>
 												</div>
 											</div>
@@ -150,7 +152,7 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="text" id="postcode" class="form-control form-control-lg shadow-sm">
+													<input type="text" id="postcode" name="postcode" class="form-control form-control-lg shadow-sm">
 													<label>ZipCode</label>
 												</div>
 											</div>
@@ -163,7 +165,7 @@
 									
 										<div class="col">
 											<div class="form-floating">
-												<input type="text" id="address" class="form-control form-control-lg shadow-sm">
+												<input type="text" id="address" name="address" class="form-control form-control-lg shadow-sm">
 												<label>주소</label>
 											</div>
 										</div>
@@ -171,7 +173,7 @@
 										<div class="form-outline mb-4 row">
 										    <div class="col">
 										        <div class="form-floating">
-										            <input type="text" id="detailAddress" class="form-control form-control-lg shadow-sm">
+										            <input type="text" id="detailAddress" name="detailAddress" class="form-control form-control-lg shadow-sm">
 										            <label>상세 주소</label>
 										            <span id="guide" style="color:#999;display:none"></span>
 										        </div>
@@ -179,7 +181,7 @@
 										
 										    <div class="col">
 										        <div class="form-floating">
-										            <input type="text" id="extraAddress" class="form-control form-control-lg shadow-sm">
+										            <input type="text" id="extraAddress" name="extraAddress" class="form-control form-control-lg shadow-sm">
 										            <label>참고항목</label>
 										            <span id="guide" style="color:#999;display:none"></span>
 										        </div>
@@ -187,21 +189,15 @@
 										</div>
 										
 							<div align="center" >
-								<button id="regBtn" disabled="disabled" class="btn btn-primary btn-lg btn-block"
-								style=" width: 300px; height: 45px; margin-top: 20px;" onclick="submitForm()">Sign up</button>
+								<button id="regBtn" type="button" disabled="disabled" class="btn btn-primary btn-lg btn-block" style="width: 300px; height: 45px; margin-top: 20px;" onclick="submitForm()">Sign up</button>
+
 							</div>
 										
 										
 									</div>
 
-
-
-								
 						</form>
 
-
-						
-							
 
 							</div>
 						</div>
@@ -210,11 +206,9 @@
 			</div>
 	</section>
 	
-	
-	
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+</body>
+
 
 <script>
     function execDaumPostcode() {
@@ -269,16 +263,89 @@
 
 
 
+<script>
 
-<script> // 핸드폰번호 입력시 자동 하이픈 추가
+// 핸드폰번호 입력시 자동 하이픈 추가
   $(document).on("keyup", ".phone", function() { 
 		$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
 	});
   	
-</script>
+
+
+
+// 이메일 인증번호 발송 스크립트 이미 가입된 이메일이면 메세지를 출력하고 메세지 발송안함
+  function sendAuthCode() {
+	
+    // 인증 버튼을 눌렀을 때 실행되는 비동기 POST 요청
+    // 폼 데이터를 가져와서 fetch() 메서드를 사용하여 서버로 POST 요청 보냄
+
+    const emailInput = document.getElementById('ponyMemberEmail');
+    const emailValue = emailInput.value;
+    const emailAlreadyElement = document.getElementById('emailAlready');
+
+    if (emailAlready.style.display === 'block') {
+        alert('사용중인 이메일입니다.');
+        return;
+      }
+
+    // FormData를 사용하여 폼 데이터 생성
+    const formData = new FormData();
+    formData.append('email', emailValue);
+    // fetch()를 사용하여 서버로 POST 요청 보냄
+    fetch('mailConfirm', {
+      method: 'POST',
+      body: formData
+    })
+      .then(data => {
+        // 서버에서 받은 응답 데이터를 처리
+        clearTimeout(timer); //기존 타이머 초기화
+        console.log(data);
+        startTimer(60);
+        
+      })
+      .catch(error => {
+        // 오류 처리
+        
+        console.error('Error:', error);
+      });
+    
+ }
+
+
+//타이머 초기화를 위해 함수 바깥에 선언
+  let timer;
+  let remainingTime; // 전역 변수로 선언
+
+  // 타이머 함수
+  function startTimer(seconds) {
+    remainingTime = seconds; // 전역 변수에 남은 시간 설정
+    const authCodeTimer = document.getElementById('authCodeTimer');
+    authCodeTimer.style.display = 'block';
+
+    // 타이머 갱신 함수
+    function updateTimer() {
+      if (remainingTime > 0) {
+        authCodeTimer.innerText = '남은시간: ' + remainingTime + '초';
+        remainingTime--;
+      } else {
+        authCodeTimer.innerText = '시간 초과';
+        // 타이머 종료 후에도 텍스트 값을 초기화
+        setTimeout(() => {
+          authCodeTimer.innerText = '';
+          authCodeTimer.style.display = 'none'; // 타이머 숨김
+        }, 3000); // 3초 후에 텍스트 값을 초기화하고 숨김
+        clearInterval(timer); // 타이머 정지
+      }
+    }
+
+    // 1초마다 updateTimer 함수를 호출하여 타이머 갱신
+    timer = setInterval(updateTimer, 1000);
+
+    // 초기 호출
+    updateTimer();
+  }
   
-  
-<script> // 인증번호 확인 스크립트
+// 인증번호 확인 스크립트 인증 성공시 가입하기 버튼 활성화
 function autoemail() {
 	
 	const authInput = document.getElementById('authCode');
@@ -287,89 +354,36 @@ function autoemail() {
 	const formData = new FormData();
 	formData.append('authcode', authValue);
 	
-	
-	fetch('autoEmailOk', {
-	  method: 'POST' ,
-	  body: formData
-	
-	})
-	 .then(data => { // 서버에서 받은 응답 데이터를 처리
-       
-	 if(data.status !== 200){
-    	   console.log("실패")
-    	   alert('실패하셧습니다.');
-     }else{
-       //성공하면 회원가입버튼 활성화
-       //console.log(data);
-    //   console.log("성공")
-       alert('인증에 성공하셨습니다.')
-       const regBtn = document.getElementById('regBtn');
-       regBtn.disabled =  false;
-       }
-     })
-     .catch(error => {
-       // 오류 처리
-       console.error('Error:', error);
-     });
-	
+	$.ajax({
+		url : '/autoEmailOk',
+		method : "post",
+		data : {
+			authcode : authValue
+		},
+		success : function( data  ) {
+			if(data == "true"){
+				console.log("성공");
+				alert('인증에 성공하셨습니다.')
+		       const regBtn = document.getElementById('regBtn');
+		       regBtn.disabled =  false;
+
+		       const authCodeTimer = document.getElementById('authCodeTimer');
+		       authCodeTimer.style.color = 'blue'; // 파란색 글씨로 변경
+		       authCodeTimer.innerText = '인증이 완료되었습니다.';
+		       clearInterval(timer); // 타이머를 멈춤
+				
+			}else {
+				console.log("실패");
+				alert('실패하셧습니다.');
+			}
+		}
+	});
+
 }
 
-</script>
-  
-<script> // 이메일 인증번호 발송 스크립트
-  function sendAuthCode() {
-    // 인증 버튼을 눌렀을 때 실행되는 비동기 POST 요청
-    // 폼 데이터를 가져와서 fetch() 메서드를 사용하여 서버로 POST 요청 보냄
-
-    const emailInput = document.getElementById('ponyMemberEmail');
-    const emailValue = emailInput.value;
-
-    // FormData를 사용하여 폼 데이터 생성
-    const formData = new FormData();
-    formData.append('email', emailValue);
-
-    // fetch()를 사용하여 서버로 POST 요청 보냄
-    fetch('mailConfirm', {
-      method: 'POST',
-      body: formData
-    })
-      .then(response => response.json()) // JSON 형식으로 응답 파싱 (옵션이며, 응답 형식에 따라 사용)
-      .then(data => {
-        // 서버에서 받은 응답 데이터를 처리
-        console.log(data);
-      })
-      .catch(error => {
-        // 오류 처리
-        
-        console.error('Error:', error);
-      });
-  }
-
-</script>
-
-<script>
-  // 이벤트 핸들러가 중복 등록되지 않도록 변수를 사용하여 상태를 관리합니다.
-  let isEventRegistered = false;
-
-  document.getElementById('regBtn').addEventListener('click', function() {
-    if (!isEventRegistered) {
-      // 이벤트 핸들러 실행 중에는 버튼을 재활성화하지 않도록 상태를 변경합니다.
-      isEventRegistered = true;
-      // 여기에 버튼 클릭 시 실행할 로직을 작성합니다.
-      submitForm(); // 이벤트 핸들러에서 submitForm() 함수를 호출합니다.
-
-      // 이벤트 핸들러 실행이 끝난 후에는 상태를 원래대로 변경하여 다시 클릭할 수 있도록 합니다.
-      setTimeout(function() {
-        isEventRegistered = false;
-      }, 1000); // 1000ms 딜레이(1초)을 줄 수 있습니다.
-    }
-  });
-</script>
-
-
-<script>
+//이메일 유효성검사
 function isValidEmail(email) {
-	  // 간단한 이메일 형식 검사를 위한 정규식
+	  // 이메일 형식 검사를 위한 정규식
 	  const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 	  return emailRegex.test(email);
 	}
@@ -388,65 +402,104 @@ function isValidEmail(email) {
 	  }
 	});
 
-</script>
+	
+//패스워드 유효성 검사
+function isValidPassword(password) {
+  const pwRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+  const hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+  const id = document.getElementById('ponyMemberEmail').value;
+  let errorMsg = '';
+
+  if (!pwRegex.test(password)) {
+    errorMsg = '비밀번호는 8자 이상이어야 하며, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.';
+  } else if (/(\w)\1\1\1/.test(password)) {
+    errorMsg = '같은 문자를 4번 이상 사용하실 수 없습니다.';
+  } else if (password.includes(id)) {
+    errorMsg = '비밀번호에 아이디가 포함될 수 없습니다.';
+  } else if (password.includes(' ')) {
+    errorMsg = '비밀번호는 공백 없이 입력해주세요.';
+  } else if (hangulcheck.test(password)) {
+    errorMsg = '비밀번호에 한글을 사용 할 수 없습니다.';
+  }
+
+  return errorMsg;
+}
+
+//패스워드 패스워드확인이 일치하는지 확인하는 코드
+function passwordsMatch(password, confirmPassword) {
+  return password === confirmPassword;
+}
 
 
-<script>
+//실시간으로 패스워드를 감시하고 유효성검사에 따른 errorMsg 출력
+document.getElementById('password').addEventListener('input', function() {
+  const pw = document.getElementById('password');
+  const validationMsg = document.getElementById("passwordValidationMsg");
+  const validationResult = isValidPassword(pw.value);
+
+  validationMsg.innerHTML = validationResult;
+});
+
+
+//실시간으로 패스워드 확인을 감시하고 패스워드랑 일치하지 않으면 메세지 출력
+document.getElementById('password2').addEventListener('input', function() {
+  const pw = document.getElementById('password');
+  const pw2 = document.getElementById('password2');
+  const validationMsg2 = document.getElementById("passwordValidationMsg2");
+
+  if (!passwordsMatch(pw.value, pw2.value)) {
+    validationMsg2.style.display = "block";
+  } else {
+    validationMsg2.style.display = "none";
+  }
+});
+
+
+//실시간으로 이메일주소를 감시하고 중복체크 (DB 확인)
+function checkId(){
+        var id = $('#ponyMemberEmail').val(); //id값이 "id"인 입력란의 값을 저장
+        $.ajax({
+            url:'./idCheck', //Controller에서 요청 받을 주소
+            type:'post', //POST 방식으로 전달
+            data:{id:id},
+            success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+                if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
+                	emailAlready.style.display = 'none';
+                } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
+                	emailAlready.style.display = 'block';
+
+                }
+            },
+            error:function(){
+                alert("에러입니다");
+            }
+        });
+};
+
+        
+
+
+//모든 유효성검사를 통과한 상태로 가입하기 버튼을 누르면 폼데이터를 제출
 function submitForm() {
-	  const email = document.getElementById('ponyMemberEmail').value;
-	  const password = document.getElementById('password').value;
-	  const confirmPassword = document.getElementById('password2').value;
-	  const fullName = document.getElementById('fullName').value;
-	  const regNumberFirst = document.getElementById('firstInput').value;
-	  const regNumberSecond = document.getElementById('secondInput').value;
-	  const phone = document.getElementById('phone').value;
-	  const postcode = document.getElementById('postcode').value;
-	  const address = document.getElementById('address').value;
-	  const detailAddress = document.getElementById('detailAddress').value;
-	  const extraAddress = document.getElementById('extraAddress').value;
-
-	  const formData = new FormData();
-		  formData.append('email', email);
-		  formData.append('password', password);
-		  formData.append('confirmPassword', confirmPassword);
-		  formData.append('fullName', fullName);
-		  formData.append('regNumberFirst', regNumberFirst);
-		  formData.append('regNumberSecond', regNumberSecond);
-		  formData.append('phone', phone);
-		  formData.append('postcode', postcode);
-		  formData.append('address', address);
-		  formData.append('detailAddress', detailAddress);
-		  formData.append('extraAddress', extraAddress);
-
-		 console.log("aaaaaaaaaaaaaaaaaaaaaaaa");
-		  
 	
-	fetch('ponyRegOk', {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Failed to submit form');
-    }
-    return response.json(); // JSON 형식으로 응답 파싱 (옵션이며, 응답 형식에 따라 사용)
-  })
-  .then(data => {
-    // 서버에서 받은 응답 데이터를 처리
-    console.log(data);
-    window.location.href = '/login';
-  })
-  .catch(error => {
-    // 오류 처리
-    console.error('Error:', error);
-  });  
-	
-	  
+ 	//console.log("눌렷니?");
+	  const pw = document.getElementById('password').value;
+	  const pw2 = document.getElementById('password2').value;
+	  const validationMsg = document.getElementById("passwordValidationMsg");
+	  const validationMsg2 = document.getElementById("passwordValidationMsg2");
+	  const emailValidationMsg = document.getElementById('emailValidationMsg');
+	  const authButton = document.querySelector('.btn-primary');
+		
+	  if (validationMsg.innerText !== '' || validationMsg2.style.display === "block" || emailValidationMsg.style.display === "block" || authButton.disabled) {
+	    alert("입력값을 확인하세요.");
+	  } else {
+	   $("#frm").attr("method", "post").attr("action", "/ponyRegOk").submit();
+	  }
+
+ 	//console.log(cnt);
 	}
 
-
 </script>
 
 
-</body>
 </html>

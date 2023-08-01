@@ -16,10 +16,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import kr.co.jhta.pony.dto.NoticeDTO;
 import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.dto.QuestionDTO;
-import kr.co.jhta.pony.service.PonyMemberService;
+import kr.co.jhta.pony.security.service.PonyMemberService;
 import kr.co.jhta.pony.service.QuestionService;
 import kr.co.jhta.pony.util.PageUtil;
 import lombok.extern.slf4j.Slf4j;

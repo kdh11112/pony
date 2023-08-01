@@ -30,6 +30,7 @@
 
 <!-- 접근주체 : principal : 보호된 대상에 접근하는 유저 -->
    <p><sec:authentication property="principal"/></p>
+   <h1>${name }</h1>
    <%-- <p>user : <sec:authentication property="principal.username"/></p>
    <p>password : <sec:authentication property="principal.password"/></p> --%>
    
