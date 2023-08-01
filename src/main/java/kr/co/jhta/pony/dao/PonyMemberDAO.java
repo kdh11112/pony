@@ -29,6 +29,9 @@ public interface PonyMemberDAO {
 
 	public void deleteOne(NoticeDTO dto);
 	
+	public int idChk(PonyMemberDTO dto) throws Exception;
+	
+	
 	
 	
 }
