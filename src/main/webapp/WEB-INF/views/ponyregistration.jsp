@@ -269,9 +269,6 @@
   $(document).on("keyup", ".phone", function() { 
 		$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
 	});
-  	
-
-
 
 // 이메일 인증번호 발송 스크립트 이미 가입된 이메일이면 메세지를 출력하고 메세지 발송안함
   function sendAuthCode() {
@@ -436,7 +433,7 @@ document.getElementById('password').addEventListener('input', function() {
   const pw = document.getElementById('password');
   const validationMsg = document.getElementById("passwordValidationMsg");
   const validationResult = isValidPassword(pw.value);
-
+	console.log("작동하니?");
   validationMsg.innerHTML = validationResult;
 });
 

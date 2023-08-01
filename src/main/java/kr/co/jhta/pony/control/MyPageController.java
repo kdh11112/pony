@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.co.jhta.pony.dto.ClientDTO;
 import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.dto.QuestionDTO;
+import kr.co.jhta.pony.security.account.AccountContext;
 import kr.co.jhta.pony.security.service.PonyMemberService;
 import kr.co.jhta.pony.service.ClientService;
 import kr.co.jhta.pony.service.QuestionService;
@@ -66,7 +67,7 @@ public class MyPageController {
 		// 회원번호를 기준으로 등록된 차량 정보를 조회
 		List<ClientDTO> userCars = cService.carList(memberNo);
 		log.info(">>>>>>>>>>>>>>>>>>>>>"+userCars);
-		String pw =passwordEncoder.encode("자바");//비밀번호 암호화
+		String pw =passwordEncoder.encode("aaaa");//비밀번호 암호화
 		log.info(">>>>>>>>>>>>>>>>>>>>>"+pw);
 		// 등록된 차량 정보가 없을 경우의 처리
         if (userCars.isEmpty()) {
@@ -292,8 +293,22 @@ public class MyPageController {
 		public String myinfomodify(@ModelAttribute PonyMemberDTO dto, HttpServletRequest req,HttpSession session, Model model,Principal p) {
 			PonyMemberDTO dto7 = service.getMemberEmail(p.getName());
 			int memberNo = dto7.getMemberNo();
+			
+			String pw = dto7.getMemberPassword(); // fasfslafjsasa
+			
+			boolean isPw = passwordEncoder.matches("", pw);
+			if(isPw == true) {
+				String a = "True";
+				log.info(pw + "랑 같음 " + a);
+			}else {
+				String a = "F";
+				log.info(pw + "같지 않음 " + a);
+			}
+			
+			
 			session.setAttribute("mdto", dto7);
 			model.addAttribute("dto", service.selectOne(memberNo));
+			
 			return "mypage/myinfomodifyform";
 		}
 		
@@ -303,22 +318,31 @@ public class MyPageController {
 			PonyMemberDTO dto8 = service.getMemberEmail(p.getName());
 			int memberNo = dto8.getMemberNo();
 			session.setAttribute("mdto", dto8);
+			 String rawPassword = req.getParameter("memberPassword");
+		        String encodedPassword = passwordEncoder.encode(rawPassword);
+		        dto.setMemberPassword(encodedPassword);
 			model.addAttribute("dto", service.selectOne(memberNo));
-			String name = req.getParameter("memberName");
-			String pw = req.getParameter("memberPassword");
-			String birth = req.getParameter("memberBirthday");
-			String phone = req.getParameter("memberPhone");
-			String addr1 = req.getParameter("memberAddress1");
-			String addr2 = req.getParameter("memberAddress2");
-			dto.setMemberName(name);
-			dto.setMemberPassword(pw);
-			dto.setMemberBirthday(birth);
-			dto.setMemberPhone(phone);
-			dto.setMemberAddress1(addr1);
-			dto.setMemberAddress2(addr2);
+//			String name = req.getParameter("memberName");
+//			String pw = req.getParameter("memberPassword");
+//			log.info("pw>>>>>>>>>>>>>>>>> {} ",pw);
+//			String birth = req.getParameter("memberBirthday");
+//			String phone = req.getParameter("memberPhone");
+//			String addr1 = req.getParameter("memberAddress1");
+//			String addr2 = req.getParameter("memberAddress2");
+//			dto.setMemberName(name);
+//			dto.setMemberPassword(pw);
+//			dto.setMemberBirthday(birth);
+//			dto.setMemberPhone(phone);
+//			dto.setMemberAddress1(addr1);
+//			dto.setMemberAddress2(addr2);
 			service.myinfomodifyOne(dto);
 	
 			return "redirect:/myinfo";
+		}
+		//--------------------------시승신청예약내역
+		@GetMapping("/testdriving")
+		public String testdriving(){
+			return "mypage/testdriving";
 		}
 }
 

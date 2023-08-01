@@ -242,7 +242,7 @@
 
 			<img src="images/cloud.jpg" alt="" />
 			<div class="header-content text-center text-black">
-				<h1 class="display-4 fw-bolder">마이페이지</h1>
+				<h1 class="display-4 fw-bolder">차량등록</h1>
 				<p class="lead fw-normal text-black-50 mb-0">이용 중인 현대자동차 서비스를
 					마이페이지에서 확인하세요.</p>
 			</div>
