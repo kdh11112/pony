@@ -1,6 +1,5 @@
 package kr.co.jhta.pony.control;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,7 @@ public class TestDriveController {
 	
 	@Autowired
 	private ShopService ss;
+	@Autowired
 	private TestDriveService tds;
 
 	@GetMapping("/testDrive")
@@ -40,9 +40,13 @@ public class TestDriveController {
 	}
 	
 	@PostMapping("/testDriveInsert")
-	public String test123(@RequestParam("testDriveSchedule")String testDriveSchedule, @RequestParam("shopNo1")int shopNo, @RequestParam("selectedModel1")int modelNo, @RequestParam("testDriveTime1")String testDriveTime) {
-		//tds.insertTestDriveSchedule(dto);
-		log.info("dto {} 전송됨 ",testDriveSchedule);
+	public String test123(@ModelAttribute TestDriveDTO dto,@RequestParam("testDriveSchedule")String testDriveSchedule, @RequestParam("shopNo")int shopNo, @RequestParam("selectedModel")int modelNo, @RequestParam("buttonTime")String testDriveTime) {
+		dto.setTestDriveSchedule(testDriveSchedule);
+		dto.setShopNo(shopNo);
+		dto.setModelNo(modelNo);
+		dto.setTestDriveTime(testDriveTime);
+		tds.insertTestDriveSchedule(dto);
+		log.info("dto {} 전송됨 ",dto);
 		return "redirect:testDrive";
 	}
 	

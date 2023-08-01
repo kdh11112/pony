@@ -304,6 +304,11 @@
 		</div>
 		<div class="testDriveContent text-center">
 		<form action="/testDriveInsert" id="frm" method="post">
+			<input type="hidden" name="testDriveSchedule" id="testDriveSchedule" />
+			
+			<input type="hidden" name="shopNo" id="shopNo" />
+			<input type="hidden" name="selectedModel" id="selectedModel" />
+			<input type="hidden" name="buttonTime" id="buttonTime" />
 			<div class="agreeArea ">
 				<div class="agreeAreaContent ">
 					<div style="color: white;">empty</div>
@@ -468,10 +473,13 @@
 			</div>
 			
 			<div style="margin-top: 100px;">
-				<button class="btn" id="OkBtn">신청하기</button>
+				<button type="button" class="btn" id="OkBtn">신청하기</button>
 			</div>
 			</form>
 		</div>
+	
+	
+	
 	
 		<!-- =======================모달영역===================== -->
 		<div class="modal" tabindex="-1" id="modal1">

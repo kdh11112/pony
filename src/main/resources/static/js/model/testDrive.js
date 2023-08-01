@@ -272,8 +272,10 @@ function handleButtonClick(event) {
 	
 	$("#testDriveSchedule").val(testDriveSchedule + buttonTime);
     $("#buttonTime").val(buttonTime);
-
+	
     alert("선택한 날짜 : " + buttonYear+ "년 " + buttonMonth + "월 " + buttonDate + "일 " + buttonTime+"시");
+    let offset = $("#OkBtn").offset();
+    $('html').animate({ scrollTop: offset.top }, 1);
 }
 
 $("#OkBtn").on("click", function () {
@@ -283,8 +285,12 @@ $("#OkBtn").on("click", function () {
 		alert("모든 항목을 선택해주세요")
 		return false;
 	}
-    alert("선택한 차량: " + $("#selectModel option:selected").text() + "\n" + "선택한 지점: " + shopNo + "\n" + "선택한 날짜: " + testDriveSchedule + "\n" + "선택한 시간: " + buttonTime);
-    alert(testDriveSchedule);
-    document.getElementById("frm").submit();
+    alert("선택한 차량: " + selectedModel + "\n" + "선택한 지점: " + shopNo + "\n" + "선택한 날짜: " + testDriveSchedule + "\n" + "선택한 시간: " + buttonTime);
     
+    $("#testDriveSchedule").val(testDriveSchedule);
+    $("#shopNo").val(shopNo);
+    $("#selectedModel").val(selectedModel);
+    $("#buttonTime").val(buttonTime);
+    console.log(testDriveSchedule +"\n" +  shopNo +"\n" + selectedModel +"\n" + buttonTime)
+    document.getElementById("frm").submit();
 });
