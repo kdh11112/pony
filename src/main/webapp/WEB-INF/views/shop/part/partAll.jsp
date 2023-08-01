@@ -108,6 +108,16 @@
 	margin-left: 15px;
 	background-color: #c3daf7;
 }
+button[name='selectAction'] {
+	background-color: white;
+	border : none;
+}
+.table_empty{
+	height: 50px;
+    text-align: center;
+    margin: 200px 0 215px 0px;
+    font-size: 25px;
+}
 }
 </style>
 </head>
@@ -196,14 +206,13 @@
 										</select>
 									</td>
 									<td style="text-align: right !important; padding-right: 35px;">
-										<fmt:formatNumber pattern="###,###,###">${partlist.partPrice }</fmt:formatNumber>
+										<fmt:formatNumber pattern="###,###,###원">${partlist.partPrice }</fmt:formatNumber>
 									</td>
 									<td>
 										<input type="hidden" name="selectPart" value="${partlist.partNumber }" />
 										<button type="button" name="selectAction" value="add_to_cart">
 											<img src="css/admin/assets/cart.png" style="width: 12px; height: 12px;" />
 										</button>
-										<!-- <input type="image" src="css/admin/assets/cart.png" style="width: 12px; height: 12px;" /> -->
 									</td>
 								</tr>
 							</c:forEach>
@@ -241,7 +250,7 @@
 					<div class="search_input">
 						<input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"></c:out>'>
 						<input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum }"></c:out>'>
-						<input type="hidden" name="perPageNum" value='${pageMaker.cri.perPageNum}'>
+						<input type="hidden" name="perPageNum" value='<c:out value="${pageMaker.cri.perPageNum}"></c:out>'>
 						<button class='btn search_btn'>검 색</button>
 					</div>
 				</form>
