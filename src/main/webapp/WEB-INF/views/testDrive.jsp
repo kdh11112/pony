@@ -303,6 +303,7 @@
 			<h1 class="top-title-text2">포니에서 제공하는 편리한 시승신청 서비스를 이용해보세요.</h1>
 		</div>
 		<div class="testDriveContent text-center">
+		<form action="/testDriveInsert" id="frm" method="post">
 			<div class="agreeArea ">
 				<div class="agreeAreaContent ">
 					<div style="color: white;">empty</div>
@@ -355,7 +356,7 @@
 									<img src="../images/model/vs_logo.jpg" class="card-img-top"
 										alt="..." id="card-img1">
 									<div>
-										<button class="btn btn-info" id="selectOk">선택</button>
+										<button type="button" class="btn btn-info" id="selectOk">선택</button>
 									</div>
 									<div class="card-body"></div>
 								</div>
@@ -465,7 +466,7 @@
 					</div>
 				</div>
 			</div>
-			<form action="/testDriveInsert" id="frm" method="post">
+			
 			<div style="margin-top: 100px;">
 				<button class="btn" id="OkBtn">신청하기</button>
 			</div>
@@ -584,7 +585,6 @@
 				</div>
 			</div>
 		</div>
-	</form>
 	<script src="../js/model/testDrive.js"></script>
 </body>
 </html>

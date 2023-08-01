@@ -124,7 +124,7 @@ $("#shopFindBtn, .shop-area-btn").on("click", function() {
 				var data = "<div class='shop-detail col-md-4' > <h4>"
 					+ reponse[i].shopAreaPoint + "</h4><p>"
 					+ reponse[i].shopAddr + "</p><p>"
-					+ reponse[i].shopPhone + "</p><button class='shop-no-btn btn btn-primary' value='"
+					+ reponse[i].shopPhone + "</p><button type='button' class='shop-no-btn btn btn-primary' value='"
 					+ reponse[i].shopNo + "'>선택</button></div>";
 				$("div.shop-area-point.row").append(data);
 			}
@@ -194,6 +194,7 @@ function buildCalendar() {
 
 				for (let j = 0; j < 2; j++) {
 					let newButton = document.createElement("button");
+					newButton.type = "button";
 					newButton.innerText = buttonTexts[i * 2 + j]; // Use the predefined button texts
 					newButton.innerText = buttonTexts[i * 2 + j]; // Use the predefined button texts
 					newButton.dataset.year = nowMonth.getFullYear(); 
@@ -269,9 +270,9 @@ function handleButtonClick(event) {
     buttonTime = button.innerText;
     testDriveSchedule = buttonYear + "-" + "0" + buttonMonth + "-" + buttonDate + " ";
 	
+	$("#testDriveSchedule").val(testDriveSchedule + buttonTime);
+    $("#buttonTime").val(buttonTime);
 
-    $("#testDriveSchedule").val();
-    $("#buttonTime").val();
     alert("선택한 날짜 : " + buttonYear+ "년 " + buttonMonth + "월 " + buttonDate + "일 " + buttonTime+"시");
 }
 
@@ -283,5 +284,7 @@ $("#OkBtn").on("click", function () {
 		return false;
 	}
     alert("선택한 차량: " + $("#selectModel option:selected").text() + "\n" + "선택한 지점: " + shopNo + "\n" + "선택한 날짜: " + testDriveSchedule + "\n" + "선택한 시간: " + buttonTime);
+    alert(testDriveSchedule);
     document.getElementById("frm").submit();
+    
 });

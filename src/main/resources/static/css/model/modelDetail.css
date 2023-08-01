@@ -1,0 +1,158 @@
+@charset "UTF-8";
+
+.container{
+        max-width: 100%;
+        margin-top: 100px;
+        margin-left: 0px;
+    }
+    .top-title{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 150px;
+        background-color: rgb(244, 250, 255);
+        margin-bottom: 100px
+    }
+    .top-title-text{
+        font-size: 80px;
+        font-weight:bold;
+        color: #5E5E5E;
+    }
+    .top-title-text2{
+        font-size: 15px;
+        font-weight:bold;
+        color: #5E5E5E;
+    }
+ 
+   .grid{
+        margin-top: 100px;
+   }
+    .model-info-co2{
+        width: 30%;
+        margin-left:40px;
+        font-weight: 600;
+        background-color: rgb(249, 252, 255);
+        color: rgb(153, 174, 230);
+        
+    }
+    .model-info-co3,
+    .model-info-co4{
+    	width:60%;
+        font-weight: 600;
+        margin-left: 5px;
+        color: rgb(115, 116, 117);
+    }
+    .just-bar{
+        height: 5px;
+        background-color: white;
+    }
+    #modelImg1{
+        display: flex;
+        margin: auto;
+    }
+    #modelImg2{
+		width:180%;
+   		height:620px;
+   	}
+    .row{
+        width: 100%;
+        font-size:15px;
+    }
+    .design-info{
+        font-size: 50px;
+        font-weight: bold;
+    }
+    .design-info > div> h3{
+        margin-bottom: 50px;
+        font-weight: 600;
+    }
+    .design-info > div> p{
+        font-size: 15px;
+        font-weight: bold;
+        color: #6C757D;
+    }
+    #info{
+		text-align: center;
+    }
+    #cardArea{
+    	margin-top:-100px;
+    	margin-left:-140px;
+    }
+    #modelName{
+    	width:200px;
+    	margin-top:100px;
+    	background-color: white;
+    	font-size:30px;
+    	color:rgb(170, 206, 255);
+    }
+    .imgArea{
+    	margin-top:20px;
+    	margin-left: 2px;
+    }
+
+    #topImg{
+		width:100%;
+		height:300px;
+	}
+    #whiteBar{
+		height:30px;
+		background-color: white;
+	}
+    #modelImg1{
+		width:70%;
+	}
+    #empty{
+		color: white;
+	}
+	.card mx-auto{
+		width:25rem;
+	}
+	#selectOk{
+		margin-top: 20px;
+		margin-left:320px;
+		background-color: rgb(32, 103, 162);
+		border: 1px;
+		color: white;
+		font-weight: bold;
+		font-size:17px;
+	}
+    #modelImg3,
+    #modelImg5{
+		width: 100%;
+		height: 500px;
+	}
+	#modelImg4,
+	#modelImg6{
+		width: 100%;
+		height: 500px;
+	}
+	.accordion-button{
+		color:  #5E5E5E;
+		font-weight: bold;
+	}
+    .accordion-button:not(.collapsed){
+		background-color: rgb(193, 220, 255);
+		color: white;
+		font-weight: bold;
+		text-align: center;
+		font-size: 17px;
+	}
+	#selectModel{
+		font-weight: bold;
+		font-size: 17px;
+		background-color: rgb(134, 167, 236);
+		border: 0px;
+	}
+    .designArea{
+		font-size: 70px;
+		font-weight: bold;
+		margin-left: 10px;
+	}
+    .designArea > p {
+		font-size: 15px;
+		color: #6C757D;
+	}
+	img{
+		margin-bottom: 22px;
+	}

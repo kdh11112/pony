@@ -5,10 +5,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import kr.co.jhta.pony.dto.ShopDTO;
+import kr.co.jhta.pony.dto.ModelDTO;
 
 @Repository
 @Mapper
-public interface ShopDAO {
-	public List<ShopDTO> shopArea(String shopArea,String shopAreaPoint);
+public interface ModelDAO {
+	public List<ModelDTO> ModelInfo();
+	public ModelDTO ModelOne(String modelName);
 }

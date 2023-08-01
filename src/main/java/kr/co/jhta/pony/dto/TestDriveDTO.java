@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TestDriveDTO {
 	private int testDriveNo;
-	private Date testDriveSchedule;
+	private String testDriveSchedule;
 	private String testDriveRequest;
 	private int shopNo;
 	private int memberNo;
