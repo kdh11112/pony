@@ -9,7 +9,7 @@
 	<select id="getAllByAdmin" resultType="kr.co.jhta.pony.dto.OrderDTO">
 		SELECT orderNo, orderDate, memberNo, orderRecipientName, orderRecipientPhone, orderStatus, orderDeliveryCharge, orderPoint, orderTotal
 		FROM (SELECT orderNo, orderDate, memberNo, orderRecipientName, orderRecipientPhone, orderStatus, orderDeliveryCharge, orderPoint, orderTotal
-		FROM 'ORDER' ORDER BY orderNo DESC) AS T1
+		FROM `ORDER` ORDER BY orderNo DESC) AS T1
 		LIMIT #{skip}, #{perPageNum}
 	</select>
 
@@ -36,27 +36,27 @@
 	<!-- 배송비 조회 -->
 	<select id="getOrderDeliveryCharge" resultType="int">
 		SELECT orderDeliveryCharge
-		FROM 'ORDER'
+		FROM `ORDER`
 		WHERE orderNo = #{orderNo}
 	</select>
 
 	<!-- 포인트 사용금액 조회 -->
 	<select id="getOrderPoint" resultType="int">
 		SELECT orderPoint
-		FROM 'ORDER'
+		FROM `ORDER`
 		WHERE orderNo = #{orderNo}
 	</select>
 
 	<!-- 총 금액 업데이트 -->
 	<update id="updateOrderTotal">
-		UPDATE 'ORDER'
+		UPDATE `ORDER`
 		SET orderTotal = #{orderTotal}
 		WHERE orderNo = #{orderNo}
 	</update>
 	
 	<!-- 배송상태 변경 목적 -->
 	<update id="changeDelivery" parameterType="String">
-		UPDATE 'ORDER'
+		UPDATE `ORDER`
 		SET orderStatus = #{orderStatus}
 		WHERE orderNo = #{orderNo}
 	</update>
