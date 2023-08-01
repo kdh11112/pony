@@ -1,26 +1,322 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="/css/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="/css/assets/img/favicon.png">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-    Paper Dashboard 2 by Creative Tim
-  </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-  <!-- CSS Files -->
-  <link href="/css/assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="/css/assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="/css/assets/demo/demo.css" rel="stylesheet" />
-</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/bootstrap-datepicker.css">
 
+<!-- JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script src="/js/bootstrap-datepicker.ko.min.js"></script>
+<style>
+.main-panel {
+  min-height: 100vh;
+}
+.Search{
+	margin-left: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+}
+
+</style>
+<script type="text/javascript">
+$(function() {
+
+
+$("#vin").on("click", function() {
+    jax();
+    $("#vinSearchId").val("");
+  });
+  $("#number").on("click", function() {
+    jax();
+    $("#numberSearchId").val("");
+  });
+  $("#name").on("click", function() {
+    jax();
+    $("#nameSearchId").val("");
+  });
+ 
+  var clientCarNumber = null;
+
+  function jax() {
+	  var vinSearchValue = $("#vinSearchId").val();
+	  var numberSearchIdValue = $("#numberSearchId").val();
+	  var nameSearchIdValue = $("#nameSearchId").val();
+
+	  $.ajax({
+	    url: "/reg/registration/modal", // 요청을 보낼 URL
+	    method: "GET", // GET 요청
+	    data: {
+	      clientVin: vinSearchValue, // 서버로 보낼 데이터
+	      clientCarNumber: numberSearchIdValue,
+	      memberName: nameSearchIdValue
+	    },
+	    success: function(data) {
+	      var tbody = document.getElementById("t");
+
+	      // 기존 tbody의 내용 비우기
+	      tbody.innerHTML = "";
+
+	      // 데이터 배열을 순회하며 tbody에 데이터를 출력
+	      for (var i = 0; i < data.length; i++) {
+	        // tr 엘리먼트 생성
+	        var row = document.createElement("tr");
+	        row.id = "row" + (i + 1);
+
+	        // 각 데이터 항목에 해당하는 값을 가져옴
+	        var clientVinData = data[i].clientVin;
+	        var clientCarNumberData = data[i].clientCarNumber;
+	        var memberNameData = data[i].memberName;
+
+	        // td 엘리먼트 생성하고 데이터를 추가
+	        var cell = document.createElement("td");
+	        var cell1 = document.createElement("td");
+	        var cell2 = document.createElement("td");
+	        var cell3 = document.createElement("td");
+
+	        cell.innerText = i + 1;
+	        cell1.innerText = clientVinData;
+	        cell2.innerText = clientCarNumberData;
+	        cell3.innerText = memberNameData;
+	        
+	        
+
+	        // td 엘리먼트를 tr에 추가
+	        row.appendChild(cell);
+	        row.appendChild(cell1);
+	        row.appendChild(cell2);
+	        row.appendChild(cell3);
+
+	        // tr을 tbody에 추가
+	        tbody.appendChild(row);
+	        
+	        
+	          (function(index) { // 클로저 함수
+        	    $("#row" + (index + 1)).on("click", function() { // id값은 "row" + (index + 1)입니다.
+        	      //console.log(index + 1); // id값이 1부터 시작하므로 인덱스에 1을 더해줍니다.
+        	      console.log("clientVin"+data[index].clientVin);
+        	      $.ajax({
+        	    	    type: 'post',
+        	    	    url: '/reg/registration',
+        	    	    data: {
+        	    	        clientVin: data[index].clientVin
+        	    	    },
+        	    	    success: function(response) {
+        	    	    	console.log("-----------------------");
+        	    	    	console.log(response);
+        	    	    	console.log("-----------------------");
+        	    	    	/* for (let responses of response) {  리스트로 받아올시
+        	    	    	
+        	    	    		
+        	    	    	$("#vinIdHi").val(responses.clientVin);//차대번호
+        	    	    	$("#carIdHi").val(responses.clientCarNumber); //차량번호
+        	    	    	$("#memberNameIdHi").val(responses.memberName);//고객명
+        	    	    	
+
+        	    	    	
+        	    	    	$("#vinId").val(responses.clientVin);//차대번호
+        	    	    	$("#carId").val(responses.clientCarNumber); //차량번호
+        	    	    	$("#carTypeId").val(responses.clientCarType);//차종
+        	    	    	$("#carColorId").val(responses.clientColor);//색상
+        	    	    	$("#toDayId").val(responses.registrationDate);//접수일
+        	    	    	$("#beforDrivenId").val(responses.clientDistanceDriven);//기존주행거리
+        	    	    	$("#afterDrivenId").val(responses.clientDistanceDriven);//현재주행거리
+        	    	    	$("#ShipDateId").val(responses.clientShipDate);//출고일
+        	    	    	$("#ProductionDateId").val(responses.clientProductionDate);//생산일
+        	    	    	$("#ReservationDueDateId").val(responses.registrationReservationDueDate);//입고예정일
+        	    	    	$("#memberNameId").val(responses.memberName);//고객명
+        	    	    	$("#NumberId").val(responses.memberPhone);//고객전화번호
+        	    	    	$("#shopAreaId").val(responses.shopArea+responses.shopAreaPoint);//최종정비사업소
+        	    	    	$("#SignificantId").val(responses.registrationSignificant);//특이사항
+        	    	    	$("#ClientRequestsId").val(responses.registrationClientRequests);//고객요청사항
+        	    	    	$("#regDateId").val(responses.registrationDate); //최종입고일
+        	    	    	} */
+        	    	    	
+        	    	    	$("#vinIdHi").val(response.clientVin);//차대번호
+        	    	    	$("#carIdHi").val(response.clientCarNumber); //차량번호
+        	    	    	$("#memberNameIdHi").val(response.memberName);//고객명
+        	    	    	
+        	    	    	$("#vinId").val(response.clientVin);//차대번호
+        	    	    	$("#carId").val(response.clientCarNumber); //차량번호
+        	    	    	$("#carTypeId").val(response.clientCarType);//차종
+        	    	    	$("#carColorId").val(response.clientColor);//색상
+        	    	    	//$("#toDayId").val(response.registrationDate);//접수일
+        	    	    	$("#beforDrivenId").val(response.clientDistanceDriven);//기존주행거리
+        	    	    	$("#afterDrivenId").val(response.clientDistanceDriven);//현재주행거리
+        	    	    	$("#ShipDateId").val(response.clientShipDate);//출고일
+        	    	    	$("#ProductionDateId").val(response.clientProductionDate);//생산일
+        	    	    	$("#ReservationDueDateId").val(response.registrationReservationDueDate);//입고예정일
+        	    	    	$("#memberNameId").val(response.memberName);//고객명
+        	    	    	$("#NumberId").val(response.memberPhone);//고객전화번호
+        	    	    	$("#shopAreaId").val(response.shopArea+' '+response.shopAreaPoint);//최종정비사업소
+        	    	    	$("#SignificantId").val(response.registrationSignificant);//특이사항
+        	    	    	$("#ClientRequestsId").val(response.registrationClientRequests);//고객요청사항
+        	    	    	$("#regDateId").val(response.registrationDate); //최종입고일
+        	    	    
+        	    	    	$('#exampleModal').modal('hide');
+        	    	    	
+        	    	    },
+        	    	    error: function(xhr, status, error) {
+        	    	        console.log(xhr.responseText);
+        	    	    }
+        	    	});
+        	    });
+        	  })(i); 
+        	  
+        	  
+	        
+        	  /*   $("tr").on("click", function() { // id값은 "row" + (index + 1)입니다.
+        	    	let count = $("tr").index(this);
+        	    console.log(count);
+        	      console.log(clientVinData[1]);
+        	    }); */
+        	  
+        	  
+        	  
+        }
+      },
+      error: function(xhr, status, error) {
+        console.error("요청 실패: ", xhr, status, error);
+      }
+    });
+  }
+
+  $("input[value='차량접수/수정']").on("click",function(){
+	//?? 안되는거 아닌가?
+	  document.frm.method="post";
+	  document.frm.action="/reg/registrations";
+	  $("#Form").submit(); 
+	  
+  });
+  
+  $("#meId").on("click",function(){
+	  ajaxMC();
+		
+  })
+  
+  $("#meName").on("click",function(){
+	  ajaxMC();
+  })
+  
+  function ajaxMC(){
+	  let mechanicNoValue = $("#mechanicNoId").val();
+	  let mechanicNameValue = $("#mechanicNameId").val();
+	  
+	  $.ajax({
+		url: "/reg/registration/modal/mechanic",
+		method:"GET",
+		data:{
+			mechanicNo: mechanicNoValue,
+			mechanicName: mechanicNameValue
+			
+		},
+		success:function(data){
+			console.log(data);
+			
+			let mctable = document.getElementById("mcTable");
+			
+			mctable.innerHTML = "";
+			
+			for(let i=0; i<data.length; i++){
+				var rows = document.createElement("tr");
+				rows.id = "rows" + (i+1);
+				
+				var mechanicNoData = data[i].mechanicNo;
+				var mechanicNameData = data[i].mechanicName;
+				
+				var cell = document.createElement("td");
+				var cell1 = document.createElement("td");
+				var cell2 = document.createElement("td");
+				
+				cell.innerText = i+1;
+				cell1.innerText = mechanicNoData;
+				cell2.innerText = mechanicNameData;
+				
+				rows.appendChild(cell);
+				rows.appendChild(cell1);
+				rows.appendChild(cell2);
+				
+				mctable.appendChild(rows);
+				(function(index){
+					$("#rows" + (index + 1)).on("click",function(){
+						console.log(data[index].mechanicNo);
+						
+						$.ajax({
+							type:'post',
+							url: '/reg/registration/modal/mechanicInput',
+							data: {
+								mechanicNo : data[index].mechanicNo
+							},
+							success: function(response){
+							console.log("response : "+response);
+							console.log("response.mechanicNo : "+response.mechanicNo); 
+							console.log("response.mechanicName : "+response.mechanicName); 
+							$("#mechanicId").val(response.mechanicNo);
+							$("#mechanicNameId").val(response.mechanicName);
+							$('#mechanicModal').modal('hide');
+								
+							},
+							error: function(xhr, status, error) {
+	        	    	        console.log(xhr.responseText);
+							}
+						})
+						
+					})
+				})(i)
+				
+			}
+			
+		},
+		error: function(xhr,status,error){
+			console.error("요청실패",xhr,status,error);
+		}
+		  
+		  
+	  });
+		  
+	  
+  }
+  
+  
+});
+var $j = jQuery.noConflict(); // $j 변수를 생성해서 jQuery를 사용합니다.
+
+$j(function() {
+	$j('#datePicker').datepicker({
+	    format: "yyyy-mm-dd",	//데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
+	    autoclose : true,	//사용자가 날짜를 클릭하면 자동 캘린더가 닫히는 옵션
+	    clearBtn : false, //날짜 선택한 값 초기화 해주는 버튼 보여주는 옵션 기본값 false 보여주려면 true
+	    daysOfWeekDisabled : [0,6],	//선택 불가능한 요일 설정 0 : 일요일 ~ 6 : 토요일
+	    immediateUpdates: false,	//사용자가 보는 화면으로 바로바로 날짜를 변경할지 여부 기본값 :false 
+	    templates : {
+	        leftArrow: '&laquo;',
+	        rightArrow: '&raquo;'
+	    }, //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징 
+	    showWeekDays : true ,// 위에 요일 보여주는 옵션 기본값 : true
+	    todayHighlight : true ,	//오늘 날짜에 하이라이팅 기능 기본값 :false 
+	    toggleActive : true,	//이미 선택된 날짜 선택하면 기본값 : false인경우 그대로 유지 true인 경우 날짜 삭제
+	    weekStart : 0 ,//달력 시작 요일 선택하는 것 기본값은 0인 일요일 
+	    language : "ko"	//달력의 언어 선택, 그에 맞는 js로 교체해줘야한다.
+	    
+	});//datepicker end
+	var today = new Date();  // 오늘 날짜 
+	var year = today.getFullYear(); // 년도
+	var month = today.getMonth() + 1;  // 월
+	var date = today.getDate();  // 날짜
+
+	// 월/일이 한자리 숫자인 경우 앞에 0을 붙이기 위한 로직
+	month = month >= 10 ? month : '0' + month;
+	date = date >= 10 ? date : '0' + date;
+
+	var todayString = year + '-' + month + '-' + date;
+    $j('#datePicker').val(todayString);
+ });
+
+</script>
 <body class="">
   <div class="wrapper ">
 	<%@ include file="./side.jsp" %>
@@ -28,220 +324,303 @@
       <!-- Navbar -->
 	<%@ include file="./navi.jsp" %>
 	  <!-- End Navbar -->
+    
       <div class="content">
         <div class="row">
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-globe text-warning"></i>
+        <div class="col-md-12" >
+            <div class="card card-user " style="height: 85px;">
+              <div class="card-body" >
+                <form action="/reg/registration" method="get">
+                  <div class="row">
+                    <div class="Search">
+                       <div class="form-row align-items-center">
+					      <div class="form-group mb-0">
+					        <input type="text" class="form-control" placeholder="차대번호" id="vinIdHi" style="width : 300px" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
+					      </div>
+					      
+					  </div>
                     </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Capacity</p>
-                      <p class="card-title">150GB<p>
+                    <div class="Search">
+                       <div class="form-row align-items-center">
+					      <div class="form-group mb-0">
+					        <input type="text" class="form-control" placeholder="차량번호" id="carIdHi" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
+					      </div>
+					  </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Update Now
-                </div>
+                    <div class="Search">
+                       <div class="form-row align-items-center">
+					      <div class="form-group mb-0">
+					        <input type="text" class="form-control" placeholder="고객명" id="memberNameIdHi" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
+					      </div>
+					  </div>
+                    </div>
+                    <div class="Search">
+                       <div class="form-row align-items-center">
+                       		<div>
+					      		<input type="text" id="datePicker" class="form-control" value="" name="registrationDateHi" style="height: 40px">
+					      	</div>
+					      <div class="form-group mb-0">
+					        <input type="text" class="form-control" name="registrationNumber" value="${searchOne.registrationNumber }" placeholder="접수번호">
+					      </div>
+					      <button type="submit" class="btn btn-primary btn-round" id="nameSearch">검색</button>
+					      <!-- <button type="submit" class="btn btn-primary btn-round">차량접수/수정</button> -->
+					      <input type="button" value="차량접수/수정" class="btn btn-primary btn-round"/>
+					  </div>
+                    </div>
+                    <div class="Search">
+                       <div class="form-row align-items-center">
+					      <button type="submit" class="btn btn-primary btn-round" style="margin-left:50px;">예약</button>
+					  </div>
+                    </div>
+               	</div>
+                </form>
+				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog modal-xl" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLabel">조회</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="col-md-12">
+						  <div class="modal-body">
+						    <form name="frm">
+						      <div class="row">
+								<div class="Search">
+			                       <div class="form-row align-items-center">
+								      <div class="form-group mb-0">
+								        <input type="text" class="form-control" placeholder="차대번호" name="clientVin" id="vinSearchId">
+								      </div>
+								      <button type="button" class="btn btn-primary btn-round" id="vin">검색</button>
+								  </div>
+			                    </div>
+								<div class="Search">
+			                       <div class="form-row align-items-center">
+								      <div class="form-group mb-0">
+								        <input type="text" class="form-control" placeholder="차량번호" name="numberSearch" id="numberSearchId">
+								      </div>
+								      <button type="button" class="btn btn-primary btn-round" id="number">검색</button>
+								  </div>
+			                    </div>
+								<div class="Search">
+			                       <div class="form-row align-items-center">
+								      <div class="form-group mb-0">
+								        <input type="text" class="form-control" placeholder="고객명" name="nameSearch" id="nameSearchId">
+								      </div>
+								      <button type="button" class="btn btn-primary btn-round" id="name">검색</button>
+								  </div>
+			                    </div>
+						      </div>
+						    </form>
+						    <table class="table table-hover">
+							  <thead>
+							    <tr>
+							      <th scope="col">#</th>
+							      <th scope="col">차대번호</th>
+							      <th scope="col">차량번호</th>
+							      <th scope="col">고객명</th>
+							    </tr>
+							  </thead>
+							  <tbody id="t">
+							  </tbody>
+							</table>
+						  </div>
+						</div>
+				      <div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" id="mm">취소</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
               </div>
             </div>
           </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-money-coins text-success"></i>
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Revenue</p>
-                      <p class="card-title">$ 1,345<p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-calendar-o"></i>
-                  Last day
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-vector text-danger"></i>
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Errors</p>
-                      <p class="card-title">23<p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-clock-o"></i>
-                  In the last hour
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-favourite-28 text-primary"></i>
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Followers</p>
-                      <p class="card-title">+45K<p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Update now
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
           <div class="col-md-12">
-            <div class="card ">
-              <div class="card-header ">
-                <h5 class="card-title">Users Behavior</h5>
-                <p class="card-category">24 Hours performance</p>
-              </div>
-              <div class="card-body ">
-                <canvas id=chartHours width="400" height="100"></canvas>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-history"></i> Updated 3 minutes ago
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="card ">
-              <div class="card-header ">
-                <h5 class="card-title">Email Statistics</h5>
-                <p class="card-category">Last Campaign Performance</p>
-              </div>
-              <div class="card-body ">
-                <canvas id="chartEmail"></canvas>
-              </div>
-              <div class="card-footer ">
-                <div class="legend">
-                  <i class="fa fa-circle text-primary"></i> Opened
-                  <i class="fa fa-circle text-warning"></i> Read
-                  <i class="fa fa-circle text-danger"></i> Deleted
-                  <i class="fa fa-circle text-gray"></i> Unopened
-                </div>
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-calendar"></i> Number of emails sent
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-8">
-            <div class="card card-chart">
-              <div class="card-header">
-                <h5 class="card-title">NASDAQ: AAPL</h5>
-                <p class="card-category">Line Chart with Points</p>
-              </div>
+            <div class="card card-user">
               <div class="card-body">
-                <canvas id="speedChart" width="400" height="100"></canvas>
-              </div>
-              <div class="card-footer">
-                <div class="chart-legend">
-                  <i class="fa fa-circle text-info"></i> Tesla Model S
-                  <i class="fa fa-circle text-warning"></i> BMW 5 Series
-                </div>
-                <hr />
-                <div class="card-stats">
-                  <i class="fa fa-check"></i> Data information certified
-                </div>
+                <form action="/reg/registration/edit" method="post" name="frm" id="Form">
+                  <div class="row">
+                    <div class="col-md-2 pr-1">
+                      <div class="form-group">
+                        <label>차대번호</label>
+                        <input type="text" class="form-control" id="vinId" name="clientVin" value="${searchOne.clientVin}" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-2 pr-1">
+                      <div class="form-group">
+                        <label>차량번호</label>
+                        <input type="text" class="form-control" id="carId" name="clientCarNumber" value="${searchOne.clientCarNumber}">
+                      </div>
+                    </div>
+                    <div class="col-md-2 pr-1">
+                      <div class="form-group">
+                        <label>차종</label>
+                        <input type="text" class="form-control" id="carTypeId" name="clientCarType" value="${searchOne.clientCarType}" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-2 pr-1">
+                      <div class="form-group">
+                        <label>색상</label>
+                        <input type="text" class="form-control" id="carColorId" name="clientColor" value="${searchOne.clientColor}" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-2 pr-1">
+                      <div class="form-group">
+                        <label>접수일</label>
+                        <input type="text" class="form-control" id="toDayId" name="registrationDate" value="${searchOne.registrationDate}" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-2 pr-1">
+                      <div class="form-group">
+                         <!-- <label>접수번호 히든처리</label> -->
+                        <input type="text" class="form-control" id="registrationNumberId" name="registrationNumberHidden" value="${searchOne.registrationNumber}" readonly>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-2 pr-1">
+                      <div class="form-group">
+                        <label>기존주행거리</label>
+                        <input type="text" class="form-control" id="beforDrivenId" name="clientDistanceDriven" value="${searchOne.clientDistanceDriven}" readonly >
+                      </div>
+                    </div>
+                    <div class="col-md-2 pr-1">
+                      <div class="form-group">
+                        <label>현재주행거리</label>
+                        <input type="text" class="form-control" id="afterDrivenId" name="clientDistanceDriven" value="${searchOne.clientDistanceDriven}">
+                      </div>
+                    </div>
+                    <div class="col-md-2 pr-1">
+                      <div class="form-group">
+                        <label>출고일</label>
+                        <input type="text" class="form-control" id="ShipDateId" name="clientShipDate" value="${searchOne.clientShipDate}" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-2 pr-1">
+                      <div class="form-group">
+                        <label>생산일</label>
+                        <input type="text" class="form-control" id="ProductionDateId" name="clientProductionDate" value="${searchOne.clientProductionDate}" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-2 pr-1">
+                      <div class="form-group">
+                        <label>입고예정일</label>
+                        <input type="text" class="form-control" id="ReservationDueDateId" name="registrationReservationDueDate" value="${searchOne.registrationReservationDueDate}" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-2 pr-1">
+					  <div class="form-group button-container" style="display: flex; align-items: center; justify-content: center; height: 80px;">
+					    <button type="button" class="btn btn-secondary" style="width: 100px;"> 당일건수 : <span class="badge text-bg-info">${count.registrationNumber}</span></button>
+					  </div>
+					</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-2 pr-1">
+                      <div class="form-group">
+                        <label>고객명</label>
+                        <input type="text" class="form-control" id="memberNameId" name="memberName" value="${searchOne.memberName}">
+                      </div>
+                    </div>
+                    <div class="col-md-2 pr-1">
+                      <div class="form-group">
+                        <label>전화번호</label>
+                        <input type="text" class="form-control" id="NumberId" name="memberPhone" value="${searchOne.memberPhone}">
+                      </div>
+                    </div>
+                    <div class="col-md-2 pr-1">
+                      <div class="form-group">
+                        <label>지정정비사</label>
+						<input type="hidden" class="form-control" id="mechanicId" name="mechanicNoParam" data-toggle="modal" data-target="#mechanicModal" data-whatever="@mdo">
+						<input type="text" class="form-control" id="mechanicNameId" name="mechanicName" value=""  data-toggle="modal" data-target="#mechanicModal" data-whatever="@mdo">
+                      </div>
+                    </div>
+                    <div class="col-md-2 pr-1">
+                      <div class="form-group">
+                        <label>최종정비공장</label>
+                        <input type="text" class="form-control" id="shopAreaId" name="shopAreaName" value="${searchOne.shopArea} ${searchOne.shopAreaPoint}" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-2 pr-1">
+                      <div class="form-group">
+                        <label>최종입고일</label>
+                        <input type="text" class="form-control" id="regDateId" name="registrationDateLast" value="${searchOne.registrationDate}" readonly>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>고객요청내역</label>
+                        <textarea class="form-control textarea" id="ClientRequestsId" name="registrationClientRequests" >${searchOne.registrationClientRequests}</textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>특이사항</label>
+                        <textarea class="form-control textarea" id="SignificantId" name="registrationSignificant" >${searchOne.registrationSignificant}</textarea>
+                      </div>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <footer class="footer footer-black  footer-white ">
-        <div class="container-fluid">
-          <div class="row">
-            <nav class="footer-nav">
-              <ul>
-                <li><a href="https://www.creative-tim.com" target="_blank">Creative Tim</a></li>
-                <li><a href="https://www.creative-tim.com/blog" target="_blank">Blog</a></li>
-                <li><a href="https://www.creative-tim.com/license" target="_blank">Licenses</a></li>
-              </ul>
-            </nav>
-            <div class="credits ml-auto">
-              <span class="copyright">
-                © <script>
-                  document.write(new Date().getFullYear())
-                </script>, made with <i class="fa fa-heart heart"></i> by Creative Tim
-              </span>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   </div>
-  <!--   Core JS Files   -->
-  <script src="/css/assets/js/core/jquery.min.js"></script>
-  <script src="/css/assets/js/core/popper.min.js"></script>
-  <script src="/css/assets/js/core/bootstrap.min.js"></script>
-  <script src="/css/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chart JS -->
-  <script src="/css/assets/js/plugins/chartjs.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="/css/assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="/css/assets/demo/demo.js"></script>
-  <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-      demo.initChartsPages();
-    });
-  </script>
+  <div class="modal fade" id="mechanicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">조회</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="col-md-12">
+			  <div class="modal-body">
+			    <form name="frmMechanic" action="/reg/registration/modal/mechanic" method="get">
+			      <div class="row">
+					<div class="Search">
+	                      <div class="form-row align-items-center">
+					      <div class="form-group mb-0">
+					        <input type="text" class="form-control" placeholder="아이디" name="mechanicNo" id="mechanicNoId">
+					      </div>
+					      <button type="button" class="btn btn-primary btn-round" id="meId">검색</button>
+					  </div>
+	                   </div>
+					<div class="Search">
+	                      <div class="form-row align-items-center">
+					      <div class="form-group mb-0">
+					        <input type="text" class="form-control" placeholder="이름" name="mechanicName" id="mechanicNameId">
+					      </div>
+					      <button type="button" class="btn btn-primary btn-round" id="meName">검색</button>
+					  </div>
+	                   </div>
+			      </div>
+			    </form>
+			    <table class="table table-hover">
+				  <thead>
+				    <tr>
+				      <th scope="col">#</th>
+				      <th scope="col">아이디</th>
+				      <th scope="col">이름</th>
+				    </tr>
+				  </thead>
+				  <tbody id="mcTable">
+				  </tbody>
+				</table>
+			  </div>
+			</div>
+	      <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal" id="mm">취소</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 </body>
-
 </html>

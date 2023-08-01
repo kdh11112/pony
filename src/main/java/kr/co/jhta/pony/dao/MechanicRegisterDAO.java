@@ -13,7 +13,11 @@ public interface MechanicRegisterDAO {
 
 	public List<MechanicRegisterDTO> shopNoName();
 
-	public void registeremployee(int shopNo, int mechanicPw, String mechanicName);
+	public void registeremployee(int shopNo, String mechanicPw, String mechanicName);
+
+	public void updatePw(int mechanicNo,int shopNo, String mechanicPw);
+
+	public int loginCheck(MechanicRegisterDTO dto);
 
 
 }
