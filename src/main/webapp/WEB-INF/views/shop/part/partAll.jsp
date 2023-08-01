@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -158,17 +160,17 @@
 									</select>
 								</td>
 								<td>
+									<!-- 최대 주문 가능수량 : 재고수량 -->
 									<select name="type" class="choicetype" id="option_count">
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
+										<c:forEach begin="1" end="${partlist.partNo }" var="i">
+											<option value="${i }">${i }</option>
+										</c:forEach>
 									</select>
 								</td>
-								<td style="text-align: right !important; padding-right: 35px;">${partlist.partPrice }</td>
+								<td style="text-align: right !important; padding-right: 35px;">
+									<fmt:formatNumber pattern="###,###,###">${partlist.partPrice }</fmt:formatNumber>
+								</td>
 								<td>
-
 									<input type="hidden" name="" value="${partlist.partNumber }" />
 									<input type="image" src="css/admin/assets/cart.png" style="width: 12px; height: 12px;" />
 								</td>
@@ -211,14 +213,18 @@
 		/* 수정, 조회 후 현재 페이지로 다시 리다이렉트하게 하기 위해 hidden으로 현재 페이지 정보 넘겨줌 */
 		let moveForm = $("#moveForm");
 
-		$(".move").on("click", function(e) {
-			e.preventDefault();
-			moveForm.append("<input type='hidden' name='partno' value='"
-							+ $(this).attr("href") + "'>");
-			moveForm.attr("action", "/partall");
-			moveForm.submit();
-		});		
-		
+		$(".move")
+				.on(
+						"click",
+						function(e) {
+							e.preventDefault();
+							moveForm
+									.append("<input type='hidden' name='partno' value='"
+											+ $(this).attr("href") + "'>");
+							moveForm.attr("action", "/partall");
+							moveForm.submit();
+						});
+
 		/* 페이징 버튼 동작시키기 위한 코드*/
 		$(".page-link").on("click", function(e) {
 

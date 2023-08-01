@@ -14,8 +14,8 @@
 <script src="https://ssl.pstatic.net/static.gn/js/clickcrD.js" id="gnb_clickcrD" charset="utf-8"></script>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- Core theme JS-->
-	<script src="css/mypage/js/scripts.js"></script>
+<!-- Core theme JS-->
+<script src="css/mypage/js/scripts.js"></script>
 </head>
 <body>
 
@@ -132,8 +132,7 @@
 										</div>
 										<div class="price--38egva9GaS">
 											<div class="price_area--3Gj1SZEf9T">
-												<span class="title--1eMhZQR6b8">배송비</span><em><span class="num--1rDSy6v0kt">3,000</span>원
-													</em>
+												<span class="title--1eMhZQR6b8">배송비</span><em><span class="num--1rDSy6v0kt">3,000</span>원 </em>
 												<div class="desc--xy8RI3Ogkn">(3만원 이상 구매 시 배송비 무료)</div>
 											</div>
 											<div class="bundle_delivery_price--2lRQD9tvwa">
@@ -183,7 +182,7 @@
 				<li>가격, 옵션 등 정보가 변경된 경우 주문이 불가할 수 있습니다.</li>
 				<li>일부 상품의 경우 카드 할부기간이 카드사 제공 기간보다 적게 제공될 수 있습니다.</li>
 			</ul>
-			
+
 			<div class="banner--2RTE2HmuHK">
 				<div id="cart_ad">
 					<div style="width: 100%; height: auto; margin: 0px auto; line-height: 0;">
@@ -194,7 +193,6 @@
 
 			<div class="floating_area--3yEuORHlfZ">
 				<div class="inner--2zhHC3FZRa">
-					
 					<div class="buy_area--1s7Qe73yzk">
 						<div class="btn_expand--2d-FsCrHVi">
 							<span class="title--cW4o5HCufH">총 주문금액</span><em><span class="num--2CYvhIm-m6">55,800</span>원 </em>
