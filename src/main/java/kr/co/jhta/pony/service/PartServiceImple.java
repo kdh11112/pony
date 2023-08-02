@@ -35,6 +35,16 @@ public class PartServiceImple implements PartService{
 	// 검색된 부품 목록(페이징) - 검색 조건: 차종명, 부품명   
 	@Override
 	public List<PartDTO> searchPartList(Criteria cri) {
+		String type = cri.getType();
+		String[] typeArr = type.split("");
+		
+		// 해당 코드가 "모델명" 실행되도록 함
+		for(String t : typeArr) {
+			if(t.equals("M")){
+				String[] partArr = partdao.getModelIdList(cri.getKeyword());
+				cri.setPartArr(partArr);
+			}
+		}
 		return partdao.searchPartList(cri);
 	}
 	
@@ -63,6 +73,18 @@ public class PartServiceImple implements PartService{
 	@Transactional
 	public void adminDeleteCheck(String no) {
 		partdao.adminDeleteCheck(no);
+	}
+
+	// 모델명 가져오기
+	@Override
+	public List<PartDTO> getmodelName(PartDTO dto) {
+		return partdao.getmodelName(dto);
+	}
+
+	@Override
+	public String[] getModelIdList(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
