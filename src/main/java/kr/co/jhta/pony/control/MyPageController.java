@@ -5,6 +5,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -20,10 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.co.jhta.pony.dto.ClientDTO;
 import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.dto.QuestionDTO;
+import kr.co.jhta.pony.dto.TestDriveDTO;
 import kr.co.jhta.pony.security.account.AccountContext;
 import kr.co.jhta.pony.security.service.PonyMemberService;
 import kr.co.jhta.pony.service.ClientService;
 import kr.co.jhta.pony.service.QuestionService;
+import kr.co.jhta.pony.service.TestDriveService;
 import kr.co.jhta.pony.util.PageUtil;
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,6 +48,8 @@ public class MyPageController {
 	QuestionService qService;
 	@Autowired
 	ClientService cService;
+	@Autowired
+	TestDriveService tService;
 	//---------------------------마이페이지 메인
 	@GetMapping("/mypage")
 //	public String mypage(Principal p, HttpSession session) {
@@ -56,6 +61,10 @@ public class MyPageController {
 	
 	public String mypage(Principal p, @ModelAttribute ClientDTO dto,
 			HttpSession session, Model model, HttpServletRequest req) {
+		if(p==null) {
+			return "/ponylogin";
+		}else {
+		
 		PonyMemberDTO dto5 = service.getMemberEmail(p.getName());
 		session.setAttribute("dto", dto5);
 		session.setAttribute("cdto", dto);
@@ -69,6 +78,7 @@ public class MyPageController {
 		log.info(">>>>>>>>>>>>>>>>>>>>>"+userCars);
 		String pw =passwordEncoder.encode("aaaa");//비밀번호 암호화
 		log.info(">>>>>>>>>>>>>>>>>>>>>"+pw);
+		log.info(">>>>>>>>>>>>>>>>>>>>>"+p.getName());
 		// 등록된 차량 정보가 없을 경우의 처리
         if (userCars.isEmpty()) {
             model.addAttribute("hasCars", false);
@@ -79,6 +89,7 @@ public class MyPageController {
         model.addAttribute("carcnt",cService.getOwnedCarCount(memberNo));
         
 		return "mypage/mypage";
+		}
 	}
 	//--------------------------------마이페이지 1:1문의 리스트페이지로이동
 	@GetMapping("/mypageqna")
@@ -341,7 +352,13 @@ public class MyPageController {
 		}
 		//--------------------------시승신청예약내역
 		@GetMapping("/testdriving")
-		public String testdriving(){
+		public String testdriving(Model model, @ModelAttribute TestDriveDTO dto,Principal p,HttpSession session,HttpServletRequest req){
+			PonyMemberDTO dto1 = service.getMemberEmail(p.getName());
+			int memberNo = dto1.getMemberNo();
+			
+			List<TestDriveDTO> testDrivinglist = tService.getTestDriveScheduleByMemberNo(memberNo);
+			 model.addAttribute("dto",testDrivinglist);
+			 log.info(">>>>>>>>>>>>>>>>>>>>>>시승{}",testDrivinglist);
 			return "mypage/testdriving";
 		}
 }

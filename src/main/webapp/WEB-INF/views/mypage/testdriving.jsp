@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
@@ -136,8 +136,7 @@ textarea {
 			<img src="images/cloud.jpg" alt="" />
 			<div class="header-content text-center text-black">
 				<h1 class="display-4 fw-bolder">시승신청예약내역</h1>
-				<p class="lead fw-normal text-black-50 mb-0">이용 중인 현대자동차 서비스를
-					마이페이지에서 확인하세요.</p>
+				<p class="lead fw-normal text-black-50 mb-0"></p>
 			</div>
 
 		</header>
@@ -248,19 +247,19 @@ textarea {
 								<span data-v-269e3e5f>등록 차량의 자세한 정보를 확인하실 수 있습니다.</span>
 							</div>
 
-							<c:if test="${!hasCars}">
+							<c:if test="${empty dto}">
 								<div class="no-car" data-v-269e3e5f>
 									<span class="ico-nocar" data-v-269e3e5f><i
 										data-v-269e3e5f>등록된 차가 없습니다.</i></span>
 									<p data-v-269e3e5f>등록된 차량이 없습니다.</p>
 								</div>
 							</c:if>
-							<c:if test="${!empty userCars  }">
+							<c:if test="${!empty dto  }">
 								<!-- 등록차량리스트 -->
 								
 										<div class="page-title">
 											<div class="container">
-												<h3>나의 차량목록</h3>
+												<h3>시승내역</h3>
 											</div>
 										</div>
 
@@ -280,19 +279,20 @@ textarea {
 														</tr>
 													</thead>
 													<tbody>
-														<c:forEach var="clist" items="${userCars }">
+														<c:forEach var="list" items="${dto }">
 															<tr class="list">
 																<td>
 																	<!-- 등록된 차량 삭제 체크 박스 --> <input type="checkbox"
-																	name="selectedCars" value="${clist.clientVin}"
+																	name="selectedCars" value="${list.modelName}"
 																	id="selectedCarsId">
 																</td>
-																<td>${clist.clientVin }</td>
-																<td>${clist.clientCarNumber }</td>
-																<td>${clist.clientDistanceDriven }</td>
-																<td>${clist.clientCarType }</td>
+																<td>${list.shopAreaPoint }</td>
+																<td>${list.shopAddr }</td>
+																<td>${list.testDriveTime }</td>
+																<td>${list.testDriveSchedule }</td>
 															</tr>
 														</c:forEach>
+														
 
 													</tbody>
 

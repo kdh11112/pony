@@ -9,6 +9,7 @@
 		<version>2.7.13</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>kr.co.jhta</groupId>
 	<artifactId>pony</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -36,6 +37,10 @@
 			<version>2.3.1</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -110,11 +115,7 @@
 		</dependency>
 
 
-
 	</dependencies>
-
-
-
 
 
 	<build>
