@@ -1,7 +1,10 @@
 package kr.co.jhta.pony.control;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.jhta.pony.dto.PageMakeDTO;
+import kr.co.jhta.pony.dto.PartDTO;
 import kr.co.jhta.pony.security.service.PonyMemberService;
 import kr.co.jhta.pony.service.PartService;
 import kr.co.jhta.pony.util.Criteria;
@@ -36,7 +40,7 @@ public class ShopController {
 	
 	/* 부품 목록 페이지 접속(페이징 적용) */
 	@GetMapping("/partall")
-	public String partAll(HttpSession session, Principal p, Model model, Criteria cri) {
+	public String partAll(HttpSession session, Principal p, Model model, Criteria cri, PartDTO dto) {
 		
 //		int total = pservice.searchPartTotal(cri);
 //		PageMakeDTO pageMake = new PageMakeDTO(cri, total);

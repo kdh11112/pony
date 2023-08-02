@@ -109,6 +109,20 @@
 	background-color: #c3daf7;
 }
 
+button[name='selectAction'] {
+	border: none;
+	background-color: white;
+}
+
+span.partNo {
+	color: red;
+	font-size: 3px;
+}
+
+td.partIcontd {
+	padding-left: 0px;
+	padding-right: 0px;
+}
 }
 </style>
 </head>
@@ -168,7 +182,7 @@
 						<tr>
 							<th>부품번호</th>
 							<th>부품명</th>
-							<th>모델명</th>
+							<th>옵션</th>
 							<th>수량</th>
 							<th>금액</th>
 							<th></th>
@@ -179,7 +193,14 @@
 								<tr>
 									<td>${partlist.partNumber }</td>
 									<td style="text-align: left !important; padding-left: 50px;">${partlist.partName }</td>
-									<td>${partlist.modelName }</td>
+									<td>
+										<select name="selectCar" class="choicetype">
+											<option value=" " disabled="disabled">모델선택</option>
+											<c:forEach items="${modellist }" var="modellist">
+												<option value="${modellist.modelName }">${modellist.modelName }</option>
+											</c:forEach>
+										</select>
+									</td>
 									<td>
 										<!-- 최대 주문 가능수량 : 재고수량, 재고 없으면 선택 비활성화 -->
 										<c:if test="${partlist.partNo != 0}">
@@ -198,14 +219,16 @@
 									<td style="text-align: right !important; padding-right: 10px;">
 										<fmt:formatNumber pattern="###,###,###원">${partlist.partPrice }</fmt:formatNumber>
 									</td>
-									<td style="text-align: right !important; padding-right: 35px;">
-										<fmt:formatNumber pattern="###,###,###원">${partlist.partPrice }</fmt:formatNumber>
-									</td>
-									<td>
+									<td class="partIcontd">
 										<input type="hidden" name="selectPart" value="${partlist.partNumber }" />
-										<button type="button" name="selectAction" value="add_to_cart">
-											<img src="css/admin/assets/cart.png" style="width: 12px; height: 12px;" />
-										</button>
+										<c:if test="${partlist.partNo != 0}">
+											<button type="button" name="selectAction" value="add_to_cart">
+												<img src="css/admin/assets/cart.png" style="width: 12px; height: 12px;" />
+											</button>
+										</c:if>
+										<c:if test="${partlist.partNo == 0}">
+											<span class="partNo" style="text-align: left !important">Out of stock</span>
+										</c:if>
 									</td>
 								</tr>
 							</c:forEach>
@@ -215,6 +238,7 @@
 								<td colspan="6" class="table_empty">등록된 부품이 없습니다.</td>
 							</tr>
 						</c:if>
+						<!-- 검색 영역 -->
 						<tr>
 							<td colspan="6" class="pagetd">
 								<nav aria-label="Page navigation example">
@@ -238,15 +262,11 @@
 
 			<!-- 검색 Area -->
 			<div class="search_wrap">
-				<form action="searchForm" action="/partall" method="get">
+				<form id="searchForm" action="/partall" method="get">
 					<div class="search_input">
-						<select name="type" class="choicetype">
-							<option value="">--</option>
-							<option value="W">부품명</option>
-							<option value="T">모델명</option>
-						</select>
+						<input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"></c:out>'>
 						<input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum }"></c:out>'>
-						<input type="hidden" name="perPageNum" value='<c:out value="${pageMaker.cri.perPageNum}"></c:out>'>
+						<input type="hidden" name="perPageNum" value='${pageMaker.cri.perPageNum}'>
 						<button class='btn search_btn'>검 색</button>
 					</div>
 				</form>

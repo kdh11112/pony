@@ -13,5 +13,7 @@ public class PartDTO {
 	private String partName;
 	private int partNo;
 	private int partPrice;
+	private int modelNo;
+	private String modelName;
 	
 }

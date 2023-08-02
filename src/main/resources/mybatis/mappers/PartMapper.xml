@@ -8,10 +8,21 @@
 	<select id="getPartAll" resultType="kr.co.jhta.pony.dto.PartDTO">
 		SELECT partNumber, partName, partNo, partPrice, modelNo
 		FROM (SELECT partNumber, partName, partNo, partPrice, modelNo
-		FROM PART ORDER BY partNumber DESC) AS T1
+		FROM PART
+		ORDER BY partNumber DESC) AS T1
 		LIMIT #{skip}, #{perPageNum}
 	</select>
 
+
+	<select id="getmodelName" resultType="kr.co.jhta.pony.dto.PartDTO" parameterType="kr.co.jhta.pony.dto.PartDTO">
+		<!-- SELECT p.partNumber, p.partName, p.partNo, p.partPrice, m.modelName
+		FROM PART p
+		LEFT OUTER JOIN MODEL m ON p.modelNo = m.modelNo
+		ORDER BY p.partNumber DESC -->
+		SELECT modelName 
+		FROM MODEL
+	</select>
+	
 	<!-- 부품 총 갯수 -->
 	<select id="getTotal" resultType="int">
 		SELECT count(*)
@@ -26,13 +37,13 @@
 		<if test="keyword != null">
 			WHERE (p.partName LIKE CONCAT('%', #{keyword}, '%'))
 		</if>
-		ORDER BY p.partNumber DESC
+		ORDER BY m.modelNo DESC
 		LIMIT #{skip}, #{perPageNum}
 	</select>
 
 	<!-- 검색된 부품 총 갯수 -->
 	<select id="searchPartTotal" resultType="int">
-		SELECT count(*) 
+		SELECT count(*)
 		FROM PART
 		<if test="keyword != null">
 			WHERE (partName LIKE CONCAT('%', #{keyword}, '%'))
