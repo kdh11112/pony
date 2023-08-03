@@ -54,7 +54,7 @@ public class TestDriveController {
 		dto.setShopNo(shopNo);
 		dto.setModelNo(modelNo);
 		dto.setTestDriveTime(testDriveTime);
-		//tds.insertTestDriveSchedule(dto);
+		tds.insertTestDriveSchedule(dto);
 		log.info("dto {} 전송됨 ",dto);
 		return "redirect:testDrive";
 	}

@@ -280,7 +280,11 @@ function handleButtonClick(event) {
 	$("#testDriveSchedule").val(testDriveSchedule + buttonTime);
     $("#buttonTime").val(buttonTime);
 	
-    alert("선택한 차량: " + $("#selectModel option:selected").text() + "\n" + "선택한 지점: " + shopAreaPoint + "\n" + "선택한 날짜: " + testDriveSchedule + "\n" + "선택한 시간: " + buttonTime);
+    alert("선택한 차량: " + $("#selectModel option:selected").text() + "\n" 
+    + "선택한 지점: " + shopAreaPoint + "\n"
+    + "선택한 날짜: " + testDriveSchedule + "\n" 
+    + "선택한 시간: " + buttonTime +"\n" +"\n"
+    + "선택한 목록이 맞으면 '신청하기' 버튼을 눌러주세요");
     let offset = $("#OkBtn").offset();
     $('html').animate({ scrollTop: offset.top }, 1);
 }
@@ -292,7 +296,7 @@ $("#OkBtn").on("click", function () {
 		alert("모든 항목을 선택해주세요")
 		return false;
 	}
-    alert("선택한 차량: " + selectedModel + "\n" + "선택한 지점: " + shopNo + "\n" + "선택한 날짜: " + testDriveSchedule + "\n" + "선택한 시간: " + buttonTime);
+    alert("시승신청이 완료 되었습니다");
     
     $("#testDriveSchedule").val(testDriveSchedule);
     $("#shopNo").val(shopNo);

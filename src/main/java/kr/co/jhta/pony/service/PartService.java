@@ -24,4 +24,6 @@ public interface PartService {
 	
 	// 관리자 부품 삭제 - 체크박스
 	public void adminDeleteCheck(String no);
+	
+	public List<PartDTO> searchPart(String partName);
 }
