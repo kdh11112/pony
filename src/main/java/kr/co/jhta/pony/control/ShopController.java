@@ -1,15 +1,21 @@
 package kr.co.jhta.pony.control;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.jhta.pony.dto.PageMakeDTO;
+import kr.co.jhta.pony.dto.PartDTO;
 import kr.co.jhta.pony.security.service.PonyMemberService;
 import kr.co.jhta.pony.service.PartService;
 import kr.co.jhta.pony.util.Criteria;
@@ -20,7 +26,7 @@ public class ShopController {
 	
 	private final PonyMemberService mservice;
 	private final PartService pservice;
-	
+	private static final Logger logger = LoggerFactory.getLogger(ShopController.class);
 	@Autowired
 	public ShopController(PonyMemberService memberservice,
 							PartService partservice) {
@@ -33,19 +39,39 @@ public class ShopController {
 	
 	/* 부품 목록 페이지 접속(페이징 적용) */
 	@GetMapping("/partall")
-	public String partAll(HttpSession session, Principal p, Model model, Criteria cri) {
+	public String partAll(HttpSession session, Principal p, Model model, Criteria cri, PartDTO dto) {
 		
-//		int total = pservice.getTotal();
+//		int total = pservice.searchPartTotal(cri);
 //		PageMakeDTO pageMake = new PageMakeDTO(cri, total);
-
-		model.addAttribute("pageMaker", new PageMakeDTO(cri, pservice.getTotal()));
+//		model.addAttribute("partlist", pservice.searchPartList(cri));
 		
-		model.addAttribute("partlist", pservice.getPartAll(cri));
+		List<PartDTO> partlist = pservice.searchPartList(cri);
+		
+		if(!partlist.isEmpty()) {
+			model.addAttribute("partlist", partlist);	// 검색 시 부품 존재하는 경우
+//			logger.info("partlist : "+partlist);
+		} else {
+			model.addAttribute("listCheck", "empty");	// 검색 시 부품 존재하지 않는 경우
+			return "/shop/part/partAll";
+		}
+		
+		// 페이지 이동 인터페이스 데이터
+		model.addAttribute("pageMaker", new PageMakeDTO(cri, pservice.searchPartTotal(cri)));
 		
 		return "/shop/part/partAll";
 	}
 	
-	
+	@PostMapping("/partall")
+	public String addpartlist(HttpSession session, Principal p, Model model, Criteria cri, @RequestParam(name="selectPart")int selectPart,
+			@RequestParam(name="selectCar")String selectCar, @RequestParam(name="selectCount") int selectCount) {
+		
+		log.info("주문한 부품 번호: {}", selectPart);
+		log.info("주문한 자동차 타입: {}", selectCar);
+		log.info("주문한 부품 수량: {}", selectCount);
+
+		return "redirect:/partall";
+		
+	}
 	
 	
 	

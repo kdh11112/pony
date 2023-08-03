@@ -183,7 +183,6 @@ td.partIcontd {
 							<th>부품번호</th>
 							<th>부품명</th>
 							<th>옵션</th>
-							<th>모델명</th>
 							<th>수량</th>
 							<th>금액</th>
 							<th></th>
@@ -194,7 +193,14 @@ td.partIcontd {
 								<tr>
 									<td>${partlist.partNumber }</td>
 									<td style="text-align: left !important; padding-left: 50px;">${partlist.partName }</td>
-									<td>${partlist.modelName }</td>
+									<td>
+										<select name="selectCar" class="choicetype">
+											<option value=" " disabled="disabled">모델선택</option>
+											<c:forEach items="${modellist }" var="modellist">
+												<option value="${modellist.modelName }">${modellist.modelName }</option>
+											</c:forEach>
+										</select>
+									</td>
 									<td>
 										<!-- 최대 주문 가능수량 : 재고수량, 재고 없으면 선택 비활성화 -->
 										<c:if test="${partlist.partNo != 0}">
@@ -214,9 +220,9 @@ td.partIcontd {
 										<fmt:formatNumber pattern="###,###,###원">${partlist.partPrice }</fmt:formatNumber>
 									</td>
 									<td class="partIcontd">
-											<input type="hidden" name="selectPart" value="${partlist.partNumber }" />
-											<c:if test="${partlist.partNo != 0}">
-											<button type="button" name="selectAction" value="${partlist.partNumber }">
+										<input type="hidden" name="selectPart" value="${partlist.partNumber }" />
+										<c:if test="${partlist.partNo != 0}">
+											<button type="button" name="selectAction" value="add_to_cart">
 												<img src="css/admin/assets/cart.png" style="width: 12px; height: 12px;" />
 											</button>
 										</c:if>
@@ -232,6 +238,7 @@ td.partIcontd {
 								<td colspan="6" class="table_empty">등록된 부품이 없습니다.</td>
 							</tr>
 						</c:if>
+						<!-- 검색 영역 -->
 						<tr>
 							<td colspan="6" class="pagetd">
 								<nav aria-label="Page navigation example">
@@ -245,27 +252,22 @@ td.partIcontd {
 						</tr>
 					</table>
 				</form>
-
 				<!-- 수정, 조회 후 현재 페이지로 다시 리다이렉트하게 하기 위해 hidden으로 현재 페이지 정보 넘겨줌 -->
 				<form id="moveForm" action="/partall" method="get">
 					<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 					<input type="hidden" name="perPageNum" value="${pageMaker.cri.perPageNum }">
 					<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">
-					<input type="hidden" name="type" value="${pageMaker.cri.type}">
 				</form>
 			</div>
 
 			<!-- 검색 Area -->
 			<div class="search_wrap">
-				<form name="searchForm" action="/partall" method="get">
+				<form id="searchForm" action="/partall" method="get">
 					<div class="search_input">
-						<select name="type" class="choicetype">
-							<option value="">--</option>
-							<option value="P">부품명</option>
-							<option value="M">모델명</option>
-						</select>
-						<input id="search" type="search" name="keyword" placeholder="검색어를 입력해주세요." value="">
-						<button type="submit" class="btn search_btn">검색</button>
+						<input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"></c:out>'>
+						<input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum }"></c:out>'>
+						<input type="hidden" name="perPageNum" value='${pageMaker.cri.perPageNum}'>
+						<button class='btn search_btn'>검 색</button>
 					</div>
 				</form>
 			</div>
