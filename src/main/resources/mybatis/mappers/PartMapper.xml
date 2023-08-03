@@ -38,4 +38,11 @@
 		WHERE questionNo = #{questionNo}
 	</delete>
 	
+	
+	<select id="searchPart" parameterType="String" resultType="kr.co.jhta.pony.dto.PartDTO">
+		SELECT partNumber, partName, partPrice
+		FROM PART
+		WHERE partName LIKE concat('%',#{partName}, '%') 
+		ORDER BY partName, partPrice
+	</select>
 </mapper>

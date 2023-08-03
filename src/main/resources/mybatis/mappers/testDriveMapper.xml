@@ -6,6 +6,6 @@
 <mapper namespace="kr.co.jhta.pony.dao.TestDriveDAO">	
 	<insert id="insertTestDriveSchedule" parameterType="kr.co.jhta.pony.dto.TestDriveDTO">
 		INSERT INTO TESTDRIVE(testDriveSchedule, shopNo, memberNo, modelNo, testDriveTime)
-		VALUES(#{testDriveSchedule}, #{shopNo},1 , #{modelNo}, #{testDriveTime})
+		VALUES(#{testDriveSchedule}, #{shopNo},${memberNo} , #{modelNo}, #{testDriveTime})
 	</insert>
 </mapper>

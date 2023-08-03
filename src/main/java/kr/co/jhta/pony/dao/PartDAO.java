@@ -29,4 +29,6 @@ public interface PartDAO {
 	
 	// 관리자 부품 삭제 - 체크박스
 	void adminDeleteCheck(String no);
+	
+	List<PartDTO> searchPart(String partName);
 }

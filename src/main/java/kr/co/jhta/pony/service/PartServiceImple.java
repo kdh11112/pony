@@ -59,6 +59,11 @@ public class PartServiceImple implements PartService{
 		partdao.adminDeleteCheck(no);
 	}
 
+	@Override
+	public List<PartDTO> searchPart(String partName) {
+		return partdao.searchPart(partName);
+	}
+
 
 
 

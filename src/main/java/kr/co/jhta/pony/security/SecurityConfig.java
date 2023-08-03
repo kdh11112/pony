@@ -29,7 +29,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 @EnableWebSecurity
 @Order(0)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
+	 
 	@Autowired
 	DataSource dataSource;
 	
