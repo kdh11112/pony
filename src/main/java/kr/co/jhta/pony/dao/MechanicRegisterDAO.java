@@ -19,5 +19,7 @@ public interface MechanicRegisterDAO {
 
 	public int loginCheck(MechanicRegisterDTO dto);
 
+	public int employeeId();
+
 
 }

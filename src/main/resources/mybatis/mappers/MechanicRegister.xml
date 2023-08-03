@@ -13,6 +13,9 @@
 		ORDER BY shopNo ASC
 	</select>
 	  
+	<select id="employeeId">
+		SELECT count(*)+1 FROM MECHANIC
+	</select>  
 	<insert id="registeremployee" parameterType="kr.co.jhta.pony.dto.MechanicRegisterDTO">
 		INSERT INTO MECHANIC(shopNo,mechanicPw,mechanicName) VALUES(#{shopNo},#{mechanicPw},#{mechanicName})
 	</insert>

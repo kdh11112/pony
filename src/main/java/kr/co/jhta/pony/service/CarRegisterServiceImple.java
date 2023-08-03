@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.jhta.pony.dao.CarRegisterDAO;
 import kr.co.jhta.pony.dto.CarRegisterDTO;
+import kr.co.jhta.pony.dto.HistroyDTO;
 import kr.co.jhta.pony.dto.MechanicRegisterDTO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,20 +47,22 @@ public class CarRegisterServiceImple implements CarRegisterService{
 		
 		
 		dao.regAndcorrInsert(regCarDTO);
+		dao.regAndcorrRemainInsert(regCarDTO);
 		
 	}
 	
 	@Override
 	public void regAndEdit(CarRegisterDTO carRegisterDTO) {
 		
-		dao.regAndEditUpdate(carRegisterDTO);
+		dao.regAndEditOneUpdate(carRegisterDTO);
+		dao.regAndEditTwoUpdate(carRegisterDTO);
 		
 	}
 	
 
 	@Override
-	public CarRegisterDTO resNum(int registrationNumber, LocalDate registrationDate) {
-		return dao.resNumSelect(registrationNumber,registrationDate);
+	public CarRegisterDTO resNum(int registrationRN, LocalDate registrationDate) {
+		return dao.resNumSelect(registrationRN,registrationDate);
 	}
 	
 	
@@ -80,6 +83,11 @@ public class CarRegisterServiceImple implements CarRegisterService{
 		return dao.registrationTodayCases();
 	}
 
+	@Override
+	public int regAndcorrNumber() {
+		
+		return dao.regAndcorrNumber();
+	}
 
 
 

@@ -88,54 +88,76 @@
 				values(#{registrationClientRequests},#{registrationSignificant},#{mechanicNo},#{clientVin},#{shopNo},CONVERT_TZ(NOW(), '+00:00', '+09:00'))
 	</insert>
 	
-	<update id="regAndEditUpdate" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
-		UPDATE REGISTRATION r 
-			left join CLIENT c ON c.clientVin = r.clientVin
-			left join `MEMBER` m ON c.memberNo = m.memberNo
-			left join MECHANIC m2 ON r.mechanicNo = m2.mechanicNo
-			left join SHOP s ON r.shopNo = s.shopNo 
-		SET r.registrationClientRequests = #{registrationClientRequests},
-			r.registrationSignificant = #{registrationSignificant},
-			c.clientCarNumber = #{clientCarNumber}, 
-			c.clientDistanceDriven = #{clientDistanceDriven},
-			m.memberName = #{memberName}, 
-			m.memberPhone = #{memberPhone}
+	<select id="regAndcorrNumber" resultType="int">
+		SELECT max(registrationNumber)+1 FROM REGISTRATION
+	</select>
+	
+	<insert id="regAndcorrRemainInsert" parameterType="kr.co.jhta.pony.dto.HistroyDTO">
+	INSERT INTO HISTORY (registrationNumber,clientCarNumber,memberName,clientDistanceDriven ,shopNo,shopArea,shopAreaPoint,mechanicName)
+				VALUES(#{registrationNumber},#{clientCarNumber},#{memberName},#{clientDistanceDriven},#{shopNo},#{shopArea},#{shopAreaPoint},#{mechanicName})
+	</insert>
+	
+	<update id="regAndEditOneUpdate" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+		UPDATE HISTORY h 
+		JOIN REGISTRATION r ON h.registrationNumber = r.registrationNumber
+		JOIN CLIENT c ON c.clientVin = r.clientVin
+		JOIN `MEMBER` m ON m.memberNo = c.memberNo
+			SET h.clientCarNumber = #{clientCarNumber},
+				h.clientDistanceDriven = #{clientDistanceDriven},
+				h.memberName = #{memberName},
+				m.memberPhone = #{memberPhone},
+				r.mechanicNo = #{mechanicNo},
+				h.mechanicName = #{mechanicName},
+				r.registrationClientRequests = #{registrationClientRequests},
+			    r.registrationSignificant = #{registrationSignificant}
+		WHERE r.registrationNumber = #{registrationNumber}
+		AND DATE(r.registrationDate) = #{registrationDate}
+	</update>
+	<update id="regAndEditTwoUpdate" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+		UPDATE HISTORY h 
+		JOIN REGISTRATION r ON h.registrationNumber = r.registrationNumber
+		JOIN CLIENT c ON c.clientVin = r.clientVin
+		JOIN `MEMBER` m ON m.memberNo = c.memberNo
+			SET c.clientCarNumber = #{clientCarNumber},	
+				c.clientDistanceDriven = #{clientDistanceDriven},		
+				m.memberName = #{memberName}
 		WHERE r.registrationNumber = #{registrationNumber}
 		AND DATE(r.registrationDate) = #{registrationDate}
 	</update>
 	
 	
+	
 	<select id="resNumSelect" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO" resultType="kr.co.jhta.pony.dto.CarRegisterDTO">
-		SELECT 	c.clientVin,
-				clientCarNumber,
-				clientDistanceDriven,
-				clientCarType,
-				clientShipDate,
-				clientProductionDate,
-				clientColor,
-				c.memberNo,
-				memberName,
-				memberPhone,
-				registrationNumber,
-				registrationClientRequests,
-				registrationSignificant,
-				r.mechanicNo,
-				mechanicName,
-				registrationReservationDueDate,
-				registrationDate,
-				shopArea,
-				shopAreaPoint
-		FROM REGISTRATION r left join CLIENT c
-		ON c.clientVin = r.clientVin
-		left join `MEMBER` m
-		ON c.memberNo = m.memberNo
-		left join SHOP s 
-		ON r.shopNo = s.shopNo
-		left join MECHANIC m2
-		ON r.mechanicNo = m2.mechanicNo
-		where registrationNumber = #{registrationNumber}
-		and DATE(registrationDate) = #{registrationDate}
+		SELECT * 
+		FROM (select row_number() over(order by registrationDate asc) registrationRN,
+					r.registrationNumber,
+					r.clientVin, 
+					h.clientCarNumber,
+					c.clientCarType,
+					c.clientColor,
+					r.registrationDate,
+					h.clientDistanceDriven,
+					c.clientShipDate,
+					r.registrationReservationDueDate,
+					h.memberName,
+					m.memberPhone,
+					r.mechanicNo,
+					h.mechanicName,
+					h.shopArea,
+					h.shopAreaPoint,
+					registrationClientRequests,
+					registrationSignificant,
+					c.clientProductionDate
+				from REGISTRATION r left join HISTORY h
+				on r.registrationNumber = h.registrationNumber 
+				left join CLIENT c 
+				on r.clientVin = c.clientVin
+				left join `MEMBER` m 
+				on c.memberNo  = m.memberNo
+				WHERE DATE(registrationDate) = #{registrationDate}) s
+		WHERE registrationRN = #{registrationRN} 
 	</select>
+	
 	
 	<select id="registrationChiceMechanicInputSelect" resultType="kr.co.jhta.pony.dto.MechanicRegisterDTO" parameterType="int">
 		select mechanicNo ,mechanicName  from MECHANIC m 

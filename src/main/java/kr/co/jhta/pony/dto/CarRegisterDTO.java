@@ -30,6 +30,7 @@ public class CarRegisterDTO {
 	private String memberName; //차주성함.
 	private String memberPhone; //차주전화번호.
 	private int registrationNumber; //접수번호.
+	private int registrationRN; //위에 접수번호를 하려고헀지만 실질적인 접수번호가 됨
 	private String registrationClientRequests; //고객요청사항
 	private String registrationSignificant; //특이사항
 	private int mechanicNo; //지정정비사.
@@ -41,6 +42,7 @@ public class CarRegisterDTO {
 	private int shopNo;
 	private String shopArea;// 최종정비공장.
 	private String shopAreaPoint;// 최종정비공장.
+	
 	
 	
 }

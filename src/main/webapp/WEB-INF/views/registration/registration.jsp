@@ -101,7 +101,7 @@ $("#vin").on("click", function() {
         	      console.log("clientVin"+data[index].clientVin);
         	      $.ajax({
         	    	    type: 'post',
-        	    	    url: '/reg/registration',
+        	    	    url: '/reg/registration/modalData',
         	    	    data: {
         	    	        clientVin: data[index].clientVin
         	    	    },
@@ -153,8 +153,10 @@ $("#vin").on("click", function() {
         	    	    	$("#memberNameId").val(response.memberName);//고객명
         	    	    	$("#NumberId").val(response.memberPhone);//고객전화번호
         	    	    	$("#shopAreaId").val(response.shopArea+' '+response.shopAreaPoint);//최종정비사업소
+        	    	    	$("#shopId").val(response.shopArea);//지점
+        	    	    	$("#shopAreaPointId").val(response.shopAreaPoint);//지점상세
         	    	    	$("#SignificantId").val(response.registrationSignificant);//특이사항
-        	    	    	$("#ClientRequestsId").val(response.registrationClientRequests);//고객요청사항
+        	    	    	//$("#ClientRequestsId").val(response.registrationClientRequests);//고객요청사항
         	    	    	$("#regDateId").val(response.registrationDate); //최종입고일
         	    	    
         	    	    	$('#exampleModal').modal('hide');
@@ -187,8 +189,6 @@ $("#vin").on("click", function() {
 
   $("input[value='차량접수/수정']").on("click",function(){
 	//?? 안되는거 아닌가?
-	  document.frm.method="post";
-	  document.frm.action="/reg/registrations";
 	  $("#Form").submit(); 
 	  
   });
@@ -360,7 +360,7 @@ $j(function() {
 					      		<input type="text" id="datePicker" class="form-control" value="" name="registrationDateHi" style="height: 40px">
 					      	</div>
 					      <div class="form-group mb-0">
-					        <input type="text" class="form-control" name="registrationNumber" value="${searchOne.registrationNumber }" placeholder="접수번호">
+					        <input type="text" class="form-control" name="registrationRN" value="${searchOne.registrationRN }" placeholder="접수번호">
 					      </div>
 					      <button type="submit" class="btn btn-primary btn-round" id="nameSearch">검색</button>
 					      <!-- <button type="submit" class="btn btn-primary btn-round">차량접수/수정</button> -->
@@ -474,7 +474,8 @@ $j(function() {
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                          <!-- <label>접수번호 히든처리</label> -->
-                        <input type="text" class="form-control" id="registrationNumberId" name="registrationNumberHidden" value="${searchOne.registrationNumber}" readonly>
+                        <input type="hidden" class="form-control" id="registrationNumberId" name="registrationNumberHidden" value="${searchOne.registrationRN}" readonly>
+                        <input type="hidden" class="form-control" id="registrationNumberId" name="registrationNumberHide" value="${searchOne.registrationNumber}" readonly>
                       </div>
                     </div>
                   </div>
@@ -488,7 +489,7 @@ $j(function() {
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>현재주행거리</label>
-                        <input type="text" class="form-control" id="afterDrivenId" name="clientDistanceDriven" value="${searchOne.clientDistanceDriven}">
+                        <input type="text" class="form-control" id="afterDrivenId" name="clientDistanceDrivenNow" value="${searchOne.clientDistanceDriven}">
                       </div>
                     </div>
                     <div class="col-md-2 pr-1">
@@ -531,14 +532,16 @@ $j(function() {
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>지정정비사</label>
-						<input type="hidden" class="form-control" id="mechanicId" name="mechanicNoParam" data-toggle="modal" data-target="#mechanicModal" data-whatever="@mdo">
-						<input type="text" class="form-control" id="mechanicNameId" name="mechanicName" value=""  data-toggle="modal" data-target="#mechanicModal" data-whatever="@mdo">
+						<input type="hidden" class="form-control" id="mechanicId" name="mechanicNoParam" value="${searchOne.mechanicNo }"data-toggle="modal" data-target="#mechanicModal" data-whatever="@mdo">
+						<input type="text" class="form-control" id="mechanicNameId" name="mechanicName" value="${searchOne.mechanicName }"  data-toggle="modal" data-target="#mechanicModal" data-whatever="@mdo">
                       </div>
                     </div>
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>최종정비공장</label>
-                        <input type="text" class="form-control" id="shopAreaId" name="shopAreaName" value="${searchOne.shopArea} ${searchOne.shopAreaPoint}" readonly>
+                        <input type="text" class="form-control" id="shopAreaId" name="" value="${searchOne.shopArea} ${searchOne.shopAreaPoint}" readonly>
+                        <input type="hidden" class="form-control" id="shopId" name="shopArea" value="${searchOne.shopArea}" readonly>
+                        <input type="hidden" class="form-control" id="shopAreaPointId" name="shopAreaPoint" value="${searchOne.shopAreaPoint}" readonly>
                       </div>
                     </div>
                     <div class="col-md-2 pr-1">

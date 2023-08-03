@@ -55,8 +55,10 @@ public class MechanicRegisterController {
 	}
 	
 	@GetMapping("/reg/register")
-	public String register(Model model) {
+	public String register(Model model,HttpSession session) {
 		model.addAttribute("list", rs.shopName());
+		model.addAttribute("Id", rs.Id());
+		model.addAttribute("shopNo", session.getAttribute("shopNo"));
 		return "/registration/register";
 	}
 	
@@ -67,6 +69,7 @@ public class MechanicRegisterController {
 			) {
 		rs.register(shopNo,mechanicPw,mechanicName);
 		return "redirect:/reg/login";
+		
 	}
 	
 	@GetMapping("/reg/change")
