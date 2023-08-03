@@ -29,6 +29,7 @@ public class PonyMemberDTO {
 	private String memberAccountStatus;
 
 
+
 }
 	
 	

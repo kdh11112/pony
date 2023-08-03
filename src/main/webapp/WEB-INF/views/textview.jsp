@@ -1,7 +1,6 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- 날짜의 형식을 지정할 수 있음. 데이터 베이스에서 날짜의 형식을 바꿀수도있지만 jstl로 변경할수도있다. -->
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
@@ -27,38 +26,29 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<!-- 접근주체 : principal : 보호된 대상에 접근하는 유저 -->
-   <p><sec:authentication property="principal"/></p>
-   <h1>${name }</h1>
-   <%-- <p>user : <sec:authentication property="principal.username"/></p>
-   <p>password : <sec:authentication property="principal.password"/></p> --%>
+   <h1>${name}</h1>
    
-   <!-- 권한이 있는지 여부확인 -->
-   <%-- <p>/member에 접근할 수 있는지 : <sec:authorize url="/member" var="t">${t}</sec:authorize></p>
-   <p>ROLE_USER 권한을 가지고 있는지 <sec:authorize access="hasRole('ROLE_USER')" var="u">${u}</sec:authorize></p> --%>
-   
-   <%-- <sec:authorize ifNotGranted='ROLE_USER'>
-      </sec:authorize>
-    --%>
-   <%-- <sec:authorize access="!hasAnyRole('ROLE_USER')">
-      <p>로그인 안되면 이부분이 출력됩니다.</p>
-   </sec:authorize>
-   <sec:authorize access="hasAnyRole('ROLE_USER')">
-   
-   <sec:authorize ifAnyGranted='ROLE_USER'>
-      <a href="/clogout"><sec:authentication property="principal.username"/>님 로그아웃</a>
-   </sec:authorize> --%>
-   
+   <!-- 토큰이 있는지 확인하는 JavaScript 코드 -->
+   <script>
+      // 토큰이 쿠키에 저장되어 있는지 확인
+      const tokenCookie = document.cookie
+         .split('; ')
+         .find(row => row.startsWith('jwtToken='));
+      if (tokenCookie) {
+         const token = tokenCookie.split('=')[1];
+         console.log('토큰이 존재합니다:', token);
+      } else {
+         console.log('토큰이 존재하지 않습니다.');
+      }
 
-      <%--    <tr>
-            <td colspan="4">
-            <c:forEach var="i" begin="1" end="10">
-                  <a href="list?currentPage=${i }">${i }</a>
-               </c:forEach></td>
-         </tr> --%>
-
-
+      // 토큰이 로컬 스토리지에 저장되어 있는지 확인
+      const tokenLocalStorage = localStorage.getItem('jwtToken');
+      if (tokenLocalStorage) {
+         console.log('토큰이 존재합니다:', tokenLocalStorage);
+      } else {
+         console.log('토큰이 존재하지 않습니다.');
+      }
+   </script>
 
 </body>
 </html>

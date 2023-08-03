@@ -16,6 +16,15 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
 	rel="stylesheet" />
 
+<script src="js/jwt.js"></script>
+<script>
+document.querySelector('form[action="/login_proc"]').addEventListener('submit', function(event) {
+  event.preventDefault();
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  login(email, password);
+});
+</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -98,4 +107,6 @@
 	</section>
 
 </body>
+
+
 </html>

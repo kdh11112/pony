@@ -48,8 +48,6 @@ public class indexController {
 		
 		
 		
-		userAccount.getAccount();
-		
 		return "/textview";
 	}
 	
