@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import kr.co.jhta.pony.dto.CarRegisterDTO;
+import kr.co.jhta.pony.dto.HistroyDTO;
 import kr.co.jhta.pony.dto.MechanicRegisterDTO;
 
 
@@ -16,8 +17,10 @@ public interface CarRegisterService {
 	public CarRegisterDTO regRegistration(String clientVin);
 
 	public void regAndcorr(CarRegisterDTO regCarDTO);
-
-	public CarRegisterDTO resNum(int registrationNumber, LocalDate registrationDate);
+	
+	public int regAndcorrNumber();
+	
+	public CarRegisterDTO resNum(int registrationRN, LocalDate registrationDate);
 
 	public List<MechanicRegisterDTO> regChiceMechanic(Integer mechanicNo, String mechanicName,int word);
 

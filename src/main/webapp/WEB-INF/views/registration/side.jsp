@@ -20,10 +20,10 @@
 </head>
    <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
-        <a href="https://www.creative-tim.com" class="simple-text logo-mini">
+        <a href="" class="simple-text logo-mini">
         </a>
-        <a href="https://www.creative-tim.com" class="simple-text logo-normal">
-          Creative Tim
+        <a href="" class="simple-text logo-normal">
+          PONY MOTORS
         </a>
       </div>
       <div class="sidebar-wrapper">
@@ -86,7 +86,7 @@
 		                      </a>
 		                  </li>
 		                  <li>
-		                      <a href="/css/examples/pages/timeline.html">
+		                      <a href="/reg/register">
 		                          <span class="nc-icon nc-badge"></span>
 		                          <span class="sidebar-normal">회원가입</span>
 		                      </a>

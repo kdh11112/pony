@@ -19,8 +19,20 @@
   <link rel="stylesheet" href="/css/dist/css/AdminLTE.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="/css/plugins/iCheck/square/blue.css">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
+<script type="text/javascript">
+$(function(){
+	var id="${list}"; 
+	$('button[type=submit]').on("click",function(){
+    	let mechanicNameId = $('#mechanicNameId').val();
+    	if(mechanicNameId == null || mechanicNameId == "" || mechanicNameId == undefined || mechanicNameId == "undefined") {
+            alert("이름을 입력해주세요");
+            return false;
+        }
+    })
+});
+</script>
 <body class="hold-transition register-page">
 <div class="register-box">
   <div class="register-logo">
@@ -28,23 +40,28 @@
   </div>
 
   <div class="register-box-body">
-    <form action="/reg/register" method="post">
+     <form action="/reg/register" method="post">
   	<div class="row">
   	    <div class="col-xs-7">
         </div>
         <div class="col-xs-5">
-    <select name="shopNo" class="form-control">
+<%--     <select name="shopNo" class="form-control">
         <c:forEach items="${list}" var="shop">
             <option value="${shop.shopNo}">
                 ${shop.shopArea} / ${shop.shopAreaPoint}
             </option>
         </c:forEach>
-		</select>
+	</select> --%>
+	<input type="hidden" name="shopNo" id="" value="${shopNo}"/>
 	    </div>
     </div>
 
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" name="mechanicName" placeholder="이름">
+        <input type="text" class="form-control" value="${Id }" placeholder="아이디" readonly="readonly">
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="text" class="form-control" name="mechanicName" id="mechanicNameId" placeholder="이름">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
@@ -57,11 +74,11 @@
       </div> -->
       <div class="row">
         <div class="col-xs-8">
-        <p>비밀번호 미설정시 <br/>사원번호+이름의 조합을 가짐</p>
+        <p>비밀번호 미설정시 <br/>지점번호+사원번호의 조합을 가짐</p>
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">가입</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat" id="rg">가입</button>
         </div>
         <!-- /.col -->
       </div>
@@ -84,6 +101,8 @@
       radioClass: 'iradio_square-blue',
       increaseArea: '20%' // optional
     });
+    
+
   });
 </script>
 </body>

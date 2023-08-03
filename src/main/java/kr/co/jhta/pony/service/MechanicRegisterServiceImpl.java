@@ -22,8 +22,9 @@ public class MechanicRegisterServiceImpl implements MechanicRegisterService{
 
 	@Override
 	public void register(int shopNo, String mechanicPw, String mechanicName) {
+		int id = dao.employeeId()+1;
 		if(mechanicPw == null || mechanicPw.isEmpty()) {
-			mechanicPw = shopNo+mechanicName;
+			mechanicPw = ""+shopNo+id;
 		}
 		dao.registeremployee(shopNo,mechanicPw,mechanicName);
 		
@@ -44,6 +45,11 @@ public class MechanicRegisterServiceImpl implements MechanicRegisterService{
 		}
 		
 		return false;
+	}
+
+	@Override
+	public int Id() {
+		return dao.employeeId();
 	}
 
 

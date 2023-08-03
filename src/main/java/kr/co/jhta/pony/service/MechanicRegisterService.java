@@ -14,6 +14,8 @@ public interface MechanicRegisterService {
 
 	public boolean loginCheck(MechanicRegisterDTO dto);
 
+	public int Id();
+
 
 	
 }
