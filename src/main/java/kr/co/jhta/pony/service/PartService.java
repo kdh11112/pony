@@ -23,7 +23,7 @@ public interface PartService {
 	public int searchPartTotal(Criteria cri);
 	
 	// 모델 id 리스트 요청
-	public String[] getModelIdList(String keyword);
+	public String[] getModelNoList(String keyword);
 	
 	// 관리자 부품 추가
 	public void adminInsertOne(PartDTO dto); 

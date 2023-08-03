@@ -28,7 +28,7 @@ public interface PartDAO {
 	int searchPartTotal(Criteria cri);
 	
 	// 모델 id 리스트 요청
-	String[] getModelIdList(String keyword);
+	String[] getModelNoList(String keyword);
 	
 	// 관리자 부품 추가
 	void adminInsertOne(PartDTO dto); 

@@ -21,9 +21,6 @@ public class Criteria {
 	// 검색 키워드
 	private String keyword;
 	
-	// 부품 리스트
-	private String[] partArr;
-	
 	// 모델 리스트
 	private String[] modelArr;
 	
@@ -47,7 +44,7 @@ public class Criteria {
 
 	/* 검색 타입 데이터 배열 변환 */
 	public String[] getTypeArr() {
-		return type == null? new String[] {} : type.split("");
+		return type == null? new String[] { }:type.split("");
 	}
 	
 	public int getPageNum() {
@@ -92,14 +89,6 @@ public class Criteria {
 		this.keyword = keyword;
 	}
 
-	public String[] getPartArr() {
-		return partArr;
-	}
-
-	public void setPartArr(String[] partArr) {
-		this.partArr = partArr;
-	}
-
 	public String[] getModelArr() {
 		return modelArr;
 	}
@@ -111,7 +100,7 @@ public class Criteria {
 	@Override
 	public String toString() {
 		return "Criteria [pageNum=" + pageNum + ", perPageNum=" + perPageNum + ", skip=" + skip + ", type=" + type
-				+ ", keyword=" + keyword + ", partArr=" + Arrays.toString(partArr) + ", modelArr="
+				+ ", keyword=" + keyword + ", modelArr="
 				+ Arrays.toString(modelArr) + "]";
 	}
 

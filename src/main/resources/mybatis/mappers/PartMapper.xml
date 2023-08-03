@@ -3,6 +3,29 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.jhta.pony.dao.PartDAO">
+	<!-- 검색조건 -->
+	<sql id="criteria">
+		<trim prefix="where (" suffix=")" prefixOverrides="AND">
+			<foreach item="type" collection="typeArr">
+				<trim prefix="AND">
+					<choose>
+						<when test="type == 'M'.toString()">
+							<trim prefixOverrides="or">
+								<foreach item="modelNo" collection="modelArr">
+									<trim prefix="or">
+										p.modelNo = #{modelNo}
+									</trim>
+								</foreach>
+							</trim>
+						</when>
+						<when test="type == 'P'.toString()">
+							p.partName like concat ('%', #{keyword}, '%')
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
 
 	<!-- 부품 전체 목록(페이징) -->
 	<select id="getPartAll" resultType="kr.co.jhta.pony.dto.PartDTO">
@@ -10,33 +33,23 @@
 		FROM (SELECT partNumber, partName, partNo, partPrice, modelNo
 		FROM PART
 		ORDER BY partNumber DESC) AS T1
-		LIMIT #{skip}, #{perPageNum}
+		LIMIT
+		#{skip}, #{perPageNum}
 	</select>
 
-
-	<select id="getmodelName" resultType="kr.co.jhta.pony.dto.PartDTO" parameterType="kr.co.jhta.pony.dto.PartDTO">
-		<!-- SELECT p.partNumber, p.partName, p.partNo, p.partPrice, m.modelName
-		FROM PART p
-		LEFT OUTER JOIN MODEL m ON p.modelNo = m.modelNo
-		ORDER BY p.partNumber DESC -->
-		SELECT modelName 
+	<select id="getModelNoList" resultType="String">
+		SELECT modelNo
 		FROM MODEL
-	</select>
-	
-	<!-- 부품 총 갯수 -->
-	<select id="getTotal" resultType="int">
-		SELECT count(*)
-		FROM PART
+		WHERE modelName like concat ('%', #{keyword}, '%')
 	</select>
 
 	<!-- 검색된 부품 목록(페이징) -->
 	<select id="searchPartList" resultType="kr.co.jhta.pony.dto.PartDTO">
-		SELECT p.partNumber, p.partName, p.partNo, p.partPrice, m.modelName
+		SELECT p.partNumber, p.partName, p.partNo, p.partPrice, p.modelNo,
+		m.modelName
 		FROM PART p
 		LEFT OUTER JOIN MODEL m ON p.modelNo = m.modelNo
-		<if test="keyword != null">
-			WHERE (p.partName LIKE CONCAT('%', #{keyword}, '%'))
-		</if>
+		<include refid="criteria"></include>
 		ORDER BY m.modelNo DESC
 		LIMIT #{skip}, #{perPageNum}
 	</select>
@@ -44,16 +57,22 @@
 	<!-- 검색된 부품 총 갯수 -->
 	<select id="searchPartTotal" resultType="int">
 		SELECT count(*)
+		FROM PART p
+		<include refid="criteria"></include>
+
+	</select>
+
+	<!-- 부품 총 갯수 -->
+	<select id="getTotal" resultType="int">
+		SELECT count(*)
 		FROM PART
-		<if test="keyword != null">
-			WHERE (partName LIKE CONCAT('%', #{keyword}, '%'))
-		</if>
 	</select>
 
 	<!-- 관리자 부품 추가 -->
 	<insert id="adminInsertOne" parameterType="kr.co.jhta.pony.dto.PartDTO">
 		INSERT INTO PART (partName, partNo, partPrice)
-		VALUES (#{partName}, #{partNo}, #{partPrice})
+		VALUES
+		(#{partName}, #{partNo}, #{partPrice})
 	</insert>
 
 	<!-- 관리자 부품 수정 -->

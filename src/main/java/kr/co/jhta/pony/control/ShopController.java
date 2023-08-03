@@ -1,13 +1,12 @@
 package kr.co.jhta.pony.control;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +26,7 @@ public class ShopController {
 	
 	private final PonyMemberService mservice;
 	private final PartService pservice;
-	
+	private static final Logger logger = LoggerFactory.getLogger(ShopController.class);
 	@Autowired
 	public ShopController(PonyMemberService memberservice,
 							PartService partservice) {
@@ -44,15 +43,16 @@ public class ShopController {
 		
 //		int total = pservice.searchPartTotal(cri);
 //		PageMakeDTO pageMake = new PageMakeDTO(cri, total);
-		
 //		model.addAttribute("partlist", pservice.searchPartList(cri));
 		
-		List partlist = pservice.searchPartList(cri);
+		List<PartDTO> partlist = pservice.searchPartList(cri);
 		
 		if(!partlist.isEmpty()) {
 			model.addAttribute("partlist", partlist);	// 검색 시 부품 존재하는 경우
+//			logger.info("partlist : "+partlist);
 		} else {
 			model.addAttribute("listCheck", "empty");	// 검색 시 부품 존재하지 않는 경우
+			return "/shop/part/partAll";
 		}
 		
 		// 페이지 이동 인터페이스 데이터

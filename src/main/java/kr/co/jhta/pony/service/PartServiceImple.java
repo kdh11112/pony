@@ -1,5 +1,7 @@
 package kr.co.jhta.pony.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.jhta.pony.dao.PartDAO;
 import kr.co.jhta.pony.dto.PartDTO;
 import kr.co.jhta.pony.util.Criteria;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class PartServiceImple implements PartService{
 
@@ -36,15 +40,33 @@ public class PartServiceImple implements PartService{
 	@Override
 	public List<PartDTO> searchPartList(Criteria cri) {
 		String type = cri.getType();
-		String[] typeArr = type.split("");
-		
-		// 해당 코드가 "모델명" 실행되도록 함
+		 String[] typeArr;
+		    if (type == null) {
+		        type = "P";
+		        typeArr = new String[] { type };
+		    } else {
+		        typeArr = type.split("");
+		    }
+		//String []typeArr = cri.getTypeArr();
+		//typeArr = type.split("");
+		String[] modelArr = partdao.getModelNoList(cri.getKeyword());
+	    log.info("typeArr: "+Arrays.toString(typeArr));
+	    log.info(type);
+	    log.info(""+cri);
+	    if(type.equals("M")) {
+	    	if(modelArr.length == 0) {
+	    		return new ArrayList();
+	    	}
+	    }
 		for(String t : typeArr) {
-			if(t.equals("M")){
-				String[] partArr = partdao.getModelIdList(cri.getKeyword());
-				cri.setPartArr(partArr);
-			}
+			if (t.equals("M")) {
+				
+				cri.setModelArr(modelArr);
+				log.info("cri : "+cri);
+				log.info("modelArr : "+modelArr);
+			} 
 		}
+		
 		return partdao.searchPartList(cri);
 	}
 	
@@ -82,9 +104,8 @@ public class PartServiceImple implements PartService{
 	}
 
 	@Override
-	public String[] getModelIdList(String keyword) {
-		// TODO Auto-generated method stub
-		return null;
+	public String[] getModelNoList(String keyword) {
+		return partdao.getModelNoList(keyword);
 	}
 
 
