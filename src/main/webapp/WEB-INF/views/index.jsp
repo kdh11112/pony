@@ -63,13 +63,7 @@
         console.log("토큰이 쿠키에 없습니다.");
     }
 </script>
-
-
-
-
-
-
-
+		<script src="js/jwt.js"></script>
 		<script src="js/jquery-3.4.1.min.js"></script>
 		<script>
 			$(function(){
@@ -162,17 +156,7 @@
 	</div>
 	
 	   <script>
-	   
-	// 리다이렉트된 페이지에서 토큰 추출 후 저장 (redirected_page.js)
-	   const urlSearchParams = new URLSearchParams(window.location.search);
-	   const token = urlSearchParams.get("token");
-
-	   if (token) {
-	     // 토큰을 로컬 스토리지에 저장
-	     localStorage.setItem("jwtToken", token);
-	   }
-	   
-/*       // 토큰이 쿠키에 저장되어 있는지 확인
+      // 토큰이 쿠키에 저장되어 있는지 확인
       const tokenCookie = document.cookie
          .split('; ')
          .find(row => row.startsWith('jwtToken='));
@@ -189,7 +173,7 @@
          console.log('토큰이 존재합니다:', tokenLocalStorage);
       } else {
          console.log('토큰이 존재하지 않습니다.');
-      } */
+      }
    </script>
 	
 	</body>

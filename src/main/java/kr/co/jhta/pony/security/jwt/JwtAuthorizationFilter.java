@@ -61,7 +61,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         //토큰 어덯게 생겻어
         //log.info("리퀘스트 토큰 헤더 어떻게 생겻어? 여기서 널인데..? : {}", requestTokenHeader);
 
-        
         String username = null;
         String jwtToken = null;
 

@@ -56,7 +56,7 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
 						<div class="card-body p-5 text-center">
 						
 						
-						<form id="loginForm" action="/login_proc" method="post">
+						<form action="/login_proc" method="post">
 
 							<div class="form-outline mb-4">
 								<input type="email" name="email" id="email" class="form-control form-control-lg shadow-sm" value="djw2717@naver.com"/>
