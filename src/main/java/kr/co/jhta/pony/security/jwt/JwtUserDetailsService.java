@@ -43,7 +43,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         // 3. 권한 정보를 설정합니다.
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(Role.USER.getValue()));
-        if (email.equals("sup2is@gmail.com")) {
+        if (email.equals("shaitan9384@naver.com")) {
             grantedAuthorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
         }
 

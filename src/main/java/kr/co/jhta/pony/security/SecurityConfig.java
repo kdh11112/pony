@@ -79,9 +79,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .cors()
         .and()
             .csrf().disable()
-	        	.authorizeHttpRequests() //인가정책
-	        		//.antMatchers("/no").hasRole("ADMIN") // 해당 페이지에는 해당 권한이 필요함
-	        	.anyRequest().permitAll() // 기본적으로 인가 필요없음
+            .authorizeRequests()
+            .antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll() // 정적 리소스에 대해서도 인증 없이 접근 허용
+            .antMatchers("/login", "/", "/ponyreg").permitAll() // 로그인 페이지와 기본 페이지는 인증 없이 접근 허용
+            .anyRequest().authenticated() // 그 외 모든 요청은 인증된 사용자만 접근 가능
+//            .authorizeHttpRequests() //인가정책
+//	        		//.antMatchers("/no").hasRole("ADMIN") // 해당 페이지에는 해당 권한이 필요함
+//	        	.anyRequest().permitAll() // 기본적으로 인가 필요없음
         .and()
             .formLogin()
                 .loginPage("/login")

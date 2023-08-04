@@ -83,6 +83,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                  //logger.warn("요청객체에 JWT 토큰 없음 String : " + jwtToken);
              }
 
+        
+        
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.jwtUserDetailService.loadUserByUsername(username);
 
