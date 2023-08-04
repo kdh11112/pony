@@ -9,26 +9,25 @@ import kr.co.jhta.pony.dto.MechanicRegisterDTO;
 
 
 public interface CarRegisterService {
-	public void carRegister(CarRegisterDTO regCarDTO);
+	public void createCarRegister(CarRegisterDTO regCarDTO);
 
-	public List<CarRegisterDTO> modalSearch(String clientVin, String clientCarNumber, String memberName);
+	public List<CarRegisterDTO> findAllmodalSearch(String clientVin, String clientCarNumber, String memberName);
 
-//	public List<CarRegisterDTO> regRegistration(String clientVin);
-	public CarRegisterDTO regRegistration(String clientVin);
+	public CarRegisterDTO findOneregRegistration(String clientVin);
 
-	public void regAndcorr(CarRegisterDTO regCarDTO);
+	public void createRegAndcorr(CarRegisterDTO regCarDTO);
 	
-	public int regAndcorrNumber();
+	public int findOneRegAndcorrNumber();
 	
-	public CarRegisterDTO resNum(int registrationRN, LocalDate registrationDate);
+	public CarRegisterDTO findOneResNum(int registrationRN, LocalDate registrationDate);
 
-	public List<MechanicRegisterDTO> regChiceMechanic(Integer mechanicNo, String mechanicName,int word);
+	public List<MechanicRegisterDTO> findAllRegChiceMechanic(Integer mechanicNo, String mechanicName,int word);
 
-	public MechanicRegisterDTO registrationChiceMechanicInput(int mechanicNo);
+	public MechanicRegisterDTO findOneRegistrationChiceMechanicInput(int mechanicNo);
 
-	public CarRegisterDTO registrationTodayCases();
+	public CarRegisterDTO findOneRegistrationTodayCases();
 
-	public void regAndEdit(CarRegisterDTO carRegisterDTO);
+	public void saveRegAndEdit(CarRegisterDTO carRegisterDTO);
 
 
 

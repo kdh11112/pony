@@ -3,12 +3,11 @@ package kr.co.jhta.pony.service;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.jhta.pony.dao.CarRegisterDAO;
 import kr.co.jhta.pony.dto.CarRegisterDTO;
-import kr.co.jhta.pony.dto.HistroyDTO;
 import kr.co.jhta.pony.dto.MechanicRegisterDTO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,77 +15,82 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class CarRegisterServiceImple implements CarRegisterService{
 	
-	@Autowired
-	CarRegisterDAO dao;
+	CarRegisterDAO carRegisterDAO;
+	
+	public CarRegisterServiceImple(CarRegisterDAO carRegisterDAO) {
+		this.carRegisterDAO = carRegisterDAO;
+	}
 
+	@Transactional
 	@Override
-	public void carRegister(CarRegisterDTO regCarDTO) {
-		dao.ClientInsert(regCarDTO);
-		int no = dao.ClientSelectNo(regCarDTO);
+	public void createCarRegister(CarRegisterDTO regCarDTO) {
+		carRegisterDAO.insertClient(regCarDTO);
+		int no = carRegisterDAO.selectClientNo(regCarDTO);
 		log.info("회원번호 : "+no);
-		dao.CarInsert(regCarDTO,no);
+		carRegisterDAO.insertCar(regCarDTO,no);
 		
 	}
 
 	@Override
-	public List<CarRegisterDTO> modalSearch(String clientVin, String clientCarNumber, String memberName) {
+	public List<CarRegisterDTO> findAllmodalSearch(String clientVin, String clientCarNumber, String memberName) {
 
-		return dao.SearchSelect(clientVin,clientCarNumber,memberName);
+		return carRegisterDAO.selectSearch(clientVin,clientCarNumber,memberName);
 		
 	}
 
 
 	@Override
-//	public List<CarRegisterDTO> regRegistration(String clientVin) {
-	public CarRegisterDTO regRegistration(String clientVin) {
-		return dao.regRegistrationSelect(clientVin);
+	public CarRegisterDTO findOneregRegistration(String clientVin) {
+		return carRegisterDAO.selectRegRegistration(clientVin);
 	}
 
+	@Transactional
 	@Override
-	public void regAndcorr(CarRegisterDTO regCarDTO) {
+	public void createRegAndcorr(CarRegisterDTO regCarDTO) {
 		
 		
-		dao.regAndcorrInsert(regCarDTO);
-		dao.regAndcorrRemainInsert(regCarDTO);
-		
-	}
-	
-	@Override
-	public void regAndEdit(CarRegisterDTO carRegisterDTO) {
-		
-		dao.regAndEditOneUpdate(carRegisterDTO);
-		dao.regAndEditTwoUpdate(carRegisterDTO);
+		carRegisterDAO.insertRegAndcorr(regCarDTO);
+		carRegisterDAO.insertRegAndcorrRemain(regCarDTO);
 		
 	}
 	
-
+	@Transactional
 	@Override
-	public CarRegisterDTO resNum(int registrationRN, LocalDate registrationDate) {
-		return dao.resNumSelect(registrationRN,registrationDate);
-	}
-	
-	
-
-
-	@Override
-	public List<MechanicRegisterDTO> regChiceMechanic(Integer mechanicNo, String mechanicName, int word) {
-		return dao.resMechanicSelect(mechanicNo,mechanicName,word);
-	}
-
-	@Override
-	public MechanicRegisterDTO registrationChiceMechanicInput(int mechanicNo) {
-		return dao.registrationChiceMechanicInputSelect(mechanicNo);
-	}
-
-	@Override
-	public CarRegisterDTO registrationTodayCases() {
-		return dao.registrationTodayCases();
-	}
-
-	@Override
-	public int regAndcorrNumber() {
+	public void saveRegAndEdit(CarRegisterDTO carRegisterDTO) {
 		
-		return dao.regAndcorrNumber();
+		carRegisterDAO.updateRegAndEditOne(carRegisterDTO);
+		carRegisterDAO.updateRegAndEditTwo(carRegisterDTO);
+		
+	}
+	
+
+	@Override
+	public CarRegisterDTO findOneResNum(int registrationRN, LocalDate registrationDate) {
+		return carRegisterDAO.selectResNum(registrationRN,registrationDate);
+	}
+	
+	
+
+
+	@Override
+	public List<MechanicRegisterDTO> findAllRegChiceMechanic(Integer mechanicNo, String mechanicName, int word) {
+		return carRegisterDAO.selectResMechanic(mechanicNo,mechanicName,word);
+	}
+
+	@Override
+	public MechanicRegisterDTO findOneRegistrationChiceMechanicInput(int mechanicNo) {
+		return carRegisterDAO.selectRegistrationChiceMechanicInput(mechanicNo);
+	}
+
+	@Override
+	public CarRegisterDTO findOneRegistrationTodayCases() {
+		return carRegisterDAO.selectRegistrationTodayCases();
+	}
+
+	@Override
+	public int findOneRegAndcorrNumber() {
+		
+		return carRegisterDAO.selectRegAndcorrNumber();
 	}
 
 

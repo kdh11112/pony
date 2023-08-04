@@ -6,15 +6,17 @@ import kr.co.jhta.pony.dto.MechanicRegisterDTO;
 
 public interface MechanicRegisterService {
 	
-	public List<MechanicRegisterDTO> shopName();
+	public List<MechanicRegisterDTO> findAllshopName();
 
-	public void register(int shopNo, String mechanicPw, String mechanicName);
+	public void createRegister(int shopNo, String mechanicPw, String mechanicName);
 
-	public void ChangePw(int mechanicNo,int shopNo, String mechanicPw);
+	public void saveChangePw(int mechanicNo,int shopNo, String mechanicPw);
 
-	public boolean loginCheck(MechanicRegisterDTO dto);
+	public boolean isloginCheck(MechanicRegisterDTO dto);
 
-	public int Id();
+	public int finOneId();
+
+	public MechanicRegisterDTO findOneMechanicName(MechanicRegisterDTO dto);
 
 
 	

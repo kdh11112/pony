@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.nimbusds.oauth2.sdk.Request;
-
 import kr.co.jhta.pony.dto.MechanicRegisterDTO;
 import kr.co.jhta.pony.service.MechanicRegisterService;
 import lombok.extern.slf4j.Slf4j;
@@ -19,27 +17,28 @@ import lombok.extern.slf4j.Slf4j;
 public class MechanicRegisterController {
 
 	
-	MechanicRegisterService rs;
+	MechanicRegisterService mechanicRegisterService;
 
 
-	public MechanicRegisterController(MechanicRegisterService rs) {
-		this.rs = rs;
+	public MechanicRegisterController(MechanicRegisterService mechanicRegisterService) {
+		this.mechanicRegisterService = mechanicRegisterService;
 	}
 
 	@GetMapping("/reg/login")
 	public String login(Model model) {
-		model.addAttribute("list", rs.shopName());
+		model.addAttribute("list", mechanicRegisterService.findAllshopName());
 		return "/registration/login";
 	}
 	
 	@PostMapping("/reg/login")
 	public String loginOk(HttpSession session, @ModelAttribute MechanicRegisterDTO dto, Model model) {
-	    boolean result = rs.loginCheck(dto);
+	    boolean result = mechanicRegisterService.isloginCheck(dto);
+	    mechanicRegisterService.findOneMechanicName(dto);
 	    if (result) {
 	        // 로그인에 성공하면 세션 정보 저장
-	        session.setAttribute("mechanicNo", dto.getMechanicNo());
-	        session.setAttribute("shopNo", dto.getShopNo());
-	        session.setAttribute("mechanicName", dto.getMechanicName());
+	        session.setAttribute("mechanicNo", mechanicRegisterService.findOneMechanicName(dto).getMechanicNo());
+	        session.setAttribute("shopNo", mechanicRegisterService.findOneMechanicName(dto).getShopNo());
+	        session.setAttribute("mechanicName", mechanicRegisterService.findOneMechanicName(dto).getMechanicName());
 	        // 메인 페이지로 이동
 	        return "redirect:/reg";
 	    } else {
@@ -56,8 +55,8 @@ public class MechanicRegisterController {
 	
 	@GetMapping("/reg/register")
 	public String register(Model model,HttpSession session) {
-		model.addAttribute("list", rs.shopName());
-		model.addAttribute("Id", rs.Id());
+		model.addAttribute("list", mechanicRegisterService.findAllshopName());
+		model.addAttribute("Id", mechanicRegisterService.finOneId());
 		model.addAttribute("shopNo", session.getAttribute("shopNo"));
 		return "/registration/register";
 	}
@@ -67,14 +66,14 @@ public class MechanicRegisterController {
 			@RequestParam("mechanicName") String mechanicName,
 			@RequestParam("mechanicPw") String mechanicPw
 			) {
-		rs.register(shopNo,mechanicPw,mechanicName);
+		mechanicRegisterService.createRegister(shopNo,mechanicPw,mechanicName);
 		return "redirect:/reg/login";
 		
 	}
 	
 	@GetMapping("/reg/change")
 	public String registerChange(Model model) {
-		model.addAttribute("list", rs.shopName());
+		model.addAttribute("list", mechanicRegisterService.findAllshopName());
 		return "/registration/registerChange";
 	}
 	
@@ -84,7 +83,7 @@ public class MechanicRegisterController {
 			@RequestParam("shopNo") int shopNo,
 			@RequestParam("mechanicPw") String mechanicPw
 			) {		
-		rs.ChangePw(mechanicNo,shopNo,mechanicPw);
+		mechanicRegisterService.saveChangePw(mechanicNo,shopNo,mechanicPw);
 		return "redirect:/reg/login";
 	}
 	

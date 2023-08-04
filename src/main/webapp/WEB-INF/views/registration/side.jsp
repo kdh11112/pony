@@ -6,6 +6,7 @@
   <link rel="icon" type="image/png" href="/css/assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
+  포니
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -16,11 +17,31 @@
   <link href="/css/assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="/css/assets/demo/demo.css" rel="stylesheet" />
-  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+	$(function(){
+		  $("li").on("click", function() {
+			    // 클릭한 li 요소에 "active" 클래스 추가
+			    $("li").removeClass("active");
+			    $(this).addClass("active");
+			    
+			    // 선택한 li 요소의 인덱스 값 "activeIndex"를 localStorage에 저장
+			    var activeIndex = $("li").index(this);
+			    localStorage.setItem("activeIndex", activeIndex);
+			  });
+			  
+			  // 페이지 로드 시 이전 선택한 li 요소의 인덱스 값 "activeIndex"를 가져와서 "active" 클래스 추가
+			  var activeIndex = localStorage.getItem("activeIndex");
+			  if (activeIndex !== null) {
+			    $("li").eq(activeIndex).addClass("active");
+			  }
+	})
+</script> 
 </head>
    <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
         <a href="" class="simple-text logo-mini">
+        <img alt="" src="/css/admin/logoTitle.png">
         </a>
         <a href="" class="simple-text logo-normal">
           PONY MOTORS
@@ -35,13 +56,13 @@
             </a>
           </li>
           <li>
-            <a href="./icons.html">
+            <a href="/reg/work">
               <i class="nc-icon nc-settings"></i>
               <p>일반작업</p>
             </a>
           </li>
           <li>
-            <a href="./map.html">
+            <a href="/reg/payment">
               <i class="nc-icon nc-diamond"></i>
               <p>일납수반</p>
             </a>
@@ -97,7 +118,7 @@
           <li class="active-pro">
             <a href="./upgrade.html">
               <i class="nc-icon nc-spaceship"></i>
-              <p>필요하나?</p>
+              <%out.println("<p>" + session.getAttribute("mechanicName") + "</p>"); %>
             </a>
           </li>
         </ul>

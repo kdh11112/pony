@@ -5,7 +5,7 @@
   
 <mapper namespace="kr.co.jhta.pony.dao.MechanicRegisterDAO">
 
-	<select id="shopNoName" resultType="kr.co.jhta.pony.dto.MechanicRegisterDTO">
+	<select id="selectShopNoName" resultType="kr.co.jhta.pony.dto.MechanicRegisterDTO">
 		SELECT 	shopNo ,
 				shopArea ,
 				shopAreaPoint  
@@ -13,12 +13,17 @@
 		ORDER BY shopNo ASC
 	</select>
 	  
-	<select id="employeeId">
-		SELECT count(*)+1 FROM MECHANIC
-	</select>  
-	<insert id="registeremployee" parameterType="kr.co.jhta.pony.dto.MechanicRegisterDTO">
+	<insert id="insertRegisteremployee" parameterType="kr.co.jhta.pony.dto.MechanicRegisterDTO">
 		INSERT INTO MECHANIC(shopNo,mechanicPw,mechanicName) VALUES(#{shopNo},#{mechanicPw},#{mechanicName})
 	</insert>
+	
+	<select id="selectEmployeeId">
+		SELECT count(*)+1 FROM MECHANIC
+	</select>  
+	
+	<select id="selectLoginCheck" resultType="int" parameterType="kr.co.jhta.pony.dto.MechanicRegisterDTO">
+		SELECT count(*) FROM MECHANIC WHERE mechanicNo = #{mechanicNo} AND mechanicPw = #{mechanicPw} AND shopNo = #{shopNo}
+	</select>
 	
 	<update id="updatePw" parameterType="kr.co.jhta.pony.dto.MechanicRegisterDTO">
 		UPDATE MECHANIC
@@ -26,8 +31,13 @@
 		WHERE mechanicNo = #{mechanicNo} AND shopNo = #{shopNo}
 	</update>
 	
-	<select id="loginCheck" resultType="int" parameterType="kr.co.jhta.pony.dto.MechanicRegisterDTO">
-		SELECT count(*) FROM MECHANIC WHERE mechanicNo = #{mechanicNo} AND mechanicPw = #{mechanicPw} AND shopNo = #{shopNo}
+	<select id="selectMechanicName" parameterType="kr.co.jhta.pony.dto.MechanicRegisterDTO" resultType="kr.co.jhta.pony.dto.MechanicRegisterDTO">
+		SELECT  mechanicNo ,
+				mechanicName ,
+				shopNo  
+		FROM MECHANIC m 
+		WHERE mechanicNo = #{mechanicNo}
+		AND shopNo = #{shopNo}
 	</select>
-
+	
 </mapper>

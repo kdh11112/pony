@@ -11,15 +11,17 @@ import kr.co.jhta.pony.dto.MechanicRegisterDTO;
 @Repository
 public interface MechanicRegisterDAO {
 
-	public List<MechanicRegisterDTO> shopNoName();
+	public List<MechanicRegisterDTO> selectShopNoName();
 
-	public void registeremployee(int shopNo, String mechanicPw, String mechanicName);
+	public void insertRegisteremployee(int shopNo, String mechanicPw, String mechanicName);
 
 	public void updatePw(int mechanicNo,int shopNo, String mechanicPw);
 
-	public int loginCheck(MechanicRegisterDTO dto);
+	public int selectLoginCheck(MechanicRegisterDTO dto);
 
-	public int employeeId();
+	public int selectEmployeeId();
+
+	public MechanicRegisterDTO selectMechanicName(MechanicRegisterDTO dto);
 
 
 }

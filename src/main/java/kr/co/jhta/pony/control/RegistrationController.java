@@ -2,7 +2,6 @@ package kr.co.jhta.pony.control;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,19 +17,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.co.jhta.pony.dto.CarRegisterDTO;
 import kr.co.jhta.pony.dto.HistroyDTO;
 import kr.co.jhta.pony.dto.MechanicRegisterDTO;
+import kr.co.jhta.pony.dto.TechnologyAndPartDTO;
 import kr.co.jhta.pony.service.CarRegisterService;
+import kr.co.jhta.pony.service.TechnologyAndPartService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 public class RegistrationController {
 
-	CarRegisterService cs;
+	CarRegisterService carRegisterService;
+	TechnologyAndPartService technologyAndPartService;
+	
 
-	public RegistrationController(CarRegisterService cs) {
-		this.cs = cs;
+
+
+	public RegistrationController(CarRegisterService carRegisterService,
+			TechnologyAndPartService technologyAndPartService) {
+
+		this.carRegisterService = carRegisterService;
+		this.technologyAndPartService = technologyAndPartService;
 	}
-
 
 	//메인
 	@GetMapping("/reg")
@@ -55,10 +62,10 @@ public class RegistrationController {
 			@RequestParam(name = "registrationRN" ,required = false) Integer registrationRN,
 			@RequestParam(name = "registrationDateHi" ,required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate registrationDate
 			) {
-		model.addAttribute("count", cs.registrationTodayCases());
+		model.addAttribute("count", carRegisterService.findOneRegistrationTodayCases());
 		if(registrationRN != null) {
-//			log.info("검색 {}",cs.resNum(registrationRN,registrationDate));
-	    model.addAttribute("searchOne", cs.resNum(registrationRN,registrationDate));
+//			log.info("검색 {}",carRegisterService.resNum(registrationRN,registrationDate));
+	    model.addAttribute("searchOne", carRegisterService.findOneResNum(registrationRN,registrationDate));
 		}
 		return "/registration/registration";
 	}
@@ -72,7 +79,7 @@ public class RegistrationController {
 	        @RequestParam(name ="memberName", required = false) String memberName,
 			@ModelAttribute CarRegisterDTO regCarDTO) {
 
-	   return  cs.modalSearch(clientVin, clientCarNumber, memberName);
+	   return  carRegisterService.findAllmodalSearch(clientVin, clientCarNumber, memberName);
 	}
 	
 	//모달창에서 데이터 전송
@@ -80,7 +87,7 @@ public class RegistrationController {
 	@ResponseBody
 //	public List<CarRegisterDTO> regRegistration(@RequestParam(name = "clientVin",required = false)String clientVin ,Model model) {
 	public CarRegisterDTO regRegistrationModal(@RequestParam(name = "clientVin",required = false)String clientVin) {
-	    return cs.regRegistration(clientVin);
+	    return carRegisterService.findOneregRegistration(clientVin);
 	}
 	
 	//일반접수-차량접수/수정
@@ -94,58 +101,73 @@ public class RegistrationController {
 			@RequestParam(name = "clientDistanceDrivenNow" ,required = false) int clientDistanceDriven
 			) {
 		int word = (Integer)session.getAttribute("shopNo");
-		int ss = cs.regAndcorrNumber();
+		int number = carRegisterService.findOneRegAndcorrNumber();
+		
 		log.info(registrationRN);
-		//아 이 코드가 맞는건가...
+		
 		if(registrationRN == null || registrationRN == "") { //차량 접수
-			CarRegisterDTO carRegisterDTO = CarRegisterDTO
-									.builder()
-									.registrationNumber(ss)
-						            .clientVin(regCarDTO.getClientVin())
-						            .clientCarNumber(regCarDTO.getClientCarNumber())
-						            .clientDistanceDriven(regCarDTO.getClientDistanceDriven())
-						            .memberEmail(regCarDTO.getMemberEmail())
-						            .memberName(regCarDTO.getMemberName())
-						            .memberPhone(regCarDTO.getMemberPhone())
-						            .registrationClientRequests(regCarDTO.getRegistrationClientRequests())
-						            .registrationSignificant(regCarDTO.getRegistrationSignificant())
-						            .mechanicNo(mechanicNo)
-						            .mechanicName(regCarDTO.getMechanicName())
-						            .shopNo(word)
-						            .shopArea(regCarDTO.getShopArea())
-									.shopAreaPoint(regCarDTO.getShopAreaPoint())
-						            .registrationDate(regCarDTO.getRegistrationDate())
-						            .clientProductionDate(regCarDTO.getClientProductionDate())
-						            .build();
-
+			CarRegisterDTO carRegisterDTO = extracted(regCarDTO, mechanicNo, word, number);
+			
 			log.info("위"+regCarDTO.getMemberName());
-			cs.regAndcorr(carRegisterDTO);
+			
+			carRegisterService.createRegAndcorr(carRegisterDTO);
 		}else if (registrationRN != null) { //차량 수정
 			int regiNum = Integer.parseInt(registrationRN);
 			int regiNumber = Integer.parseInt(registrationNumber);
-			CarRegisterDTO carRegisterDTO = CarRegisterDTO
-		    		.builder()
-		    		.clientCarNumber(regCarDTO.getClientCarNumber())
-		    		.clientDistanceDriven(clientDistanceDriven)
-		    		.memberName(regCarDTO.getMemberName())
-		            .memberPhone(regCarDTO.getMemberPhone())
-		            .registrationClientRequests(regCarDTO.getRegistrationClientRequests())
-		            .registrationSignificant(regCarDTO.getRegistrationSignificant())
-		            .registrationRN(regiNum)
-		            .registrationNumber(regiNumber)
-		            .registrationDate(regCarDTO.getRegistrationDate())
-		            .mechanicName(regCarDTO.getMechanicName())
-		            .mechanicNo(mechanicNo)
-		            .build();
+			
+			CarRegisterDTO carRegisterDTO = extracted(regCarDTO, mechanicNo, clientDistanceDriven, regiNum, regiNumber);
+			
 			log.info("밑 : "+clientDistanceDriven);
 
-			cs.regAndEdit(carRegisterDTO);
+			carRegisterService.saveRegAndEdit(carRegisterDTO);
 		}
-		
-		
-
 		return "redirect:/reg/registration";
 		 
+	}
+
+
+//	/regRegistrationAndcorrection if부분
+	private CarRegisterDTO extracted(CarRegisterDTO regCarDTO, int mechanicNo, int word, int number) {
+		CarRegisterDTO carRegisterDTO = CarRegisterDTO
+								.builder()
+								.registrationNumber(number)
+					            .clientVin(regCarDTO.getClientVin())
+					            .clientCarNumber(regCarDTO.getClientCarNumber())
+					            .clientDistanceDriven(regCarDTO.getClientDistanceDriven())
+					            .memberEmail(regCarDTO.getMemberEmail())
+					            .memberName(regCarDTO.getMemberName())
+					            .memberPhone(regCarDTO.getMemberPhone())
+					            .registrationClientRequests(regCarDTO.getRegistrationClientRequests())
+					            .registrationSignificant(regCarDTO.getRegistrationSignificant())
+					            .mechanicNo(mechanicNo)
+					            .mechanicName(regCarDTO.getMechanicName())
+					            .shopNo(word)
+					            .shopArea(regCarDTO.getShopArea())
+								.shopAreaPoint(regCarDTO.getShopAreaPoint())
+					            .registrationDate(regCarDTO.getRegistrationDate())
+					            .clientProductionDate(regCarDTO.getClientProductionDate())
+					            .build();
+		return carRegisterDTO;
+	}
+	
+//	/regRegistrationAndcorrection else if부분
+	private CarRegisterDTO extracted(CarRegisterDTO regCarDTO, int mechanicNo, int clientDistanceDriven, int regiNum,
+			int regiNumber) {
+		CarRegisterDTO carRegisterDTO = CarRegisterDTO
+				.builder()
+				.clientCarNumber(regCarDTO.getClientCarNumber())
+				.clientDistanceDriven(clientDistanceDriven)
+				.memberName(regCarDTO.getMemberName())
+		        .memberPhone(regCarDTO.getMemberPhone())
+		        .registrationClientRequests(regCarDTO.getRegistrationClientRequests())
+		        .registrationSignificant(regCarDTO.getRegistrationSignificant())
+		        .registrationRN(regiNum)
+		        .registrationNumber(regiNumber)
+		        .registrationDate(regCarDTO.getRegistrationDate())
+		        .mechanicName(regCarDTO.getMechanicName())
+		        .mechanicNo(mechanicNo)
+		        .build();
+		return carRegisterDTO;
 	}
 	
 	//지정 정비사 확인
@@ -154,14 +176,14 @@ public class RegistrationController {
 	public List<MechanicRegisterDTO> regRegistrationChiceMechanic(@RequestParam(name = "mechanicNoParam", defaultValue = "0", required = false) int mechanicNo,@RequestParam(name = "mechanicName" , required = false) String mechanicName,HttpSession session) {
 		int word = (Integer)session.getAttribute("shopNo");
 			
-		return cs.regChiceMechanic(mechanicNo,mechanicName,word);
+		return carRegisterService.findAllRegChiceMechanic(mechanicNo,mechanicName,word);
 		
 	}
 	
 	@PostMapping("/reg/registration/modal/mechanicInput")
 	@ResponseBody
 	public MechanicRegisterDTO regRegistrationChiceMechanicModal(@RequestParam("mechanicNo")int mechanicNo) {
-		return cs.registrationChiceMechanicInput(mechanicNo);
+		return carRegisterService.findOneRegistrationChiceMechanicInput(mechanicNo);
 	}
 	
 	//차량 등록
@@ -184,8 +206,34 @@ public class RegistrationController {
 						.memberName(regCarDTO.getMemberName())
 						.memberPhone(regCarDTO.getMemberPhone())
 						.build();
-		cs.carRegister(regCarDTO);
+		carRegisterService.createCarRegister(regCarDTO);
 		return "/registration/carRegister";
+	}
+	
+	@GetMapping("/reg/work")
+	public String work() {
+		
+		return "/registration/work";
+	}
+	
+	@ResponseBody
+	@GetMapping("/reg/registration/modal/technology")
+	public List<TechnologyAndPartDTO> workTechnologyModal(@RequestParam(name = "technologyNumberModal",required = false,defaultValue = "0")Integer technologyNumber,@RequestParam(name ="technologyDetailModal",required = false)String technologyDetail) {
+//		int technologyNumberInt = 0;
+//		if (technologyNumber == null || technologyNumber.isEmpty()) {
+//			technologyNumberInt = Integer.parseInt(technologyNumber);			
+//		}
+		TechnologyAndPartDTO dto = TechnologyAndPartDTO	.builder()
+														.technologyNumber(technologyNumber)
+														.technologyDetail(technologyDetail)
+														.build();
+		return technologyAndPartService.findAllTechnologyModal(dto);
+	}
+	
+	@GetMapping("/reg/payment")
+	public String payment() {
+		
+		return "/registration/payment";
 	}
 	
 

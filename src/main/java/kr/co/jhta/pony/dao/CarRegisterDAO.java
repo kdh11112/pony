@@ -15,33 +15,33 @@ import lombok.extern.slf4j.Slf4j;
 @Repository
 public interface CarRegisterDAO {
 
-	public void CarInsert(CarRegisterDTO regCarDTO, int no);
+	public void insertCar(CarRegisterDTO regCarDTO, int no);
 
-	public void ClientInsert(CarRegisterDTO regCarDTO);
+	public void insertClient(CarRegisterDTO regCarDTO);
 
-	public int ClientSelectNo(CarRegisterDTO regCarDTO);
+	public int selectClientNo(CarRegisterDTO regCarDTO);
 
-	public List<CarRegisterDTO> SearchSelect(String clientVin, String clientCarNumber, String memberName);
+	public List<CarRegisterDTO> selectSearch(String clientVin, String clientCarNumber, String memberName);
 
 //	public List<CarRegisterDTO> regRegistrationSelect(String clientVin);
-	public CarRegisterDTO regRegistrationSelect(String clientVin);
+	public CarRegisterDTO selectRegRegistration(String clientVin);
 
-	public void regAndcorrInsert(CarRegisterDTO regCarDTO);
+	public void insertRegAndcorr(CarRegisterDTO regCarDTO);
 	
-	public void regAndcorrRemainInsert(CarRegisterDTO regCarDTO);
+	public void insertRegAndcorrRemain(CarRegisterDTO regCarDTO);
 
-	public CarRegisterDTO resNumSelect(int registrationRN, LocalDate registrationDate);
+	public CarRegisterDTO selectResNum(int registrationRN, LocalDate registrationDate);
 
-	public List<MechanicRegisterDTO> resMechanicSelect(Integer mechanicNo, String mechanicName, int word);
+	public List<MechanicRegisterDTO> selectResMechanic(Integer mechanicNo, String mechanicName, int word);
 
-	public MechanicRegisterDTO registrationChiceMechanicInputSelect(int mechanicNo);
+	public MechanicRegisterDTO selectRegistrationChiceMechanicInput(int mechanicNo);
 	
-	public CarRegisterDTO registrationTodayCases();
+	public CarRegisterDTO selectRegistrationTodayCases();
 
-	public void regAndEditOneUpdate(CarRegisterDTO carRegisterDTO);
-	public void regAndEditTwoUpdate(CarRegisterDTO carRegisterDTO);
+	public void updateRegAndEditOne(CarRegisterDTO carRegisterDTO);
+	public void updateRegAndEditTwo(CarRegisterDTO carRegisterDTO);
 
-	public int regAndcorrNumber();
+	public int selectRegAndcorrNumber();
 
 
 

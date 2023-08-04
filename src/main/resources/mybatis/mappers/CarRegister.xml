@@ -5,19 +5,19 @@
   
 <mapper namespace="kr.co.jhta.pony.dao.CarRegisterDAO">
 
-	<insert id="CarInsert" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+	<insert id="insertCar" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
 		INSERT INTO CLIENT(clientVin,clientCarNumber,clientDistanceDriven,clientCarType,clientShipDate,clientProductionDate,clientColor,memberNo) VALUES(#{regCarDTO.clientVin},#{regCarDTO.clientCarNumber},#{regCarDTO.clientDistanceDriven},#{regCarDTO.clientCarType},#{regCarDTO.clientShipDate},#{regCarDTO.clientProductionDate},#{regCarDTO.clientColor},#{no})
 	</insert>
 	
-	<insert id="ClientInsert" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+	<insert id="insertClient" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
 		INSERT INTO MEMBER(memberEmail,memberName,memberPhone,memberPassword) VALUES(#{memberEmail},#{memberName},#{memberPhone},#{memberName})
 	</insert>
 	
-	<select id="ClientSelectNo" resultType="int" parameterType="int">
+	<select id="selectClientNo" resultType="int" parameterType="int">
 		SELECT memberNo FROM MEMBER m ORDER BY memberNo DESC LIMIT 1
 	</select>
 	
-	<select id="SearchSelect" resultType="kr.co.jhta.pony.dto.CarRegisterDTO" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+	<select id="selectSearch" resultType="kr.co.jhta.pony.dto.CarRegisterDTO" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
 		SELECT clientVin, clientCarNumber, memberName
 		FROM CLIENT c
 		LEFT JOIN MEMBER m ON c.memberNo = m.memberNo
@@ -34,7 +34,7 @@
 		  </where> 
 	</select>
 	
-	<select id="regRegistrationSelect" resultType="kr.co.jhta.pony.dto.CarRegisterDTO" parameterType="String">
+	<select id="selectRegRegistration" resultType="kr.co.jhta.pony.dto.CarRegisterDTO" parameterType="String">
 		
 			select * from(SELECT
 			    c.clientVin,
@@ -69,7 +69,7 @@
 
 	</select>
 	
-	<select id="resMechanicSelect" parameterType="kr.co.jhta.pony.dto.MechanicRegisterDTO" resultType="kr.co.jhta.pony.dto.MechanicRegisterDTO">
+	<select id="selectResMechanic" parameterType="kr.co.jhta.pony.dto.MechanicRegisterDTO" resultType="kr.co.jhta.pony.dto.MechanicRegisterDTO">
 		SELECT  m.mechanicNo ,
 				m.mechanicName 
 		FROM MECHANIC m LEFT JOIN SHOP s 
@@ -83,21 +83,21 @@
 		</if>
 	</select>
 	
-	<insert id="regAndcorrInsert" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+	<insert id="insertRegAndcorr" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
 	INSERT INTO REGISTRATION(registrationClientRequests,registrationSignificant,mechanicNo,clientVin,shopNo,registrationDate) 
 				values(#{registrationClientRequests},#{registrationSignificant},#{mechanicNo},#{clientVin},#{shopNo},CONVERT_TZ(NOW(), '+00:00', '+09:00'))
 	</insert>
 	
-	<select id="regAndcorrNumber" resultType="int">
+	<select id="selectRegAndcorrNumber" resultType="int">
 		SELECT max(registrationNumber)+1 FROM REGISTRATION
 	</select>
 	
-	<insert id="regAndcorrRemainInsert" parameterType="kr.co.jhta.pony.dto.HistroyDTO">
+	<insert id="insertRegAndcorrRemain" parameterType="kr.co.jhta.pony.dto.HistroyDTO">
 	INSERT INTO HISTORY (registrationNumber,clientCarNumber,memberName,clientDistanceDriven ,shopNo,shopArea,shopAreaPoint,mechanicName)
 				VALUES(#{registrationNumber},#{clientCarNumber},#{memberName},#{clientDistanceDriven},#{shopNo},#{shopArea},#{shopAreaPoint},#{mechanicName})
 	</insert>
 	
-	<update id="regAndEditOneUpdate" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+	<update id="updateRegAndEditOne" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
 		UPDATE HISTORY h 
 		JOIN REGISTRATION r ON h.registrationNumber = r.registrationNumber
 		JOIN CLIENT c ON c.clientVin = r.clientVin
@@ -113,7 +113,7 @@
 		WHERE r.registrationNumber = #{registrationNumber}
 		AND DATE(r.registrationDate) = #{registrationDate}
 	</update>
-	<update id="regAndEditTwoUpdate" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+	<update id="updateRegAndEditTwo" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
 		UPDATE HISTORY h 
 		JOIN REGISTRATION r ON h.registrationNumber = r.registrationNumber
 		JOIN CLIENT c ON c.clientVin = r.clientVin
@@ -127,7 +127,7 @@
 	
 	
 	
-	<select id="resNumSelect" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO" resultType="kr.co.jhta.pony.dto.CarRegisterDTO">
+	<select id="selectResNum" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO" resultType="kr.co.jhta.pony.dto.CarRegisterDTO">
 		SELECT * 
 		FROM (select row_number() over(order by registrationDate asc) registrationRN,
 					r.registrationNumber,
@@ -159,12 +159,12 @@
 	</select>
 	
 	
-	<select id="registrationChiceMechanicInputSelect" resultType="kr.co.jhta.pony.dto.MechanicRegisterDTO" parameterType="int">
+	<select id="selectRegistrationChiceMechanicInput" resultType="kr.co.jhta.pony.dto.MechanicRegisterDTO" parameterType="int">
 		select mechanicNo ,mechanicName  from MECHANIC m 
 		WHERE mechanicNo = #{mechanicNo}
 	</select>
 	
-	<select id="registrationTodayCases" resultType="kr.co.jhta.pony.dto.CarRegisterDTO" parameterType="int">
+	<select id="selectRegistrationTodayCases" resultType="kr.co.jhta.pony.dto.CarRegisterDTO" parameterType="int">
 	    SELECT
 	        COUNT(registrationNumber) AS registrationNumber
 	    FROM
