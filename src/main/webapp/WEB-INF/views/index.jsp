@@ -31,7 +31,9 @@
 			.bg .active{z-index:1;}
 			.mypage{position:absolute; right:80px; top:23px; color:white; width:35px;}
 		</style>
-<script>
+
+<!-- 쿠키에 토큰을 담은순간. 굳이 로컬저장소에 다시 옮겨담을 필요가없음.
+ <script>
     // 쿠키의 값을 확인하는 함수
     function getAllCookies() {
         const cookies = document.cookie;
@@ -63,7 +65,9 @@
         console.log("토큰이 쿠키에 없습니다.");
     }
 </script>
-		<script src="js/jwt.js"></script>
+ -->
+
+
 		<script src="js/jquery-3.4.1.min.js"></script>
 		<script>
 			$(function(){
@@ -103,8 +107,8 @@
 				<img src="images/KakaoTalk_20230720_160646746.png" alt="미니골프">
 				</a>
 			</div>
-				<p class="mypage"><a href="/mypage"><img src="images/pngegg.png" alt="" /></a></p>
-				<a href="#" class="open">
+		<p class="mypage"><a href="/mypage" id="sendDataButton"><img src="images/pngegg.png" alt="" /></a></p>
+<a href="#" class="open">
 				<img src="images/icon_menu.png" alt="닫기">
 				</a>
 				<nav class="nav">
@@ -155,4 +159,5 @@
 		</footer>
 	</div>
 	</body>
+		
 </html>

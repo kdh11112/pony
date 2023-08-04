@@ -108,12 +108,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         Cookie cookie = new Cookie("jwtToken", token);
                         cookie.setPath("/"); // 쿠키의 유효 범위를 "/"로 설정하여 모든 경로에서 사용 가능하도록 합니다.
                         response.addCookie(cookie);
+
+//                        //확인용 코드  /// 요청객체에서 확인하는게 아니라, 쿠키에 담아서 확인. 쿠키는 자동으로 요청객체에 쿠키로 담김
+//                        final String requestTokenHeader = request.getHeader("Authorization");
+//                        System.out.println("리퀘스트 토큰 해더 : " + requestTokenHeader);
                         
-                        //확인용 코드
-                        final String requestTokenHeader = request.getHeader("Authorization");
-                        System.out.println("리퀘스트 토큰 해더 : " + requestTokenHeader);
-                        
-                        //리다이렉트가 문제인가?
                         response.sendRedirect("/"); // 로그인 성공하면 루트 페이지로 이동
                     }
                 })
