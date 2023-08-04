@@ -3,6 +3,7 @@ package kr.co.jhta.pony.security;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -99,10 +100,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         String token = jwtTokenUtil.generateToken(username);
                         System.out.println("로그인 성공 핸들러 통과중 토큰 : " + token); //<--- 여기선 있음.
                         
-                        // 생성된 토큰을 응답 헤더에 추가
-                        response.addHeader("Authorization", token); // <-- 여기서 null임.
-
-                        System.out.println("리스폰스 : " );
+						/*
+						 * // 생성된 토큰을 응답 헤더에 추가 response.addHeader("Authorization", token); // <-- 여기서
+						 * null임.
+						 */
+                     // 생성된 토큰을 쿠키에 저장합니다.
+                        Cookie cookie = new Cookie("jwtToken", token);
+                        cookie.setPath("/"); // 쿠키의 유효 범위를 "/"로 설정하여 모든 경로에서 사용 가능하도록 합니다.
+                        response.addCookie(cookie);
                         
                         //확인용 코드
                         final String requestTokenHeader = request.getHeader("Authorization");

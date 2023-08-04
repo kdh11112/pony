@@ -31,17 +31,45 @@
 			.bg .active{z-index:1;}
 			.mypage{position:absolute; right:80px; top:23px; color:white; width:35px;}
 		</style>
-		<script>
-		function setTokenToLocalStorage(token) {
-  localStorage.setItem('jwtToken', token);
-}
+<script>
+    // 쿠키의 값을 확인하는 함수
+    function getAllCookies() {
+        const cookies = document.cookie;
+        console.log("모든 쿠키 값:", cookies);
+    }
 
-// 로컬 스토리지에서 토큰을 읽어옴
-function getTokenFromLocalStorage() {
-  return localStorage.getItem('jwtToken');
-}
+    // 토큰을 추출하는 함수
+    function getTokenFromCookie(name) {
+        const value = "; " + document.cookie;
+        const parts = value.split("; " + name + "=");
+        if (parts.length === 2) {
+            return parts.pop().split(";").shift();
+        }
+        return null; // 토큰이 존재하지 않을 경우 null 반환
+    }
+
+    // 쿠키 확인
+    getAllCookies();
+
+    // 쿠키에서 토큰 추출
+    const existingToken = getTokenFromCookie("jwtToken");
+    console.log("existingToken:", existingToken);
+
+    if (existingToken) {
+        // 토큰을 로컬 스토리지에 저장
+        localStorage.setItem("jwtToken", existingToken);
+        console.log("토큰 저장 완료:", existingToken);
+    } else {
+        console.log("토큰이 쿠키에 없습니다.");
+    }
 </script>
-		<script src="js/jwt.js"></script>
+
+
+
+
+
+
+
 		<script src="js/jquery-3.4.1.min.js"></script>
 		<script>
 			$(function(){
@@ -134,7 +162,17 @@ function getTokenFromLocalStorage() {
 	</div>
 	
 	   <script>
-      // 토큰이 쿠키에 저장되어 있는지 확인
+	   
+	// 리다이렉트된 페이지에서 토큰 추출 후 저장 (redirected_page.js)
+	   const urlSearchParams = new URLSearchParams(window.location.search);
+	   const token = urlSearchParams.get("token");
+
+	   if (token) {
+	     // 토큰을 로컬 스토리지에 저장
+	     localStorage.setItem("jwtToken", token);
+	   }
+	   
+/*       // 토큰이 쿠키에 저장되어 있는지 확인
       const tokenCookie = document.cookie
          .split('; ')
          .find(row => row.startsWith('jwtToken='));
@@ -151,7 +189,7 @@ function getTokenFromLocalStorage() {
          console.log('토큰이 존재합니다:', tokenLocalStorage);
       } else {
          console.log('토큰이 존재하지 않습니다.');
-      }
+      } */
    </script>
 	
 	</body>

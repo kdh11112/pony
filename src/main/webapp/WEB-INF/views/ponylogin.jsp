@@ -16,13 +16,25 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
 	rel="stylesheet" />
 
-<script src="js/jwt.js"></script>
 <script>
-document.querySelector('form[action="/login_proc"]').addEventListener('submit', function(event) {
-  event.preventDefault();
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  login(email, password);
+//로그인 폼의 Submit 이벤트 처리 (login.js)
+document.getElementById("loginForm").addEventListener("submit", function (event) {
+  event.preventDefault(); // 기본 Submit 동작 막기
+
+  const formData = new FormData(event.target);
+
+  // 폼 데이터를 서버로 전송
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "/login_proc", false); // 동기적으로 요청 처리 (false)
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.send(new URLSearchParams(formData).toString());
+
+  if (xhr.status === 200) {
+    // 응답이 성공적으로 돌아왔을 때 리다이렉트
+    window.location.href = "/"; // 리다이렉트될 페이지로 이동
+  } else {
+    console.error("Error:", xhr.statusText);
+  }
 });
 </script>
 <meta charset="UTF-8">
@@ -44,7 +56,7 @@ document.querySelector('form[action="/login_proc"]').addEventListener('submit', 
 						<div class="card-body p-5 text-center">
 						
 						
-						<form action="/login_proc" method="post">
+						<form id="loginForm" action="/login_proc" method="post">
 
 							<div class="form-outline mb-4">
 								<input type="email" name="email" id="email" class="form-control form-control-lg shadow-sm" value="djw2717@naver.com"/>
