@@ -5,7 +5,6 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
-import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -17,15 +16,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.jhta.pony.dto.ClientDTO;
 import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.dto.QuestionDTO;
+import kr.co.jhta.pony.dto.ShopDTO;
+import kr.co.jhta.pony.dto.TestDriveApplicationReservationDetailsDTO;
 import kr.co.jhta.pony.dto.TestDriveDTO;
-import kr.co.jhta.pony.security.account.AccountContext;
 import kr.co.jhta.pony.security.service.PonyMemberService;
 import kr.co.jhta.pony.service.ClientService;
 import kr.co.jhta.pony.service.QuestionService;
+import kr.co.jhta.pony.service.ShopService;
+import kr.co.jhta.pony.service.TestDriveApplicationReservationDetailsService;
 import kr.co.jhta.pony.service.TestDriveService;
 import kr.co.jhta.pony.util.PageUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +44,8 @@ import lombok.extern.slf4j.Slf4j;
 public class MyPageController {
 
 	@Autowired
+	ShopService ss;
+	@Autowired
 	PasswordEncoder passwordEncoder;
 	@Autowired
 	PonyMemberService service;
@@ -49,7 +54,7 @@ public class MyPageController {
 	@Autowired
 	ClientService cService;
 	@Autowired
-	TestDriveService tService;
+	TestDriveApplicationReservationDetailsService testdriveapplicationreservationdetailsservice;
 	//---------------------------마이페이지 메인
 	@GetMapping("/mypage")
 //	public String mypage(Principal p, HttpSession session) {
@@ -356,11 +361,12 @@ public class MyPageController {
 			PonyMemberDTO dto1 = service.getMemberEmail(p.getName());
 			int memberNo = dto1.getMemberNo();
 			
-			List<TestDriveDTO> testDrivinglist = tService.getTestDriveScheduleByMemberNo(memberNo);
-			 model.addAttribute("dto",testDrivinglist);
+			List<TestDriveApplicationReservationDetailsDTO> testDrivinglist = testdriveapplicationreservationdetailsservice.getTestDriveScheduleByMemberNo(memberNo);
+			 model.addAttribute("testdriveapplicationreservationdetailsdto",testDrivinglist);
 			 log.info(">>>>>>>>>>>>>>>>>>>>>>시승{}",testDrivinglist);
 			return "mypage/testdriving";
 		}
+
 }
 
 

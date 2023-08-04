@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="kr.co.jhta.pony.dao.TestDriveApplicationReservationDetailsDAO">
+  	<!-- 회원에 맞는 시승일정 가져오기 -->
+	<select id="getTestDriveScheduleByMemberNo" parameterType="int" resultType="kr.co.jhta.pony.dto.TestDriveApplicationReservationDetailsDTO">
+	  SELECT
+	    M.modelName ,
+	    S.shopAreaPoint,
+	    S.shopAddr,
+	    T.testDriveTime,
+	    T.testDriveSchedule
+	  FROM
+	    TESTDRIVE AS T
+	    INNER JOIN MODEL AS M ON T.modelNo = M.modelNo
+	    INNER JOIN SHOP AS S ON T.shopNo = S.shopNo
+	  WHERE
+	    T.memberNo = #{memberNo};
+	</select>
+<!-- 시승신청내역 변경 -->
+	<update id="updatedTestDrive" parameterType="kr.co.jhta.pony.dto.TestDriveApplicationReservationDetailsDTO" >
+		UPDATE TESTDRIVE AS T
+		INNER JOIN MODEL AS M ON T.modelNo = M.modelNo
+		INNER JOIN SHOP AS S ON T.shopNo = S.shopNo
+		SET
+		  M.modelName = #{modelName},
+		  S.shopAreaPoint = #{shopAreaPoint},
+		  S.shopAddr = #{shopAddr},
+		  T.testDriveTime = #{testDriveTime},
+		  T.testDriveSchedule = #{testDriveSchedule}
+		WHERE T.memberNo = #{memberNo} and testDriveNo = #{testDriveNo};
+	</update>
+
+
+  </mapper>

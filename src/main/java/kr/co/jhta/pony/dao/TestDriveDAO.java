@@ -11,5 +11,4 @@ import kr.co.jhta.pony.dto.TestDriveDTO;
 @Mapper
 public interface TestDriveDAO {
 	public void insertTestDriveSchedule(TestDriveDTO dto);
-	public List<TestDriveDTO> getTestDriveScheduleByMemberNo (int memberNo);
 }

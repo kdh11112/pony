@@ -53,8 +53,8 @@
 	    WHERE
 	        memberNo = #{memberNo}
 	</update>
-	<!-- 회원에 맞는 시승일정 가져오기 -->
-	<select id="getTestDriveScheduleByMemberNo" parameterType="int" resultType="kr.co.jhta.pony.dto.Test2DriveDTO">
+	<!--회원에 맞는 시승일정 가져오기
+	<select id="getTestDriveScheduleByMemberNo" parameterType="int" resultType="kr.co.jhta.pony.dto.TestDriveApplicationReservationDetailsDTO">
 	  SELECT
 	    M.modelName ,
 	    S.shopAreaPoint,
@@ -67,5 +67,5 @@
 	    INNER JOIN SHOP AS S ON T.shopNo = S.shopNo
 	  WHERE
 	    T.memberNo = #{memberNo};
-	</select>
+	</select> -->
 </mapper>
