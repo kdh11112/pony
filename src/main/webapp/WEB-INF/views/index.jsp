@@ -154,27 +154,5 @@
 		<p>COPYRIGHT © 2017 BMW KOREA. ALL RIGHTS RESERVED.</p>
 		</footer>
 	</div>
-	
-	   <script>
-      // 토큰이 쿠키에 저장되어 있는지 확인
-      const tokenCookie = document.cookie
-         .split('; ')
-         .find(row => row.startsWith('jwtToken='));
-      if (tokenCookie) {
-         const token = tokenCookie.split('=')[1];
-         console.log('토큰이 존재합니다:', token);
-      } else {
-         console.log('토큰이 존재하지 않습니다.');
-      }
-
-      // 토큰이 로컬 스토리지에 저장되어 있는지 확인
-      const tokenLocalStorage = localStorage.getItem('jwtToken');
-      if (tokenLocalStorage) {
-         console.log('토큰이 존재합니다:', tokenLocalStorage);
-      } else {
-         console.log('토큰이 존재하지 않습니다.');
-      }
-   </script>
-	
 	</body>
 </html>
