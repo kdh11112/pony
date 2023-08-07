@@ -6,10 +6,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUserDetails implements UserDetails {
+	
     private String username;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
-
+    
     public CustomUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         this.username = username;
         this.password = password;
@@ -24,6 +25,10 @@ public class CustomUserDetails implements UserDetails {
 		return null;
 	}
 
+	 public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+	        this.authorities = authorities;
+	    }
+	
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub

@@ -37,6 +37,18 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
   }
 });
 </script>
+
+<script>
+function redirectToGoogle() {
+    window.location.href = "oauth2/authorization/google";
+}
+
+function redirectToKaKao(){
+	window.location.href = "oauth2/authorization/kakao"
+}
+</script>
+
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -82,7 +94,7 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
 
 
 							<div class="d-flex justify-content-center">
-								<button class="btn btn-lg btn-block" 
+								<button class="btn btn-lg btn-block" onclick="redirectToGoogle()"
 									style="background-color: #dd4b39; color: white; width: 300px; height: 45px; padding: 0px; margin: 10px;">
 									<i class="fab fa-google me-2" style="color: white;"></i> Sign in with google <!-- 이거 누르면 구글로그인으로  -->
 								</button>
@@ -91,9 +103,9 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
 							</div>
 
 							<div>
-								<button class="btn btn-primary btn-lg btn-white shadow-sm" type="submit"
+								<button class="btn btn-primary btn-lg btn-white shadow-sm" type="submit" onclick="redirectToKaKao()"
 									style="padding: 0px;">
-									<img src="images/kakao/kakao_login_medium_wide.png" alt="" 
+									<img src="images/kakao/kakao_login_medium_wide.png" alt=""  
 										style="width: 100%;" />  <!-- 이거 누르면 카카오로그인으로  -->
 								</button>
 							</div>

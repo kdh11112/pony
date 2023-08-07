@@ -29,6 +29,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 
 import kr.co.jhta.pony.security.jwt.JwtAuthenticationEntryPoint;
 import kr.co.jhta.pony.security.jwt.JwtAuthorizationFilter;
+import kr.co.jhta.pony.security.service.CustomOAuth2UserService;
 import kr.co.jhta.pony.security.service.CustomUserDetailsService;
 import kr.co.jhta.pony.security.util.JwtTokenUtil;
 
@@ -43,6 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
 
+	@Autowired
+	private CustomOAuth2UserService customOAuth2UserService;
+	
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
@@ -152,8 +156,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMeCookieName("cookName")
                 .rememberMeParameter("remember")
                 .tokenValiditySeconds(3600)
-                .userDetailsService(customUserDetailsService);
-
+                .userDetailsService(customUserDetailsService)
+        	.and()
+            .oauth2Login()
+            .loginPage("/login") // 로그인 페이지 설정
+            .defaultSuccessUrl("/") // OAuth 2.0 로그인 성공하면 루트 페이지로 이동
+            .userInfoEndpoint()
+                .userService(customOAuth2UserService); // OAuth 2.0 사용자 정보를 처리할 커스텀 UserService를 설정
+        		
+                
+        			
+        
+        
         // JwtAuthorizationFilter를 UsernamePasswordAuthenticationFilter 앞에 추가
         http.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
     }

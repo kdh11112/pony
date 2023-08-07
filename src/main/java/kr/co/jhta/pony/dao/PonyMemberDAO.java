@@ -20,6 +20,7 @@ public interface PonyMemberDAO {
 
 	public int getTotal();
 	
+	
 	public void increaseHits(int noticeNo);
 
 	public Object selectOne(int noticeNo);

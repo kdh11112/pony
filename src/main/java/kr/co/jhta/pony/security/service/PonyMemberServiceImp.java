@@ -81,6 +81,8 @@ public class PonyMemberServiceImp implements PonyMemberService {
 		dao.myinfomodifyOne(dto);
 		
 	}
+
+
 	
 	
 	
