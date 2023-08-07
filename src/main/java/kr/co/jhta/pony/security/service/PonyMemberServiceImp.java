@@ -81,6 +81,12 @@ public class PonyMemberServiceImp implements PonyMemberService {
 		dao.myinfomodifyOne(dto);
 		
 	}
+
+	@Override
+	public Object getMemberPoint(int memberNo) {
+		// TODO Auto-generated method stub
+		return dao.getMemberPoint(memberNo);
+	}
 	
 	
 	

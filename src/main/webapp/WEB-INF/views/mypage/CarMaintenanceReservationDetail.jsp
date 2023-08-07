@@ -197,76 +197,7 @@ textarea {
 		});
 		location.href = "/testdriving";
 	}
-	/* }); */
-	//$('input:checkbox').prop('checked',true);
-	/* $('input:checkbox').is(':checked'); //체크박스 체크여부 확인
-	var parentTag = $('input:checkbox').parent(); */
-	//console.log(parentTag);
-	/*  function deleteCar(e){
-	 console.log(e);
-	 $('input:checkbox').prop('checked',true);
-	 $('input:checkbox').is(':checked'); //체크박스 체크여부 확인
-	 var parentTag = $('input:checkbox').parent();
-	 console.log(parentTag);
-	 }  */
-	//등록된 차량 삭제
-	/* function deleteCar(testDriveNo) {
-	 let selectedCarsId = $("#selectedCarsId").val()
-	 // 확인 메시지를 띄워 사용자에게 삭제 여부를 물어봅니다.
-	 // if (confirm("선택한 차량을 삭제하시겠습니까?")) {
-	 // Ajax를 사용하여 서버에 삭제 요청을 전송합니다.
-	 console.log(selectedCarsId);
-	 $.ajax({
-	 url : "/testdrivingdelete", // 삭제 요청을 처리하는 서버의 URL
-	 method : "GET", // 삭제 요청은 POST 방식으로 전송합니다.
-	 data : {
-	 testDriveNo : selectedCarsId
-	 }, // 삭제할 차대번호를 전달합니다.
-	 success : function(data) {
-	 // 삭제 요청에 성공하면 해당 행을 테이블에서 제거합니다.
-	 //$("tr:has(td:contains(" + testDriveNo + "))").remove();
-	 // 여기서 "tr:has(td:contains(" + clientVin + "))"은 차대번호가 clientVin인 행을 찾아내는 선택자입니다.
-	 // Success callback, handle the response from the server if needed
-	 // Here, you can add code to close the modal and reset the input fields
-	 //$("#exampleModal1").modal("hide"); // Close the modal
-	 resetInputFields(); // Reset the input fields
-	 // 삭제 성공 후 리다이렉트를 수행합니다.
-	 window.location.href = "/testdriving"; // 삭제 성공 페이지로 리다이렉트합니다.
-	 },
-	 error : function(xhr, status, error) {
-	 // 삭제 요청에 실패하면 오류 메시지를 처리할 수 있습니다.
-	 console.log(error);
-	 }
-	 });
-	 //}
-	 } */
 
-	/* function deleteSelectedCars() {
-		var selectedCars = $("input[name='selectedCars']:checked");
-
-		var selectedCarIds = [];
-		selectedCars.each(function() {
-			selectedCarIds.push($(this).val());
-		});
-
-		$.ajax({
-			url : "/testdrivingdelete", // 삭제 요청을 처리하는 서버의 URL
-			method : "GET", // 삭제 요청은 GET 방식으로 전송. (필요에 따라 변경 가능)
-			data : {
-				testDriveNo : selectedCarIds.join(",")
-			// 선택된 시승예약내역의 ID를 쉼표로 구분하여 전달
-			},
-			success : function(data) {
-				// 삭제 요청에 성공하면 선택된 행을 테이블에서 제거.
-				selectedCars.closest("tr").remove();
-				// 여기서 선택된 시승예약내역의 행을 삭제.
-				// 필요한 경우 다른 업데이트 작업을 수행.
-			},
-			error : function(xhr, status, error) {
-				console.log(error);
-			}
-		});
-	} */
 </script>
 
 </head>

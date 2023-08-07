@@ -75,6 +75,13 @@
 		FROM QUESTION
 		WHERE questionNo = #{questionNo}
 	</delete>
+	
+	<!-- 사용자의 질문갯수 출력 -->
+	<select id="getqnaCount" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM QUESTION
+		WHERE memberNo = #{memberNo};
+	</select>
 </mapper>
 
 

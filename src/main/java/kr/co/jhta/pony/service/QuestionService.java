@@ -32,5 +32,6 @@ public interface QuestionService {
 	public void deletecheck(String no);	
 	// 답변 수정
 	public void qnamodifyOne(QuestionDTO dto);
+	public Object getqnaCount(int memberNo);
 
 }

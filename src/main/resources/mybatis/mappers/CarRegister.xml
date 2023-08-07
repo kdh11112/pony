@@ -150,6 +150,26 @@
 	    WHERE
 	        DATE(registrationDate) = CURDATE()
 	</select>
-	
+	<!-- 정비예약내역 가져오기 -->
+	<!-- <select id="">
+		SELECT
+		    r.registrationNumber,
+		    r.registrationClientRequests,
+		    r.clientVin,
+		    r.mechanicNo,
+		    c.clientCarNumber,
+		    c.clientDistanceDriven,
+		    c.clientCarType,
+		    c.clientShipDate,
+		    c.clientProductionDate,
+		    c.clientColor,
+		    r.shopNo,
+		    r.registrationReservationDueDate,
+		    r.registrationDate
+		FROM REGISTRATION r
+		JOIN CLIENT c ON r.clientVin = c.clientVin
+		JOIN MEMBER m ON c.memberNo = m.memberNo
+		WHERE m.memberNo = #{memberNo};
+	</select> -->
 
 </mapper>

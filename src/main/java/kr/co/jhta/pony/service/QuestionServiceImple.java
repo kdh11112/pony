@@ -97,5 +97,11 @@ public class QuestionServiceImple implements QuestionService {
 		
 	}
 
+	@Override
+	public Object getqnaCount(int memberNo) {
+		// TODO Auto-generated method stub
+		return qdao.getqnaCount(memberNo);
+	}
+
 
 }

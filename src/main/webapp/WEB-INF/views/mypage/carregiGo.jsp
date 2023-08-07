@@ -285,11 +285,11 @@
 										마이페이지-메인" data-link-name="포인트" draggable="true"
 										class="btn btn-primary active" data-v-269e3e5f><span>
 												포인트 <!---->
-										</span></a> <strong data-v-269e3e5f>0 P</strong></li>
+										</span></a> <strong data-v-269e3e5f>${memberPoint } P</strong></li>
 
 									<li data-v-269e3e5f><a class="btn btn-primary active"
 										href="mypageqna"><span>1:1 문의 내역 <!---->
-										</span></a> <strong data-v-269e3e5f>0 건</strong></li>
+										</span></a> <strong data-v-269e3e5f>${qnacount } 건</strong></li>
 								</ul>
 							</div>
 							<!-- 포인트 1:1문의내역 end-->
@@ -388,7 +388,7 @@
 					<div id="mycarinfo">
 						<div class="my-car" data-v-269e3e5f>
 							<div class="title mycarTitle" data-v-269e3e5f>
-								<strong data-v-269e3e5f> 나의 자동차 <span data-v-269e3e5f>0대</span></strong>
+								<strong data-v-269e3e5f> 나의 자동차 <span data-v-269e3e5f>${carcnt }대</span></strong>
 
 							</div>
 							<div class="sub" data-v-269e3e5f>

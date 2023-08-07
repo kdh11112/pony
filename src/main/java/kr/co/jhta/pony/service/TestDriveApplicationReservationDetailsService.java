@@ -8,4 +8,6 @@ public interface TestDriveApplicationReservationDetailsService {
 
 	List<TestDriveApplicationReservationDetailsDTO> getTestDriveScheduleByMemberNo(int memberNo);
 
+	
+
 }

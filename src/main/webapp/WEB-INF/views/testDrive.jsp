@@ -292,6 +292,44 @@
 	font-weight: bold;
 }
 </style>
+
+
+
+<script>
+$("#shopFindBtn, .shop-area-btn").on("click", function() {
+	console.log("test");
+		$("div.shop-area-point.row").empty();
+		let shopAreaFind2 = document.getElementById("shopAreaFind").value;
+		let selectedVal = "";
+		if (shopAreaFind2 === "") { selectedVal = $(this).val(); }
+		else selectedVal = shopAreaFind2;
+
+		$.ajax({
+			url: "/shopFind",
+			
+			data: { shopAreaFind: selectedVal },
+			success: function(reponse) {
+				console.dir(reponse);
+				for (let i = 0; i < reponse.length; i++) {
+					var data = "<div class='shop-detail col-md-4' > <h4>"
+						+ reponse[i].shopAreaPoint + "</h4><p>"
+						+ reponse[i].shopAddr + "</p><p>"
+						+ reponse[i].shopPhone + "</p><button type='button' class='shop-no-btn btn btn-primary' value='"
+						+ reponse[i].shopNo + "'>선택</button></div>";
+					$("div.shop-area-point.row").append(data);
+				}
+				document.getElementById("shopAreaFind").value = "";
+
+				let offset = $("#headingThree").offset();
+				$('html').animate({ scrollTop: offset.top }, 1);
+			},
+			error: function(error) {
+				console.log("에러~~~~~");
+			}
+		})
+	})
+</script>
+
 <body>
 	
 		<div>
