@@ -6,29 +6,42 @@
 
 	<!-- 카트 목록 -->
 	<select id="cartAll" resultType="kr.co.jhta.pony.dto.CartDTO" parameterType="int">
-		SELECT c.cartNo, c.partNumber, c.cartCount, c.memberNo, p.partName, p.partNo, p.partPrice
-		FROM CART c left outer join PART p on c.partNumber = p.partNumber
+		SELECT c.cartNo, c.partNumber, c.cartCount, c.memberNo,
+		p.partName, p.partNo, p.partPrice
+		FROM CART c left outer join PART p on
+		c.partNumber = p.partNumber
 		WHERE memberNo = #{memberNo}
 	</select>
-	
+
 	<!-- 카트 추가 -->
 	<insert id="addCart">
+		<!-- INSERT INTO CART(memberNo, partNumber, cartCount) VALUES (#{memberNo}, #{partNumber}, #{cartCount}) -->
 		INSERT INTO CART(memberNo, partNumber, cartCount)
-		VALUES (#{memberNo}, #{partNumber}, #{cartCount})
+		SELECT #{memberNo}, #{partNumber}, #{cartCount}
+		FROM PART
+		WHERE partNumber = #{partNumber}
 	</insert>
 
 	<!-- 카트 삭제 -->
 	<delete id="deleteCart" parameterType="int">
 		DELETE
 		FROM CART
-		WHERE cartNo = {cartNo}
+		WHERE
+		cartNo = {cartNo}
 	</delete>
 
 	<!-- 카트 수량 수정 -->
-	<update id="modifyCount">
-		UPDATE CART
+	<update id="modifyCount" parameterType="kr.co.jhta.pony.dto.CartDTO">
 		SET cartCount = #{cartCount}
 		WHERE cartNo = #{cartNo}
 	</update>
-	
+
+	<!-- 카트 확인 -->
+	<select id="checkCart" resultType="kr.co.jhta.pony.dto.CartDTO">
+		SELECT cartNo, partNumber,
+		cartCount, memberNo
+		FROM CART
+		WHERE memberNo = #{memberNo} and
+		partNumber = #{partNumber}
+	</select>
 </mapper>

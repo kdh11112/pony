@@ -3,6 +3,7 @@ package kr.co.jhta.pony.control;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -11,12 +12,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.jhta.pony.dto.CartDTO;
 import kr.co.jhta.pony.dto.PageMakeDTO;
 import kr.co.jhta.pony.dto.PartDTO;
+import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.security.service.PonyMemberService;
+import kr.co.jhta.pony.service.CartService;
 import kr.co.jhta.pony.service.PartService;
 import kr.co.jhta.pony.util.Criteria;
 import lombok.extern.slf4j.Slf4j;
@@ -26,12 +33,16 @@ public class ShopController {
 	
 	private final PonyMemberService mservice;
 	private final PartService pservice;
+	private final CartService cservice;
 	private static final Logger logger = LoggerFactory.getLogger(ShopController.class);
+	
 	@Autowired
 	public ShopController(PonyMemberService memberservice,
-							PartService partservice) {
+							PartService partservice,
+							CartService cartservice) {
 		this.mservice = memberservice;
 		this.pservice = partservice;
+		this.cservice = cartservice;
 
 		}
 
@@ -40,16 +51,11 @@ public class ShopController {
 	/* 부품 목록 페이지 접속(페이징 적용) */
 	@GetMapping("/partall")
 	public String partAll(HttpSession session, Principal p, Model model, Criteria cri, PartDTO dto) {
-		
-//		int total = pservice.searchPartTotal(cri);
-//		PageMakeDTO pageMake = new PageMakeDTO(cri, total);
-//		model.addAttribute("partlist", pservice.searchPartList(cri));
-		
+
 		List<PartDTO> partlist = pservice.searchPartList(cri);
 		
 		if(!partlist.isEmpty()) {
 			model.addAttribute("partlist", partlist);	// 검색 시 부품 존재하는 경우
-//			logger.info("partlist : "+partlist);
 		} else {
 			model.addAttribute("listCheck", "empty");	// 검색 시 부품 존재하지 않는 경우
 			return "/shop/part/partAll";
@@ -61,25 +67,52 @@ public class ShopController {
 		return "/shop/part/partAll";
 	}
 	
-	@PostMapping("/partall")
-	public String addpartlist(HttpSession session, Principal p, Model model, Criteria cri, @RequestParam(name="selectPart")int selectPart,
-			@RequestParam(name="selectCar")String selectCar, @RequestParam(name="selectCount") int selectCount) {
-		
-		log.info("주문한 부품 번호: {}", selectPart);
-		log.info("주문한 자동차 타입: {}", selectCar);
-		log.info("주문한 부품 수량: {}", selectCount);
-
-		return "redirect:/partall";
-		
-	}
-	
-	
 	
 	// 장바구니 ----------------------------------------
 	
 	@GetMapping("/cartlist")
-	public String cartlist(HttpSession session, Principal p) {
+	public String cartlist(HttpSession session, Principal p, Model model, HttpServletRequest req, @ModelAttribute CartDTO cartdto) {
+		
+		if(p == null) {
+			return "/ponylogin";
+		}
+		
+		PonyMemberDTO memberDTO = mservice.getMemberEmail(p.getName());
+		session.setAttribute("memberDTO", memberDTO);
+		
+		// 로그인한 사용자의 회원번호
+		int memberNo = memberDTO.getMemberNo();
+		cartdto.setMemberNo(memberNo);
+		
+		// 회원번호 기준으로 장바구니 정보를 조회
+		List<CartDTO> userCart = cservice.cartAll(memberNo);
+		log.info("장바구니 목록 : "+ userCart);
+		
+		model.addAttribute("userCart", userCart);
 		return "/shop/cart/cartList";
+	}
+	
+	@RequestMapping("/partall")
+	@ResponseBody //데이터를 바로 반환함
+	public String addCart(HttpSession session, @ModelAttribute CartDTO cartdto, HttpServletRequest req,
+			Principal p) {
+		
+		if(p == null) {
+			return "5";
+		}
+		PonyMemberDTO memberDTO = mservice.getMemberEmail(p.getName());
+		session.setAttribute("memberDTO", memberDTO);
+		
+
+		int memberNo = memberDTO.getMemberNo();
+		// 카트 등록
+//		String partNo = req.getParameter("selectpartNo");
+		log.info("DTO: "+memberDTO);
+		cartdto.setMemberNo(memberNo);
+
+		int result = cservice.addCart(cartdto);
+		return result+"";
+		//return "redirect:/partall";
 	}
 	
 	@GetMapping("/buypart")

@@ -109,7 +109,7 @@
 	background-color: #c3daf7;
 }
 
-button[name='selectAction'] {
+button[name='selectpartNumber'] {
 	border: none;
 	background-color: white;
 }
@@ -169,81 +169,81 @@ td.partIcontd {
 		<!-- Section-->
 		<section class="py-5 two-column-layout">
 			<div class="container">
-				<form action="/partall" method="get">
-					<table class="table">
-						<colgroup>
-							<col width="110">
-							<col width="380">
-							<col width="180">
-							<col width="130">
-							<col width="100">
-							<col width="80">
-						</colgroup>
-						<tr>
-							<th>부품번호</th>
-							<th>부품명</th>
-							<th>옵션</th>
-							<th>모델명</th>
-							<th>수량</th>
-							<th>금액</th>
-							<th></th>
-						</tr>
-						<c:if test="${listCheck != 'empty' }">
+				<form action="/partall" method="post">
+				<table class="table">
+					<colgroup>
+						<col width="110">
+						<col width="380">
+						<col width="180">
+						<col width="130">
+						<col width="100">
+						<col width="80">
+					</colgroup>
+					<tr>
+						<th>부품번호</th>
+						<th>부품명</th>
+						<th>모델명</th>
+						<th>수량</th>
+						<th>금액</th>
+						<th></th>
+					</tr>
+					<c:if test="${listCheck != 'empty' }">
 
-							<c:forEach var="partlist" items="${partlist }">
-								<tr>
-									<td>${partlist.partNumber }</td>
-									<td style="text-align: left !important; padding-left: 50px;">${partlist.partName }</td>
-									<td>${partlist.modelName }</td>
-									<td>
-										<!-- 최대 주문 가능수량 : 재고수량, 재고 없으면 선택 비활성화 -->
+						<c:forEach var="partlist" items="${partlist }">
+							<tr>
+								<td>${partlist.partNumber }</td>
+								<td style="text-align: left !important; padding-left: 50px;">${partlist.partName }</td>
+								<td>${partlist.modelName }</td>
+								<td>
+									<!-- 최대 주문 가능수량 : 재고수량, 재고 없으면 선택 비활성화 -->
 										<c:if test="${partlist.partNo != 0}">
-											<select name="selectCount" class="choicetype" style="width: 70px;">
+											<select name="selectpartNo" class="choicetype" style="width: 70px;">
 												<c:forEach begin="1" end="${partlist.partNo }" var="i">
 													<option value="${i }">${i }</option>
 												</c:forEach>
 											</select>
 										</c:if>
-										<c:if test="${partlist.partNo == 0}">
-											<select name="selectCount" class="choicetype" style="width: 70px;">
-												<option value="0">0</option>
-											</select>
-										</c:if>
-									</td>
-									<td style="text-align: right !important; padding-right: 10px;">
-										<fmt:formatNumber pattern="###,###,###원">${partlist.partPrice }</fmt:formatNumber>
-									</td>
-									<td class="partIcontd">
-											<input type="hidden" name="selectPart" value="${partlist.partNumber }" />
-											<c:if test="${partlist.partNo != 0}">
-											<button type="button" name="selectAction" value="${partlist.partNumber }">
+									<c:if test="${partlist.partNo == 0}">
+										<select name="selectCount" class="choicetype" style="width: 70px;">
+											<option value="0">0</option>
+										</select>
+									</c:if>
+								</td>
+								<td style="text-align: right !important; padding-right: 10px;">
+									<fmt:formatNumber pattern="###,###,###원">${partlist.partPrice }</fmt:formatNumber>
+								</td>
+								<td class="partIcontd">
+										<c:if test="${partlist.partNo != 0}">
+											<button type="submit" class="addCart" name="selectpartNumber" value="${partlist.partNumber }">
+												<input type="hidden" name="selectpartNum" value="${partlist.partNumber }"/>
 												<img src="css/admin/assets/cart.png" style="width: 12px; height: 12px;" />
 											</button>
 										</c:if>
-										<c:if test="${partlist.partNo == 0}">
-											<span class="partNo" style="text-align: left !important">Out of stock</span>
-										</c:if>
-									</td>
-								</tr>
-							</c:forEach>
-						</c:if>
-						<c:if test="${listCheck == 'empty'}">
-							<tr>
-								<td colspan="6" class="table_empty">등록된 부품이 없습니다.</td>
+
+									<c:if test="${partlist.partNo == 0}">
+										<span class="partNo" style="text-align: left !important">Out of stock</span>
+									</c:if>
+								</td>
 							</tr>
-						</c:if>
+						</c:forEach>
+					</c:if>
+					<c:if test="${listCheck == 'empty'}">
 						<tr>
-							<td colspan="6" class="pagetd">
-								<nav aria-label="Page navigation example">
-									<ul class="pagination">
-										<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-											<li class="page-item"><a class="page-link" href="${num }">${num }</a></li>
-										</c:forEach>
-									</ul>
-								</nav>
-							</td>
+							<td colspan="6" class="table_empty">등록된 부품이 없습니다.</td>
 						</tr>
-					</table>
+					</c:if>
+					<tr>
+						<td colspan="6" class="pagetd">
+							<nav aria-label="Page navigation example">
+								<ul class="pagination">
+									<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+										<li class="page-item"><a class="page-link" href="${num }">${num }</a></li>
+									</c:forEach>
+								</ul>
+							</nav>
+						</td>
+					</tr>
+				</table>
 				</form>
 
 				<!-- 수정, 조회 후 현재 페이지로 다시 리다이렉트하게 하기 위해 hidden으로 현재 페이지 정보 넘겨줌 -->
@@ -310,10 +310,43 @@ td.partIcontd {
 
 		});
 
-		//		$("#selectAction").on("click",function(e){
-		//			var car = ${"select[name='selectCar']"}.parent().val;
-		//			console.log(car);
-		//		});
+ 		$(".addCart").on("click",function(e){
+ 			const form = {	
+ 			 		partNumber: $(this).closest("tr").find("input[name='selectpartNum']").val(),
+ 			 		cartCount: $(this).closest("tr").find("select[name='selectpartNo']").val()
+ 			 	};
+
+			$.ajax({
+				url: '/partall',
+				type: 'POST',
+				data : form,
+				success: function(result){
+				/* 	if(result == '1'){
+						alert("장바구니에 추가되었습니다.");
+					} else if(result == '2'){
+						alert("이미 장바구니에 추가된 상품입니다.");
+					} else if(result == '5'){
+						alert("로그인이 필요합니다.");
+						
+					} */
+				      cartAlert(result);
+
+				      // 응답 코드를 확인하고 적절한 메시지를 띄웁니다.
+				 
+				}
+			})
+		});
+ 		function cartAlert(result){
+ 			if(result == '0'){
+ 				alert("장바구니에 추가를 하지 못하였습니다.");
+ 			} else if(result == '1'){
+ 				alert("장바구니에 추가되었습니다.");
+ 			} else if(result == '2'){
+ 				alert("장바구니에 이미 추가되어져 있습니다.");
+ 			} else if(result == '5'){
+ 				alert("로그인이 필요합니다.");	
+ 			}
+ 		}
 	</script>
 </body>
 </html>
