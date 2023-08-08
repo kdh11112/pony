@@ -121,8 +121,6 @@ function redirectToKaKao(){
 							</div>
 						</form>	
 
-
-
 						</div>
 					</div>
 				</div>

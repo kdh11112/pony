@@ -30,10 +30,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
+import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.security.jwt.JwtAuthenticationEntryPoint;
 import kr.co.jhta.pony.security.jwt.JwtAuthorizationFilter;
 import kr.co.jhta.pony.security.service.CustomOAuth2UserService;
 import kr.co.jhta.pony.security.service.CustomUserDetailsService;
+import kr.co.jhta.pony.security.service.PonyMemberService;
 import kr.co.jhta.pony.security.util.JwtTokenUtil;
 
 @Configuration
@@ -59,6 +61,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
     
+    @Autowired
+    private PonyMemberService ponyMemberService;
     
     SecurityContextHolder securitycontextholder;
     
@@ -133,7 +137,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     @Override
                     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                             AuthenticationException exception) throws IOException, ServletException {
-                        System.out.println("exception " + exception.getMessage());
+                    	
+                    	
+                    	String email = request.getParameter("email");
+                    	PonyMemberDTO dto = ponyMemberService.getMemberEmail(email);
+                    	
+                        
+                    	
+                    	//여기를 내일 하자
+                    	if(dto != null) {
+                    	
+                    		String pony = "Pony";
+                    		
+                    		String provider = dto.getMemberProvider();
+                    		
+                    		if(provider.equals(pony)) {
+                    			System.out.println("비밀번호가 틀렸습니다.");
+                    		}else {
+                    			System.out.println("당신은 " + dto.getMemberProvider() + "계정으로 가입되어 있습니다.");
+                    		}
+                    		
+                    	}
+                    	
+                    	
+                    	System.out.println("exception " + exception.getMessage());
                         response.sendRedirect("/login");
                     }
                 })
