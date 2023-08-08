@@ -6,11 +6,17 @@
 
 	<!-- 카트 목록 -->
 	<select id="cartAll" resultType="kr.co.jhta.pony.dto.CartDTO" parameterType="int">
-		SELECT c.cartNo, c.partNumber, c.cartCount, c.memberNo,
-		p.partName, p.partNo, p.partPrice
-		FROM CART c left outer join PART p on
-		c.partNumber = p.partNumber
-		WHERE memberNo = #{memberNo}
+		<!-- SELECT c.cartNo, c.partNumber, c.cartCount, c.memberNo, p.partName, p.partNo, p.partPrice, p.modelNo, m.modelName FROM CART c left outer join PART p on c.partNumber = p.partNumber WHERE memberNo = #{memberNo} -->
+		SELECT
+			c.cartNo, c.partNumber, c.cartCount, c.memberNo,
+			p.partName, p.partNo, p.partPrice,
+			m.modelName
+		FROM
+			CART c
+			JOIN PART p ON c.partNumber = p.partNumber
+			JOIN MODEL m ON p.modelNo = m.modelNo
+		WHERE
+			c.memberNo = #{memberNo}
 	</select>
 
 	<!-- 카트 추가 -->
@@ -32,6 +38,7 @@
 
 	<!-- 카트 수량 수정 -->
 	<update id="modifyCount" parameterType="kr.co.jhta.pony.dto.CartDTO">
+		UPDATE CART
 		SET cartCount = #{cartCount}
 		WHERE cartNo = #{cartNo}
 	</update>

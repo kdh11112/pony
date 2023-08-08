@@ -15,7 +15,7 @@ public interface CartDAO {
 	List<CartDTO> cartAll(int memberNo);
 	
 	// 카트 추가
-	int addCart(CartDTO dto) throws Exception;
+	int addCart(CartDTO dto);
 	
 	// 카트 삭제
 	int deleteCart(int cartNo);

@@ -63,6 +63,7 @@ public class MyPageController {
 		
 		// 로그인한 사용자의 회원번호를 가져옴
 		int memberNo = dto5.getMemberNo();
+		session.setAttribute("memberNo", memberNo);
 		dto.setMemberNo(memberNo);
 		// 회원번호를 기준으로 등록된 차량 정보를 조회
 		List<ClientDTO> userCars = cService.carList(memberNo);

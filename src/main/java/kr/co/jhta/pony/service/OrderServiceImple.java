@@ -46,6 +46,8 @@ public class OrderServiceImple implements OrderService{
 	public void deleteOne(OrderDTO dto) {
 		orderdao.deleteOne(dto);
 		
+		
+		
 	}
 
 	@Override

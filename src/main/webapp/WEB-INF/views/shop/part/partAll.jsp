@@ -169,7 +169,6 @@ td.partIcontd {
 		<!-- Section-->
 		<section class="py-5 two-column-layout">
 			<div class="container">
-				<form action="/partall" method="post">
 				<table class="table">
 					<colgroup>
 						<col width="110">
@@ -244,7 +243,6 @@ td.partIcontd {
 						</td>
 					</tr>
 				</table>
-				</form>
 
 				<!-- 수정, 조회 후 현재 페이지로 다시 리다이렉트하게 하기 위해 hidden으로 현재 페이지 정보 넘겨줌 -->
 				<form id="moveForm" action="/partall" method="get">
@@ -321,29 +319,18 @@ td.partIcontd {
 				type: 'POST',
 				data : form,
 				success: function(result){
-				/* 	if(result == '1'){
-						alert("장바구니에 추가되었습니다.");
-					} else if(result == '2'){
-						alert("이미 장바구니에 추가된 상품입니다.");
-					} else if(result == '5'){
-						alert("로그인이 필요합니다.");
-						
-					} */
 				      cartAlert(result);
-
-				      // 응답 코드를 확인하고 적절한 메시지를 띄웁니다.
-				 
 				}
 			})
 		});
  		function cartAlert(result){
- 			if(result == '0'){
+ 			if(result == 0){
  				alert("장바구니에 추가를 하지 못하였습니다.");
- 			} else if(result == '1'){
+ 			} else if(result == 1){
  				alert("장바구니에 추가되었습니다.");
- 			} else if(result == '2'){
+ 			} else if(result == 2){
  				alert("장바구니에 이미 추가되어져 있습니다.");
- 			} else if(result == '5'){
+ 			} else if(result == 5){
  				alert("로그인이 필요합니다.");	
  			}
  		}

@@ -28,7 +28,9 @@ public class CartDTO {
 	
 	private int partNo;
 	
-
+	// model
+	private String modelName;
+	
 	// 추가
 	private int cartTotal;
 	
