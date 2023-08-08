@@ -174,20 +174,21 @@
 					</div>
 					<script>
 						$("#selectDelete_btn").click(function() {
+							e.preventDefault();
 							var checkArr = new Array();
 
 							$("input[class='chkbox']:checked").each(function() {
-								checkArr.push($(this).attr("data-cartNum"));
+								checkArr.push($(this).attr("data-cartNo"));
 							});
 
 							$.ajax({
 								url : "/deleteCart",
 								type : "post",
 								data : {
-									chbox : checkArr
+									chkbox : checkArr
 								},
 								success : function() {
-									location.href = "/shop/cart/cartList";
+									location.href = "/cartlist";
 								}
 							});
 						});
@@ -410,7 +411,7 @@
 		    /* alert(stockQuantity) ; */
 		    /* 수정하려는 수량이 재고 수량보다 많을 경우, 경고 메세지를 표시 */
 		        if (updateCartCount > partNo) {
-		            alert("입력한 수량이 주문 가능 수량을 초과합니다.");
+		            alert("입력 수량은 주문 가능 수량을 초과할 수 없습니다. \n(주문가능 수량 : "+partNo+")");
 		            /* input의 값을 기존 수량으로 되돌림 */
 		            updateCartCountInput.val(cartCount);
 		            return;

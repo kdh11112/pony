@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.jhta.pony.dto.CartDTO;
@@ -101,9 +102,6 @@ public class ShopController {
 	@PostMapping("/modifyCart")
 	public String modifyCart(@ModelAttribute CartDTO cartdto, HttpSession session) {
 		
-		int updateCartCount = cartdto.getCartCount();
-		log.info("update : "+updateCartCount);
-		
 		cservice.modifyCount(cartdto);
 		
 		return "redirect:/cartlist";
@@ -111,8 +109,8 @@ public class ShopController {
 	
 	/* 장바구니 삭제 */
 	@PostMapping("/deleteCart")
-	public String deleteCart() {
-		
+	public String deleteCart(@ModelAttribute CartDTO cartdto, @RequestParam(value = "chk[]") List<String> chArr) {
+		cservice.deleteCart(cartdto.getCartNo());
 		return "redirect:/cartlist";
 	}
 	
