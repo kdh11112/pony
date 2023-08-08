@@ -67,7 +67,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         	log.info("카카오 등록이름 " + name);
         }
         
-        saveMember(email, name);
+        saveMember(email, name, clientName);
         
         
         return super.loadUser(userRequest);   
@@ -75,8 +75,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
         
                 
-    private void saveMember(String email, String name) {
+    private void saveMember(String email, String name, String clientName) {
     	// 기존에 등록되어 있는 회원인지 확인
+    	
     	
     	PonyMemberDTO dto = ponyMemberService.getMemberEmail(email);
 		log.info("멤버 : " + dto);
@@ -89,6 +90,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 								.memberRole("ROLE_USER")
 								.memberAccountStatus("A")
 								.memberUseYn("Y")
+								.memberProvider(clientName)
 								.build();
 			
 			ponyMemberService.addUser(dto); // member 테이블에 저장

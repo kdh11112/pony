@@ -102,9 +102,6 @@ public class MyPageController {
 	public String mypage(Principal p, @ModelAttribute ClientDTO dto,
 			HttpSession session, Model model, HttpServletRequest req) {
 		//log.info("principal : {}", p);
-		
-		
-		
 		//log.info("email : {}" , email);
 		
 		PonyMemberDTO dto5 = service.getMemberEmail(service.getEmail(p));

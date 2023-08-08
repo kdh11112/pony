@@ -115,7 +115,7 @@ public class ponyRegisterController {
 	    		dto.setMemberZip(memberZip);
 	    		dto.setMemberAddress1(memberAddress1);
 	    		dto.setMemberAddress2(memberAddress2 + " " + memberAddress3);
-	    		
+	    		dto.setMemberProvider("Pony");
 	    		//log.info("여기 왔어?");
 	    		
 	    		service.createMember(dto);

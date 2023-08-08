@@ -160,12 +160,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         response.sendRedirect("/login");
                     }
                 })
-//            .and()
-//            .rememberMe()
-//                .rememberMeCookieName("cookName")
-//                .rememberMeParameter("remember")
-//                .tokenValiditySeconds(3600)
-//                .userDetailsService(customUserDetailsService)
+            .and()
+            .rememberMe()
+                .rememberMeCookieName("jwtToken")
+                .rememberMeParameter("remember")
+                .tokenValiditySeconds(3600)
+                .userDetailsService(customUserDetailsService)
     	.and()
               .oauth2Login()
 	            .loginPage("/login") // 로그인 페이지 설정

@@ -26,7 +26,7 @@ public class PonyMemberDTO {
 	private String memberRole;
 	private String memberUseYn;
 	private String memberAccountStatus;
-
+	private String memberProvider;
 
 
 }

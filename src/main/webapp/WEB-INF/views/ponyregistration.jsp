@@ -158,7 +158,7 @@
 											</div>
 											
 											<div class="col-auto">
-												<button class="btn btn-primary btn-lg" onclick="execDaumPostcode()" style="width: 82px; height: 45px">검색</button>
+												<button type="button" class="btn btn-primary btn-lg" onclick="execDaumPostcode()" style="width: 82px; height: 45px">검색</button>
 											</div>
 										</div>
 									
