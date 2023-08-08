@@ -27,6 +27,11 @@ public interface CarRegisterService {
 
 	public void regAndEdit(CarRegisterDTO carRegisterDTO);
 
+	public List<CarRegisterDTO> getCarRegistrationList(int memberNo); //사용자의 정비예약내역 list 
+
+	public void deleteCarRegister(int registrationNumber); //사용자의 정비예약내역 삭제
+
+
 
 
 

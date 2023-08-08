@@ -334,8 +334,8 @@ textarea {
 						<div class="content-body" data-v-269e3e5f>
 							<div class="my-title" data-v-269e3e5f>
 								<div class="head" data-v-269e3e5f>
-									<strong data-v-269e3e5f><span data-v-269e3e5f>${dto.memberName }</span>
-										님, 안녕하세요! </strong> <a href=""
+									<strong data-v-269e3e5f><a href="/mypage"><span data-v-269e3e5f>${dto.memberName }</span></a>
+										님, 안녕하세요! </strong> <a href="/myInfo"
 										class="btn btn-primary active infomodify_btn"><span>정보수정
 											<!---->
 
@@ -352,11 +352,11 @@ textarea {
 										마이페이지-메인" data-link-name="포인트" draggable="true"
 										class="btn btn-primary active" data-v-269e3e5f><span>
 												포인트 <!---->
-										</span></a> <strong data-v-269e3e5f>0 P</strong></li>
+										</span></a> <strong data-v-269e3e5f>${memberPoint } P</strong></li>
 
 									<li data-v-269e3e5f><a class="btn btn-primary active"
 										href="mypageqna"><span>1:1 문의 내역 <!---->
-										</span></a> <strong data-v-269e3e5f>0 건</strong></li>
+										</span></a> <strong data-v-269e3e5f>${qnacount } 건</strong></li>
 								</ul>
 							</div>
 							<!-- 포인트 1:1문의내역 end-->
@@ -378,9 +378,7 @@ textarea {
 											data-v-269e3e5f>
 											<div class="content-box" data-v-269e3e5f>
 												<div class="title" data-v-269e3e5f>
-													<a href="#
-															draggable="
-														true" class="btn btn-primary active"><span>시승
+													<a href="testdriving" class="btn btn-primary active"><span>시승
 															신청 내역 <!---->
 													</span></a>
 												</div>
@@ -393,9 +391,7 @@ textarea {
 											data-v-269e3e5f>
 											<div class="content-box" data-v-269e3e5f>
 												<div class="title" data-v-269e3e5f>
-													<a href="#
-															draggable="
-														true" class="btn btn-primary active"><span> 정비
+													<a href="/carMaintenanceReservationDetail" class="btn btn-primary active"><span> 정비
 															예약 신청 내역 <!---->
 													</span></a>
 												</div>
@@ -415,8 +411,8 @@ textarea {
 					<div id="mycarinfo">
 						<div class="my-car" data-v-269e3e5f>
 							<div class="title mycarTitle" data-v-269e3e5f>
-								<strong data-v-269e3e5f> 예약된 시승 내역이 없습니다. <span
-									data-v-269e3e5f>0대</span></strong>
+								<strong data-v-269e3e5f> 예약된 시승 내역을 확인하세요. <span
+									data-v-269e3e5f>${testDriveCount }대</span></strong>
 
 							</div>
 							<div class="sub" data-v-269e3e5f>
@@ -496,7 +492,7 @@ textarea {
 									<div class="modal-dialog modal-xl">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h1 class="modal-title fs-5" id="exampleModalLabel">시승신청예약변경</h1>
+												<h1 class="modal-title fs-5" id="exampleModalLabel">정비신청예약변경</h1>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
@@ -510,7 +506,7 @@ textarea {
 															<button class="accordion-button collapsed" type="button"
 																data-bs-toggle="collapse" data-bs-target="#collapseOne"
 																aria-expanded="false" aria-controls="flush-collapseOne"
-																id="headingOneBtn">시승모델선택</button>
+																id="headingOneBtn">정비모델선택</button>
 														</h2>
 														<div id="collapseOne" class="accordion-collapse collapse"
 															aria-labelledby="headingOne"
@@ -628,7 +624,7 @@ textarea {
 															<button class="accordion-button collapsed" type="button"
 																data-bs-toggle="collapse"
 																data-bs-target="#collapseThree" aria-expanded="false"
-																aria-controls="collapseThree" id="headingThreeBtn">시승일자선택</button>
+																aria-controls="collapseThree" id="headingThreeBtn">정비예정일자선택</button>
 														</h2>
 														<div id="collapseThree"
 															class="accordion-collapse collapse"
@@ -685,7 +681,7 @@ textarea {
 								<!-- 차량등록삭제 모달버튼 -->
 								<button type="button" class="btn btn-primary active"
 									data-bs-toggle="modal" data-bs-target="#exampleModal1">
-									<span>시승예약삭제</span>
+									<span>정비예약취소</span>
 								</button>
 
 								<!-- 시승예약내역 삭제 start -->
@@ -695,18 +691,18 @@ textarea {
 									<div class="modal-dialog modal-xl">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h1 class="modal-title fs-5" id="exampleModalLabel">삭제</h1>
+												<h1 class="modal-title fs-5" id="exampleModalLabel">정비예약취소</h1>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
 											<div class="modal-body">
-												<p>등록 시승예약내역을 삭제하시겠습니까?</p>
+												<p>정비예약을 취소하시겠습니까?</p>
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary active"
-													data-bs-dismiss="modal">취소</button>
+													data-bs-dismiss="modal">닫기</button>
 												<button type="button" class="btn btn-primary active"
-													onclick="deleteCar()">삭제하기</button>
+													onclick="deleteCar()">취소하기</button>
 											</div>
 										</div>
 									</div>

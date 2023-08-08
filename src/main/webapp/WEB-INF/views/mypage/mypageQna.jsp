@@ -25,54 +25,61 @@
 <link href="css/mypage/css/board.css" rel="stylesheet" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap"
+	rel="stylesheet">
 
 <style>
-.content{
+.content {
 	box-sizing: border-box;
-	width:400px;
+	width: 400px;
 }
-.contant-area{
+
+.contant-area {
 	flex: 1;
 	width: 90%;
-    margin: 10px auto;
-    display: flex;
-	
+	margin: 10px auto;
+	display: flex;
 }
+
 .content-body {
-    border: 1px solid #dedede;
-    box-sizing: border-box;
-	width:10vm;
-	height:800px;
+	border: 1px solid #dedede;
+	box-sizing: border-box;
+	width: 10vm;
+	height: 800px;
 	float: left;
 }
 
-.inquiry{
-    border: 1px solid #dedede;
-    box-sizing: border-box;
-	width:800px;
-	height:800px;
-    margin: 0px 1%;
-    float: right;
+.inquiry {
+	border: 1px solid #dedede;
+	box-sizing: border-box;
+	width: 800px;
+	height: 800px;
+	margin: 0px 1%;
+	float: right;
 }
-.title{
-	margin:0 30px;
-	
+
+.title {
+	margin: 0 30px;
 }
-.no-car,.sub{
-	margin:0 30px;
+
+.no-car, .sub {
+	margin: 0 30px;
 }
-.head{
-		margin:20px 60px;
+
+.head {
+	margin: 20px 60px;
 }
-.infomodify_btn{
-	margin-left:13px;
+
+.infomodify_btn {
+	margin-left: 13px;
 }
-.mycarTitle{
-	margin-top:20px;
+
+.mycarTitle {
+	margin-top: 20px;
 }
-.inquiryGo{
-	float:right;
+
+.inquiryGo {
+	float: right;
 }
 </style>
 </head>
@@ -128,186 +135,185 @@
 
 			<div class="contant-area">
 				<div id="mypage" class="container" data-v-269e3e5f>
-<!--   -->
-					
 					<!--   -->
-						<div class="content" data-v-269e3e5f>
-							<!---->
-							<div class="content-body" data-v-269e3e5f>
-								<div class="my-title" data-v-269e3e5f>
-									<div class="head" data-v-269e3e5f>
-										<strong data-v-269e3e5f><a href="/mypage"><span data-v-269e3e5f>${dto.memberName }</span></a>
-											님, 안녕하세요! </strong> <a href="" class="btn btn-primary active infomodify_btn" ><span>정보수정
-												<!---->
 
-										</span></a>
-									</div>
+					<!--   -->
+					<div class="content" data-v-269e3e5f>
+						<!---->
+						<div class="content-body" data-v-269e3e5f>
+							<div class="my-title" data-v-269e3e5f>
+								<div class="head" data-v-269e3e5f>
+									<strong data-v-269e3e5f><a href="/mypage"><span
+											data-v-269e3e5f>${dto.memberName }</span></a> 님, 안녕하세요! </strong> <a
+										href="/myinfo" class="btn btn-primary active infomodify_btn"><span>정보수정
+											<!---->
 
+									</span></a>
 								</div>
-								<!-- 포인트 1:1문의내역 -->
-								<div class="my-info" data-v-269e3e5f>
-									<ul data-v-269e3e5f>
-										<li data-v-269e3e5f><a
-											href="#
+
+							</div>
+							<!-- 포인트 1:1문의내역 -->
+							<div class="my-info" data-v-269e3e5f>
+								<ul data-v-269e3e5f>
+									<li data-v-269e3e5f><a
+										href="#
 											data-link-area="
-											마이페이지-메인" data-link-name="포인트" draggable="true"
-											class="btn btn-primary active" data-v-269e3e5f><span>
-													포인트 <!---->
-											</span></a> <strong data-v-269e3e5f>0 P</strong></li>
+										마이페이지-메인" data-link-name="포인트" draggable="true"
+										class="btn btn-primary active" data-v-269e3e5f><span>
+												포인트 <!---->
+										</span></a> <strong data-v-269e3e5f>${memberPoint } P</strong></li>
 
-										<li data-v-269e3e5f><a class="btn btn-primary active"
-											href="mypageqna"><span>1:1 문의 내역 <!---->
-											</span></a> <strong data-v-269e3e5f>0 건</strong></li>
-									</ul>
+									<li data-v-269e3e5f><a class="btn btn-primary active"
+										href="mypageqna"><span>1:1 문의 내역 <!---->
+										</span></a> <strong data-v-269e3e5f>${qnacount } 건</strong></li>
+								</ul>
+							</div>
+							<!-- 포인트 1:1문의내역 end-->
+
+							<!--시승신청내역 정비예약내역-->
+							<div class="my-activity" data-v-269e3e5f>
+								<div class="category-title" data-v-269e3e5f></div>
+								<div class="details" data-v-269e3e5f>
+									<div class="el-row"
+										style="margin-left: -10px; margin-right: -10px;"
+										data-v-269e3e5f></div>
 								</div>
-								<!-- 포인트 1:1문의내역 end-->
-
-								<!--시승신청내역 정비예약내역-->
-								<div class="my-activity" data-v-269e3e5f>
-									<div class="category-title" data-v-269e3e5f></div>
-									<div class="details" data-v-269e3e5f>
-										<div class="el-row"
-											style="margin-left: -10px; margin-right: -10px;"
-											data-v-269e3e5f></div>
-									</div>
-									<div class="history-list" data-v-269e3e5f>
-										<div class="el-row"
-											style="margin-left: -10px; margin-right: -10px;"
+								<div class="history-list" data-v-269e3e5f>
+									<div class="el-row"
+										style="margin-left: -10px; margin-right: -10px;"
+										data-v-269e3e5f>
+										<div class="el-col el-col-8"
+											style="padding-left: 10px; padding-right: 10px;"
 											data-v-269e3e5f>
-											<div class="el-col el-col-8"
-												style="padding-left: 10px; padding-right: 10px;"
-												data-v-269e3e5f>
-												<div class="content-box" data-v-269e3e5f>
-													<div class="title" data-v-269e3e5f>
-														<a href="#
-															draggable="
-															true" class="btn btn-primary active"><span>시승
-																신청 내역 <!---->
-														</span></a>
-													</div>
-													<!---->
+											<div class="content-box" data-v-269e3e5f>
+												<div class="title" data-v-269e3e5f>
+													<a href="/testdriving" class="btn btn-primary active"><span>시승
+															신청 내역 <!---->
+													</span></a>
 												</div>
+												<!---->
 											</div>
+										</div>
 
-											<div class="el-col el-col-8"
-												style="padding-left: 10px; padding-right: 10px;"
-												data-v-269e3e5f>
-												<div class="content-box" data-v-269e3e5f>
-													<div class="title" data-v-269e3e5f>
-														<a href="#
-															draggable="
-															true" class="btn btn-primary active"><span> 정비
-																예약 신청 내역 <!---->
-														</span></a>
-													</div>
+										<div class="el-col el-col-8"
+											style="padding-left: 10px; padding-right: 10px;"
+											data-v-269e3e5f>
+											<div class="content-box" data-v-269e3e5f>
+												<div class="title" data-v-269e3e5f>
+													<a href="/carMaintenanceReservationDetail"
+														class="btn btn-primary active"><span> 정비 예약 신청
+															내역 <!---->
+													</span></a>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-								<!-- 시승신청내역 정비예약내역 end -->
 							</div>
-
-
+							<!-- 시승신청내역 정비예약내역 end -->
 						</div>
 
-									<!-- 1:1문의내역 리스트 -->
-									<div class="container-fluid">
-										<section class="inquiry">
-											<div class="page-title">
-												<div class="container">
-													<h3>1:1 문의내역</h3>
-												</div>
-											</div>
 
-											<!-- board list area -->
-											<div id="inquiry_list">
-												<div class="container">
-													<table class="board-table">
-														<thead>
-															<tr>
-																<th scope="col" class="th-"></th>
-																<th scope="col" class="th-num">번호</th>
-																<th scope="col" class="th-title">제목</th>
-																<th scope="col" class="th-date">등록일</th>
-																<th width="15%" scope="col" class="th-status">답변상태</th>
-															</tr>
-														</thead>
-														<tbody>
-															<c:forEach var="qlist" items="${qnalist }">
-																<tr class="list">
-																	<td><input type="checkbox" name="checkbox" /></td>
-																	<td>${qlist.questionNo }</td>
-																	<th><a
-																		href="mypageqnadetail?questionNo=${qlist.questionNo }">${qlist.questionTitle }</a>
-																	</th>
-																	<td>${qlist.memberNo }</td>
-																	<td><fmt:parseDate var="dateString"
-																			value="${qlist.questionDate }"
-																			pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
-																			value="${dateString }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-																	<td>${qlist.answerStatus }</td>
-																</tr>
-															</c:forEach>
-															<tr>
-																<td>
-																
-											                        	<a href="/qnawrite"><button type="button" class="btn btn-dark inquiryGo" >1:1문의하러가기</button></a>
-											                      
-											                    </td>
-												             </tr>
-														</tbody>
-														<tr>
-															<td colspan="6">
-																<nav aria-label="Page navigation example">
-																	<ul class="pagination">
-																		<c:if test="${map.prev }">
-																			<li class="page-item"><a class="page-link"
-																				href="mypageqna?currentPage=${map.currentPage-5 }">이전</a></li>
-																		</c:if>
-																		<c:forEach var="i" begin="${map.startPageNo }"
-																			end="${map.endPageNo }">
-																			<li class="page-item"><a class="page-link"
-																				href="mypageqna?currentPage=${i }">${i }</a></li>
-																		</c:forEach>
-																		<c:if test="${map.next }">
-																			<li class="page-item"><a class="page-link"
-																				href="mypageqna?currentPage=${map.currentPage+5 }">다음</a></li>
-																		</c:if>
-																	</ul>
-																</nav>
-															</td>
-														</tr>
+					</div>
 
-													</table>
-												</div>
+					<!-- 1:1문의내역 리스트 -->
+					<div class="container-fluid">
+						<section class="inquiry">
+							<div class="page-title">
+								<div class="container">
+									<h3>1:1 문의내역</h3>
+								</div>
+							</div>
+
+							<!-- board list area -->
+							<div id="inquiry_list">
+								<div class="container">
+									<table class="board-table">
+										<thead>
+											<tr>
+												
+												<th scope="col" class="th-num">번호</th>
+												<th scope="col" class="th-title">제목</th>
+												<th scope="col" class="th-date">등록일</th>
+												<th width="15%" scope="col" class="th-status">답변상태</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="qlist" items="${qnalist }">
+												<tr class="list">
+													
+													<td>${qlist.questionNo }</td>
+													<th><a
+														href="mypageqnadetail?questionNo=${qlist.questionNo }">${qlist.questionTitle }</a>
+													</th>
+													<%-- <td>${qlist.memberNo }</td> --%>
+													<td><fmt:parseDate var="dateString"
+															value="${qlist.questionDate }"
+															pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
+															value="${dateString }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+													<td>${qlist.answerStatus }</td>
+												</tr>
+											</c:forEach>
+
+										</tbody>
+
+										
+										<!-- <tr>
+											<td></td>
+										</tr>
+										<tr>
+											<td colspan="6">
+												
+											</td>
+										</tr> -->
+									</table>
+									<a href="/qnawrite"><button type="button"
+														class="btn btn-dark inquiryGo">1:1문의하러가기</button></a>
+														<nav aria-label="Page navigation example">
+													<ul class="pagination">
+														<c:if test="${map.prev }">
+															<li class="page-item"><a class="page-link"
+																href="mypageqna?currentPage=${map.currentPage-5 }">이전</a></li>
+														</c:if>
+														<c:forEach var="i" begin="${map.startPageNo }"
+															end="${map.endPageNo }">
+															<li class="page-item"><a class="page-link"
+																href="mypageqna?currentPage=${i }">${i }</a></li>
+														</c:forEach>
+														<c:if test="${map.next }">
+															<li class="page-item"><a class="page-link"
+																href="mypageqna?currentPage=${map.currentPage+5 }">다음</a></li>
+														</c:if>
+													</ul>
+												</nav>
+								</div>
+							</div>
+							<!-- board seach area -->
+							<div id="board-search">
+								<div class="container">
+									<div class="search-window">
+										<form action="">
+											<div class="search-wrap">
+												<select name="type" class="choicetype">
+													<option value="">--</option>
+													<option value="T">제목</option>
+													<option value="C">내용</option>
+												</select> <input id="search" type="search" name=""
+													placeholder="검색어를 입력해주세요." value="">
+												<button type="submit" class="btn btn-dark">검색</button>
 											</div>
-											<!-- board seach area -->
-											<div id="board-search">
-												<div class="container">
-													<div class="search-window">
-														<form action="">
-															<div class="search-wrap">
-																<select name="type" class="choicetype">
-																	<option value="">--</option>
-																	<option value="T">제목</option>
-																	<option value="C">내용</option>
-																</select> <input id="search" type="search" name=""
-																	placeholder="검색어를 입력해주세요." value="">
-																<button type="submit" class="btn btn-dark">검색</button>
-															</div>
-														</form>
-													</div>
-												</div>
-											</div>
-										</section>
+										</form>
 									</div>
+								</div>
+							</div>
+						</section>
+					</div>
 
-						<!-- 1:1문의내역 리스트 end -->
+					<!-- 1:1문의내역 리스트 end -->
 
-						<!---->
-						<!---->
-					
+					<!---->
+					<!---->
+
 				</div>
 
 			</div>

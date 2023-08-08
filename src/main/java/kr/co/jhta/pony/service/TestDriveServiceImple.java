@@ -32,4 +32,11 @@ public class TestDriveServiceImple implements TestDriveService{
 		dao.deleteTestDrive(testDriveNo);
 	}
 
+
+	@Override
+	public Object testDriveCount(int memberNo) {
+		// TODO Auto-generated method stub
+		return dao.testDriveCount(memberNo);
+	}
+
 }

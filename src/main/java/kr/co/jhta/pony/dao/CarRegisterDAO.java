@@ -37,5 +37,8 @@ public interface CarRegisterDAO {
 
 	public void regAndEditUpdate(CarRegisterDTO carRegisterDTO);
 
+	public List<CarRegisterDTO> getCarRegistrationList(int memberNo);
+
+	public void deleteCarRegister(int registrationNumber);
 
 }

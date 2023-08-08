@@ -130,7 +130,7 @@ width:100%;
 
 			<img src="images/cloud.jpg" alt="" />
 			<div class="header-content text-center text-black">
-				<h1 class="display-4 fw-bolder">마이페이지</h1>
+				<h1 class="display-4 fw-bolder">1:1문의</h1>
 				<p class="lead fw-normal text-black-50 mb-0">이용 중인 현대자동차 서비스를
 					마이페이지에서 확인하세요.</p>
 			</div>
@@ -155,8 +155,8 @@ width:100%;
 						<div class="content-body" data-v-269e3e5f>
 							<div class="my-title" data-v-269e3e5f>
 								<div class="head" data-v-269e3e5f>
-									<strong data-v-269e3e5f><span data-v-269e3e5f>${dto.memberName }</span>
-										님, 안녕하세요! </strong> <a href=""
+									<strong data-v-269e3e5f><a href="mypage"><span data-v-269e3e5f>${dto.memberName }</span></a>
+										님, 안녕하세요! </strong> <a href="myinfo"
 										class="btn btn-primary active infomodify_btn"><span>정보수정
 											<!---->
 
@@ -173,11 +173,11 @@ width:100%;
 										마이페이지-메인" data-link-name="포인트" draggable="true"
 										class="btn btn-primary active" data-v-269e3e5f><span>
 												포인트 <!---->
-										</span></a> <strong data-v-269e3e5f>0 P</strong></li>
+										</span></a> <strong data-v-269e3e5f>${memberPoint } P</strong></li>
 
 									<li data-v-269e3e5f><a class="btn btn-primary active"
 										href="mypageqna"><span>1:1 문의 내역 <!---->
-										</span></a> <strong data-v-269e3e5f>0 건</strong></li>
+										</span></a> <strong data-v-269e3e5f>${qnacount } 건</strong></li>
 								</ul>
 							</div>
 							<!-- 포인트 1:1문의내역 end-->
@@ -199,9 +199,7 @@ width:100%;
 											data-v-269e3e5f>
 											<div class="content-box" data-v-269e3e5f>
 												<div class="title" data-v-269e3e5f>
-													<a href="#
-															draggable="
-														true" class="btn btn-primary active"><span>시승
+													<a href="testdriving" class="btn btn-primary active"><span>시승
 															신청 내역 <!---->
 													</span></a>
 												</div>
@@ -214,9 +212,7 @@ width:100%;
 											data-v-269e3e5f>
 											<div class="content-box" data-v-269e3e5f>
 												<div class="title" data-v-269e3e5f>
-													<a href="#
-															draggable="
-														true" class="btn btn-primary active"><span> 정비
+													<a href="/carMaintenanceReservationDetail" class="btn btn-primary active"><span> 정비
 															예약 신청 내역 <!---->
 													</span></a>
 												</div>

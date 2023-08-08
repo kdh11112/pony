@@ -195,9 +195,7 @@
 										data-v-269e3e5f>
 										<div class="content-box" data-v-269e3e5f>
 											<div class="title" data-v-269e3e5f>
-												<a href="#
-															draggable="
-													true" class="btn btn-primary active"><span> 정비
+												<a href="carMaintenanceReservationDetail" class="btn btn-primary active"><span> 정비
 														예약 신청 내역 <!---->
 												</span></a>
 											</div>

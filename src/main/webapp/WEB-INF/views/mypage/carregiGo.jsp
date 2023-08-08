@@ -319,7 +319,7 @@
 											</div>
 										</div>
 
-										<div class="el-col el-col-8"
+										<!-- <div class="el-col el-col-8"
 											style="padding-left: 10px; padding-right: 10px;"
 											data-v-269e3e5f>
 											<div class="content-box" data-v-269e3e5f>
@@ -327,11 +327,11 @@
 													<a href="#
 															draggable="
 														true" class="btn btn-primary active"><span>
-															차량기본관리 <!---->
+															차량기본관리
 													</span></a>
 												</div>
 											</div>
-										</div>
+										</div> -->
 									</div>
 								</div>
 							</div>
@@ -354,7 +354,7 @@
 											data-v-269e3e5f>
 											<div class="content-box" data-v-269e3e5f>
 												<div class="title" data-v-269e3e5f>
-													<a href="" class="btn btn-primary active"><span>시승
+													<a href="testdriving" class="btn btn-primary active"><span>시승
 															신청 내역 <!---->
 													</span></a>
 												</div>
@@ -367,9 +367,7 @@
 											data-v-269e3e5f>
 											<div class="content-box" data-v-269e3e5f>
 												<div class="title" data-v-269e3e5f>
-													<a href="#
-															draggable="
-														true" class="btn btn-primary active"><span> 정비
+													<a href="/carMaintenanceReservationDetail" class="btn btn-primary active"><span> 정비
 															예약 신청 내역 <!---->
 													</span></a>
 												</div>

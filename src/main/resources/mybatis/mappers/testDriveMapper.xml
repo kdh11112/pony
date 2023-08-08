@@ -37,4 +37,10 @@
 		WHERE
 	    testDriveNo = #{testDriveNo}
 	</delete>
+	<!-- 시승신청내역 갯수 -->
+	<select id="testDriveCount" resultType="int" parameterType="int">
+		SELECT COUNT(*)
+		FROM TESTDRIVE
+		WHERE memberNo = #{memberNo}
+	</select>
 </mapper>
