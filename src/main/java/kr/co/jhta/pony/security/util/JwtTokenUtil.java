@@ -61,7 +61,7 @@ public class JwtTokenUtil {
                 .compact();
 
         // 로그 추가
-        log.trace("토큰 생성 아이: {}", id);
+        log.trace("토큰 생성 아이디: {}", id);
 
         return token;
     }

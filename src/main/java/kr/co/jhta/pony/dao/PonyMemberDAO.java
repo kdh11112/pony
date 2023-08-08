@@ -35,6 +35,6 @@ public interface PonyMemberDAO {
 	
 	public int idChk(PonyMemberDTO dto) throws Exception;
 
-	
+	public void addUser(PonyMemberDTO dto);
 	
 }

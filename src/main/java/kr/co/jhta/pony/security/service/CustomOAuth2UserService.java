@@ -19,71 +19,86 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
+	
+    @Autowired
+    private PonyMemberService ponyMemberService;
+    
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    PonyMemberService service;
-
+    
+    
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        log.info(">>>>>>>>>>>> userRequest : " + userRequest);
+    	
+    	log.info(">>>>>> userRequest : " + userRequest);
+        //등록 클라이언트 이름 가져오기
         String clientName = userRequest.getClientRegistration().getClientName();
-        log.info("client name : " + clientName);
+		log.info("client name : " + clientName );
 
-        // 유저요청정보로 인증사용자 객체 가져오기 (부모클래스(DefaultOAuth2UserService)의 메서드인 loadUser를 사용해서 userRequest를 넣어서)
+        
+		//유저요청 정보로 인증 사용자 객체 가져오기. 
         OAuth2User oAuth2User = super.loadUser(userRequest);
-        // JSON은 맵 형식 (키 : 값(객체, 오브젝트))
-        Map<String, Object> map = oAuth2User.getAttributes();
-        Set<String> s = map.keySet();
-        Iterator<String> it = s.iterator();
 
-        while (it.hasNext()) {
-            String gName = it.next();
-            log.info(gName + " : " + map.get(gName));
+        Map<String, Object> attributes = oAuth2User.getAttributes(); // 소셜 로그인에서 API가 제공하는 userInfo의 Json 값(유저 정보들)
+        Set<String> s = attributes.keySet();
+        Iterator<String> it = s.iterator(); 
+        
+        while(it.hasNext()) {
+        	String gName = it.next();
+        	log.info(gName + " : " + attributes.get(gName));
+        	
         }
-
+        
         String email = "";
         String name = "";
-        // 구글 로그인 인지 확인
-        if (clientName.equals("Google")) {
-            email = oAuth2User.getAttribute("email");
-            name = oAuth2User.getAttribute("name");
-        } else if (clientName.equals("Kakao")) {
-            Map<String, Object> map2 = oAuth2User.getAttributes();
-
-            Map<String, Object> map3 = (Map<String, Object>) map2.get("kakao_account");
-            Map<String, Object> map4 = (Map<String, Object>) map3.get("profile");
-
-            email = (String) map3.get("email");
-            name = (String) map4.get("nickname");
-            log.info("카카오 이메일 : " + email);
-            log.info("카카오 등록이름 : " + name);
+        
+        if(clientName.equals("Google")) {
+        	email = oAuth2User.getAttribute("email");
+        	name = oAuth2User.getAttribute("name");
+        }else if(clientName.equals("Kakao")) {
+        	Map<String, Object> attribute2 = oAuth2User.getAttributes();
+        	
+        	Map<String, Object> attribute3 = (Map<String, Object>)attribute2.get("kakao_account");
+        	Map<String, Object> attribute4 = (Map<String, Object>)attribute3.get("profile");
+        	
+        	email = (String)attribute3.get("email");
+        	name = (String)attribute4.get("nickname");
+        	log.info("카카오 이메일 " + email);
+        	log.info("카카오 등록이름 " + name);
         }
-
+        
         saveMember(email, name);
-
-        return super.loadUser(userRequest);
+        
+        
+        return super.loadUser(userRequest);   
+    
     }
-
+        
+                
     private void saveMember(String email, String name) {
-        // 기존에 등록되어 있는 회원인지 확인 후
-        PonyMemberDTO dto = service.getMemberEmail(email);
-        log.info("멤버 : " + dto);
-
-        // 등록되어 있지 않으면 DB에 추가
-        if (dto == null) {
-            dto = PonyMemberDTO.builder()
-                    .memberEmail(email)
-                    .memberPassword(passwordEncoder.encode("aaaa"))
-                    .memberName(name)
-                    .memberUseYn("Y")
-                    .memberAccountStatus("A")
-                    .build();
-            service.createMember(dto); // member 테이블에만 저장
-
-            // member_role 에는 추가되지 않음
-            // service.createMember(dto);
-        }
+    	// 기존에 등록되어 있는 회원인지 확인
+    	
+    	PonyMemberDTO dto = ponyMemberService.getMemberEmail(email);
+		log.info("멤버 : " + dto);
+		
+		if(dto==null) {
+			dto = PonyMemberDTO.builder()
+								.memberEmail(email)
+								.memberPassword(passwordEncoder.encode("aaaa"))
+								.memberName(name)
+								.memberRole("ROLE_USER")
+								.memberAccountStatus("A")
+								.memberUseYn("Y")
+								.build();
+			
+			ponyMemberService.addUser(dto); // member 테이블에 저장
+			
+			//member_role에는 추가 안됨.
+			//ponyMemberService.addRole();
+			
+		}
+		
     }
+    
+    
 }

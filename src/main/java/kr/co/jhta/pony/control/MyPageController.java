@@ -9,7 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,6 +49,48 @@ public class MyPageController {
 	QuestionService qService;
 	@Autowired
 	ClientService cService;
+	
+	
+//	public String getEmail(Principal principal) {
+//	    String email = null;
+//	    String username = null;
+//	    
+//	    log.info("principal : {}", principal);
+//
+//	    if (principal instanceof OAuth2User) {
+//	        OAuth2User oauth2User = (OAuth2User) principal;
+//
+//	        log.info("OAuth2User : {}", oauth2User);
+//
+//	        Map<String, Object> attributes = oauth2User.getAttributes();
+//	        if (attributes.containsKey("kakao_account")) {
+//	            Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
+//
+//	            if (kakaoAccount.containsKey("email")) {
+//	                email = (String) kakaoAccount.get("email");
+//	                System.out.println("Kakao Email: " + email);
+//	            }
+//	        } else { // 카카오가 아니면 구글임
+//	            email = (String) attributes.get("email");
+//	            if (email != null) {
+//	                username = email;
+//	                System.out.println("Email: " + email);
+//	            } else {
+//	                email = principal.getName(); // 일반 로그인의 사용자명을 가져옴
+//	            }
+//	        }
+//	    } else { // OAuth2User 객체가 없는 경우 (일반 로그인)
+//	        email = principal.getName(); // 일반 로그인의 사용자명을 가져옴
+//	    }
+//
+//	    log.info("최종 email : {}", email);
+//	    // email 사용
+//
+//	    return email;
+//	}
+//	
+	
+	
 	//---------------------------마이페이지 메인
 	@GetMapping("/mypage")
 //	public String mypage(Principal p, HttpSession session) {
@@ -53,10 +99,15 @@ public class MyPageController {
 //		session.setAttribute("dto", dto); //세션에 dto값을 담음.
 //		return "mypage/mypage"; //
 //	}
-	
 	public String mypage(Principal p, @ModelAttribute ClientDTO dto,
 			HttpSession session, Model model, HttpServletRequest req) {
-		PonyMemberDTO dto5 = service.getMemberEmail(p.getName());
+		//log.info("principal : {}", p);
+		
+		
+		
+		//log.info("email : {}" , email);
+		
+		PonyMemberDTO dto5 = service.getMemberEmail(service.getEmail(p));
 		session.setAttribute("dto", dto5);
 		session.setAttribute("cdto", dto);
 		

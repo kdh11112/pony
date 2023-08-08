@@ -44,8 +44,9 @@ function redirectToGoogle() {
 }
 
 function redirectToKaKao(){
-	window.location.href = "oauth2/authorization/kakao"
+	window.location.href = "oauth2/authorization/kakao";
 }
+
 </script>
 
 
@@ -91,7 +92,7 @@ function redirectToKaKao(){
 							<button class="btn btn-primary btn-lg btn-block" type="submit" style=" width: 300px; height: 45px">Login</button>
 							</div>
 							
-
+						</form>
 
 							<div class="d-flex justify-content-center">
 								<button class="btn btn-lg btn-block" onclick="redirectToGoogle()"
@@ -112,7 +113,7 @@ function redirectToKaKao(){
 							
 							<hr class="my-4">
 						
-							</form>
+							
 						
 						<form action="ponyreg" method="get">
 							<div align="center">
