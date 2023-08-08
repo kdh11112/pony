@@ -129,8 +129,8 @@ public class MyPageController {
 		int startNo = (int)map.get("startNo");
 		int endNo = (int)map.get("endNo");
 		log.info("QuestionService : {} ", qService);
-		List<QuestionDTO> qnalist =  qService.selectAll(startNo, endNo, dto.getMemberNo());
-		model.addAttribute("qnalist",qService.selectAll(startNo, endNo, dto.getMemberNo()));
+		List<QuestionDTO> qnalist =  qService.selectAll(startNo-1, endNo, dto.getMemberNo()); //사용자가 작성한 질문의 1번째부터 가져오도록 되어있는데 0번쨰부터 가져와야햐ㅐ서 -1해줌, 다른 로직에서 건드린거같은데,, 다시한번 찾아보자
+		model.addAttribute("qnalist",qService.selectAll(startNo-1, endNo, dto.getMemberNo()));
 		log.info("qnalist   {}"  ,qnalist);
 		model.addAttribute("map", map);
 		model.addAttribute("carcnt",cService.getOwnedCarCount(memberNo));
