@@ -81,6 +81,11 @@ public class PonyMemberServiceImp implements PonyMemberService {
 		dao.myinfomodifyOne(dto);
 		
 	}
+
+	@Override
+	public PonyMemberDTO selectMemAll(int memberNo) {
+		return dao.selectMemAll(memberNo);
+	}
 	
 	
 	

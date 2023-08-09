@@ -32,7 +32,7 @@
 	<delete id="deleteCart" parameterType="int">
 		DELETE
 		FROM CART
-		WHERE cartNo = {cartNo}
+		WHERE cartNo = #{cartNo}
 	</delete>
 
 	<!-- 카트 수량 수정 -->

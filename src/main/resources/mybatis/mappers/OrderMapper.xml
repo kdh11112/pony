@@ -3,8 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.jhta.pony.dao.OrderDAO">
-
 	<!-- ORDER는 예약어이므로 ''로 감싸 테이블임을 표시해야 함 -->
+	
+	<!-- =============== 관리자 ============== -->
 
 	<select id="getAllByAdmin" resultType="kr.co.jhta.pony.dto.OrderDTO">
 		SELECT orderNo, orderDate, memberNo, orderRecipientName, orderRecipientPhone, orderStatus, orderDeliveryCharge, orderPoint, orderTotal
@@ -60,5 +61,9 @@
 		SET orderStatus = #{orderStatus}
 		WHERE orderNo = #{orderNo}
 	</update>
+	
+	
+	<!-- =============== 고객 주문 ============== -->
+	
 
 </mapper>

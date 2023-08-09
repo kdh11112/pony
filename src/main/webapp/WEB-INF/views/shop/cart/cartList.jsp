@@ -4,9 +4,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html lang="ko">
 <head>
-
 <title>PONY MOTORS</title>
-
 <link href="css/admin/css/nav.css" rel="stylesheet" />
 <link href="css/admin/css/cart/app.css" rel="stylesheet" />
 <link href="css/admin/css/cart/global.css" rel="stylesheet" />
@@ -16,7 +14,6 @@
 .product_info--TaUyJVEOf0 {
 	border-bottom: 1px solid #ececef;
 }
-
 .input_check, .chkbox {
 	display: inline-block;
 	margin: 2px;
@@ -37,18 +34,15 @@
 	padding: 0;
 	-webkit-text-size-adjust: none;
 }
-
 .check_box--1f8iu11KzL {
 	font-size: 16px;
 	text-align: left;
 	font-weight: bold;
 }
-
 .info_area--2AT8d3T9eq p {
 	color: gray;
 	font-size: small;
 }
-
 .option--1bwpDWrPvl {
 	position: relative;
 	width: 42px;
@@ -59,7 +53,6 @@
 	padding-top: 0px important;
 	padding: 0px important;
 }
-
 .option--1bwpDWrPvl input {
 	position: absolute;
 	width: 30px;
@@ -73,7 +66,6 @@
 	left: 0;
 	border-radius: 4px;
 }
-
 .quantity_btn {
 	position: absolute;
 	border: 1px solid #d5d9dc;;
@@ -86,12 +78,10 @@
 	font-size: 7px;
 	vertical-align: middle;
 }
-
 .plus_btn {
 	top: 0;
 	right: 0
 }
-
 .minus_btn {
 	bottom: 0;
 	right: 0
@@ -106,7 +96,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 <body>
-
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container">
@@ -141,12 +130,8 @@
 			<p class="lead fw-normal text-black-50 mb-0" style="font-size: 20px; color: #00000080;">주문을 완료해주세요.</p>
 		</div>
 	</header>
-
-
 	<div id="app">
 		<div class="cart--3ESq5SxCdE pc_type">
-
-
 			<div class="check_all--mLXOEtPdIW">
 				<div class="fixed_area--3onkZminap">
 					<div class="inner--3_4mSHtQSw">
@@ -173,7 +158,7 @@
 						</button>
 					</div>
 					<script>
-						$("#selectDelete_btn").click(function() {
+						$("#selectDelete_btn").click(function(e) {
 							e.preventDefault();
 							var checkArr = new Array();
 
@@ -209,7 +194,6 @@
 					var count = $(".chkbox").length;
 					var totalKind = 0;
 					//var count = ($(".chkbox")[i].checked).length;
-
 					for (var i = 0; i < count; i++) {
 						if ($(".chkbox")[i].checked == true) {
 							sum += parseInt($(".chkbox")[i].value);
@@ -224,10 +208,8 @@
 					} else {
 						orderDeliveryCharge = 3000;
 					}
-
 					/* 최종 가격 */
 					finalTotalPrice = sum + orderDeliveryCharge;
-
 					$("#total_Count").html(totalKind);
 					$("#total_sum").html(makePrice(sum));
 					$("#delivery").html(makePrice(orderDeliveryCharge));
@@ -255,12 +237,10 @@
 																		<input type="checkbox" name="RowCheck" class="chkbox" onClick="itemSum()" value="${usercart.cartTotal }" data-cartNo="${usercart.cartNo }">
 																	</div>
 																	<div class="inner--1emXN2Ic_f">
-
 																		<div class="info_area--2AT8d3T9eq">
 																			<div class="title--2r7IrJqWav">${usercart.partName }</div>
 																			<p>옵션 : ${usercart.modelName }</p>
 																		</div>
-
 																	</div>
 																</div>
 															</div>
@@ -290,7 +270,6 @@
 															</div>
 														</div>
 													</div>
-
 												</div>
 												<td class=cart_info>
 													<input type="hidden" class="partPrice_input" value="${usercart.partPrice}">
@@ -323,7 +302,6 @@
 										<div class="price_area--jjAq5tYP9m">
 											<span class="title--3G_o4_rhfc">총 배송비<span class="delivery_layer_area--24GraQM4cv"> </span></span><em><span class="num--37aOyGmdW1" id="delivery2"></span>원</em>
 										</div>
-
 									</div>
 									<div class="total_area--a6Q91DyB5T">
 										<div class="inner--2z0IE5sNLy">
@@ -337,7 +315,6 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
 			<ul class="notice--WcNb-89c6_">
 				<li>장바구니 상품은 <em>최대 30일간 저장</em>됩니다.
@@ -345,7 +322,6 @@
 				<li>가격, 옵션 등 정보가 변경된 경우 주문이 불가할 수 있습니다.</li>
 				<li>일부 상품의 경우 카드 할부기간이 카드사 제공 기간보다 적게 제공될 수 있습니다.</li>
 			</ul>
-
 			<div class="banner--2RTE2HmuHK">
 				<div id="cart_ad">
 					<div style="width: 100%; height: auto; margin: 0px auto; line-height: 0;">
@@ -353,7 +329,6 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="floating_area--3yEuORHlfZ">
 				<div class="inner--2zhHC3FZRa">
 					<div class="buy_area--1s7Qe73yzk">
@@ -363,12 +338,32 @@
 						<button type="button" class="link_buy--jXvxZ8Agr-">
 							총 주문하기<span class="badge--ltxr8Ih722" id="total_Count"></span>
 						</button>
+						<script>
+							$(".link_buy--jXvxZ8Agr-").click(function(e) {
+								e.preventDefault();
+								var checkArr = new Array();
+
+								$("input[class='chkbox']:checked").each(function() {
+									checkArr.push($(this).attr("data-cartNo"));
+									alert(checkArr);
+								});
+
+								$.ajax({
+									url : "/buypart",
+									type : "post",
+									data : {chkbox : checkArr},
+									success : function(){
+										location.href = "/buypart";
+									}
+								
+								});
+							});
+						</script>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
 	<script>
 		var tt = "${cart}";
 		if (tt == 'false') {
@@ -378,7 +373,6 @@
 			$(".chkbox").prop("checked", true);
 			itemSum();
 		}
-
 		/* 수량버튼 */
 		$(".plus_btn").on("click", function() {
 			let quantity = $(this).parent("div").find("input").val();
@@ -408,19 +402,20 @@
 			cartCount = parseInt(cartCount);
 			
 		    partNo = parseInt(partNo);
-		    /* alert(stockQuantity) ; */
-		    /* 수정하려는 수량이 재고 수량보다 많을 경우, 경고 메세지를 표시 */
-		        if (updateCartCount > partNo) {
-		            alert("입력 수량은 주문 가능 수량을 초과할 수 없습니다. \n(주문가능 수량 : "+partNo+")");
-		            /* input의 값을 기존 수량으로 되돌림 */
-		            updateCartCountInput.val(cartCount);
-		            return;
-		        }
-			
-			$(".update_cartNo").val(cartNo);
-			$(".update_cartCount").val(updateCartCount);
-			$(".count_modify_form").submit();
-		});
+					/* alert(stockQuantity) ; */
+					/* 수정하려는 수량이 재고 수량보다 많을 경우, 경고 메세지를 표시 */
+					if (updateCartCount > partNo) {
+						alert("입력 수량은 주문 가능 수량을 초과할 수 없습니다. \n(주문가능 수량 : "
+								+ partNo + ")");
+						/* input의 값을 기존 수량으로 되돌림 */
+						updateCartCountInput.val(cartCount);
+						return;
+					}
+
+					$(".update_cartNo").val(cartNo);
+					$(".update_cartCount").val(updateCartCount);
+					$(".count_modify_form").submit();
+				});
 	</script>
 </body>
 </html>

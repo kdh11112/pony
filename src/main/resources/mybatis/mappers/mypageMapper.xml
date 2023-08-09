@@ -53,4 +53,13 @@
 	    WHERE
 	        memberNo = #{memberNo}
 	</update>
+	<select id="selectMemAll" parameterType="int" resultType="kr.co.jhta.pony.dto.PonyMemberDTO">
+		SELECT 
+	    	memberNo,memberEmail,memberPassword,memberName,memberBirthday,memberPhone,
+		    memberZip,memberAddress1, memberAddress2, memberPoint
+		FROM
+		    MEMBER
+		WHERE
+		    memberNo = #{memberNo};
+	</select>
 </mapper>

@@ -123,6 +123,10 @@ td.partIcontd {
 	padding-left: 0px;
 	padding-right: 0px;
 }
+
+.price_span {
+	color: #5390DC;
+}
 }
 </style>
 </head>
@@ -172,10 +176,10 @@ td.partIcontd {
 				<table class="table">
 					<colgroup>
 						<col width="110">
-						<col width="380">
-						<col width="180">
-						<col width="130">
-						<col width="100">
+						<col width="370">
+						<col width="170">
+						<col width="110">
+						<col width="110">
 						<col width="80">
 					</colgroup>
 					<tr>
@@ -189,35 +193,49 @@ td.partIcontd {
 					<c:if test="${listCheck != 'empty' }">
 
 						<c:forEach var="partlist" items="${partlist }">
+							<script>
+						
+						$(document).read(function()) {
+							/* 포인트 삽입 */
+						 $(".price_span").each(function() {
+					        var partPrice = parseInt($(this).prev().text().replace(/[^\d]/g, ''));
+					        var point = Math.floor(partPrice * 0.05);
+					        $(this).html("(적립: " + point + "원)");
+					    });
+						</script>
+
 							<tr>
 								<td>${partlist.partNumber }</td>
 								<td style="text-align: left !important; padding-left: 50px;">${partlist.partName }</td>
 								<td>${partlist.modelName }</td>
 								<td>
 									<!-- 최대 주문 가능수량 : 재고수량, 재고 없으면 선택 비활성화 -->
-										<c:if test="${partlist.partNo != 0}">
-											<select name="selectpartNo" class="choicetype" style="width: 70px;">
-												<c:forEach begin="1" end="${partlist.partNo }" var="i">
-													<option value="${i }">${i }</option>
-												</c:forEach>
-											</select>
-										</c:if>
+									<c:if test="${partlist.partNo != 0}">
+										<select name="selectpartNo" class="choicetype" style="width: 70px;">
+											<c:forEach begin="1" end="${partlist.partNo }" var="i">
+												<option value="${i }">${i }</option>
+											</c:forEach>
+										</select>
+									</c:if>
 									<c:if test="${partlist.partNo == 0}">
 										<select name="selectCount" class="choicetype" style="width: 70px;">
 											<option value="0">0</option>
 										</select>
 									</c:if>
 								</td>
-								<td style="text-align: right !important; padding-right: 10px;">
+
+								<td style="text-align: right !important; padding-left: 0px; padding-right: 10px;">
 									<fmt:formatNumber pattern="###,###,###원">${partlist.partPrice }</fmt:formatNumber>
+									<br /> <span class="price_span" style="font-size: 70%;">(적립: <span class="point_span"></span>원)
+									</span>
 								</td>
 								<td class="partIcontd">
-										<c:if test="${partlist.partNo != 0}">
-											<button type="submit" class="addCart" name="selectpartNumber" value="${partlist.partNumber }">
-												<input type="hidden" name="selectpartNum" value="${partlist.partNumber }"/>
-												<img src="css/admin/assets/cart.png" style="width: 12px; height: 12px;" />
-											</button>
-										</c:if>
+									<c:if test="${partlist.partNo != 0}">
+										<button type="submit" class="addCart" name="selectpartNumber" value="${partlist.partNumber }">
+											<input type="hidden" name="selectpartNum" value="${partlist.partNumber }" />
+											<img src="css/admin/assets/cart.png" style="width: 12px; height: 12px;" />
+										</button>
+									</c:if>
 
 									<c:if test="${partlist.partNo == 0}">
 										<span class="partNo" style="text-align: left !important">Out of stock</span>
@@ -282,6 +300,14 @@ td.partIcontd {
 	<!-- Core theme JS-->
 	<script src="css/mypage/js/scripts.js"></script>
 	<script>
+	
+		$(document).read(function()) {
+			/* 포인트 삽입 */
+		    var partPrice = parseInt("${partlist.partPrice}");
+		    var point = Math.floor(partPrice * 0.05);
+		    $(".point_span").html(point);
+		}
+		
 		/* 페이징 버튼 동작시키기 위한 코드*/
 		let moveForm = $('#moveForm');
 
@@ -308,32 +334,38 @@ td.partIcontd {
 
 		});
 
- 		$(".addCart").on("click",function(e){
- 			const form = {	
- 			 		partNumber: $(this).closest("tr").find("input[name='selectpartNum']").val(),
- 			 		cartCount: $(this).closest("tr").find("select[name='selectpartNo']").val()
- 			 	};
+		$(".addCart").on(
+				"click",
+				function(e) {
+					const form = {
+						partNumber : $(this).closest("tr").find(
+								"input[name='selectpartNum']").val(),
+						cartCount : $(this).closest("tr").find(
+								"select[name='selectpartNo']").val()
+					};
 
-			$.ajax({
-				url: '/partall',
-				type: 'POST',
-				data : form,
-				success: function(result){
-				      cartAlert(result);
-				}
-			})
-		});
- 		function cartAlert(result){
- 			if(result == 0){
- 				alert("장바구니에 추가를 하지 못하였습니다.");
- 			} else if(result == 1){
- 				alert("장바구니에 추가되었습니다.");
- 			} else if(result == 2){
- 				alert("장바구니에 이미 추가되어져 있습니다.");
- 			} else if(result == 5){
- 				alert("로그인이 필요합니다.");	
- 			}
- 		}
+					$.ajax({
+						url : '/partall',
+						type : 'POST',
+						data : form,
+						success : function(result) {
+							cartAlert(result);
+						}
+					})
+				});
+		function cartAlert(result) {
+			if (result == 0) {
+				alert("장바구니에 추가하지 못하였습니다.");
+			} else if (result == 1) {
+				alert("장바구니에 추가되었습니다.");
+			} else if (result == 2) {
+				alert("장바구니에 이미 추가된 상품입니다.");
+				location.replace("cartlist");
+			} else if (result == 5) {
+				alert("로그인이 필요합니다.");
+				location.replace("login");
+			}
+		}
 	</script>
 </body>
 </html>
