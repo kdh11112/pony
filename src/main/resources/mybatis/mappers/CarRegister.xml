@@ -196,4 +196,6 @@
 		DELETE FROM REGISTRATION
 		WHERE registrationNumber = #{registrationNumber}
 	</delete>
+	
+	
 </mapper>

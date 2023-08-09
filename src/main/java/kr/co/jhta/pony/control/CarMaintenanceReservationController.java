@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.security.service.PonyMemberService;
@@ -28,5 +29,10 @@ public class CarMaintenanceReservationController {
 		int memberNo = dto.getMemberNo();
 		dto.setMemberNo(memberNo);
 		return "carMaintenanceReservation";
+	}
+	//------------------------------------예약하기 insert
+	@PostMapping("insertCarMaintenanceReservation")
+	public String insertCarMaintenanceReservation() {
+		return "confirmCarMaintenanceReservation";
 	}
 }
