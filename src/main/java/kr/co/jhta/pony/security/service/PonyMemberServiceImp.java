@@ -90,10 +90,20 @@ public class PonyMemberServiceImp implements PonyMemberService {
 	}
 
 	@Override
+	public Object getMemberPoint(int memberNo) {
+		// TODO Auto-generated method stub
+		return dao.getMemberPoint(memberNo);
+	}
+	
+	@Override
 	public void addUser(PonyMemberDTO dto) {
 			dao.addUser(dto);
 
 	}
+	
+
+
+	
 
 	@Override
 	public String getPrincipalEmail(Principal principal) {

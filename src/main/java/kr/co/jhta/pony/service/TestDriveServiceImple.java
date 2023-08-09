@@ -17,4 +17,23 @@ public class TestDriveServiceImple implements TestDriveService{
 		dao.insertTestDriveSchedule(dto);
 	}
 
+	@Override
+	public void updatedTestDrive(int memberNo) {
+		// TODO Auto-generated method stub
+		dao.updatedTestDrive(memberNo);
+	}
+
+
+	@Override
+	public void deleteTestDrive(int testDriveNo) {
+		// TODO Auto-generated method stub
+		dao.deleteTestDrive(testDriveNo);
+	}
+
+
+	@Override
+	public Object testDriveCount(int memberNo) {
+		// TODO Auto-generated method stub
+		return dao.testDriveCount(memberNo);
+	}
 }

@@ -1,28 +1,7 @@
 $(document).ready(function() {
 
-	/* ========================= 첫번째 이용동의 영역 클릭시 모달창 오픈 ==========================*/
-	$("#check1,#flexCheckDefault1").on("click", function() {
-		$("#modal1").modal("show");
-	})
-	/* ========================= 두번째 이용동의 영역 클릭시 모달창 오픈, 첫번째 미동의시 경고창 ==========================*/
-	$("#check2,#flexCheckDefault2").on("click", function() {
-		let checkbox = document.getElementById("flexCheckDefault1");
-		if (checkbox.checked === false) {
-			alert("첫번째 필수항목을 동의해주세요")
-			return false;
-		} else {
-			$("#modal2").modal("show");
-			return false;
-		}
-	})
 
-	/* ========================= 첫번째 동의서 버튼 클릭시 체크 되게 ==========================*/
-	$("#agree-btn1").on("click", function() {
-		let checkbox = document.getElementById("flexCheckDefault1");
-		checkbox.checked = true;
-		$("#modal1").modal("hide");
-		$("#modal2").modal("show");
-	})
+	
 
 	/* =============== 두번째 동의서 버튼 클릭시 체크, 첫번째 아코디언 열기, 스크롤 이동 ==================*/
 	$("#agree-btn2").on("click", function() {

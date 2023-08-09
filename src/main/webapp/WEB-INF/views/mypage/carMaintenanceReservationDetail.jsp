@@ -184,10 +184,10 @@ textarea {
 				var no = $(this).parent().next().val();
 
 				$.ajax({
-					url : "/testdrivingdelete", // 삭제 요청을 처리하는 서버의 URL
+					url : "/carMaintenanceReservationDelete", // 삭제 요청을 처리하는 서버의 URL
 					method : "GET", // 삭제 요청은 POST 방식으로 전송합니다.
 					data : {
-						testDriveNo : no
+						registrationNumber : no
 					}, // 삭제할 차대번호를 전달합니다.
 					success : function(data) {
 
@@ -195,78 +195,9 @@ textarea {
 				});
 			}
 		});
-		location.href = "/testdriving";
+		location.href = "/carMaintenanceReservationDetail";
 	}
-	/* }); */
-	//$('input:checkbox').prop('checked',true);
-	/* $('input:checkbox').is(':checked'); //체크박스 체크여부 확인
-	var parentTag = $('input:checkbox').parent(); */
-	//console.log(parentTag);
-	/*  function deleteCar(e){
-	 console.log(e);
-	 $('input:checkbox').prop('checked',true);
-	 $('input:checkbox').is(':checked'); //체크박스 체크여부 확인
-	 var parentTag = $('input:checkbox').parent();
-	 console.log(parentTag);
-	 }  */
-	//등록된 차량 삭제
-	/* function deleteCar(testDriveNo) {
-	 let selectedCarsId = $("#selectedCarsId").val()
-	 // 확인 메시지를 띄워 사용자에게 삭제 여부를 물어봅니다.
-	 // if (confirm("선택한 차량을 삭제하시겠습니까?")) {
-	 // Ajax를 사용하여 서버에 삭제 요청을 전송합니다.
-	 console.log(selectedCarsId);
-	 $.ajax({
-	 url : "/testdrivingdelete", // 삭제 요청을 처리하는 서버의 URL
-	 method : "GET", // 삭제 요청은 POST 방식으로 전송합니다.
-	 data : {
-	 testDriveNo : selectedCarsId
-	 }, // 삭제할 차대번호를 전달합니다.
-	 success : function(data) {
-	 // 삭제 요청에 성공하면 해당 행을 테이블에서 제거합니다.
-	 //$("tr:has(td:contains(" + testDriveNo + "))").remove();
-	 // 여기서 "tr:has(td:contains(" + clientVin + "))"은 차대번호가 clientVin인 행을 찾아내는 선택자입니다.
-	 // Success callback, handle the response from the server if needed
-	 // Here, you can add code to close the modal and reset the input fields
-	 //$("#exampleModal1").modal("hide"); // Close the modal
-	 resetInputFields(); // Reset the input fields
-	 // 삭제 성공 후 리다이렉트를 수행합니다.
-	 window.location.href = "/testdriving"; // 삭제 성공 페이지로 리다이렉트합니다.
-	 },
-	 error : function(xhr, status, error) {
-	 // 삭제 요청에 실패하면 오류 메시지를 처리할 수 있습니다.
-	 console.log(error);
-	 }
-	 });
-	 //}
-	 } */
 
-	/* function deleteSelectedCars() {
-		var selectedCars = $("input[name='selectedCars']:checked");
-
-		var selectedCarIds = [];
-		selectedCars.each(function() {
-			selectedCarIds.push($(this).val());
-		});
-
-		$.ajax({
-			url : "/testdrivingdelete", // 삭제 요청을 처리하는 서버의 URL
-			method : "GET", // 삭제 요청은 GET 방식으로 전송. (필요에 따라 변경 가능)
-			data : {
-				testDriveNo : selectedCarIds.join(",")
-			// 선택된 시승예약내역의 ID를 쉼표로 구분하여 전달
-			},
-			success : function(data) {
-				// 삭제 요청에 성공하면 선택된 행을 테이블에서 제거.
-				selectedCars.closest("tr").remove();
-				// 여기서 선택된 시승예약내역의 행을 삭제.
-				// 필요한 경우 다른 업데이트 작업을 수행.
-			},
-			error : function(xhr, status, error) {
-				console.log(error);
-			}
-		});
-	} */
 </script>
 
 </head>
@@ -311,7 +242,7 @@ textarea {
 
 			<img src="images/cloud.jpg" alt="" />
 			<div class="header-content text-center text-black">
-				<h1 class="display-4 fw-bolder">시승신청예약내역</h1>
+				<h1 class="display-4 fw-bolder">정비예약내역</h1>
 				<p class="lead fw-normal text-black-50 mb-0"></p>
 			</div>
 
@@ -334,8 +265,8 @@ textarea {
 						<div class="content-body" data-v-269e3e5f>
 							<div class="my-title" data-v-269e3e5f>
 								<div class="head" data-v-269e3e5f>
-									<strong data-v-269e3e5f><a href="/mypage"><span data-v-269e3e5f>${dto.memberName }</span></a>
-										님, 안녕하세요! </strong> <a href="/myInfo"
+									<strong data-v-269e3e5f><a href="mypage"><span data-v-269e3e5f>${dto.memberName }</span></a>
+										님, 안녕하세요! </strong> <a href="myinfo"
 										class="btn btn-primary active infomodify_btn"><span>정보수정
 											<!---->
 
@@ -406,20 +337,20 @@ textarea {
 
 					</div>
 
-					<!-- 시승신청내역 -->
+					<!-- 정비예약내역 -->
 
 					<div id="mycarinfo">
 						<div class="my-car" data-v-269e3e5f>
 							<div class="title mycarTitle" data-v-269e3e5f>
-								<strong data-v-269e3e5f> 예약된 시승 내역을 확인하세요. <span
-									data-v-269e3e5f>${testDriveCount }대</span></strong>
+								<strong data-v-269e3e5f> 예약된 정비 내역을 확인하세요. <span
+									data-v-269e3e5f></span></strong>
 
 							</div>
 							<div class="sub" data-v-269e3e5f>
 								<span data-v-269e3e5f>등록 차량의 자세한 정보를 확인하실 수 있습니다.</span>
 							</div>
 
-							<c:if test="${empty testdriveapplicationreservationdetailsdto}">
+							<c:if test="${empty carRegisterdto}">
 								<div class="no-car" data-v-269e3e5f>
 									<span class="ico-nocar" data-v-269e3e5f><i
 										data-v-269e3e5f>등록된 차가 없습니다.</i></span>
@@ -427,12 +358,12 @@ textarea {
 								</div>
 							</c:if>
 							<c:if
-								test="${!empty testdriveapplicationreservationdetailsdto  }">
+								test="${!empty carRegisterdto  }">
 								<!-- 등록차량리스트 -->
 
 								<div class="page-title">
 									<div class="container">
-										<h3>시승 예약 내역</h3>
+										<h3>정비 예약 내역</h3>
 									</div>
 								</div>
 
@@ -446,27 +377,28 @@ textarea {
 											<thead>
 												<tr>
 													<th scope="col" class="th-num"></th>
-													<th scope="col" class="th-num">시승신청모델</th>
-													<th scope="col" class="th-num">시승신청지점</th>
-													<th scope="col" class="th-num">시승신청지점주소</th>
-													<th scope="col" class="th-title">시승신청일자</th>
-													<th scope="col" class="th-date">시승신청시간</th>
+													
+													<th scope="col" class="th-num">정비소</th>
+													<th scope="col" class="th-num">차량번호</th>
+													<th scope="col" class="th-title">정비요청사항</th>
+													<th scope="col" class="th-date">접수일</th>
+													<th scope="col" class="th-date">입고예정일</th>
 												</tr>
 											</thead>
 											<tbody>
 												<c:forEach var="list"
-													items="${testdriveapplicationreservationdetailsdto }">
+													items="${carRegisterdto }">
 													<tr class="list">
 														<td>
 															<!-- 등록된 차량 삭제 체크 박스 --> <input type="checkbox"
 															name="selectedCars" value="" id="selectedCarsId">
 														</td>
-														<input type="hidden" value="${list.testDriveNo}" />
-														<td>${list.modelName}</td>
-														<td>${list.shopAreaPoint }</td>
-														<td>${list.shopAddr }</td>
-														<td>${list.testDriveTime }</td>
-														<td>${list.testDriveSchedule }</td>
+														<input type="hidden" value="${list.registrationNumber}" />
+														<td>${list.shopAreaPoint}</td>
+														<td>${list.clientCarNumber }</td>
+														<td>${list.registrationClientRequests }</td>
+														<td>${list.registrationDate}</td>
+														<td>${list.registrationReservationDueDate  }</td>
 													</tr>
 												</c:forEach>
 
@@ -484,7 +416,7 @@ textarea {
 								<!-- 시승예약변경 모달버튼 -->
 								<button type="button" class="btn btn-primary active"
 									data-bs-toggle="modal" data-bs-target="#exampleModal">
-									시승예약변경</button>
+									정비예약변경</button>
 
 								<!-- 시승예약변경 모달 -->
 								<div class="modal fade" id="exampleModal" tabindex="-1"
@@ -492,7 +424,7 @@ textarea {
 									<div class="modal-dialog modal-xl">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h1 class="modal-title fs-5" id="exampleModalLabel">정비신청예약변경</h1>
+												<h1 class="modal-title fs-5" id="exampleModalLabel">정비예약변경</h1>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
@@ -506,7 +438,7 @@ textarea {
 															<button class="accordion-button collapsed" type="button"
 																data-bs-toggle="collapse" data-bs-target="#collapseOne"
 																aria-expanded="false" aria-controls="flush-collapseOne"
-																id="headingOneBtn">정비모델선택</button>
+																id="headingOneBtn">정비차량선택</button>
 														</h2>
 														<div id="collapseOne" class="accordion-collapse collapse"
 															aria-labelledby="headingOne"
@@ -542,7 +474,7 @@ textarea {
 															<button class="accordion-button collapsed" type="button"
 																data-bs-toggle="collapse" data-bs-target="#collapseTwo"
 																aria-expanded="false" aria-controls="collapseTwo"
-																id="headingTwoBtn">시승지점선택</button>
+																id="headingTwoBtn">정비소선택</button>
 														</h2>
 														<div id="collapseTwo" class="accordion-collapse collapse"
 															data-bs-parent="#accordionExample"
@@ -624,7 +556,7 @@ textarea {
 															<button class="accordion-button collapsed" type="button"
 																data-bs-toggle="collapse"
 																data-bs-target="#collapseThree" aria-expanded="false"
-																aria-controls="collapseThree" id="headingThreeBtn">정비예정일자선택</button>
+																aria-controls="collapseThree" id="headingThreeBtn">정비예약일자선택</button>
 														</h2>
 														<div id="collapseThree"
 															class="accordion-collapse collapse"
@@ -691,12 +623,12 @@ textarea {
 									<div class="modal-dialog modal-xl">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h1 class="modal-title fs-5" id="exampleModalLabel">정비예약취소</h1>
+												<h1 class="modal-title fs-5" id="exampleModalLabel">취소</h1>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
 											<div class="modal-body">
-												<p>정비예약을 취소하시겠습니까?</p>
+												<p>정비예약내역을 취소하시겠습니까?</p>
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary active"

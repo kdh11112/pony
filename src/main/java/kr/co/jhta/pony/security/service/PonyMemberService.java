@@ -23,7 +23,7 @@ public interface PonyMemberService {
 	
 	public void addUser(PonyMemberDTO dto);
 	public String getPrincipalEmail(Principal principal);
-
+	public Object getMemberPoint(int memberNo);
 	
 	
 }

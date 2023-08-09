@@ -36,4 +36,5 @@ public interface PonyMemberDAO {
 
 	public void addUser(PonyMemberDTO dto);
 	
+	public Object getMemberPoint(int memberNo);
 }

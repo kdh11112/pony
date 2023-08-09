@@ -16,14 +16,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+
+import kr.co.jhta.pony.dto.CarRegisterDTO;
 import kr.co.jhta.pony.dto.ClientDTO;
 import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.dto.QuestionDTO;
-import kr.co.jhta.pony.security.account.AccountContext;
+import kr.co.jhta.pony.dto.ShopDTO;
+import kr.co.jhta.pony.dto.TestDriveApplicationReservationDetailsDTO;
+import kr.co.jhta.pony.dto.TestDriveDTO;
 import kr.co.jhta.pony.security.service.PonyMemberService;
+import kr.co.jhta.pony.service.AnswerService;
+import kr.co.jhta.pony.service.CarRegisterService;
 import kr.co.jhta.pony.service.ClientService;
 import kr.co.jhta.pony.service.QuestionService;
+import kr.co.jhta.pony.service.ShopService;
+import kr.co.jhta.pony.service.TestDriveApplicationReservationDetailsService;
+import kr.co.jhta.pony.service.TestDriveService;
 import kr.co.jhta.pony.util.PageUtil;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,6 +49,8 @@ import lombok.extern.slf4j.Slf4j;
 public class MyPageController {
 
 	@Autowired
+	ShopService ss;
+	@Autowired
 	PasswordEncoder passwordEncoder;
 	@Autowired
 	PonyMemberService service;
@@ -45,6 +58,14 @@ public class MyPageController {
 	QuestionService qService;
 	@Autowired
 	ClientService cService;
+	@Autowired
+	TestDriveApplicationReservationDetailsService testdriveapplicationreservationdetailsservice;
+	@Autowired
+	TestDriveService testDriveService;
+	@Autowired
+	CarRegisterService carRegistrationService;
+	@Autowired
+	AnswerService aservice;
 	//---------------------------마이페이지 메인
 	@GetMapping("/mypage")
 //	public String mypage(Principal p, HttpSession session) {
@@ -56,20 +77,24 @@ public class MyPageController {
 	
 	public String mypage(Principal p, @ModelAttribute ClientDTO dto,
 			HttpSession session, Model model, HttpServletRequest req) {
-		PonyMemberDTO dto5 = service.getMemberEmail(p.getName());
+		if(p==null) {
+			return "/ponylogin";
+		}else {
+		
+		PonyMemberDTO dto5 = service.getMemberEmail(service.getPrincipalEmail(p));
 		session.setAttribute("dto", dto5);
 		session.setAttribute("cdto", dto);
 		
 		
 		// 로그인한 사용자의 회원번호를 가져옴
 		int memberNo = dto5.getMemberNo();
-		session.setAttribute("memberNo", memberNo);
 		dto.setMemberNo(memberNo);
 		// 회원번호를 기준으로 등록된 차량 정보를 조회
 		List<ClientDTO> userCars = cService.carList(memberNo);
 		log.info(">>>>>>>>>>>>>>>>>>>>>"+userCars);
 		String pw =passwordEncoder.encode("aaaa");//비밀번호 암호화
 		log.info(">>>>>>>>>>>>>>>>>>>>>"+pw);
+		log.info(">>>>>>>>>>>>>>>>>>>>>"+p.getName());
 		// 등록된 차량 정보가 없을 경우의 처리
         if (userCars.isEmpty()) {
             model.addAttribute("hasCars", false);
@@ -78,8 +103,10 @@ public class MyPageController {
             model.addAttribute("userCars", userCars);
         }
         model.addAttribute("carcnt",cService.getOwnedCarCount(memberNo));
-        
+        model.addAttribute("qnacount",qService.getqnaCount(memberNo));
+        model.addAttribute("memberPoint",service.getMemberPoint(memberNo));
 		return "mypage/mypage";
+		}
 	}
 	//--------------------------------마이페이지 1:1문의 리스트페이지로이동
 	@GetMapping("/mypageqna")
@@ -95,28 +122,50 @@ public class MyPageController {
 		//총페이지수, 한페이지당 수, 현재 페이지 번호
 		Map<String, Object> map = PageUtil.getPageData(totalNumber, recordPerPage, currentPage);
 		
+		
+		// 로그인한 사용자의 회원번호를 가져옴
+				int memberNo = dto.getMemberNo();
+				dto.setMemberNo(memberNo);
 		int startNo = (int)map.get("startNo");
 		int endNo = (int)map.get("endNo");
 		log.info("QuestionService : {} ", qService);
-		List<QuestionDTO> qnalist =  qService.selectAll(startNo, endNo, dto.getMemberNo());
-		model.addAttribute("qnalist",qService.selectAll(startNo, endNo, dto.getMemberNo()));
+		List<QuestionDTO> qnalist =  qService.selectAll(startNo-1, endNo, dto.getMemberNo()); //사용자가 작성한 질문의 1번째부터 가져오도록 되어있는데 0번쨰부터 가져와야햐ㅐ서 -1해줌, 다른 로직에서 건드린거같은데,, 다시한번 찾아보자
+		model.addAttribute("qnalist",qService.selectAll(startNo-1, endNo, dto.getMemberNo()));
 		log.info("qnalist   {}"  ,qnalist);
 		model.addAttribute("map", map);
+		model.addAttribute("carcnt",cService.getOwnedCarCount(memberNo));
+        model.addAttribute("qnacount",qService.getqnaCount(memberNo));
+        model.addAttribute("memberPoint",service.getMemberPoint(memberNo));
 		return "mypage/mypageQna";
 	}
 	//-------------------------------글 상세 페이지이동
 		@GetMapping("/mypageqnadetail")
-		public String detail(@RequestParam("questionNo")int questionNo,Model model) {
+		public String detail(@RequestParam("questionNo")int questionNo,Model model,Principal p, HttpSession session) {
+			PonyMemberDTO dto20 = service.getMemberEmail(p.getName());
+			session.setAttribute("dto", dto20);
+			// 로그인한 사용자의 회원번호를 가져옴
+			int memberNo = dto20.getMemberNo();
+			dto20.setMemberNo(memberNo);
 			model.addAttribute("detail",qService.selectOne(questionNo));
+			model.addAttribute("answer",aservice.selectOne(questionNo));
 			//service.increaseHits(questionNo);
-			
+			model.addAttribute("carcnt",cService.getOwnedCarCount(memberNo));
+	        model.addAttribute("qnacount",qService.getqnaCount(memberNo));
+	        model.addAttribute("memberPoint",service.getMemberPoint(memberNo));
 			return "/mypage/qnadetail";
 		}
 		
 		//-----------------------1:1 글쓰기이동
 		@GetMapping("/qnawrite")
-		public String write() {	
-			
+		public String write(Model model,Principal p, HttpSession session) {	
+			PonyMemberDTO dto21 = service.getMemberEmail(p.getName());
+			session.setAttribute("dto", dto21);
+			// 로그인한 사용자의 회원번호를 가져옴
+			int memberNo = dto21.getMemberNo();
+			dto21.setMemberNo(memberNo);
+			model.addAttribute("carcnt",cService.getOwnedCarCount(memberNo));
+	        model.addAttribute("qnacount",qService.getqnaCount(memberNo));
+	        model.addAttribute("memberPoint",service.getMemberPoint(memberNo));
 			return "/mypage/qnawriteform";
 		}
 		//-------------------------글쓰기 완료
@@ -134,6 +183,10 @@ public class MyPageController {
 			dto.setQuestionContents(contents);
 			qService.qnaAddOne(dto);
 			
+			model.addAttribute("carcnt",cService.getOwnedCarCount(memberNo));
+	        model.addAttribute("qnacount",qService.getqnaCount(memberNo));
+	        model.addAttribute("memberPoint",service.getMemberPoint(memberNo));
+			
 			return "redirect:/mypageqna";
 		}
 		
@@ -144,6 +197,9 @@ public class MyPageController {
 			int memberNo = dto3.getMemberNo();
 			session.setAttribute("mdto", dto3);
 			model.addAttribute("dto", qService.selectOne(questionNo));
+			model.addAttribute("carcnt",cService.getOwnedCarCount(memberNo));
+	        model.addAttribute("qnacount",qService.getqnaCount(memberNo));
+	        model.addAttribute("memberPoint",service.getMemberPoint(memberNo));
 			return "/mypage/qnamodifyform";
 		}
 		
@@ -167,9 +223,6 @@ public class MyPageController {
 		
 		// --------------------------등록차량확인페이지
 		@GetMapping("/carregi")
-//		public String carregi() {
-//			return "/mypage/carregi";
-//		}
 		public String carregi(Principal p, @ModelAttribute ClientDTO dto,
 				HttpSession session, Model model, HttpServletRequest req) {
 			PonyMemberDTO dto5 = service.getMemberEmail(p.getName());
@@ -187,6 +240,9 @@ public class MyPageController {
 	            model.addAttribute("hasCars", true);
 	            model.addAttribute("userCars", userCars);
 	        }
+	        model.addAttribute("carcnt",cService.getOwnedCarCount(memberNo));
+	        model.addAttribute("qnacount",qService.getqnaCount(memberNo));
+	        model.addAttribute("memberPoint",service.getMemberPoint(memberNo));
 			return "/mypage/carregi";
 		}
 		
@@ -234,7 +290,9 @@ public class MyPageController {
 	            model.addAttribute("hasCars", true);
 	            model.addAttribute("userCars", userCars);
 	        }
-	        
+	        model.addAttribute("carcnt",cService.getOwnedCarCount(memberNo));
+	        model.addAttribute("qnacount",qService.getqnaCount(memberNo));
+	        model.addAttribute("memberPoint",service.getMemberPoint(memberNo));
 			return "/mypage/carregiGo";
 		}
 		
@@ -286,6 +344,9 @@ public class MyPageController {
 			session.setAttribute("dto", dto6);
 			int memberNo=dto6.getMemberNo();
 			model.addAttribute("dto",service.selectMem(memberNo));
+			model.addAttribute("carcnt",cService.getOwnedCarCount(memberNo));
+	        model.addAttribute("qnacount",qService.getqnaCount(memberNo));
+	        model.addAttribute("memberPoint",service.getMemberPoint(memberNo));
 			log.info("dto>>>>>>"+service.selectMem(memberNo));
 			return "mypage/myInfo";
 		}
@@ -309,7 +370,9 @@ public class MyPageController {
 			
 			session.setAttribute("mdto", dto7);
 			model.addAttribute("dto", service.selectOne(memberNo));
-			
+			model.addAttribute("carcnt",cService.getOwnedCarCount(memberNo));
+	        model.addAttribute("qnacount",qService.getqnaCount(memberNo));
+	        model.addAttribute("memberPoint",service.getMemberPoint(memberNo));
 			return "mypage/myinfomodifyform";
 		}
 		
@@ -342,10 +405,60 @@ public class MyPageController {
 		}
 		//--------------------------시승신청예약내역
 		@GetMapping("/testdriving")
-		public String testdriving(){
+		public String testdriving(Model model, @ModelAttribute TestDriveDTO dto,Principal p,HttpSession session,HttpServletRequest req){
+			PonyMemberDTO dto1 = service.getMemberEmail(p.getName());
+			int memberNo = dto1.getMemberNo();
+			
+			List<TestDriveApplicationReservationDetailsDTO> testDrivinglist = testdriveapplicationreservationdetailsservice.getTestDriveScheduleByMemberNo(memberNo);
+			 model.addAttribute("testdriveapplicationreservationdetailsdto",testDrivinglist);
+			 log.info(">>>>>>>>>>>>>>>>>>>>>>시승{}",testDrivinglist);
+			 model.addAttribute("carcnt",cService.getOwnedCarCount(memberNo));
+		        model.addAttribute("qnacount",qService.getqnaCount(memberNo));
+		        model.addAttribute("memberPoint",service.getMemberPoint(memberNo));
+		        model.addAttribute("testDriveCount",testDriveService.testDriveCount(memberNo));
 			return "mypage/testdriving";
 		}
+		
+		//----------------------------시승신청예약내역변경
+		@PostMapping("/testdrivingmodify")
+		public String testdrivingmodify(@ModelAttribute TestDriveDTO dto, 
+										Principal p, HttpSession session, HttpServletRequest req, Model model) {
+			PonyMemberDTO dto8 = service.getMemberEmail(p.getName());
+			int memberNo = dto8.getMemberNo();
+			testDriveService.updatedTestDrive(memberNo);
+			return "redirect:/testdriving";
+		}
+		//----------------------------시승신청예약 내역 삭제
+		@GetMapping("/testdrivingdelete")
+		public String testdrivingdelete(@ModelAttribute TestDriveDTO dto, 
+										Principal p, HttpSession session, HttpServletRequest req, Model model,@RequestParam int testDriveNo) {
+			
+			testDriveService.deleteTestDrive(testDriveNo);
+			log.info(">>>>>>>>>>>>>>>>>testdriveno : "+testDriveNo);
+			return "redirect:/testdriving";
+		}
+		
+		//---------------------------------정비예약신청 내역
+		@GetMapping("/carMaintenanceReservationDetail")
+		public String CarMaintenanceReservationDetail(Model model, @ModelAttribute TestDriveDTO dto,Principal p,
+													  HttpSession session,HttpServletRequest req) {
+			PonyMemberDTO dto1 = service.getMemberEmail(p.getName());
+			int memberNo = dto1.getMemberNo();
+			List<CarRegisterDTO> carRegisterlist = carRegistrationService.getCarRegistrationList(memberNo);
+			model.addAttribute("carRegisterdto",carRegisterlist);
+			log.info(">>>>>>>>>>>>>>>>>>>>>>정비예약{}",carRegisterlist);
+			model.addAttribute("carcnt",cService.getOwnedCarCount(memberNo));
+		    model.addAttribute("qnacount",qService.getqnaCount(memberNo));
+		    model.addAttribute("memberPoint",service.getMemberPoint(memberNo));
+		    model.addAttribute("testDriveCount",testDriveService.testDriveCount(memberNo));
+			return "mypage/carMaintenanceReservationDetail";
+		}
+		//----------------------------------정비예약신청삭제
+		@GetMapping("/carMaintenanceReservationDelete")
+		public String CarMaintenanceReservationDetailDelete(@ModelAttribute CarRegisterDTO dto, Principal p, 
+															HttpSession session, @RequestParam int registrationNumber) {
+			carRegistrationService.deleteCarRegister(registrationNumber);
+			log.info(">>>>>>>>>>>>>>>> 정비예약내역삭제 번호 {}"+registrationNumber);
+			return "redirect:/carMaintenanceReservationDetail";
+		}
 }
-
-
-

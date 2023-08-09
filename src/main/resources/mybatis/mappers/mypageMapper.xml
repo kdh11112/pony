@@ -53,4 +53,11 @@
 	    WHERE
 	        memberNo = #{memberNo}
 	</update>
+	
+	<!-- 사용자 포인트 조회 -->
+	<select id="getMemberPoint" resultType="int" parameterType="int">
+		SELECT memberPoint
+		FROM MEMBER
+		WHERE memberNo = #{memberNo};
+	</select>
 </mapper>

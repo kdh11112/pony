@@ -172,6 +172,28 @@
 	    WHERE
 	        DATE(registrationDate) = CURDATE()
 	</select>
-	
+	<!-- 정비예약내역 가져오기 -->
+	<select id="getCarRegistrationList">
+		SELECT
+		r.registrationNumber,
+		r.registrationClientRequests,
+		c.clientCarNumber,
+		c.clientDistanceDriven,
+		c.clientCarType,
+		s.shopAreaPoint,
+		r.registrationReservationDueDate,
+		r.registrationDate
+		FROM REGISTRATION r
+		JOIN CLIENT c ON r.clientVin = c.clientVin
+		JOIN
+		MEMBER m ON c.memberNo = m.memberNo
+		JOIN SHOP s ON r.shopNo = s.shopNo
+		WHERE m.memberNo = #{memberNo};
+	</select>
+	<!-- 정비예약내역 삭제 -->
+	<delete id="deleteCarRegister" parameterType="int">
+		DELETE FROM REGISTRATION
+		WHERE registrationNumber = #{registrationNumber}
+	</delete>
 
 </mapper>

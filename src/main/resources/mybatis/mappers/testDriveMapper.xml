@@ -8,4 +8,38 @@
 		INSERT INTO TESTDRIVE(testDriveSchedule, shopNo, memberNo, modelNo, testDriveTime)
 		VALUES(#{testDriveSchedule}, #{shopNo},${memberNo} , #{modelNo}, #{testDriveTime})
 	</insert>
+	<!-- 시승신청내역 변경 -->
+	<update id="updatedTestDrive" parameterType="kr.co.jhta.pony.dto.TestDriveDTO" >
+		<!-- UPDATE TESTDRIVE AS T
+		INNER JOIN MODEL AS M ON T.modelNo = M.modelNo
+		INNER JOIN SHOP AS S ON T.shopNo = S.shopNo
+		SET
+		  M.modelName = #{modelName},
+		  S.shopAreaPoint = #{shopAreaPoint},
+		  S.shopAddr = #{shopAddr},
+		  T.testDriveTime = #{testDriveTime},
+		  T.testDriveSchedule = #{testDriveSchedule}
+		WHERE T.memberNo = #{memberNo} and testDriveNo = #{testDriveNo}; -->
+		UPDATE TESTDRIVE
+		SET 
+		    modelNo = #{modelNo},
+		    testDriveTime = #{testDriveTime},
+		    testDriveSchedule = #{testDriveSchedule},
+		    shopNo = #{shopNo}
+		WHERE
+		    testDriveNo = #{testDriveNo} AND
+		    memberNo = #{memberNo};
+	</update>
+	<!-- 시승신청내역 삭제 -->
+	<delete id="deleteTestDrive" parameterType="int">
+		DELETE FROM TESTDRIVE
+		WHERE
+	    testDriveNo = #{testDriveNo}
+	</delete>
+	<!-- 시승신청내역 갯수 -->
+	<select id="testDriveCount" resultType="int" parameterType="int">
+		SELECT COUNT(*)
+		FROM TESTDRIVE
+		WHERE memberNo = #{memberNo}
+	</select>
 </mapper>

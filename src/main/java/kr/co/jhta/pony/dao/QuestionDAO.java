@@ -25,6 +25,6 @@ public interface QuestionDAO {
 	void qnaModifyOne(QuestionDTO dto);
 	void updateAnswerStatus(QuestionDTO dto);
 	void deleteCheck(String no); //체크박스 삭제
-
+	Object getqnaCount(int memberNo);
 }
 

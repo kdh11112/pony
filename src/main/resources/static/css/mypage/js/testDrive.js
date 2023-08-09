@@ -1,44 +1,21 @@
 $(document).ready(function() {
 
-	/* ========================= 첫번째 이용동의 영역 클릭시 모달창 오픈 ==========================*/
-	$("#check1,#flexCheckDefault1").on("click", function() {
-		$("#modal1").modal("show");
-	})
-	/* ========================= 두번째 이용동의 영역 클릭시 모달창 오픈, 첫번째 미동의시 경고창 ==========================*/
-	$("#check2,#flexCheckDefault2").on("click", function() {
-		let checkbox = document.getElementById("flexCheckDefault1");
-		if (checkbox.checked === false) {
-			alert("첫번째 필수항목을 동의해주세요")
-			return false;
-		} else {
-			$("#modal2").modal("show");
-			return false;
-		}
-	})
 
-	/* ========================= 첫번째 동의서 버튼 클릭시 체크 되게 ==========================*/
-	$("#agree-btn1").on("click", function() {
-		let checkbox = document.getElementById("flexCheckDefault1");
-		checkbox.checked = true;
-		$("#modal1").modal("hide");
-		$("#modal2").modal("show");
-	})
-
-	/* =============== 두번째 동의서 버튼 클릭시 체크, 첫번째 아코디언 열기, 스크롤 이동 ==================*/
-	$("#agree-btn2").on("click", function() {
-		let checkbox = document.getElementById("flexCheckDefault2");
+	 /*=============== 두번째 동의서 버튼 클릭시 체크, 첫번째 아코디언 열기, 스크롤 이동 ==================*/
+	/*$("#agree-btn2").on("click", function() {
+		//let checkbox = document.getElementById("flexCheckDefault2");
 		let offset = $("#headingOne").offset();
-		checkbox.checked = true;
+		//checkbox.checked = true;
 		$("#modal2").modal("hide");
 		$("#headingOneBtn").attr("class", "accordion-button show");
 		$("#collapseOne").addClass("show");
 		$('html').animate({ scrollTop: offset.top }, 1);
-	});
+	});*/
 
 	$("#headingOne,#headingTwo,#headingThree").on("click",function(){
-		let checkbox1 = document.getElementById("flexCheckDefault1");
-		let checkbox2 = document.getElementById("flexCheckDefault2");
-		if(checkbox1.checked === false || checkbox2.checked === false){
+		/*let checkbox1 = document.getElementById("flexCheckDefault1");
+		let checkbox2 = document.getElementById("flexCheckDefault2");*/
+		/*if(checkbox1.checked === false || checkbox2.checked === false){
 			alert("필수항목을 동의해주세요");
 			$("#headingOneBtn").attr("data-bs-toggle","");
 			$("#headingTwoBtn").attr("data-bs-toggle","");
@@ -46,7 +23,7 @@ $(document).ready(function() {
 			return false;
 		}else{
 			$("#headingOneBtn").attr("data-bs-toggle","collapse");
-		}
+		}*/
 	});
 		$("#headingTwo").on("click",function(){
 		let selectModel = $("#selectModel").val();
@@ -108,7 +85,7 @@ $(document).ready(function() {
 });
 
 $("#shopFindBtn, .shop-area-btn").on("click", function() {
-
+console.log("test");
 	$("div.shop-area-point.row").empty();
 	let shopAreaFind2 = document.getElementById("shopAreaFind").value;
 	let selectedVal = "";
@@ -117,6 +94,7 @@ $("#shopFindBtn, .shop-area-btn").on("click", function() {
 
 	$.ajax({
 		url: "/shopFind",
+		
 		data: { shopAreaFind: selectedVal },
 		success: function(reponse) {
 			console.dir(reponse);
@@ -139,8 +117,12 @@ $("#shopFindBtn, .shop-area-btn").on("click", function() {
 	})
 })
 
+
+$()
+
+
 $(document).on("click", ".shop-no-btn", function() {
-	//alert("shopAreaPoint = " + $(this).val());
+	alert("shopAreaPoint = " + $(this).val());
 	$("#headingTwoBtn").attr("class", "accordion-button show collapsed");
 	$("#headingThreeBtn").attr("class", "accordion-button show");
 	$("#collapseThree").addClass("show");
@@ -288,3 +270,5 @@ $("#OkBtn").on("click", function () {
     document.getElementById("frm").submit();
     
 });
+
+
