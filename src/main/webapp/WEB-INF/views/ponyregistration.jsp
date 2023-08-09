@@ -129,7 +129,7 @@
 									                <span style="margin-right: 5px">* * * * * *</span>
 									            </div>
 									            <div style="margin-left: auto;">
-									                <button class="btn btn-primary btn-lg" style="width: 82px; height: 45px;">확인</button>
+									                <button type="button" class="btn btn-primary btn-lg" style="width: 82px; height: 45px;">확인</button>
 									            </div>
 									        </div>
 									    </div>

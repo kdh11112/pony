@@ -16,6 +16,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
 	rel="stylesheet" />
 
+
 <script>
 //로그인 폼의 Submit 이벤트 처리 (login.js)
 document.getElementById("loginForm").addEventListener("submit", function (event) {
@@ -50,6 +51,17 @@ function redirectToKaKao(){
 </script>
 
 
+<style>
+  .form-outline {
+    position: relative;
+  }
+
+  .form-outline input:not(:placeholder-shown) ~ label {
+    transform: translateY(-1.5rem);
+  }
+</style>
+
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -71,8 +83,8 @@ function redirectToKaKao(){
 						<form action="/login_proc" method="post">
 
 							<div class="form-outline mb-4">
-								<input type="email" name="email" id="email" class="form-control form-control-lg shadow-sm" value="djw2717@naver.com"/>
-								<label class="form-label">Email</label>
+	 							<input type="email" name="email" id="email" class="form-control form-control-lg shadow-sm" value="djw2717@naver.com"/>
+	    						<label class="form-label" for="email">Email</label>
 							</div>
 
 
@@ -81,12 +93,6 @@ function redirectToKaKao(){
 								<label class="form-label">Password</label>
 							</div>
 
-							<!-- Checkbox  체크박스 -->
-							<div class="form-check d-flex justify-content-start mb-4" >
-								<input class="form-check-input" type="checkbox" name="remember" value="" id="" />
-								 <label class="form-check-label"> Remember password </label>
-							</div>
-							
 							<div align="center">
 							<button class="btn btn-primary btn-lg btn-block" type="submit" style=" width: 300px; height: 45px">Login</button>
 							</div>

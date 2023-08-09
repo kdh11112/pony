@@ -105,6 +105,7 @@ public class PonyMemberServiceImp implements PonyMemberService {
 	        OAuth2AuthenticationToken oauth2Token = (OAuth2AuthenticationToken) principal;
 	        OAuth2User oauth2User = oauth2Token.getPrincipal();
 
+	        
 	        Map<String, Object> attributes = oauth2User.getAttributes();
 
 	        if (attributes.containsKey("kakao_account")) {
@@ -114,9 +115,14 @@ public class PonyMemberServiceImp implements PonyMemberService {
 	                email = (String) kakaoAccount.get("email");
 	                System.out.println("Kakao Email: " + email);
 	            }
+	            
+	            
 	        } else {
 	            email = oauth2User.getAttribute("email"); // Use OAuth2User's getAttribute method
 	        }
+	        
+	        
+	        
 	    } else { // OAuth2User 객체가 없는 경우 (일반 로그인)
 	        email = principal.getName(); // 일반 로그인의 사용자명을 가져옴
 	    }

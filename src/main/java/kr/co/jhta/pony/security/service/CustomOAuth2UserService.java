@@ -35,7 +35,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         //등록 클라이언트 이름 가져오기
         String clientName = userRequest.getClientRegistration().getClientName();
 		//log.info("client name : " + clientName );
-
         
 		//유저요청 정보로 인증 사용자 객체 가져오기. 
         OAuth2User oAuth2User = super.loadUser(userRequest);
@@ -67,14 +66,14 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         	log.info("카카오 이메일 " + email);
         	log.info("카카오 등록이름 " + name);
         }
-        saveMember(email, name, clientName);
+        generateMember(email, name, clientName);
         
         return super.loadUser(userRequest);   
     
     }
         
                 
-    private void saveMember(String email, String name, String clientName) {
+    private void generateMember(String email, String name, String clientName) {
     	// 기존에 등록되어 있는 회원인지 확인
 
     	PonyMemberDTO dto = ponyMemberService.getMemberEmail(email);

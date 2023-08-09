@@ -32,40 +32,6 @@
 			.mypage{position:absolute; right:80px; top:23px; color:white; width:35px;}
 		</style>
 
-<!-- 쿠키에 토큰을 담은순간. 굳이 로컬저장소에 다시 옮겨담을 필요가없음.
- <script>
-    // 쿠키의 값을 확인하는 함수
-    function getAllCookies() {
-        const cookies = document.cookie;
-        console.log("모든 쿠키 값:", cookies);
-    }
-
-    // 토큰을 추출하는 함수
-    function getTokenFromCookie(name) {
-        const value = "; " + document.cookie;
-        const parts = value.split("; " + name + "=");
-        if (parts.length === 2) {
-            return parts.pop().split(";").shift();
-        }
-        return null; // 토큰이 존재하지 않을 경우 null 반환
-    }
-
-    // 쿠키 확인
-    getAllCookies();
-
-    // 쿠키에서 토큰 추출
-    const existingToken = getTokenFromCookie("jwtToken");
-    console.log("existingToken:", existingToken);
-
-    if (existingToken) {
-        // 토큰을 로컬 스토리지에 저장
-        localStorage.setItem("jwtToken", existingToken);
-        console.log("토큰 저장 완료:", existingToken);
-    } else {
-        console.log("토큰이 쿠키에 없습니다.");
-    }
-</script>
- -->
 
 
 		<script src="js/jquery-3.4.1.min.js"></script>

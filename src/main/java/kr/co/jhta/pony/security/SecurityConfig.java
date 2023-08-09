@@ -81,15 +81,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return authProvider;
     }
     
-    
-
-//    @Override
-//    @Bean
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -98,7 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .authorizeRequests()
             .antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll() // 정적 리소스에 대해서도 인증 없이 접근 허용
-            .antMatchers("/login", "/", "/ponyreg").permitAll() // 로그인 페이지와 기본 페이지는 인증 없이 접근 허용
+            .antMatchers("/login", "/", "/ponyreg","/ponyRegOk").permitAll() // 로그인 페이지와 기본 페이지는 인증 없이 접근 허용
             .anyRequest().authenticated() // 그 외 모든 요청은 인증된 사용자만 접근 가능
 //            .authorizeHttpRequests() //인가정책
 //	        		//.antMatchers("/no").hasRole("ADMIN") // 해당 페이지에는 해당 권한이 필요함
@@ -115,26 +106,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     @Override
                     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                         Authentication authentication) throws IOException, ServletException {
-                        String username = authentication.getName();
                         
-                        // JwtTokenUtil을 사용하여 토큰을 생성합니다.
-                        String token = jwtTokenUtil.generateToken(username);
-                        System.out.println("로그인 성공 핸들러 통과중 토큰 : " + token); //<--- 여기선 있음.
-                        
-						/*
-						 * // 생성된 토큰을 응답 헤더에 추가 response.addHeader("Authorization", token); // <-- 여기서
-						 * null임.
-						 */
-                     // 생성된 토큰을 쿠키에 저장합니다.
-                        Cookie cookie = new Cookie("jwtToken", token);
-                        cookie.setPath("/"); // 쿠키의 유효 범위를 "/"로 설정하여 모든 경로에서 사용 가능하도록 합니다.
-                        response.addCookie(cookie);
-
-//                        //확인용 코드  /// 요청객체에서 확인하는게 아니라, 쿠키에 담아서 확인. 쿠키는 자동으로 요청객체에 쿠키로 담김
-//                        final String requestTokenHeader = request.getHeader("Authorization");
-//                        System.out.println("리퀘스트 토큰 해더 : " + requestTokenHeader);
-                        
+                    	String username = authentication.getName();
+                    	
+                    	//토큰생성 및 클라이언트에 쿠키 저장 및 전달
+                        generateTokenAndCookie(response, username);
                         response.sendRedirect("/"); // 로그인 성공하면 루트 페이지로 이동
+                        
                     }
                 })
                 .failureHandler(new AuthenticationFailureHandler() {
@@ -185,12 +163,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         response.sendRedirect("/login");
                     }
                 })
-        .and()
-            .rememberMe()
-                .rememberMeCookieName("jwtToken")
-                .rememberMeParameter("remember")
-                .tokenValiditySeconds(3600)
-                .userDetailsService(customUserDetailsService)
+//        .and()
+//            .rememberMe()   //jwt토큰 인증방식과 같이 사용하기에는 적합하지 않음.
+//                .rememberMeCookieName("jwtToken")
+//                .rememberMeParameter("remember")
+//                .tokenValiditySeconds(3600)
+//                .userDetailsService(customUserDetailsService)
     	.and()
               .oauth2Login()
 	            .loginPage("/login") // 로그인 페이지 설정
@@ -214,6 +192,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     	        username = email;
                     	        System.out.println("Kakao Email: " + email);
                     	    }
+                    	    
                     	} else {
                     	    String email = (String) attributes.get("email");
                     	    if (email != null) {
@@ -224,25 +203,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     	    }
                     	}
                         
-                    	
-                    	
-                        // JwtTokenUtil을 사용하여 토큰을 생성합니다.
-                        String token = jwtTokenUtil.generateToken(username);
-                        System.out.println("로그인 성공 핸들러 통과중 토큰 : " + token); //<--- 여기선 있음.
-                        System.out.println(username);
-//                        
-						/*
-						 * // 생성된 토큰을 응답 헤더에 추가 response.addHeader("Authorization", token); // <-- 여기서
-						 * null임.
-						 */
-                     // 생성된 토큰을 쿠키에 저장합니다.
-                        Cookie cookie = new Cookie("jwtToken", token);
-                        cookie.setPath("/"); // 쿠키의 유효 범위를 "/"로 설정하여 모든 경로에서 사용 가능하도록 합니다.
-                        response.addCookie(cookie);
-
-//                        //확인용 코드  /// 요청객체에서 확인하는게 아니라, 쿠키에 담아서 확인. 쿠키는 자동으로 요청객체에 쿠키로 담김
-                        //final String requestTokenHeader = request.getHeader("Authorization");
-                        //System.out.println("리퀘스트 토큰 해더 : " + requestTokenHeader);
+                    	generateTokenAndCookie(response, username);
                         
                         response.sendRedirect("/"); // 로그인 성공하면 루트 페이지로 이동
                     }
@@ -255,4 +216,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
+
+    
+private void generateTokenAndCookie(HttpServletResponse response, String username) {
+		// JwtTokenUtil을 사용하여 토큰을 생성
+        String token = jwtTokenUtil.generateToken(username);
+        
+        // 생성된 토큰을 쿠키에 저장
+        Cookie cookie = new Cookie("jwtToken", token);
+        cookie.setPath("/"); // 쿠키의 유효 범위를 "/"로 설정하여 모든 경로에서 사용 가능하도록 만듬
+        cookie.setHttpOnly(true); // 클라이언트에서 Javascript로 쿠키 접근 불가
+        cookie.setSecure(false); // true로 하면 https 통신으로만 쿠키를 전송함. 우리는 localhost를 사용중이므로 http도 사용. 
+        response.addCookie(cookie);
+
+		//        //확인용 코드  /// 요청객체에서 확인하는게 아니라, 쿠키에 담아서 확인. 쿠키는 자동으로 요청객체에 쿠키로 담김
+		//        final String requestTokenHeader = request.getHeader("Authorization");
+		//        System.out.println("리퀘스트 토큰 해더 : " + requestTokenHeader);
+	}
+    
 }
+
+
+
