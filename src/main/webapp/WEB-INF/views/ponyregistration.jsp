@@ -10,7 +10,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet" />
-
+<script src="js/jwt.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -68,7 +68,7 @@
 											</div>
 
 											<div class="col-auto">
-												<button class="btn btn-primary btn-lg" style="width: 82px; height: 45px" type="button" onclick="autoemail()">확인</button> <!-- 여기 누르면 Post요청 보내기 -->
+												<button type="button" class="btn btn-primary btn-lg" style="width: 82px; height: 45px" type="button" onclick="autoemail()">확인</button> <!-- 여기 누르면 Post요청 보내기 -->
 											</div>
 
 										</div>
@@ -129,7 +129,7 @@
 									                <span style="margin-right: 5px">* * * * * *</span>
 									            </div>
 									            <div style="margin-left: auto;">
-									                <button class="btn btn-primary btn-lg" style="width: 82px; height: 45px;">확인</button>
+									                <button type="button" class="btn btn-primary btn-lg" style="width: 82px; height: 45px;">확인</button>
 									            </div>
 									        </div>
 									    </div>
@@ -158,7 +158,7 @@
 											</div>
 											
 											<div class="col-auto">
-												<button class="btn btn-primary btn-lg" onclick="execDaumPostcode()" style="width: 82px; height: 45px">검색</button>
+												<button type="button" class="btn btn-primary btn-lg" onclick="execDaumPostcode()" style="width: 82px; height: 45px">검색</button>
 											</div>
 										</div>
 									

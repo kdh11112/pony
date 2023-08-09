@@ -1,13 +1,20 @@
 package kr.co.jhta.pony.security.service;
 
+import java.security.Principal;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import kr.co.jhta.pony.dao.PonyMemberDAO;
 import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.dto.QuestionDTO;
 import kr.co.jhta.pony.dto.StartEnd;
-
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Service
 public class PonyMemberServiceImp implements PonyMemberService {
 
@@ -15,9 +22,9 @@ public class PonyMemberServiceImp implements PonyMemberService {
 	PonyMemberDAO dao;
 	
 	@Override
-	public void createMember(PonyMemberDTO dto) {
+	public void generateMember(PonyMemberDTO dto) {
 	
-		dao.createPonyMember(dto);
+		dao.generatePonyMember(dto);
 		
 	}
 
@@ -81,8 +88,50 @@ public class PonyMemberServiceImp implements PonyMemberService {
 		dao.myinfomodifyOne(dto);
 		
 	}
-	
-	
+
+	@Override
+	public void addUser(PonyMemberDTO dto) {
+			dao.addUser(dto);
+
+	}
+
+	@Override
+	public String getPrincipalEmail(Principal principal) {
+	    String email = null;
+
+//	    log.info("principal : {}", principal);
+
+	    if (principal instanceof OAuth2AuthenticationToken) {
+	        OAuth2AuthenticationToken oauth2Token = (OAuth2AuthenticationToken) principal;
+	        OAuth2User oauth2User = oauth2Token.getPrincipal();
+
+	        
+	        Map<String, Object> attributes = oauth2User.getAttributes();
+
+	        if (attributes.containsKey("kakao_account")) {
+	            Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
+
+	            if (kakaoAccount.containsKey("email")) {
+	                email = (String) kakaoAccount.get("email");
+	                System.out.println("Kakao Email: " + email);
+	            }
+	            
+	            
+	        } else {
+	            email = oauth2User.getAttribute("email"); // Use OAuth2User's getAttribute method
+	        }
+	        
+	        
+	        
+	    } else { // OAuth2User 객체가 없는 경우 (일반 로그인)
+	        email = principal.getName(); // 일반 로그인의 사용자명을 가져옴
+	    }
+
+	    // log.info("최종 email : {}", email);
+	    // email 사용
+
+	    return email;
+	}	
 	
 	
 }

@@ -23,10 +23,10 @@ public class PonyMemberDTO {
 	private String memberAddress1;
 	private String memberAddress2;
 	private int memberPoint;
-	private String memberType;
+	private String memberRole;
 	private String memberUseYn;
-	private int memberLoginCounter;
 	private String memberAccountStatus;
+	private String memberProvider;
 
 
 }
