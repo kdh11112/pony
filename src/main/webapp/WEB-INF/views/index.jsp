@@ -211,7 +211,22 @@ a{text-decoration: none;}
       time = setInterval(fade_change, 5000);
       //return false
     });
+  
  });
+ 
+ 
+ 	function carReservation(){
+ 		<sec:authorize access="hasAnyRole('ROLE_USER')">
+ 			location.href="/carMaintenanceReservation";
+		</sec:authorize>
+ 		
+		<sec:authorize access="!hasAnyRole('ROLE_USER')">
+			alert("로그인 후 사용가능한 페이지입니다.");
+		location.href="/login";
+			
+		</sec:authorize>
+ 	}
+ 	
 </script>
 </head>
 <body>
@@ -252,7 +267,7 @@ a{text-decoration: none;}
 					<li><a href="/testDrive">시승신청</a></li>
 					<li><a href="/modelFind">모델검색</a></li>
 					<li><a href="/modelComparison">모델비교</a></li>
-					<li><a href="/carMaintenanceReservation">정비예약</a></li>
+					<li><a href="javascript:carReservation()">정비예약</a></li>
 				</ul>
 
 				<a href="#" class="close"> <img src="images/button_close.png"
