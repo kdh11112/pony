@@ -16,8 +16,6 @@ public class CustomUserDetails implements UserDetails {
         this.password = password;
         this.authorities = authorities;
     }
-
-    // getter, setter, UserDetails 인터페이스의 나머지 메서드 구현
     
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

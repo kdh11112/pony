@@ -15,7 +15,6 @@ public class AccountContext extends User {
 
 	public AccountContext(PonyMemberDTO dto , Collection<? extends GrantedAuthority> authorities) {
 		super(dto.getMemberEmail(), dto.getMemberPassword(), authorities);
-		
 		this.dto = dto;
 		
 	}

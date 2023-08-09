@@ -22,9 +22,9 @@ public class PonyMemberServiceImp implements PonyMemberService {
 	PonyMemberDAO dao;
 	
 	@Override
-	public void createMember(PonyMemberDTO dto) {
+	public void generateMember(PonyMemberDTO dto) {
 	
-		dao.createPonyMember(dto);
+		dao.generatePonyMember(dto);
 		
 	}
 
@@ -96,10 +96,10 @@ public class PonyMemberServiceImp implements PonyMemberService {
 	}
 
 	@Override
-	public String getEmail(Principal principal) {
+	public String getPrincipalEmail(Principal principal) {
 	    String email = null;
 
-	    log.info("principal : {}", principal);
+//	    log.info("principal : {}", principal);
 
 	    if (principal instanceof OAuth2AuthenticationToken) {
 	        OAuth2AuthenticationToken oauth2Token = (OAuth2AuthenticationToken) principal;
@@ -121,7 +121,7 @@ public class PonyMemberServiceImp implements PonyMemberService {
 	        email = principal.getName(); // 일반 로그인의 사용자명을 가져옴
 	    }
 
-	    log.info("최종 email : {}", email);
+	    // log.info("최종 email : {}", email);
 	    // email 사용
 
 	    return email;

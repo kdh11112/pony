@@ -39,7 +39,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                         "/ponylogin",
                         "/"
                     ));
-
+    
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
@@ -54,7 +54,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("jwtToken")) {
                     jwtToken = cookie.getValue();
-                    //logger.info("JWT 추출 from cookie: " + jwtToken);
                 }
             }
         }
@@ -84,10 +83,14 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
              }
 
         
-        
+        // 현재 요청의 id(username, 우리의 경우 email)가 있고, 현재 인증된 사용자가 없는 경우에 실행합니다.
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.jwtUserDetailService.loadUserByUsername(username);
 
+        	// jwtUserDetailService를 사용하여 사용자 정보를 가져옴 (식별정보, 비밀번호, Role 등)
+        	UserDetails userDetails = this.jwtUserDetailService.loadUserByUsername(username);
+
+        	
+        	//jwtTokenUtil의 토큰 유효성검사 메서드(토큰 + 유저정보) 를 사용해서 토큰이 유효할때 인증토큰을 생성
             if(jwtTokenUtil.validateToken(jwtToken, userDetails)) {
                 UsernamePasswordAuthenticationToken authenticationToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null ,userDetails.getAuthorities());
@@ -96,6 +99,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
         }
+        //다음 필터 체인으로
         filterChain.doFilter(request,response);
     }
 

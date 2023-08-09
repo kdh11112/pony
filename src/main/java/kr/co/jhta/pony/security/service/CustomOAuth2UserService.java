@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import kr.co.jhta.pony.dto.PonyMemberDTO;
+import kr.co.jhta.pony.security.account.Role;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -30,10 +31,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
     	
-    	log.info(">>>>>> userRequest : " + userRequest);
+    	//log.info("userRequest : " + userRequest);
         //등록 클라이언트 이름 가져오기
         String clientName = userRequest.getClientRegistration().getClientName();
-		log.info("client name : " + clientName );
+		//log.info("client name : " + clientName );
 
         
 		//유저요청 정보로 인증 사용자 객체 가져오기. 
@@ -66,9 +67,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         	log.info("카카오 이메일 " + email);
         	log.info("카카오 등록이름 " + name);
         }
-        
         saveMember(email, name, clientName);
-        
         
         return super.loadUser(userRequest);   
     
@@ -77,8 +76,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 
     private void saveMember(String email, String name, String clientName) {
     	// 기존에 등록되어 있는 회원인지 확인
-    	
-    	
+
     	PonyMemberDTO dto = ponyMemberService.getMemberEmail(email);
 		log.info("멤버 : " + dto);
 		
@@ -87,16 +85,13 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 								.memberEmail(email)
 								.memberPassword(passwordEncoder.encode("aaaa"))
 								.memberName(name)
-								.memberRole("ROLE_USER")
+								.memberRole(Role.USER.getValue())
 								.memberAccountStatus("A")
 								.memberUseYn("Y")
 								.memberProvider(clientName)
 								.build();
 			
 			ponyMemberService.addUser(dto); // member 테이블에 저장
-			
-			//member_role에는 추가 안됨.
-			//ponyMemberService.addRole();
 			
 		}
 		

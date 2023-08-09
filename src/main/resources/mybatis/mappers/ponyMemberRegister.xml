@@ -7,7 +7,7 @@
 	 
 	 
 	 
-	<insert id="createPonyMember" parameterType="kr.co.jhta.pony.dto.PonyMemberDTO">
+	<insert id="generatePonyMember" parameterType="kr.co.jhta.pony.dto.PonyMemberDTO">
        INSERT INTO MEMBER (memberEmail, memberPassword, memberName, memberBirthday, memberPhone, memberZip, memberAddress1, memberAddress2, MemberProvider )
        VALUES (#{memberEmail},#{memberPassword},#{memberName},#{memberBirthday},#{memberPhone}, #{memberZip}, #{memberAddress1}, #{memberAddress2}, #{memberProvider} )
 		        

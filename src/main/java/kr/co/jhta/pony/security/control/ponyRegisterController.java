@@ -37,9 +37,7 @@ public class ponyRegisterController {
     @Autowired
     PasswordEncoder passwordEncoder;
     
-    
-	
-	    @PostMapping("/mailConfirm")
+        @PostMapping("/mailConfirm")
 	    @ResponseBody
 	    public void mailConfirm(@RequestParam String email, PonyMemberDTO dto) throws Exception {
 	    	
@@ -69,26 +67,27 @@ public class ponyRegisterController {
 	    	
 	    	if (email != null  && email.equals(redisUtil.getData(authcode))) { // 인증번호로 얻어온 이메일주소가, 레디스에 저장된 인증번호에 대응하는 이메일인지 확인
 	    	        // 인증 성공
-	    			log.info(authcode);
-	    			log.info(email);
-	    			log.info("성공");
-	    			
+	    	//		log.info(authcode);
+	    	//		log.info(email);
+	    	//		log.info("성공");
 	    			session.setAttribute("authenticated", authenticated);
-	    	        return "true";
+	    	    
+	    			return "true";
 	    	} else {
 	    	        
-	    		log.info(authcode);
-    			log.info(email);
-	    		// 인증 실패
-	    			log.info("실패");
-	    	        return "false";
+	    	//		log.info(authcode);
+    		//		log.info(email);
+	    	// 		인증 실패
+	    	//		log.info("실패");
+	    	        
+    				return "false";
 	    	}
 	    	
 	    }
 	    
 	    
 	    @RequestMapping(value = "/ponyRegOk", method = RequestMethod.POST)
-	    public String createPonyMember( @RequestParam(name = "email") String memberEmail,
+	    public String generatePonyMember( @RequestParam(name = "email") String memberEmail,
 	    								@RequestParam(name ="password", defaultValue="1")String memberPassword ,
 	    								@RequestParam(name = "fullName", defaultValue="미입력")String memberName ,
 	    								@RequestParam(name = "regNumberFirst", defaultValue="미입력")String memberBirthday ,
@@ -100,12 +99,12 @@ public class ponyRegisterController {
 	    						PonyMemberDTO dto, HttpSession session) throws Exception {
 	    	String authenticated = (String)session.getAttribute("authenticated");
 	    	
-	    	log.info(authenticated);
-	    	log.info("요청 수신");
+	    //	log.info(authenticated);
+	    //	log.info("요청 수신");
 	    	dto.setMemberEmail(memberEmail);
 	    	int cnt = service.idChk(dto);
 
-	    	if(cnt==0&&authenticated==session.getAttribute("authenticated")) {
+	    	if(cnt==0&&authenticated==session.getAttribute("authenticated")) {// 중복아이디가 있는지 체크, 이메일 인증버튼을 눌러서 인증에 성공하고 넘어온 요청인지 체크 통과하면 db에 저장(회원가입)
 	    		
 	    		dto.setMemberEmail(memberEmail);
 	    		dto.setMemberPassword(passwordEncoder.encode(memberPassword));
@@ -116,9 +115,8 @@ public class ponyRegisterController {
 	    		dto.setMemberAddress1(memberAddress1);
 	    		dto.setMemberAddress2(memberAddress2 + " " + memberAddress3);
 	    		dto.setMemberProvider("Pony");
-	    		//log.info("여기 왔어?");
-	    		
-	    		service.createMember(dto);
+	     		
+	    		service.generateMember(dto);
 	    	}else {
 	    		log.info("실패 아이디중복 또는 비정상 접근");
 	    	}
@@ -127,18 +125,15 @@ public class ponyRegisterController {
 	    }
 	    
 
-	 // 이메일 중복 체크
-	    @PostMapping("/idCheck")
-	    @ResponseBody
-	    public int idChk(PonyMemberDTO dto, @RequestParam("id") String id) throws Exception {
-	    
-	    	//log.info("여기 왓니?" + id);
-	    	dto.setMemberEmail(id);
-	    	
-	    	int cnt = service.idChk(dto);
-	    	
-	      return cnt;
-	    }
+	 
+    @PostMapping("/idCheck") // 이메일 중복 체크 메서드
+    @ResponseBody
+    public int idChk(PonyMemberDTO dto, @RequestParam("id") String id) throws Exception {
+    	dto.setMemberEmail(id);
+    	int cnt = service.idChk(dto);
+    	
+      return cnt;
+    }
 	    
 }
 	    

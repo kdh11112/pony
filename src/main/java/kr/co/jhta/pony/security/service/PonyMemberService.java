@@ -8,7 +8,7 @@ import kr.co.jhta.pony.dto.QuestionDTO;
 public interface PonyMemberService {
 
 	public PonyMemberDTO getMemberEmail(String email);
-	void createMember(PonyMemberDTO dto);
+	void generateMember(PonyMemberDTO dto);
 	
 	public int idChk(PonyMemberDTO dto) throws Exception;
 	
@@ -22,7 +22,7 @@ public interface PonyMemberService {
 	public void myinfomodifyOne(PonyMemberDTO dto);
 	
 	public void addUser(PonyMemberDTO dto);
-	public String getEmail(Principal principal);
+	public String getPrincipalEmail(Principal principal);
 
 	
 	

@@ -57,7 +57,6 @@ function redirectToKaKao(){
 
 	<section class="vh-100">
 	
-	
 		<div class="container py-5 h-100">
 			<div
 				class="row d-flex justify-content-center align-items-center h-100">
@@ -114,7 +113,6 @@ function redirectToKaKao(){
 							<hr class="my-4">
 						
 							
-						
 						<form action="ponyreg" method="get">
 							<div align="center">
 							<button class="btn btn-primary btn-lg btn-block" type="submit" style=" width: 300px; height: 45px">Sign up</button>
@@ -128,6 +126,19 @@ function redirectToKaKao(){
 		</div>
 	
 	</section>
+
+	
+<%
+    String errorMessage = (String) session.getAttribute("errorMessage");
+    if (errorMessage != null && !errorMessage.isEmpty()) {
+%>
+    <script>
+        alert("<%= errorMessage %>");
+    </script>
+<%
+        session.removeAttribute("errorMessage");
+    }
+%>
 
 </body>
 

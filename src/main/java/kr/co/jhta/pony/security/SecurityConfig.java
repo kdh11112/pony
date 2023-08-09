@@ -71,6 +71,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
+    
+    // 사용자 인증을 처리하는 컴포넌트
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -78,12 +80,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authProvider.setPasswordEncoder(passwordEncoder);
         return authProvider;
     }
+    
+    
 
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+//    @Override
+//    @Bean
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
 
 
     @Override
@@ -142,26 +146,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     	String email = request.getParameter("email");
                     	PonyMemberDTO dto = ponyMemberService.getMemberEmail(email);
                     	
+                    	String errorMessage ="";
                         
-                    	
-                    	//여기를 내일 하자
                     	if(dto != null) {
-                    	
                     		String pony = "Pony";
-                    		
                     		String provider = dto.getMemberProvider();
-                    		
                     		if(provider.equals(pony)) {
-                    			System.out.println("비밀번호가 틀렸습니다.");
+                    			errorMessage = "비밀번호가 틀렸습니다.";
                     		}else {
-                    			System.out.println("당신은 " + dto.getMemberProvider() + "계정으로 가입되어 있습니다.");
+                    			errorMessage = "당신은 " + dto.getMemberProvider() + "계정으로 가입되어 있습니다. \\n" + dto.getMemberProvider() + "계정으로 로그인 해 주세요.";
                     		}
-                    		
+                            request.getSession().setAttribute("errorMessage", errorMessage); // 세션에 에러 메시지 저장
                     	}
-                    	
-                    	
-                    	System.out.println("exception " + exception.getMessage());
-                        response.sendRedirect("/login");
+
+                    	response.sendRedirect("/login"); // 리다이렉트하여 로그인 페이지로 이동
                     }
                 })
                 .permitAll()
@@ -187,7 +185,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         response.sendRedirect("/login");
                     }
                 })
-            .and()
+        .and()
             .rememberMe()
                 .rememberMeCookieName("jwtToken")
                 .rememberMeParameter("remember")

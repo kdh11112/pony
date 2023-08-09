@@ -61,14 +61,15 @@ public class JwtTokenUtil {
                 .compact();
 
         // 로그 추가
-        log.trace("토큰 생성 아이디: {}", id);
+     //   log.trace("토큰 생성 아이디: {}", id);
 
         return token;
     }
 
+    //토큰 유효성검사 메서드
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
-        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token); // 토큰의 유효기간이 지났는지 확인
     }
 
 }

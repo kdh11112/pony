@@ -18,38 +18,25 @@ public class indexController {
 		return "/index";
 	}
 	
-	@GetMapping("/login")// 아직 비활성화
+	@GetMapping("/login")
 	public String loginPage() {
 		return "/ponylogin";
 	}
 
-	@GetMapping("/no")
-	public String nonauthorized() {
-		return "/nonauthorized";
-	}
-	
 	@GetMapping("/ponyreg")
 	public String goreg() {
-		
 		return "/ponyregistration";
-		
 	}
 	
-	@PostMapping("/login")// 아직 비활성화
+	@PostMapping("/login")
 	public String loginOk() {
-		
 		return "/ponylogin";
 	}
 	
-	@GetMapping("/testuser")
-	public String testuser(Principal principal, Model model, @AuthenticationPrincipal AccountContext userAccount) {
-		
-		model.addAttribute("name", principal.getName());
-		
-		
-		
-		return "/textview";
-	}
-	
+//	@GetMapping("/testuser")
+//	public String testuser(Principal principal, Model model, @AuthenticationPrincipal AccountContext userAccount) {
+//		model.addAttribute("name", principal.getName());
+//		return "/textview";
+//	}
 	
 }

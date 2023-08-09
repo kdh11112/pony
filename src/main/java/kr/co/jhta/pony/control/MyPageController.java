@@ -9,11 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.co.jhta.pony.dto.ClientDTO;
 import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.dto.QuestionDTO;
-import kr.co.jhta.pony.security.account.AccountContext;
 import kr.co.jhta.pony.security.service.PonyMemberService;
 import kr.co.jhta.pony.service.ClientService;
 import kr.co.jhta.pony.service.QuestionService;
@@ -104,7 +99,7 @@ public class MyPageController {
 		//log.info("principal : {}", p);
 		//log.info("email : {}" , email);
 		
-		PonyMemberDTO dto5 = service.getMemberEmail(service.getEmail(p));
+		PonyMemberDTO dto5 = service.getMemberEmail(service.getPrincipalEmail(p));
 		session.setAttribute("dto", dto5);
 		session.setAttribute("cdto", dto);
 		
