@@ -71,18 +71,40 @@ public class ShopController {
 		return "/shop/part/partAll";
 	}
 	
+	/* 부품 전체 목록에서 장바구니 추가 */
+	@RequestMapping("/partall")
+	@ResponseBody //데이터를 바로 반환
+	public String addCart(HttpSession session, @ModelAttribute CartDTO cartdto, HttpServletRequest req,
+			Principal p) {
+		//Integer : int의 래퍼클래스로 null을 다룰 수 있음
+		Integer memberNo = (Integer) session.getAttribute("memberNo");
+		if((Integer) session.getAttribute("memberNo") == null) {
+			return "5";
+		}
+		PonyMemberDTO memberDTO = mservice.selectMemAll(memberNo);
+		session.setAttribute("memberDTO", memberDTO);
+		
+		
+		//memberNo = memberDTO.getMemberNo();
+		// 카트 등록
+		log.info("DTO: "+memberDTO);
+		cartdto.setMemberNo(memberNo);
+		
+		int result = cservice.addCart(cartdto);
+		return result+"";
+	}
 	
 	// 장바구니 ----------------------------------------
 	
 	@GetMapping("/cartlist")
 	public String cartlist(HttpSession session, Principal p, Model model, HttpServletRequest req, @ModelAttribute CartDTO cartdto) {
 		// 세션에 저장한 사용자의 번호
-		int memberNo = (int) session.getAttribute("memberNo");
-		log.info("userNo: "+memberNo);
-		
-		if(memberNo == 0) {
+		if((Integer) session.getAttribute("memberNo") == null) {
 			return "/ponylogin";
 		}
+		Integer memberNo = (Integer) session.getAttribute("memberNo");
+		log.info("userNo: "+memberNo);
+		
 		
 //		PonyMemberDTO memberDTO = mservice.getMemberEmail(p.getName());
 //		session.setAttribute("memberDTO", memberDTO);
@@ -109,47 +131,42 @@ public class ShopController {
 	
 	/* 장바구니 삭제 */
 	@PostMapping("/deleteCart")
-	public String deleteCart(@ModelAttribute CartDTO cartdto, @RequestParam(value = "chk[]") List<String> chArr) {
-		cservice.deleteCart(cartdto.getCartNo());
+	public String deleteCart(@ModelAttribute CartDTO cartdto, @RequestParam(value = "chkbox[]") List<String> chkbox) {
+		log.info("checkArr :  "+chkbox);
+		int cartNo = 0;
+		for (String cartNoStr : chkbox) {
+			cartNo = Integer.parseInt(cartNoStr);
+			cservice.deleteCart(cartNo);
+		    }
 		return "redirect:/cartlist";
 	}
 	
-	@PostMapping("/cartlist")
-	public String cartorder(HttpSession session, OrderDTO orderdto ) {
-		int memberNo = (int) session.getAttribute("memberNo");
-		
-		orderdto.setMemberNo(memberNo);
-		
-		return null;
-	}
-	
-	/* 부품 전체 목록에서 장바구니 추가 */
-	@RequestMapping("/partall")
-	@ResponseBody //데이터를 바로 반환함
-	public String addCart(HttpSession session, @ModelAttribute CartDTO cartdto, HttpServletRequest req,
-			Principal p) {
-		
-		if(p == null) {
-			return "5";
-		}
-		PonyMemberDTO memberDTO = mservice.getMemberEmail(p.getName());
-		session.setAttribute("memberDTO", memberDTO);
-		
-
-		int memberNo = memberDTO.getMemberNo();
-		// 카트 등록
-		log.info("DTO: "+memberDTO);
-		cartdto.setMemberNo(memberNo);
-
-		int result = cservice.addCart(cartdto);
-		return result+"";
-	}
+	// 부품 주문 ---------------------------------------
 	
 	@GetMapping("/buypart")
-	public String buypage(HttpSession session, Principal p) {
+	public String buypage(HttpSession session, Model model,
+			@ModelAttribute CartDTO cartdto/* , @RequestParam(value = "chkbox[]") List<String> chkbox */) {
+		if((Integer) session.getAttribute("memberNo") == null) {
+			return "/ponylogin";
+		}
+		Integer memberNo = (Integer) session.getAttribute("memberNo");
+		List<CartDTO> userCart = cservice.cartAll(memberNo);
+		PonyMemberDTO memberDTO = mservice.selectMemAll(memberNo);
+		log.info("memberDTO: "+memberDTO);
+		model.addAttribute("memDTO", memberDTO);
+//		log.info(""+chkbox);
+//		int cartNo = 0;
+//		for(String cartNoStr : chkbox) {
+//			cartNo = Integer.parseInt(cartNoStr);
+//			
+//		}
 		return "/shop/cart/buyPart";
 	}
 	
+	@PostMapping("/buypart")
+	public String orderpage() {
+		return "/shop/cart/buyPart";
+	}
 	
 	// 내 주문목록 --------------------------------------
 	

@@ -95,6 +95,10 @@ public class PonyMemberServiceImp implements PonyMemberService {
 		return dao.getMemberPoint(memberNo);
 	}
 	
+	public PonyMemberDTO selectMemAll(int memberNo) {
+		return dao.selectMemAll(memberNo);
+	}
+	
 	@Override
 	public void addUser(PonyMemberDTO dto) {
 			dao.addUser(dto);

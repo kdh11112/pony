@@ -34,7 +34,10 @@ public interface PonyMemberDAO {
 	
 	public int idChk(PonyMemberDTO dto) throws Exception;
 
+
 	public void addUser(PonyMemberDTO dto);
+
+	public PonyMemberDTO selectMemAll(int memberNo);
 	
 	public Object getMemberPoint(int memberNo);
 }

@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html lang="ko">
 <head>
-
 <title>PONY MOTORS</title>
 <link href="css/admin/css/order.css" rel="stylesheet" />
 <link href="css/admin/css/ordersheet.css" rel="stylesheet" />
@@ -97,7 +98,7 @@
 											<div class="product_info" style="padding-left: 130px;">
 												<div class="product_dsc">
 													<strong> 엔진오일 </strong>
-													<div class="option">옵션: 소나타/1개</div>
+													<div class="option">옵션: 소나타</div>
 												</div>
 												<span class="vm"></span>
 											</div>
@@ -126,15 +127,20 @@
 								<div class="deliver_option_wrap">
 									<strong class="req" title="필수입력">배송지 입력</strong>
 								</div>
-
-								<ul class="addr_list _deliveryPlaces _deliveryPlaces_0">
-									<li>정희진</li>
-									<li>010-1234-5678</li>
-									<li>(우편번호) 서울특별시 종로구 어쩌구 디아망 건물 4층
-										<button class="btn _click(nmp.front.order.order_sheet.editDeliveryInfo()) _stopDefault">정보수정</button> <!--N=a:ord.modifyinfo-->
-									</li>
-								</ul>
-
+									<ul class="addr_list _deliveryPlaces _deliveryPlaces_0">
+										<li>${memDTO.memberName }</li>
+										<li>${memDTO.memberPhone }</li>
+										<li>(${memDTO.memberZip }) ${memDTO.memberAddress1 } ${memDTO.memberAddress2 }
+											<button class="btn _click(nmp.front.order.order_sheet.editDeliveryInfo()) _stopDefault">정보수정</button>
+										</li>
+									</ul>
+<!-- 									<ul class="addr_list _deliveryPlaces _deliveryPlaces_0">
+										<li><input type="text" name="" id="" /></li>
+										<li><input type="text" name="" id="" maxlength="3"/>-<input type="text" name="" id="" maxlength="4"/>-<input type="text" name="" id="" maxlength="4"/></li>
+										<li>(우편번호) 서울특별시 종로구 어쩌구 디아망 건물 4층
+											<button class="btn _click(nmp.front.order.order_sheet.editDeliveryInfo()) _stopDefault">정보수정</button>
+										</li>
+									</ul> -->
 								<div class="_deliveryMemoOuter ">
 									<strong class="_deliveryMemoHeader" style="display: none;">배송메모</strong>
 									<div class="_deliveryMemoInner ">
@@ -153,15 +159,15 @@
 							<div class="userinfo_wrap _purchaserInfo">
 								<h4>주문자 정보</h4>
 								<ul class="user_info">
-									<li>정희진</li>
-									<li class="_telNoHighlight "><span class="_memberTelNumber">010-3***-0***</span></li>
+									<li>${memDTO.memberName }</li>
+									<li class="_telNoHighlight "><span class="_memberTelNumber">${memDTO.memberPhone }</span></li>
 									<li><span class="_memberEmailAddress">ju*****@n*******.com</span></li>
 								</ul>
 								<ul class="info_dsc">
 									<li class="info_confirm"><span class="_telNoNoti _telNoInfo" style="display: block">주문자 정보로 결제관련 정보가 제공됩니다.<br>정확한 정보로 등록되어있는지 확인해주세요.
 									</span></li>
 								</ul>
-								<input type="hidden" name="order.memberName" value="정희진">
+								<input type="hidden" name="order.memberName" value="${memDTO.memberName }">
 								<input type="hidden" name="order.memberCellPhoneNo" value="010-3***-0***">
 							</div>
 
@@ -184,7 +190,7 @@
 
 										<div class="area_item point_balance">
 											<div class="input_area">
-												<span class="value _remainTotalPointBalanceArea">26,775</span> <span class="measure _remainTotalPointMeasureArea ">원</span>
+												<span class="value _remainTotalPointBalanceArea">${memDTO.memberPoint }</span> <span class="measure _remainTotalPointMeasureArea ">원</span>
 											</div>
 										</div>
 									</li>
@@ -288,8 +294,8 @@
 				</form>
 
 			</div>
-			</div>
-			<div style="padding: 30px;"></div>
+		</div>
+		<div style="padding: 30px;"></div>
 	</section>
 	<!-- footer -->
 	<footer class="py-5 bg-secondary" style="background-color: #6c757d !important;">
