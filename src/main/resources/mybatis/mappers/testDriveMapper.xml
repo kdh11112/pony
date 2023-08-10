@@ -42,4 +42,9 @@
 		FROM TESTDRIVE
 		WHERE memberNo = #{memberNo}
 	</select>
+	<!-- 성환님코드 -->
+	<select id="testDriveStatusButton" resultType="kr.co.jhta.pony.dto.TestDriveDTO">
+		SELECT *
+		FROM TESTDRIVE
+	</select>
 </mapper>

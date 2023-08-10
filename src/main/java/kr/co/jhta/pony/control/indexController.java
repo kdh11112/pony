@@ -23,9 +23,9 @@ public class indexController {
 	
 	@GetMapping("/")
 	public String index(Principal p, Model model) {
-		
+		if(p!=null) {
 		model.addAttribute("username", service.getPrincipalEmail(p));
-		
+		}
 		return "/index";
 	}
 	

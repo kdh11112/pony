@@ -1,5 +1,7 @@
 package kr.co.jhta.pony.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +14,6 @@ public interface TestDriveDAO {
 	public void updatedTestDrive(int memberNo);
 	public void deleteTestDrive(int testDriveNo);
 	public Object testDriveCount(int memberNo);
+	public List<TestDriveDTO> testDriveStatusButton();
+	
 }

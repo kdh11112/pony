@@ -19,5 +19,16 @@
 	  WHERE
 	    T.memberNo = #{memberNo};
 	</select>
-
+	<!-- 시승일정변경 -->
+	<update id="updatedTestDrive" parameterType="int">
+		UPDATE TESTDRIVE
+		SET 
+		    testDriveSchedule = #{testDriveSchedule}
+		    shopNo = #{shopNo},
+		    modelNo = #{modelNo},
+		    testDriveTime = #{testDriveTime}
+		WHERE
+		    testDriveNo = #{testDriveNo} AND
+		    memberNo = #{memberNo}
+	</update>
   </mapper>

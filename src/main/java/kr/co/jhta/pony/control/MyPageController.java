@@ -421,11 +421,21 @@ public class MyPageController {
 		
 		//----------------------------시승신청예약내역변경
 		@PostMapping("/testdrivingmodify")
-		public String testdrivingmodify(@ModelAttribute TestDriveDTO dto, 
+		public String testdrivingmodify(@RequestParam("modelNo") String modelNo,@RequestParam("shopNo")String shopNo,
+				@RequestParam("shopAddr") String shopAddr,@RequestParam("testDriveTime") String testDriveTime, 
+				@RequestParam ("testDriveSchedule") String testDriveSchedule,
 										Principal p, HttpSession session, HttpServletRequest req, Model model) {
+			log.info("여기에 요청은 오니? 여기는 testdrive");
+			
+			System.out.println(modelNo);
+			System.out.println(shopNo);
+			System.out.println(shopAddr);
+			System.out.println(testDriveTime);
+			System.out.println(testDriveSchedule);
 			PonyMemberDTO dto8 = service.getMemberEmail(service.getPrincipalEmail(p));
-			int memberNo = dto8.getMemberNo();
-			testDriveService.updatedTestDrive(memberNo);
+			//int memberNo = dto8.getMemberNo();
+			//dto.setMemberNo(memberNo);
+			//testdriveapplicationreservationdetailsservice.updatedTestDrive(dto);
 			return "redirect:/testdriving";
 		}
 		//----------------------------시승신청예약 내역 삭제

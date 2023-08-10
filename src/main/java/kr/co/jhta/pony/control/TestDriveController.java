@@ -44,8 +44,8 @@ public class TestDriveController {
 		return ss.shopArea(shopArea,shopAreaPoint);
 	}
 	
-	@PostMapping("/testDriveInsert")
-	public String test123(Principal p ,@ModelAttribute TestDriveDTO dto,@RequestParam("testDriveSchedule")String testDriveSchedule, @RequestParam("shopNo")int shopNo, @RequestParam("selectedModel")int modelNo, @RequestParam("buttonTime")String testDriveTime) {
+	@PostMapping("/addTestDrive")
+	public String addTestDrive(Principal p ,@ModelAttribute TestDriveDTO dto,@RequestParam("testDriveSchedule")String testDriveSchedule, @RequestParam("shopNo")int shopNo, @RequestParam("selectedModel")int modelNo, @RequestParam("buttonTime")String testDriveTime) {
 								     //id           인증객체(로그인된 객체) -> p. 
 		PonyMemberDTO dtoUser = pms.getMemberEmail(p.getName());
 		
@@ -59,6 +59,12 @@ public class TestDriveController {
 		return "redirect:testDrive";
 	}
 	
-	
+	@GetMapping("/testDriveStatusButton")
+	@ResponseBody
+	public List<TestDriveDTO> testDriveStatusButton(Model model) {
+		model.addAttribute("btn", tds.testDriveStatusButton());
+		log.info("asdsadsa"+tds.testDriveStatusButton());
+		return tds.testDriveStatusButton();
+	}
 	
 }
