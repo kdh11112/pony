@@ -93,11 +93,17 @@ function redirectToKaKao(){
 								<label class="form-label">Password</label>
 							</div>
 
+
+								<div align="center"  style="align-content: center; width: 300px; height: 45px">
+								 <a href="idSerach" onclick="window.open('idSerach', 'newwindow', 'width=600, height=400'); return false;" style="padding-left: 50px; font-size: 15px;">아이디 찾기 &nbsp;</a> |  &nbsp; <a href="pwReset" onclick="window.open('pwReset', 'newwindow', 'width=600, height=400'); return false;" style="font-size: 15px;">비밀번호 찾기</a>
+								</div>
+
 							<div align="center">
 							<button class="btn btn-primary btn-lg btn-block" type="submit" style=" width: 300px; height: 45px">Login</button>
 							</div>
 							
 						</form>
+
 
 							<div class="d-flex justify-content-center">
 								<button class="btn btn-lg btn-block" onclick="redirectToGoogle()"
@@ -124,6 +130,12 @@ function redirectToKaKao(){
 							<button class="btn btn-primary btn-lg btn-block" type="submit" style=" width: 300px; height: 45px">Sign up</button>
 							</div>
 						</form>	
+
+							
+						
+     					      
+							 </div>
+
 
 						</div>
 					</div>

@@ -46,6 +46,19 @@ public class indexController {
 		return "/ponylogin";
 	}
 	
+	@GetMapping("/idSerach")
+	public String idserach() {
+		
+		return "/ponyIdSearch";
+	}
+	
+
+	@GetMapping("/pwReset")
+	public String pwreset() {
+		
+		return "/ponyPwReset";
+	}
+	
 //	@GetMapping("/testuser")
 //	public String testuser(Principal principal, Model model, @AuthenticationPrincipal AccountContext userAccount) {
 //		model.addAttribute("name", principal.getName());
