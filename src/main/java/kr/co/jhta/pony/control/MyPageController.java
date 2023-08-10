@@ -111,7 +111,7 @@ public class MyPageController {
 	//--------------------------------마이페이지 1:1문의 리스트페이지로이동
 	@GetMapping("/mypageqna")
 	public String mypageQna(HttpSession session, Principal p,Model model,@RequestParam(name="currentPage",defaultValue="1")int currentPage) {
-		PonyMemberDTO dto = service.getMemberEmail(p.getName());
+		PonyMemberDTO dto = service.getMemberEmail(service.getPrincipalEmail(p));
 		session.setAttribute("dto", dto);
 		//총게시물수
 		int totalNumber = service.getTotal();
@@ -141,7 +141,7 @@ public class MyPageController {
 	//-------------------------------글 상세 페이지이동
 		@GetMapping("/mypageqnadetail")
 		public String detail(@RequestParam("questionNo")int questionNo,Model model,Principal p, HttpSession session) {
-			PonyMemberDTO dto20 = service.getMemberEmail(p.getName());
+			PonyMemberDTO dto20 = service.getMemberEmail(service.getPrincipalEmail(p));
 			session.setAttribute("dto", dto20);
 			// 로그인한 사용자의 회원번호를 가져옴
 			int memberNo = dto20.getMemberNo();
@@ -158,7 +158,7 @@ public class MyPageController {
 		//-----------------------1:1 글쓰기이동
 		@GetMapping("/qnawrite")
 		public String write(Model model,Principal p, HttpSession session) {	
-			PonyMemberDTO dto21 = service.getMemberEmail(p.getName());
+			PonyMemberDTO dto21 = service.getMemberEmail(service.getPrincipalEmail(p));
 			session.setAttribute("dto", dto21);
 			// 로그인한 사용자의 회원번호를 가져옴
 			int memberNo = dto21.getMemberNo();
@@ -172,7 +172,7 @@ public class MyPageController {
 		@PostMapping("/qnawriteform")
 		public String writeOk(HttpSession session,@ModelAttribute QuestionDTO dto,
 								HttpServletRequest req,Principal p,Model model) {
-			PonyMemberDTO dto2 = service.getMemberEmail(p.getName());
+			PonyMemberDTO dto2 = service.getMemberEmail(service.getPrincipalEmail(p));
 			session.setAttribute("dto",dto2);
 			log.info("dto2 {} ",dto2);
 			int memberNo = dto2.getMemberNo();
@@ -193,7 +193,7 @@ public class MyPageController {
 		//------------------------글 수정 페이지이동
 		@GetMapping("/qnamodify")
 		public String modifyform(@RequestParam("questionNo") int questionNo, Model model,HttpSession session,Principal p) {
-			PonyMemberDTO dto3 = service.getMemberEmail(p.getName());
+			PonyMemberDTO dto3 = service.getMemberEmail(service.getPrincipalEmail(p));
 			int memberNo = dto3.getMemberNo();
 			session.setAttribute("mdto", dto3);
 			model.addAttribute("dto", qService.selectOne(questionNo));
@@ -225,7 +225,7 @@ public class MyPageController {
 		@GetMapping("/carregi")
 		public String carregi(Principal p, @ModelAttribute ClientDTO dto,
 				HttpSession session, Model model, HttpServletRequest req) {
-			PonyMemberDTO dto5 = service.getMemberEmail(p.getName());
+			PonyMemberDTO dto5 = service.getMemberEmail(service.getPrincipalEmail(p));
 			session.setAttribute("dto", dto5);
 			// 로그인한 사용자의 회원번호를 가져옴
 			int memberNo = dto5.getMemberNo();
@@ -275,7 +275,7 @@ public class MyPageController {
 		@GetMapping("/carregigo")
 		public String carregigo(Principal p, @ModelAttribute ClientDTO dto,
 				HttpSession session, Model model, HttpServletRequest req) {
-			PonyMemberDTO dto5 = service.getMemberEmail(p.getName());
+			PonyMemberDTO dto5 = service.getMemberEmail(service.getPrincipalEmail(p));
 			session.setAttribute("dto", dto5);
 			// 로그인한 사용자의 회원번호를 가져옴
 			int memberNo = dto5.getMemberNo();
@@ -298,7 +298,7 @@ public class MyPageController {
 		
 		@GetMapping("/carregistration")
 	    public String myPage(Model model, Principal p,HttpSession session) {
-			PonyMemberDTO dto = service.getMemberEmail(p.getName());
+			PonyMemberDTO dto = service.getMemberEmail(service.getPrincipalEmail(p));
 			session.setAttribute("dto", dto);
 	        List<ClientDTO> userCars = cService.selectAll(dto.getMemberNo());
 	        model.addAttribute("userCars", userCars);
@@ -340,7 +340,7 @@ public class MyPageController {
 		//-----------------------------회원정보페이지
 		@GetMapping("/myinfo")
 		public String myinfo(Model model,Principal p,HttpSession session) {
-			PonyMemberDTO dto6 = service.getMemberEmail(p.getName());
+			PonyMemberDTO dto6 = service.getMemberEmail(service.getPrincipalEmail(p));
 			session.setAttribute("dto", dto6);
 			int memberNo=dto6.getMemberNo();
 			model.addAttribute("dto",service.selectMem(memberNo));
@@ -353,7 +353,7 @@ public class MyPageController {
 		//-----------------회원정보수정페이지
 		@GetMapping("/myinfomodify")
 		public String myinfomodify(@ModelAttribute PonyMemberDTO dto, HttpServletRequest req,HttpSession session, Model model,Principal p) {
-			PonyMemberDTO dto7 = service.getMemberEmail(p.getName());
+			PonyMemberDTO dto7 = service.getMemberEmail(service.getPrincipalEmail(p));
 			int memberNo = dto7.getMemberNo();
 			
 			String pw = dto7.getMemberPassword(); // fasfslafjsasa
@@ -379,7 +379,7 @@ public class MyPageController {
 		//-------------------------회원정보 수정ok
 		@PostMapping("/myinfomodifyOk")
 		public String myinfomodifyOk(@ModelAttribute PonyMemberDTO dto, HttpServletRequest req,HttpSession session, Model model,Principal p) {
-			PonyMemberDTO dto8 = service.getMemberEmail(p.getName());
+			PonyMemberDTO dto8 = service.getMemberEmail(service.getPrincipalEmail(p));
 			int memberNo = dto8.getMemberNo();
 			session.setAttribute("mdto", dto8);
 			 String rawPassword = req.getParameter("memberPassword");
@@ -406,7 +406,7 @@ public class MyPageController {
 		//--------------------------시승신청예약내역
 		@GetMapping("/testdriving")
 		public String testdriving(Model model, @ModelAttribute TestDriveDTO dto,Principal p,HttpSession session,HttpServletRequest req){
-			PonyMemberDTO dto1 = service.getMemberEmail(p.getName());
+			PonyMemberDTO dto1 = service.getMemberEmail(service.getPrincipalEmail(p));
 			int memberNo = dto1.getMemberNo();
 			
 			List<TestDriveApplicationReservationDetailsDTO> testDrivinglist = testdriveapplicationreservationdetailsservice.getTestDriveScheduleByMemberNo(memberNo);
@@ -423,7 +423,7 @@ public class MyPageController {
 		@PostMapping("/testdrivingmodify")
 		public String testdrivingmodify(@ModelAttribute TestDriveDTO dto, 
 										Principal p, HttpSession session, HttpServletRequest req, Model model) {
-			PonyMemberDTO dto8 = service.getMemberEmail(p.getName());
+			PonyMemberDTO dto8 = service.getMemberEmail(service.getPrincipalEmail(p));
 			int memberNo = dto8.getMemberNo();
 			testDriveService.updatedTestDrive(memberNo);
 			return "redirect:/testdriving";
@@ -442,7 +442,7 @@ public class MyPageController {
 		@GetMapping("/carMaintenanceReservationDetail")
 		public String CarMaintenanceReservationDetail(Model model, @ModelAttribute TestDriveDTO dto,Principal p,
 													  HttpSession session,HttpServletRequest req) {
-			PonyMemberDTO dto1 = service.getMemberEmail(p.getName());
+			PonyMemberDTO dto1 = service.getMemberEmail(service.getPrincipalEmail(p));
 			int memberNo = dto1.getMemberNo();
 			List<CarRegisterDTO> carRegisterlist = carRegistrationService.getCarRegistrationList(memberNo);
 			model.addAttribute("carRegisterdto",carRegisterlist);
