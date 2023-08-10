@@ -250,7 +250,7 @@ a{text-decoration: none;}
 				</sec:authorize>
 								
 				<sec:authorize access="hasAnyRole('ROLE_USER')">
-						<a href="/logout"><sec:authentication property="principal.username"/>님 로그아웃</a>
+						<a href="/logout">${username} 님 로그아웃</a>
 						<a href="/mypage" class="mypage-link">마이페이지</a>
 				</sec:authorize>
 					

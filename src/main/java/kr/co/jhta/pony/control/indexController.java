@@ -2,19 +2,30 @@ package kr.co.jhta.pony.control;
 
 import java.security.Principal;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import kr.co.jhta.pony.security.account.AccountContext;
+import kr.co.jhta.pony.dto.PonyMemberDTO;
+import kr.co.jhta.pony.security.service.PonyMemberService;
 
 @Controller
 public class indexController {
 	
+	@Autowired
+	PonyMemberService service;
+	
 	@GetMapping("/")
-	public String index() {
+	public String index(Principal p, Model model) {
+		
+		model.addAttribute("username", service.getPrincipalEmail(p));
+		
 		return "/index";
 	}
 	
