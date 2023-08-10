@@ -18,5 +18,37 @@
 			</if>
 		</where>
 	</select>
+	
+	<select id="selectTechnologyModalNumber" parameterType="int" resultType="kr.co.jhta.pony.dto.TechnologyAndPartDTO">
+		SELECT  technologyNumber,
+				technologyDetail,
+				technologyPrice 
+				FROM TECHNOLOGY t 
+		WHERE technologyNumber = #{technologyNumber}
+	</select>
+	
+	<select id="selectPartModal" resultType="kr.co.jhta.pony.dto.TechnologyAndPartDTO" parameterType="kr.co.jhta.pony.dto.TechnologyAndPartDTO">
+		SELECT 	partNumber,
+				partName,
+				partNo,
+				partPrice 
+		FROM PART p
+		<where>
+			<if test="partNumber != null and partNumber != ''">
+			AND partNumber LIKE CONCAT('%',#{partNumber},'%')
+			</if>
+			<if test="partName != null and partName != ''">
+			AND partName LIKE CONCAT('%',#{partName},'%')
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectPartModalNumber" parameterType="int" resultType="kr.co.jhta.pony.dto.TechnologyAndPartDTO">
+		SELECT 	partNumber,
+				partName,
+				partPrice 
+		FROM PART p
+		WHERE partNumber = #{partNumber}
+	</select>
 
 </mapper>

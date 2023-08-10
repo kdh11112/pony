@@ -25,4 +25,22 @@ public class TechnologyServiceImple implements TechnologyAndPartService{
 		return technologyAndPartDAO.selectTechnologyModal(techAndPartDTO);
 	}
 
+
+	@Override
+	public TechnologyAndPartDTO findOneTechnologyNumber(int technologyNumber) {
+		return technologyAndPartDAO.selectTechnologyModalNumber(technologyNumber);
+	}
+
+
+	@Override
+	public List<TechnologyAndPartDTO> findAllPartModal(TechnologyAndPartDTO techAndPartDTO) {
+		return technologyAndPartDAO.selectPartModal(techAndPartDTO);
+	}
+
+
+	@Override
+	public TechnologyAndPartDTO findOnePartNumber(int partNumber) {
+		return technologyAndPartDAO.selectPartModalNumber(partNumber);
+	}
+
 }

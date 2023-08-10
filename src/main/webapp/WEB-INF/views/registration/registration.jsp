@@ -188,7 +188,7 @@ $("#vin").on("click", function() {
   }
 
   $("input[value='차량접수/수정']").on("click",function(){
-	//?? 안되는거 아닌가?
+	  
 	  $("#Form").submit(); 
 	  
   });

@@ -13,5 +13,11 @@ public interface TechnologyAndPartDAO {
 
 	public List<TechnologyAndPartDTO> selectTechnologyModal(TechnologyAndPartDTO techAndPartDTO);
 
+	public TechnologyAndPartDTO selectTechnologyModalNumber(int technologyNumber);
+
+	public List<TechnologyAndPartDTO> selectPartModal(TechnologyAndPartDTO techAndPartDTO);
+
+	public TechnologyAndPartDTO selectPartModalNumber(int partNumber);
+
 	
 }

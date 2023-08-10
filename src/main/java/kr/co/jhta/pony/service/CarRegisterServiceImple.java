@@ -95,5 +95,12 @@ public class CarRegisterServiceImple implements CarRegisterService{
 
 
 
+	@Override
+	public CarRegisterDTO findOneReg(int registrationRN,LocalDate registrationDate) {
+		return carRegisterDAO.selectReg(registrationRN,registrationDate);
+	}
+
+
+
 
 }

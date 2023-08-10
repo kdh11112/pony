@@ -43,6 +43,8 @@ public interface CarRegisterDAO {
 
 	public int selectRegAndcorrNumber();
 
+	public CarRegisterDTO selectReg(int registrationRN,LocalDate registrationDate);
+
 
 
 }

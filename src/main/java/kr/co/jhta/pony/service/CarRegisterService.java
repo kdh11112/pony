@@ -29,6 +29,9 @@ public interface CarRegisterService {
 
 	public void saveRegAndEdit(CarRegisterDTO carRegisterDTO);
 
+	public CarRegisterDTO findOneReg(int registrationRN,LocalDate registrationDate);
+
+
 
 
 

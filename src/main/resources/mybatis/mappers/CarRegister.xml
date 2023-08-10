@@ -173,5 +173,30 @@
 	        DATE(registrationDate) = CURDATE()
 	</select>
 	
+	<select id="selectReg" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO" resultType="kr.co.jhta.pony.dto.CarRegisterDTO">
+		SELECT * 
+		FROM (select row_number() over(order by registrationDate asc) registrationRN,
+					r.registrationNumber,
+					r.clientVin, 
+					h.clientCarNumber,
+					r.registrationDate,
+					h.memberName,
+					t.technologyNumber,
+					t.technologyDetail,
+					t.technologyPrice,
+					p.partNumber,
+					p.partName,
+					p.partNo,
+					p.partPrice 
+				from REGISTRATION r left join HISTORY h
+				on r.registrationNumber = h.registrationNumber
+				left join TECHNOLOGY t 
+				on h.technologyNumber = t.technologyNumber 
+				left join PART p 
+				on h.partNumber = p.partNumber
+				WHERE DATE(registrationDate) = #{registrationDate}) s
+		WHERE registrationRN = #{registrationRN} 
+	</select>
+	
 
 </mapper>

@@ -1,8 +1,11 @@
 package kr.co.jhta.pony.control;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -10,7 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -211,24 +217,125 @@ public class RegistrationController {
 	}
 	
 	@GetMapping("/reg/work")
-	public String work() {
+	public String work(@RequestParam(name = "registrationRN",required = false,defaultValue = "0")Integer registrationRN,
+			@RequestParam(name = "registrationDateHi" ,required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate registrationDate,
+			Model model,HttpSession session) {
+		model.addAttribute("work", carRegisterService.findOneReg(registrationRN,registrationDate));
+		CarRegisterDTO registration = carRegisterService.findOneReg(registrationRN, registrationDate);
+			
+		String[] technology =  (String[]) session.getAttribute("technology");
+		log.info(""+Arrays.toString(technology));
+		String[] part =  (String[]) session.getAttribute("part1");
+		
+		if (technology != null && registration != null) {
+
+			//String number = ""+registration.getRegistrationNumber();
+			//int totalCount = Integer.parseInt(technology[technology.length-1])+Integer.parseInt(part[part.length-1]); //총합 계산
+			
+//			if(technology[0].equals(number)) {
+//				model.addAttribute("technology", technology);
+//				log.info("session"+Arrays.toString(technology));
+//			} 
+//			if(part[0].equals(number)) {			
+//				model.addAttribute("part", part);
+//				log.info("session"+Arrays.toString(part));
+//				
+//			}
+		}
 		
 		return "/registration/work";
 	}
 	
+	
+	@PatchMapping("/reg/work")
+	public String workSave(@ModelAttribute TechnologyAndPartDTO technologyAndPartDTO, 
+			HttpServletRequest request,HttpSession session,
+			@RequestParam(name = "technologyLength", defaultValue = "0") String technologyLength,
+			@RequestParam(name = "partLength",defaultValue = "0") String partLength
+			
+			) {
+//		String[] technology = Arrays.stream(request.getParameterValues("technology"))
+//			    .filter(item -> item != null && !item.strip().isEmpty())
+//			    .toArray(String[]::new);
+//
+//			String[] part = Arrays.stream(request.getParameterValues("part"))
+//			    .filter(item -> item != null && !item.strip().isEmpty())
+//			    .toArray(String[]::new);
+//		log.info(""+ request.getParameterValues("technology"));
+		int tLength = Integer.parseInt(technologyLength);
+		int val = 0;
+		String[][] technology = new String[tLength][val];
+
+		for(int i = 0; i < tLength; i++) {
+			for(int j = 0; j < val; i++) {
+		    String[] techValues = request.getParameterValues("technology" + (i+1));
+		        technology[i] = techValues;
+		        log.info("여기가 로그야 " + Arrays.toString(techValues));
+		        session.setAttribute("technology", technology[i]);
+			}
+		}
+		int pLength = Integer.parseInt(partLength);
+		String[][] part = new String[pLength][];
+		
+		for(int i = 0; i < pLength; i++) {
+			String[] partValues = request.getParameterValues("part" + (i+1));
+			part[i] = partValues;
+			log.info(Arrays.toString(partValues));
+			session.setAttribute("part", part[i]);
+		}
+		
+		
+		
+		
+
+	    return "redirect:/reg/work";
+	}
+	
 	@ResponseBody
 	@GetMapping("/reg/registration/modal/technology")
-	public List<TechnologyAndPartDTO> workTechnologyModal(@RequestParam(name = "technologyNumberModal",required = false,defaultValue = "0")Integer technologyNumber,@RequestParam(name ="technologyDetailModal",required = false)String technologyDetail) {
-//		int technologyNumberInt = 0;
-//		if (technologyNumber == null || technologyNumber.isEmpty()) {
-//			technologyNumberInt = Integer.parseInt(technologyNumber);			
-//		}
+	public List<TechnologyAndPartDTO> workTechnologyModal(
+	        @RequestParam(name = "technologyNumberAsy", required = false, defaultValue = "0") Integer technologyNumber,
+	        @RequestParam(name ="technologyDetailAsy", required = false) String technologyDetail) {
+		
 		TechnologyAndPartDTO dto = TechnologyAndPartDTO	.builder()
 														.technologyNumber(technologyNumber)
 														.technologyDetail(technologyDetail)
 														.build();
 		return technologyAndPartService.findAllTechnologyModal(dto);
 	}
+	
+	@ResponseBody
+	@PostMapping("/reg/registration/modal/technologyData")
+	public TechnologyAndPartDTO technologyData(@RequestBody Map<String, String> requestBody) {
+	    int technologyNumber = Integer.parseInt(requestBody.get("technologyNumberData"));
+		return technologyAndPartService.findOneTechnologyNumber(technologyNumber);
+
+		
+	}
+	
+	@ResponseBody
+	@GetMapping("/reg/registration/modal/part")
+	public List<TechnologyAndPartDTO> workPartModal(
+	        @RequestParam(name = "partNumberAsy", required = false, defaultValue = "0") Integer partNumber,
+	        @RequestParam(name ="partNameAsy", required = false) String partName) {
+		
+		TechnologyAndPartDTO dto = TechnologyAndPartDTO	.builder()
+														.partName(partName)
+														.partNumber(partNumber)
+														.build();
+		
+		return technologyAndPartService.findAllPartModal(dto);
+	}
+	
+	@ResponseBody
+	@PostMapping("/reg/registration/modal/partData")
+	public TechnologyAndPartDTO partData(@RequestBody Map<String, String> requestBody) {
+	    int partNumber = Integer.parseInt(requestBody.get("partNumberData"));
+		return technologyAndPartService.findOnePartNumber(partNumber);
+	
+	}
+	
+	
 	
 	@GetMapping("/reg/payment")
 	public String payment() {
