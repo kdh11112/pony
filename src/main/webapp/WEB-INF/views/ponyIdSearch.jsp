@@ -13,15 +13,60 @@
     <title>아이디 찾기</title>
 </head>
 <body>
-    <h2>아이디 찾기</h2>
-    <form action="아이디_찾기_처리_페이지_URL" method="post">
-        <label for="email">이메일:</label>
-        <input type="email" id="email" name="email" required><br><br>
-        
-        <label for="name">이름:</label>
-        <input type="text" id="name" name="name" required><br><br>
-        
-        <button type="submit">아이디 찾기</button>
-    </form>
+
+	<section class="vh-100">
+
+		
+			<div class="container py-5 h-100">
+				
+				<div class="row d-flex justify-content-center align-items-center h-100">
+				
+					<div class="col-12 col-md-8 col-lg-6 col-xl-5">
+						
+						
+						<div class="card shadow-2-strong" style="border-radius: 1rem;">
+							
+							
+							
+							<div align="center">
+								<img src="images/pony_motors_log_cut.png" alt="" align="middle" />
+							</div>
+
+
+							<div class="card-body p-5 text-center">
+
+
+								<form action="ponyRegOk" id="frm" method="post">
+
+								<div class="form-outline mb-4">
+								  <div class="row">
+								    <div class="col">
+								      <div class="form-floating">
+								        <input type="text" id="ponyMemberEmail" name="email" class="form-control form-control-lg shadow-sm" oninput = "checkId()"/>
+								        <label>Email</label>
+								      </div>
+								      <span id="emailValidationMsg" style="color: red; display: none;">올바른 이메일 형식이 아닙니다.</span>
+								      <span id="emailAlready" style="color: red; display: none;">사용중인 이메일입니다.</span>
+								    </div>
+								    <div class="col-auto">
+								      <button type="button" class="btn btn-primary btn-lg" style="width: 82px; height: 45px" onclick="id serach()" disabled="disabled">찾기</button>
+								    </div>
+								  </div>
+								</div>
+						
+						</form>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	</section>
+	
+
+    
+
+    
 </body>
 </html>
