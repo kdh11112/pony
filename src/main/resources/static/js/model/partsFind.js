@@ -13,7 +13,7 @@ $(document).ready(function() {
             alert("찾으실 부품명을 입력해주세요");
         } else {
             $.ajax({
-                url: "/searchParts",
+                url: "/model/searchParts",
                 data: { partName: partsFindText },
                 success: function(response) {
                     $("div.card-body").empty();
