@@ -45,7 +45,9 @@ public class TestDriveController {
 	}
 	
 	@PostMapping("/addTestDrive")
+
 	public String addTestDrive(Principal p ,@ModelAttribute TestDriveDTO dto,@RequestParam("selectedSchedule")String testDriveSchedule, @RequestParam("selectedShopNo")int shopNo, @RequestParam("selectedModel")int modelNo, @RequestParam("buttonTime")String testDriveTime) {
+
 								     //id           인증객체(로그인된 객체) -> p. 
 		PonyMemberDTO dtoUser = pms.getMemberEmail(pms.getPrincipalEmail(p));
 		
@@ -59,12 +61,14 @@ public class TestDriveController {
 		return "redirect:testDrive";
 	}
 	
+
 	@GetMapping("/showTestDriveSchedule")
 	@ResponseBody
 	public List<TestDriveDTO> testDriveStatusButton(Model model) {
 		model.addAttribute("btn", tds.showTestDriveSchedule());
 		log.info("btn"+tds.showTestDriveSchedule());
 		return tds.showTestDriveSchedule();
+
 	}
 	
 }

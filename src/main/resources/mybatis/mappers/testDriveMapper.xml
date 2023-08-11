@@ -36,8 +36,7 @@
 		    testDriveSchedule = #{testDriveSchedule},
 		    shopNo = #{shopNo}
 		WHERE
-		    testDriveNo = #{testDriveNo} AND
-		    memberNo = #{memberNo};
+		    testDriveNo = #{testDriveNo}
 	</update>
 	<!-- 시승신청내역 삭제 -->
 	<delete id="deleteTestDrive" parameterType="int">
@@ -50,5 +49,10 @@
 		SELECT COUNT(*)
 		FROM TESTDRIVE
 		WHERE memberNo = #{memberNo}
+	</select>
+	<!-- 성환님코드 -->
+	<select id="testDriveStatusButton" resultType="kr.co.jhta.pony.dto.TestDriveDTO">
+		SELECT *
+		FROM TESTDRIVE
 	</select>
 </mapper>

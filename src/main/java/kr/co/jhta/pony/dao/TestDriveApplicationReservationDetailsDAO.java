@@ -12,5 +12,7 @@ import kr.co.jhta.pony.dto.TestDriveApplicationReservationDetailsDTO;
 public interface TestDriveApplicationReservationDetailsDAO {
 
 	List<TestDriveApplicationReservationDetailsDTO> getTestDriveScheduleByMemberNo(int memberNo);
+
+	void updatedTestDrive(TestDriveApplicationReservationDetailsDTO dto);
 	
 }

@@ -1,6 +1,7 @@
 package kr.co.jhta.pony.control;
 
 
+import java.io.Console;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
@@ -416,16 +417,37 @@ public class MyPageController {
 		        model.addAttribute("qnacount",qService.getqnaCount(memberNo));
 		        model.addAttribute("memberPoint",service.getMemberPoint(memberNo));
 		        model.addAttribute("testDriveCount",testDriveService.testDriveCount(memberNo));
+		        System.out.println("TTTTTTT" + testDrivinglist);
 			return "mypage/testdriving";
 		}
 		
 		//----------------------------시승신청예약내역변경
 		@PostMapping("/testdrivingmodify")
-		public String testdrivingmodify(@ModelAttribute TestDriveDTO dto, 
+		public String testdrivingmodify(
+//				@ModelAttribute TestDriveDTO dto,
+				@RequestParam("modelNo") int modelNo,@RequestParam("shopNo")int shopNo,@RequestParam("buttonTime") String testDriveTime, 
+				@RequestParam ("testDriveSchedule") String testDriveSchedule,@RequestParam("testDriveNo")int testDriveNo,
 										Principal p, HttpSession session, HttpServletRequest req, Model model) {
+
 			PonyMemberDTO dto8 = service.getMemberEmail(service.getPrincipalEmail(p));
 			int memberNo = dto8.getMemberNo();
-			testDriveService.updatedTestDrive(memberNo);
+			
+			
+			TestDriveDTO dto = new TestDriveDTO();
+			dto.setMemberNo(memberNo);
+			dto.setTestDriveSchedule(testDriveSchedule);
+			dto.setModelNo(modelNo);
+			dto.setTestDriveTime(testDriveTime);
+			dto.setShopNo(shopNo);
+			dto.setTestDriveNo(testDriveNo);
+			
+			
+			System.out.println("dto :  " + dto.getTestDriveTime());
+			
+			
+			
+			testDriveService.updatedTestDrive(dto);
+			log.info("시승신청내역 {}>>>>>>>>>>>>>>>>",dto);
 			return "redirect:/testdriving";
 		}
 		//----------------------------시승신청예약 내역 삭제

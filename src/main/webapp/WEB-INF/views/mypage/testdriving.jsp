@@ -176,9 +176,60 @@ textarea {
 </style>
 
 <script>
+	let tempShopNo = 0 ; //시승지점 값
+	let tempDate = 0; //날짜
+	let tempTime = 0; //시간
+	function carMaintenanceModify() {
+		console.log("shopNo : " + shopNo); 
+		
+		console.log($('input:radio').is(":checked"));
+
+		//시승신청변경 modal로 하기
+
+		$('input:radio').each(function(index) {
+			if ($(this).is(":checked") == true) {
+
+				var no = $(this).parent().next().val().trim();
+			
+			console.log($("#selectModel option:selected").val());// jquery 선택한 옵션 객체의 값 구하기 
+			var optionValue = $("#selectModel option:selected").val();
+			
+			
+			//var no = $(this).parent().next().val();
+			
+			// /testdrivingmodify?modelNo=111&shopNo=222&testDriverTime=???&testDriveSchedule=????
+			 		$.ajax({
+						url : "/testdrivingmodify",
+						method : "POST", //
+						data : {
+							modelNo : optionValue,
+							shopNo : shopNo,
+							buttonTime : buttonTime,
+							testDriveSchedule : testDriveSchedule,
+							testDriveNo : no
+						}, 
+						success : function(data) {
+						}
+					});
+						console.log(no);
+		}
+		location.href = "/testdriving";
+		
+	});
+	}
+	//차량등록을 하고 새로 차량등록을 할떄 이전에 썻던 정보가 지워져있게 하기
+	function resetInputFields() {
+		// Reset the input fields to empty strings or default values
+		$("#modelName").val("");
+		$("#shopAreaPoint").val("");
+		$("#shopAddr").val("");
+		$("#testDriveTime").val("");
+		$("#testDriveSchedule").val("");
+	}
+
 	function deleteCar() {
 
-		$('input:checkbox').each(function(index) {
+		$('input:radio').each(function(index) {
 			if ($(this).is(":checked") == true) {
 
 				var no = $(this).parent().next().val();
@@ -197,76 +248,6 @@ textarea {
 		});
 		location.href = "/testdriving";
 	}
-	/* }); */
-	//$('input:checkbox').prop('checked',true);
-	/* $('input:checkbox').is(':checked'); //체크박스 체크여부 확인
-	var parentTag = $('input:checkbox').parent(); */
-	//console.log(parentTag);
-	/*  function deleteCar(e){
-	 console.log(e);
-	 $('input:checkbox').prop('checked',true);
-	 $('input:checkbox').is(':checked'); //체크박스 체크여부 확인
-	 var parentTag = $('input:checkbox').parent();
-	 console.log(parentTag);
-	 }  */
-	//등록된 차량 삭제
-	/* function deleteCar(testDriveNo) {
-	 let selectedCarsId = $("#selectedCarsId").val()
-	 // 확인 메시지를 띄워 사용자에게 삭제 여부를 물어봅니다.
-	 // if (confirm("선택한 차량을 삭제하시겠습니까?")) {
-	 // Ajax를 사용하여 서버에 삭제 요청을 전송합니다.
-	 console.log(selectedCarsId);
-	 $.ajax({
-	 url : "/testdrivingdelete", // 삭제 요청을 처리하는 서버의 URL
-	 method : "GET", // 삭제 요청은 POST 방식으로 전송합니다.
-	 data : {
-	 testDriveNo : selectedCarsId
-	 }, // 삭제할 차대번호를 전달합니다.
-	 success : function(data) {
-	 // 삭제 요청에 성공하면 해당 행을 테이블에서 제거합니다.
-	 //$("tr:has(td:contains(" + testDriveNo + "))").remove();
-	 // 여기서 "tr:has(td:contains(" + clientVin + "))"은 차대번호가 clientVin인 행을 찾아내는 선택자입니다.
-	 // Success callback, handle the response from the server if needed
-	 // Here, you can add code to close the modal and reset the input fields
-	 //$("#exampleModal1").modal("hide"); // Close the modal
-	 resetInputFields(); // Reset the input fields
-	 // 삭제 성공 후 리다이렉트를 수행합니다.
-	 window.location.href = "/testdriving"; // 삭제 성공 페이지로 리다이렉트합니다.
-	 },
-	 error : function(xhr, status, error) {
-	 // 삭제 요청에 실패하면 오류 메시지를 처리할 수 있습니다.
-	 console.log(error);
-	 }
-	 });
-	 //}
-	 } */
-
-	/* function deleteSelectedCars() {
-		var selectedCars = $("input[name='selectedCars']:checked");
-
-		var selectedCarIds = [];
-		selectedCars.each(function() {
-			selectedCarIds.push($(this).val());
-		});
-
-		$.ajax({
-			url : "/testdrivingdelete", // 삭제 요청을 처리하는 서버의 URL
-			method : "GET", // 삭제 요청은 GET 방식으로 전송. (필요에 따라 변경 가능)
-			data : {
-				testDriveNo : selectedCarIds.join(",")
-			// 선택된 시승예약내역의 ID를 쉼표로 구분하여 전달
-			},
-			success : function(data) {
-				// 삭제 요청에 성공하면 선택된 행을 테이블에서 제거.
-				selectedCars.closest("tr").remove();
-				// 여기서 선택된 시승예약내역의 행을 삭제.
-				// 필요한 경우 다른 업데이트 작업을 수행.
-			},
-			error : function(xhr, status, error) {
-				console.log(error);
-			}
-		});
-	} */
 </script>
 
 </head>
@@ -320,11 +301,6 @@ textarea {
 		<section class="py-5 two-column-layout">
 
 
-			<%-- 
-	<p><sec:authentication property="principal"/></p>
-	<p>user : <sec:authentication property="principal.username"/></p>
-	<p>password : <sec:authentication property="principal.password"/></p> --%>
-
 			<div class="contant-area">
 				<!-- 마이페이지 컨테이너 start -->
 				<div id="mypage" class="container" data-v-269e3e5f>
@@ -334,9 +310,9 @@ textarea {
 						<div class="content-body" data-v-269e3e5f>
 							<div class="my-title" data-v-269e3e5f>
 								<div class="head" data-v-269e3e5f>
-									<strong data-v-269e3e5f><a href="/mypage"><span data-v-269e3e5f>${dto.memberName }</span></a>
-										님, 안녕하세요! </strong> <a href="/myInfo"
-										class="btn btn-primary active infomodify_btn"><span>정보수정
+									<strong data-v-269e3e5f><a href="/mypage"><span
+											data-v-269e3e5f>${dto.memberName }</span></a> 님, 안녕하세요! </strong> <a
+										href="/myInfo" class="btn btn-primary active infomodify_btn"><span>정보수정
 											<!---->
 
 									</span></a>
@@ -346,9 +322,7 @@ textarea {
 							<!-- 포인트 1:1문의내역 -->
 							<div class="my-info" data-v-269e3e5f>
 								<ul data-v-269e3e5f>
-									<li data-v-269e3e5f><a
-										href="#
-											data-link-area="
+									<li data-v-269e3e5f><a href="#data-link-area="
 										마이페이지-메인" data-link-name="포인트" draggable="true"
 										class="btn btn-primary active" data-v-269e3e5f><span>
 												포인트 <!---->
@@ -391,8 +365,9 @@ textarea {
 											data-v-269e3e5f>
 											<div class="content-box" data-v-269e3e5f>
 												<div class="title" data-v-269e3e5f>
-													<a href="/carMaintenanceReservationDetail" class="btn btn-primary active"><span> 정비
-															예약 신청 내역 <!---->
+													<a href="/carMaintenanceReservationDetail"
+														class="btn btn-primary active"><span> 정비 예약 신청
+															내역 <!---->
 													</span></a>
 												</div>
 											</div>
@@ -458,7 +433,7 @@ textarea {
 													items="${testdriveapplicationreservationdetailsdto }">
 													<tr class="list">
 														<td>
-															<!-- 등록된 차량 삭제 체크 박스 --> <input type="checkbox"
+															<!-- 등록된 차량 삭제 체크 박스 --> <input type="radio"
 															name="selectedCars" value="" id="selectedCarsId">
 														</td>
 														<input type="hidden" value="${list.testDriveNo}" />
@@ -615,6 +590,7 @@ textarea {
 																		</div>
 																	</div>
 																</div>
+																<div class="shop-area-point row"></div>
 															</div>
 														</div>
 													</div>
@@ -668,7 +644,7 @@ textarea {
 													<span>취소</span>
 												</button>
 												<button type="button" class="btn btn-primary active"
-													onclick="carregis()" id="OkBtn">
+													onclick="carMaintenanceModify()" id="OkBtn">
 													<span>변경하기</span>
 												</button>
 											</div>
@@ -715,6 +691,7 @@ textarea {
 					<!-- 시승신청내역 end -->
 				</div>
 				<!-- 마이페이지 컨테이너 end -->
+			</div>
 		</section>
 		<!-- Footer-->
 		<footer class="py-5 bg-secondary">
