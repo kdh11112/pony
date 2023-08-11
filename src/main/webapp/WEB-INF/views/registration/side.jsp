@@ -77,7 +77,7 @@
 		          <div class="collapse" id="pagesExamples1">
 		              <ul class="nav">
 		                  <li>
-		                      <a href="/css/examples/pages/pricing.html">
+		                      <a href="/reg/reservation">
 		                          <span class="nc-icon nc-bell-55"></span>
 		                          <span class="sidebar-normal">예약관리</span>
 		                      </a>

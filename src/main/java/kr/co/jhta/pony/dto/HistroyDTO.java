@@ -20,5 +20,6 @@ public class HistroyDTO {
 	private String partName;
 	private int partPrice;
 	private int partCount;
+	private int partNo;
 
 }

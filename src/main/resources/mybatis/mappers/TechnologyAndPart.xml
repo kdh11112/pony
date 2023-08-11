@@ -50,5 +50,6 @@
 		FROM PART p
 		WHERE partNumber = #{partNumber}
 	</select>
+	
 
 </mapper>

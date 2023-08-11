@@ -1,3 +1,4 @@
+<%@page import="java.util.Arrays"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
@@ -25,6 +26,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="/js/bootstrap-datepicker.js"></script>
 <script src="/js/bootstrap-datepicker.ko.min.js"></script>
+<%
+	int techCount = 0; 
+	int partCount = 0;
+	
+
+%>
 <script type="text/javascript">
 
 $(function(){
@@ -136,17 +143,17 @@ $(function(){
 							
 		    		      
 		    		      newRow.innerHTML = `
-		    		    	<td><button onclick="" id="technologyDelte" class="btn btn-primary btn-round"> 삭제</button></td>
+		    		    	<td><button id="technologyDelte" class="btn btn-primary btn-round"> 삭제</button></td>
 		    		        <td data-toggle="modal" data-target="#techModal" data-whatever="@mdo"><input type="text" name="technology" id="technologyNumberCell" class="dis" disabled="disabled"/></td>
 		    		        <td data-toggle="modal" data-target="#techModal" data-whatever="@mdo"><input type="text" name="technology" id="technologyDetailCell" class="dis" disabled="disabled"/></td>
 		    		        <td class="text-center" data-toggle="modal" data-target="#techModal" data-whatever="@mdo"><input type="text" name="technology" id="technologyPriceCell" class="technologyPriceCell" disabled="disabled"/></td>
 		    		        <td class="text-right"><input type="text" name="technology" id="technologyCountCell" class="technologyCountCell"/></td>
 		    		      `;
 		    		
-		    		      technologyNumberCell.name = "technology"+(j);
+		    		     /*  technologyNumberCell.name = "technology"+(j);
 		    		      technologyDetailCell.name = "technology"+(j);
 		    		      technologyPriceCell.name = "technology"+(j);
-		    		      technologyCountCell.name = "technology"+(j);
+		    		      technologyCountCell.name = "technology"+(j); */
 
 		    		      $("#technologyLength").val(j);
 		    		      
@@ -159,11 +166,12 @@ $(function(){
 		    		      technologyCountCell.id = "technologyCountCell"+(j);
 		    		      
 		    		      
-		    		      
+		    		      /* $("#technologyDelteList").on("click",function(){
+		    		    	  $(this).parentElement.parentElement.remove();
+		    		      }) */
 		    		      
 		    		      $('#'+mm).on("click",function(){
 		    		    	    var row = document.getElementById(mm); // 삭제버튼
-
 		    		    	    row.parentElement.parentElement.remove();
 
 		    		    	}); 
@@ -290,7 +298,7 @@ $(function(){
 								
 			    		      
 			    		      newRow.innerHTML = `
-			    		    	<td><button onclick="" id="partDelte" class="btn btn-primary btn-round"> 삭제</button></td>
+			    		    	<td><button id="partDelte" class="btn btn-primary btn-round"> 삭제</button></td>
 		                        <td data-toggle="modal" data-target="#partModal" data-whatever="@mdo"><input type="text" name="part" id="partNumberCell" class="dis" disabled="disabled"/></td>
 		                        <td data-toggle="modal" data-target="#partModal" data-whatever="@mdo"><input type="text" name="part" id="partNameCell" class="dis" disabled="disabled"/></td>
 			    		        <td class="text-center" data-toggle="modal" data-target="#partModal" data-whatever="@mdo"><input type="text" name="part" id="partPriceCell" class="partPriceCell" disabled="disabled"/></td>
@@ -298,10 +306,10 @@ $(function(){
 			    		      `;
 			    		
 
-			    		      partNumberCell.name = "part"+(k);
+/* 			    		      partNumberCell.name = "part"+(k);
 			    		      partNameCell.name = "part"+(k);
 			    		      partPriceCell.name = "part"+(k);
-			    		      partCountCell.name = "part"+(k); 
+			    		      partCountCell.name = "part"+(k);  */
 			    		      
 			    		     $("#partLength").val(k);
 			    		      
@@ -318,7 +326,7 @@ $(function(){
 			    		      $('#'+mm).on("click",function(){
 			    		    	    var row = document.getElementById(mm); // 삭제버튼
 
-			    		    	    row.parentElement.parentElement.remove();
+			    		    	    $(this).parent().parent().remove();
 
 			    		    	}); 
 
@@ -373,7 +381,17 @@ $(function(){
 		  });
 		
 	}
-	
+		<% for (int i = 1; i <10 ; i++) { %>
+	  $("#technologyDelte<%= i %>").on("click", function() {
+	    $(this).parent().parent().remove();
+	  });
+	<% } %>
+	<% for (int i = 1; i <10 ; i++) { %>
+	$("#partDelte<%=1%>").on("click",function(){
+ 		$(this).parent().parent().remove();
+		
+	}) 
+	<% } %>
 
 })
 
@@ -410,6 +428,7 @@ $j(function() {
     $j('.datePicker').val(todayString);
  });
 </script>
+
 <body class="">
   <div class="wrapper ">
     <%@ include file="./side.jsp" %>
@@ -581,7 +600,7 @@ $j(function() {
                 <div class="table-responsive">
 				    <input type="hidden" name="_method" value="PATCH"/>
 				    <div class="form-group mb-0">
-				        <input type="hidden" class="form-control" name="technology" value="${work.registrationNumber }" placeholder="실실적접수번호">
+				        <input type="hidden" class="form-control" name="technologyNumberName" value="${work.registrationNumber }" placeholder="실실적접수번호">
 				    </div>
 				    <div class="form-group mb-0">
 				        <input type="hidden" class="form-control" id="technologyLength" name="technologyLength" value="" placeholder="">
@@ -609,27 +628,27 @@ $j(function() {
                     
 					<tbody id="tbodyTech">
 					  <!-- 기존 코드에서 tr에 id 추가 -->
-                     <c:forEach var="i" items="${technology}" step="1">
-					  <tr id="trTech1">
+                        <c:forEach var="technology" items="${technology}">
+					  <tr id="trTech<%= ++techCount%>">
 					    <!-- 각 td에 클래스 추가 -->
-					    <td><button onclick="deleteRow('trTech1')" id="technologyDelte" class="btn btn-primary btn-round">삭제</button></td>
-						    <td data-toggle="modal" data-target="#techModal" data-whatever="@mdo"><input type="text" name="technology1" id="technologyNumberCell" value="${i[0]}"  disabled="disabled"></td>
-						    <td data-toggle="modal" data-target="#techModal" data-whatever="@mdo"><input type="text" name="technology1" id="technologyDetailCell" value="${i[1]}" disabled="disabled"></td>
-						    <td class="text-center" data-toggle="modal" data-target="#techModal" data-whatever="@mdo"><input type="text" name="technology1" id="technologyPriceCell" class="technologyPriceCell" disabled="disabled"/></td>
-						    <td class="text-right"><input type="text" name="technology1" id="technologyCountCell" class="technologyCountCell"/></td>
+					    <td><button type="button" id="technologyDelte<%=techCount %>" class="btn btn-primary btn-round">삭제</button></td>
+						    <td data-toggle="modal" data-target="#techModal" data-whatever="@mdo"><input type="text" name="technology" id="technologyNumberCell<%=techCount %>" value="${technology.technologyNumber}"  disabled="disabled"></td>
+						    <td data-toggle="modal" data-target="#techModal" data-whatever="@mdo"><input type="text" name="technology" id="technologyDetailCell<%=techCount %>" value="${technology.technologyDetail}" disabled="disabled"></td>
+						    <td class="text-center" data-toggle="modal" data-target="#techModal" data-whatever="@mdo"><input type="text" name="technology" id="technologyPriceCell<%=techCount %>" value="${technology.technologyPrice}" class="technologyPriceCell"  disabled="disabled"/></td>
+						    <td class="text-right"><input type="text" name="technology" id="technologyCountCell<%=techCount %>" class="technologyCountCell" value="${technology.technologyNo}"/></td>
 					  </tr>
-					  </c:forEach> 
+					  </c:forEach>      
 					  <tr id="trTech1">
 					    <!-- 각 td에 클래스 추가 -->
-					    <td><button onclick="deleteRow('trTech1')" id="technologyDelte" class="btn btn-primary btn-round">삭제</button></td>
-					    <td data-toggle="modal" data-target="#techModal" data-whatever="@mdo"><input type="text" name="technology1" id="technologyNumberCell" class="dis" disabled="disabled"></td>
-					    <td data-toggle="modal" data-target="#techModal" data-whatever="@mdo"><input type="text" name="technology1" id="technologyDetailCell" class="dis" disabled="disabled"></td>
-					    <td class="text-center" data-toggle="modal" data-target="#techModal" data-whatever="@mdo"><input type="text" name="technology1" id="technologyPriceCell" class="technologyPriceCell" disabled="disabled"/></td>
-					    <td class="text-right"><input type="text" name="technology1" id="technologyCountCell" class="technologyCountCell" /></td>
+					    <td><button type="button" id="technologyDelte" class="btn btn-primary btn-round">삭제</button></td>
+					    <td data-toggle="modal" data-target="#techModal" data-whatever="@mdo"><input type="text" name="technology" id="technologyNumberCell" class="dis" disabled="disabled"></td>
+					    <td data-toggle="modal" data-target="#techModal" data-whatever="@mdo"><input type="text" name="technology" id="technologyDetailCell" class="dis" disabled="disabled"></td>
+					    <td class="text-center" data-toggle="modal" data-target="#techModal" data-whatever="@mdo"><input type="text" name="technology" id="technologyPriceCell" class="technologyPriceCell" disabled="disabled"/></td>
+					    <td class="text-right"><input type="text" name="technology" id="technologyCountCell" class="technologyCountCell" /></td>
 					  </tr>
 					</tbody>
 					  <tr>
-					  	<td colspan="5" data-toggle="modal" data-target="#techModal" data-whatever="@mdo" style="text-align: right;">합 : <input type="text" name="technology1" id="totalTechnology" class="dis" value="" disabled="disabled" /></td>
+					  	<td colspan="5" data-toggle="modal" data-target="#techModal" data-whatever="@mdo" style="text-align: right;">합 : <input type="text" name="technologyBout" id="totalTechnology" class="dis" value="${tBout }" disabled="disabled" /></td>
 					  </tr>
                   </table>
 
@@ -647,7 +666,7 @@ $j(function() {
                 <div class="table-responsive">
 				    <input type="hidden" name="_method" value="PATCH"/>
 				    <div class="form-group mb-0">
-				        <input type="hidden" class="form-control" name="part" value="${work.registrationNumber }" placeholder="실질적접수번호">
+				        <input type="hidden" class="form-control" name="partNumberName" value="${work.registrationNumber }" placeholder="실질적접수번호">
 				    </div>
 				    <div class="form-group mb-0">
 				        <input type="hidden" class="form-control" id="partLength" name="partLength" value="" placeholder="">
@@ -673,8 +692,17 @@ $j(function() {
                      </tr>
                     </thead>
                     <tbody id="tbodyPart">
+                    <c:forEach var="part" items="${part}">
+                      <tr id="trPArt<%= ++partCount%>">
+                      <td><button type="button" id="partDelte" class="btn btn-primary btn-round">삭제</button></td>
+                        <td data-toggle="modal" data-target="#partModal" data-whatever="@mdo"><input type="text" name="part" id="partNumberCell" class="dis" value="${part.partNumber }" disabled="disabled"/></td>
+                        <td data-toggle="modal" data-target="#partModal" data-whatever="@mdo"><input type="text" name="part" id="partNameCell" class="dis" value="${part.partName }" disabled="disabled"/></td>
+                        <td class="text-center" data-toggle="modal" data-target="#partModal" data-whatever="@mdo"><input type="text" name="part" id="partPriceCell" value="${part.partPrice }" class="partPriceCell" disabled="disabled"/></td>
+                        <td class="text-right"><input type="text" name="part" id="partCountCell" class="partCountCell" value="${part.partNo }"/></td>
+                      </tr>      
+                      </c:forEach> 
                       <tr id="trPArt1">
-                      <td><button onclick="deleteRow('trPArt1')" id="partDelte" class="btn btn-primary btn-round">삭제</button></td>
+                      <td><button type="button" id="partDelte" class="btn btn-primary btn-round">삭제</button></td>
                         <td data-toggle="modal" data-target="#partModal" data-whatever="@mdo"><input type="text" name="part" id="partNumberCell" class="dis" disabled="disabled"/></td>
                         <td data-toggle="modal" data-target="#partModal" data-whatever="@mdo"><input type="text" name="part" id="partNameCell" class="dis" disabled="disabled"/></td>
                         <td class="text-center" data-toggle="modal" data-target="#partModal" data-whatever="@mdo"><input type="text" name="part" id="partPriceCell" class="partPriceCell" disabled="disabled"/></td>
@@ -682,7 +710,7 @@ $j(function() {
                       </tr>       
                     </tbody>
                     <tr>
-					  	<td colspan="5" data-toggle="modal" data-target="#partModal" data-whatever="@mdo" style="text-align: right;">합 : <input type="text" name="part1" id="totalPart" class="dis" value="" disabled="disabled" /></td>
+					  	<td colspan="5" data-toggle="modal" data-target="#partModal" data-whatever="@mdo" style="text-align: right;">합 : <input type="text" name="partBout" id="totalPart" class="dis" value="${pBout }" disabled="disabled" /></td>
 					</tr>
                   </table>
                 </div>
@@ -693,7 +721,7 @@ $j(function() {
             <div class="card">
               <div class="card-header">
                  <div class="row"  style="float: right; margin-right: 10px; margin-bottom: 15px;">   
-					<div>총합 : <input type="text" name="" id="totalPart" value="" disabled="disabled" /></div>
+					<div>총합 : <input type="text" name="" id="totalPart" value="${technologyAndPartBout }" disabled="disabled" /></div>
                	</div>
               </div>
             </div>

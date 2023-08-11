@@ -1,5 +1,6 @@
 package kr.co.jhta.pony.dao;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -18,6 +19,8 @@ public interface TechnologyAndPartDAO {
 	public List<TechnologyAndPartDTO> selectPartModal(TechnologyAndPartDTO techAndPartDTO);
 
 	public TechnologyAndPartDTO selectPartModalNumber(int partNumber);
+
+
 
 	
 }

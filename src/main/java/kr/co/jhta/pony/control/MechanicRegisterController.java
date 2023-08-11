@@ -40,7 +40,7 @@ public class MechanicRegisterController {
 	        session.setAttribute("shopNo", mechanicRegisterService.findOneMechanicName(dto).getShopNo());
 	        session.setAttribute("mechanicName", mechanicRegisterService.findOneMechanicName(dto).getMechanicName());
 	        // 메인 페이지로 이동
-	        return "redirect:/reg";
+	        return "redirect:/reg/registration";
 	    } else {
 	        // 로그인에 실패하면 다시 로그인 페이지로 이동
 	        return "redirect:/reg/login";

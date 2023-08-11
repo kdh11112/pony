@@ -14,6 +14,7 @@ public class TechnologyAndPartDTO {
 	private int technologyNumber;
 	private String technologyDetail;
 	private int technologyPrice;
+	private int technologyNo;
 	
 	private int partNumber;
 	private String partName;

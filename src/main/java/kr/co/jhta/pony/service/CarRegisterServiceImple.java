@@ -8,7 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.jhta.pony.dao.CarRegisterDAO;
 import kr.co.jhta.pony.dto.CarRegisterDTO;
+import kr.co.jhta.pony.dto.HistroyDTO;
 import kr.co.jhta.pony.dto.MechanicRegisterDTO;
+import kr.co.jhta.pony.dto.TechnologyAndPartDTO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -98,6 +100,13 @@ public class CarRegisterServiceImple implements CarRegisterService{
 	@Override
 	public CarRegisterDTO findOneReg(int registrationRN,LocalDate registrationDate) {
 		return carRegisterDAO.selectReg(registrationRN,registrationDate);
+	}
+
+	@Override
+	public void saveApproval(HistroyDTO DTO, LocalDate registrationDate, int registrationNumber) {
+		carRegisterDAO.updatesaveApproval(DTO,registrationDate,registrationNumber);
+		carRegisterDAO.updatePart(DTO);
+		
 	}
 
 

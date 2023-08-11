@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import kr.co.jhta.pony.dto.CarRegisterDTO;
 import kr.co.jhta.pony.dto.HistroyDTO;
 import kr.co.jhta.pony.dto.MechanicRegisterDTO;
+import kr.co.jhta.pony.dto.TechnologyAndPartDTO;
 import lombok.extern.slf4j.Slf4j;
 
 @Mapper
@@ -44,6 +45,11 @@ public interface CarRegisterDAO {
 	public int selectRegAndcorrNumber();
 
 	public CarRegisterDTO selectReg(int registrationRN,LocalDate registrationDate);
+
+	public void updatesaveApproval(HistroyDTO histroyDTO, LocalDate registrationDate,
+			int registrationNumber);
+
+	public void updatePart(HistroyDTO dTO);
 
 
 

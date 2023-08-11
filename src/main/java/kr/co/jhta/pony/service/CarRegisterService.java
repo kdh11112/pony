@@ -6,6 +6,7 @@ import java.util.List;
 import kr.co.jhta.pony.dto.CarRegisterDTO;
 import kr.co.jhta.pony.dto.HistroyDTO;
 import kr.co.jhta.pony.dto.MechanicRegisterDTO;
+import kr.co.jhta.pony.dto.TechnologyAndPartDTO;
 
 
 public interface CarRegisterService {
@@ -30,6 +31,8 @@ public interface CarRegisterService {
 	public void saveRegAndEdit(CarRegisterDTO carRegisterDTO);
 
 	public CarRegisterDTO findOneReg(int registrationRN,LocalDate registrationDate);
+
+	public void saveApproval(HistroyDTO histroyDTO, LocalDate registrationDate, int registrationNumber);
 
 
 

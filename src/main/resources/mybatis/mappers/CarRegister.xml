@@ -97,6 +97,23 @@
 				VALUES(#{registrationNumber},#{clientCarNumber},#{memberName},#{clientDistanceDriven},#{shopNo},#{shopArea},#{shopAreaPoint},#{mechanicName})
 	</insert>
 	
+	<update id="updatesaveApproval" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO" >
+			UPDATE HISTORY h
+			JOIN REGISTRATION r ON h.registrationNumber = r.registrationNumber
+			set h.technologyNumber = #{histroyDTO.technologyNumber} , h.technologyDetail = #{histroyDTO.technologyDetail} , h.technologyPrice = #{histroyDTO.technologyPrice} , h.technologyCount = #{histroyDTO.technologyCount},
+				h.partNumber =#{histroyDTO.partNumber} , h.partName = #{histroyDTO.partName} , h.partPrice = #{histroyDTO.partPrice} , h.partCount = #{histroyDTO.partCount}
+			WHERE r.registrationNumber = #{registrationNumber}
+			AND DATE(r.registrationDate) = #{registrationDate}
+	
+	</update>
+	
+	<update id="updatePart" parameterType="kr.co.jhta.pony.dto.HistroyDTO">
+		UPDATE PART p
+		JOIN HISTORY h on p.partNumber = h.partNumber
+		SET p.partNo = p.partNo - #{partNo}
+		WHERE h.partNumber = #{partNumber}
+	</update>
+	
 	<update id="updateRegAndEditOne" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
 		UPDATE HISTORY h 
 		JOIN REGISTRATION r ON h.registrationNumber = r.registrationNumber
@@ -187,7 +204,10 @@
 					p.partNumber,
 					p.partName,
 					p.partNo,
-					p.partPrice 
+					p.partPrice,
+					r.mechanicNo,
+					h.clientDistanceDriven,
+					h.mechanicName 
 				from REGISTRATION r left join HISTORY h
 				on r.registrationNumber = h.registrationNumber
 				left join TECHNOLOGY t 
