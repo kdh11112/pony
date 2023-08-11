@@ -1,6 +1,7 @@
 package kr.co.jhta.pony.control;
 
 
+import java.io.Console;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
@@ -416,26 +417,43 @@ public class MyPageController {
 		        model.addAttribute("qnacount",qService.getqnaCount(memberNo));
 		        model.addAttribute("memberPoint",service.getMemberPoint(memberNo));
 		        model.addAttribute("testDriveCount",testDriveService.testDriveCount(memberNo));
+		        System.out.println("TTTTTTT" + testDrivinglist);
 			return "mypage/testdriving";
 		}
 		
 		//----------------------------시승신청예약내역변경
 		@PostMapping("/testdrivingmodify")
-		public String testdrivingmodify(@RequestParam("modelNo") String modelNo,@RequestParam("shopNo")String shopNo,
-				@RequestParam("shopAddr") String shopAddr,@RequestParam("testDriveTime") String testDriveTime, 
-				@RequestParam ("testDriveSchedule") String testDriveSchedule,
+		public String testdrivingmodify(
+//				@ModelAttribute TestDriveDTO dto,
+				@RequestParam("modelNo") int modelNo,@RequestParam("shopNo")int shopNo,@RequestParam("buttonTime") String testDriveTime, 
+				@RequestParam ("testDriveSchedule") String testDriveSchedule,@RequestParam("testDriveNo")int testDriveNo,
 										Principal p, HttpSession session, HttpServletRequest req, Model model) {
-			log.info("여기에 요청은 오니? 여기는 testdrive");
-			
-			System.out.println(modelNo);
-			System.out.println(shopNo);
-			System.out.println(shopAddr);
-			System.out.println(testDriveTime);
-			System.out.println(testDriveSchedule);
+			//log.info("여기에 요청은 오니? 여기는 testdrive" + dto);
+			/*
+			 * System.out.println("tds: " + testDriveSchedule); System.out.println(modelNo);
+			 * System.out.println(shopNo); System.out.println(testDriveTime);
+			 * System.out.println(testDriveSchedule);
+			 */
+			//System.out.println("tdn"+testDriveNo);
 			PonyMemberDTO dto8 = service.getMemberEmail(service.getPrincipalEmail(p));
-			//int memberNo = dto8.getMemberNo();
-			//dto.setMemberNo(memberNo);
-			//testdriveapplicationreservationdetailsservice.updatedTestDrive(dto);
+			int memberNo = dto8.getMemberNo();
+			
+			
+			TestDriveDTO dto = new TestDriveDTO();
+			dto.setMemberNo(memberNo);
+			dto.setTestDriveSchedule(testDriveSchedule);
+			dto.setModelNo(modelNo);
+			dto.setTestDriveTime(testDriveTime);
+			dto.setShopNo(shopNo);
+			dto.setTestDriveNo(testDriveNo);
+			
+			
+			System.out.println("dto :  " + dto.getTestDriveTime());
+			
+			
+			
+			testDriveService.updatedTestDrive(dto);
+			log.info("시승신청내역 {}>>>>>>>>>>>>>>>>",dto);
 			return "redirect:/testdriving";
 		}
 		//----------------------------시승신청예약 내역 삭제

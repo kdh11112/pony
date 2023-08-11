@@ -6,7 +6,7 @@ import kr.co.jhta.pony.dto.TestDriveDTO;
 
 public interface TestDriveService {
 	public void insertTestDriveSchedule(TestDriveDTO dto);
-	public void updatedTestDrive(int memberNo); //마이페이지의 시승신청내역 수정
+	public void updatedTestDrive(TestDriveDTO dto); //마이페이지의 시승신청내역 수정
 	 
 	public void deleteTestDrive(int TestDriveNo); //마이페이지의 시승신청내역 삭제
 

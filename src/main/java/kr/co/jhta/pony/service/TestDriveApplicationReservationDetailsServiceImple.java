@@ -20,10 +20,4 @@ public class TestDriveApplicationReservationDetailsServiceImple implements TestD
 		return dao.getTestDriveScheduleByMemberNo(memberNo);
 	}
 
-	@Override
-	public void updatedTestDrive(TestDriveApplicationReservationDetailsDTO dto) {
-		dao.updatedTestDrive(dto);
-		
-	}
-
 }

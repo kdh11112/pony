@@ -90,7 +90,7 @@ $("#shopFindBtn, .shop-area-btn").on("click", function() {
 					+ reponse[i].shopAreaPoint + "</h4><p>"
 					+ reponse[i].shopAddr + "</p><p>"
 					+ reponse[i].shopPhone + "</p><button type='button' class='shop-no-btn btn btn-primary' value='"
-					+ reponse[i].shopNo + "'>선택</button></div>";
+					+ reponse[i].shopNo + "' >선택</button></div>";
 				$("div.shop-area-point.row").append(data);
 			}
 			document.getElementById("shopAreaFind").value = "";
@@ -106,6 +106,13 @@ $("#shopFindBtn, .shop-area-btn").on("click", function() {
 
 });
 
+//---------선택한 시승지점의 값을 저장하는 함수
+
+//-----------선택한 시승 시간 값 저장 함수
+function time(e){
+	console.log(e);
+	tempTime = e.value;
+}
 
 
 let testDriveTime = [];

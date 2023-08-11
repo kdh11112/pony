@@ -176,36 +176,46 @@ textarea {
 </style>
 
 <script>
+	let tempShopNo = 0 ; //시승지점 값
+	let tempDate = 0; //날짜
+	let tempTime = 0; //시간
 	function carMaintenanceModify() {
+		console.log("shopNo : " + shopNo); 
+		
 		console.log($('input:radio').is(":checked"));
 
 		//시승신청변경 modal로 하기
 
-		if ($('input:radio').is(":checked")) {
-			console.log("이 버튼이 처리중인지");
+		$('input:radio').each(function(index) {
+			if ($(this).is(":checked") == true) {
+
+				var no = $(this).parent().next().val().trim();
 			
 			console.log($("#selectModel option:selected").val());// jquery 선택한 옵션 객체의 값 구하기 
 			var optionValue = $("#selectModel option:selected").val();
 			
 			
-			var no = $(this).parent().next().val();
+			//var no = $(this).parent().next().val();
+			
+			// /testdrivingmodify?modelNo=111&shopNo=222&testDriverTime=???&testDriveSchedule=????
 			 		$.ajax({
 						url : "/testdrivingmodify",
 						method : "POST", //
 						data : {
 							modelNo : optionValue,
-							shopNo : $("#shopAreaPoint").val(),
-							shopAddr : $("#shopAddr").val(),
-							testDriveTime : $("#testDriveTime").val(),
-							testDriveSchedule : $("#testDriveSchedule").val()
+							shopNo : shopNo,
+							buttonTime : buttonTime,
+							testDriveSchedule : testDriveSchedule,
+							testDriveNo : no
 						}, 
 						success : function(data) {
-
 						}
 					});
+						console.log(no);
 		}
-		//	location.href = "/testdriving";
-
+		location.href = "/testdriving";
+		
+	});
 	}
 	//차량등록을 하고 새로 차량등록을 할떄 이전에 썻던 정보가 지워져있게 하기
 	function resetInputFields() {
@@ -219,7 +229,7 @@ textarea {
 
 	function deleteCar() {
 
-		$('input:checkbox').each(function(index) {
+		$('input:radio').each(function(index) {
 			if ($(this).is(":checked") == true) {
 
 				var no = $(this).parent().next().val();
