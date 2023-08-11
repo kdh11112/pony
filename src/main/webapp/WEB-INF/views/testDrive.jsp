@@ -14,7 +14,6 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
-
 <style>
 #topImg {
 	width: 100%;
@@ -255,12 +254,10 @@
 	color: white;
 	font-weight: bold;
 	background-color: rgb(193, 220, 255);
-	cursor: pointer;
 }
 
 .futureDay {
 	background-color: #FFFFFF;
-	cursor: pointer;
 	border: 1px solid #E4DCD3;
 	font-weight: 600;
 	color: #5E5E5E;
@@ -279,17 +276,35 @@
 .button-row {
 	font-size: 15px;
 }
-
-.button-row>button {
+.openButton{
 	background-color: white;
-	border: 1px solid #E4DCD3;
 	color: #5E5E5E;
-	margin: 4px;
 }
-
-.button-row>button:hover {
+.openButton:hover{
 	background-color: rgb(134, 167, 236);
 	color: white;
+}
+.closeButton{
+	background-color: #cecdca;
+	color: white;
+	font-weight: 500;
+}
+.row-09,.row-14{
+display: flex;
+border: 1px solid #E4DCD3;
+margin:5%;
+margin-left: 10%;
+}
+.row-11,.row-16{
+border: 1px solid #E4DCD3;
+	display: flex;
+	margin:5%;
+	margin-top: -32.5px;
+	margin-left: 55%;
+}
+#shopAreaPointName{
+	color: #57a5e9;
+	font-size: 30px;
 	font-weight: bold;
 }
 </style>
@@ -304,10 +319,10 @@
 			<h1 class="top-title-text2">포니에서 제공하는 편리한 시승신청 서비스를 이용해보세요.</h1>
 		</div>
 		<div class="testDriveContent text-center">
-		<form action="/testDriveInsert" id="frm" method="post">
-			<input type="hidden" name="testDriveSchedule" id="testDriveSchedule" />
+		<form action="/addTestDrive" id="frm" method="post">
+			<input type="hidden" name="selectedSchedule" id="selectedSchedule" />
 			
-			<input type="hidden" name="shopNo" id="shopNo" />
+			<input type="hidden" name="selectedShopNo" id="selectedShopNo" />
 			<input type="hidden" name="selectedModel" id="selectedModel" />
 			<input type="hidden" name="buttonTime" id="buttonTime" />
 			<div class="agreeArea ">
@@ -446,11 +461,12 @@
 							<div class="CalendarArea">
 								<table class="Calendar">
 									<thead>
+									<div id="shopAreaPointName"></div>
 										<tr>
-											<td onClick="prevCalendar();" style="cursor: pointer;">&#60;</td>
+											<td onClick="prevCalendar();" style="cursor: pointer;" id="prevC">&#60;</td>
 											<td colspan="5"><span id="calYear"></span>년 <span
 												id="calMonth"></span>월</td>
-											<td onClick="nextCalendar();" style="cursor: pointer;">&#62;</td>
+											<td onClick="nextCalendar();" style="cursor: pointer;" id="nextC">&#62;</td>
 										</tr>
 										<tr>
 											<td>일</td>
@@ -472,7 +488,6 @@
 					</div>
 				</div>
 			</div>
-			
 			<div style="margin-top: 100px;">
 				<button type="button" class="btn" id="OkBtn">신청하기</button>
 			</div>
@@ -595,5 +610,6 @@
 			</div>
 		</div>
 	<script src="../js/model/testDrive.js"></script>
+	
 </body>
 </html>

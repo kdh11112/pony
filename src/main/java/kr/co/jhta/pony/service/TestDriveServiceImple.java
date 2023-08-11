@@ -1,5 +1,7 @@
 package kr.co.jhta.pony.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,11 @@ public class TestDriveServiceImple implements TestDriveService{
 		dao.insertTestDriveSchedule(dto);
 	}
 
+	@Override
+	public List<TestDriveDTO> testDriveStatusButton() {
+		return dao.testDriveStatusButton();
+	}
+	
 	@Override
 	public void updatedTestDrive(int memberNo) {
 		// TODO Auto-generated method stub

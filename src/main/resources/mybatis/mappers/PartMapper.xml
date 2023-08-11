@@ -90,11 +90,12 @@
 	</delete>
 	
 	
+	<!-- 부품검색 페이지 -->
 	<select id="searchPart" parameterType="String" resultType="kr.co.jhta.pony.dto.PartDTO">
-		SELECT partNumber, partName, partPrice
-		FROM PART
-		WHERE partName LIKE concat('%',#{partName}, '%') 
-		ORDER BY partName, partPrice
+		SELECT p.partNumber, p.partName, p.partPrice, p.modelNo, m.modelName
+		FROM PART p LEFT JOIN MODEL m on p.modelNo = m.modelNo
+		WHERE p.partName LIKE concat('%',#{partName}, '%') 
+		ORDER BY p.partName, p.partPrice
 	</select>
 
 </mapper>

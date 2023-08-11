@@ -8,6 +8,12 @@
 		INSERT INTO TESTDRIVE(testDriveSchedule, shopNo, memberNo, modelNo, testDriveTime)
 		VALUES(#{testDriveSchedule}, #{shopNo},${memberNo} , #{modelNo}, #{testDriveTime})
 	</insert>
+	
+	<select id="testDriveStatusButton" resultType="kr.co.jhta.pony.dto.TestDriveDTO">
+		SELECT *
+		FROM TESTDRIVE
+	</select>
+	
 	<!-- 시승신청내역 변경 -->
 	<update id="updatedTestDrive" parameterType="kr.co.jhta.pony.dto.TestDriveDTO" >
 		<!-- UPDATE TESTDRIVE AS T

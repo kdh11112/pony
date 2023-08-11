@@ -75,7 +75,7 @@
 	                        <div class="card mx-auto" style="width: 80%">
 	                            <h5 class="card-title text-center">부품 검색</h5>
 	                            <div class="search-text-btn row">
-	                            	<div class="col-md-10"><input type="text" name="" id="parts-find-text" ></div>
+	                            	<div class="col-md-10"><input type="text" name="" id="parts-find-text" placeholder="부품명을 입력 해주세요" ></div>
 		                        	<div class="col-md-2"><button type="button" class="btn btn-secondary" id="parts-find-btn">검색</button></div>
 	                            </div>
 	                            <div class="select text-center">

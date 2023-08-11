@@ -23,13 +23,14 @@ public class ModelController {
 	@Autowired
 	private PartService ps;
 	
-	
+	// 모델비교 페이지
 	@GetMapping("/modelComparison")
 	public String modelSelect(Model model) {
 		model.addAttribute("model",service.ModelInfo());
 		return "modelComparison1";
 	}
 	
+	// 모델비교 select 
 	@GetMapping("/modelComparison2")
 	public String modelInfo(@RequestParam("selectModel1")String modelName1,@RequestParam("selectModel2")String modelName2, Model model) {
 		log.info("modelName1 : " + modelName1);
@@ -39,22 +40,27 @@ public class ModelController {
 		return "modelComparison2";
 	}
 	
+	// 모델검색 페이지
 	@GetMapping("/modelFind")
 	public String modelFind() {
 		
 		return "modelFind";
 	}
+	
+	// 모델 디테일 페이지
 	@GetMapping("/modelDetail")
 	public String modelDetail(@RequestParam("selectModel")String modelName, Model model) {
 		model.addAttribute("model", service.ModelOne(modelName));
 		return "modelDetail";
 	}
 	
+	// 부품검색 페이지
 	@GetMapping("/partsFind")
 	public String partsFind() {
 		return "partsFind";
 	}
 	
+	// 부품검색 select
 	@GetMapping("/searchParts")
 	@ResponseBody
 	public List<PartDTO> searchParts(@RequestParam("partName")String partName, Model model) {

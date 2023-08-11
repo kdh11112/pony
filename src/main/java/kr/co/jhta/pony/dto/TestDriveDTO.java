@@ -14,6 +14,6 @@ public class TestDriveDTO {
 	private int memberNo;
 	private int modelNo;
 	private String testDriveTime;
-	
+	private String testDriveStatus;
 	
 }

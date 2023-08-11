@@ -15,7 +15,6 @@
 </head>
 <body>
 	<h2>${model.modelName}</h2>
-
     <div><img src="../images/model/vs_top.png" alt="" id="topImg"></div>
     <div id="whiteBar"></div>
         <div id="whiteBar2">

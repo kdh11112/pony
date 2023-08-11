@@ -19,7 +19,7 @@ $(document).ready(function() {
                     $("div.card-body").empty();
                     for (let i = 0; i < response.length; i++) {
                         let data = "<div class='searched-parts row'><div class='col-md-1'></div><div class='searched-col col-md-7 asd'>"
-                            + response[i].partName + "</div><div class='searched-col col-md-3 asd'>"
+                            + response[i].partName +" (차종:" + response[i].modelName + ")</div><div class='searched-col col-md-3 asd'>"
                             + Comma(String(response[i].partPrice))
                             + "원</div> <div class='col-md-1'></div></div>";
                         $("div.card-body").append(data);

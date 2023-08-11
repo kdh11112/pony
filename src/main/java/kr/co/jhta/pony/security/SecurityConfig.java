@@ -89,7 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .authorizeRequests()
             .antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll() // 정적 리소스에 대해서도 인증 없이 접근 허용
-            .antMatchers("/login", "/", "/ponyreg","/ponyRegOk").permitAll() // 로그인 페이지와 기본 페이지는 인증 없이 접근 허용
+            .antMatchers("/login", "/", "/ponyreg","/ponyRegOk","/modelComparison","/modelComparison2","/modelFind","/modelDetail","/partsFind").permitAll() // 로그인 페이지와 기본 페이지는 인증 없이 접근 허용
             .anyRequest().authenticated() // 그 외 모든 요청은 인증된 사용자만 접근 가능
 //            .authorizeHttpRequests() //인가정책
 //	        		//.antMatchers("/no").hasRole("ADMIN") // 해당 페이지에는 해당 권한이 필요함

@@ -1,9 +1,12 @@
 package kr.co.jhta.pony.service;
 
+import java.util.List;
+
 import kr.co.jhta.pony.dto.TestDriveDTO;
 
 public interface TestDriveService {
 	public void insertTestDriveSchedule(TestDriveDTO dto);
+	public List<TestDriveDTO> testDriveStatusButton();
 	public void updatedTestDrive(int memberNo); //마이페이지의 시승신청내역 수정
 	 
 	public void deleteTestDrive(int TestDriveNo); //마이페이지의 시승신청내역 삭제
