@@ -1,6 +1,8 @@
 package kr.co.jhta.pony.control;
 
 import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -99,17 +101,10 @@ public class ShopController {
 	@GetMapping("/cartlist")
 	public String cartlist(HttpSession session, Principal p, Model model, HttpServletRequest req, @ModelAttribute CartDTO cartdto) {
 		// 세션에 저장한 사용자의 번호
-		if((Integer) session.getAttribute("memberNo") == null) {
-			return "/ponylogin";
-		}
+
 		Integer memberNo = (Integer) session.getAttribute("memberNo");
 		log.info("userNo: "+memberNo);
 		
-		
-//		PonyMemberDTO memberDTO = mservice.getMemberEmail(p.getName());
-//		session.setAttribute("memberDTO", memberDTO);
-		
-		//int memberNo = memberDTO.getMemberNo();
 		cartdto.setMemberNo(memberNo);
 		
 		// 회원번호 기준으로 장바구니 정보를 조회
@@ -145,26 +140,40 @@ public class ShopController {
 	
 	@GetMapping("/buypart")
 	public String buypage(HttpSession session, Model model,
-			@ModelAttribute CartDTO cartdto/* , @RequestParam(value = "chkbox[]") List<String> chkbox */) {
-		if((Integer) session.getAttribute("memberNo") == null) {
-			return "/ponylogin";
-		}
-		Integer memberNo = (Integer) session.getAttribute("memberNo");
-		List<CartDTO> userCart = cservice.cartAll(memberNo);
+			@ModelAttribute CartDTO cartdto) {
+
+		int memberNo = (int) session.getAttribute("memberNo");
+//		List<CartDTO> userCart = cservice.cartAll(memberNo);
 		PonyMemberDTO memberDTO = mservice.selectMemAll(memberNo);
 		log.info("memberDTO: "+memberDTO);
 		model.addAttribute("memDTO", memberDTO);
-//		log.info(""+chkbox);
-//		int cartNo = 0;
-//		for(String cartNoStr : chkbox) {
-//			cartNo = Integer.parseInt(cartNoStr);
-//			
-//		}
+		log.info("여기는 GET 요청할때 출력됨");
 		return "/shop/cart/buyPart";
 	}
+//	@GetMapping("/buypart")
+//	public String buypage(HttpSession session, Model model,
+//			@ModelAttribute CartDTO cartdto) {
+//		if((Integer) session.getAttribute("memberNo") == null) {
+//			return "/ponylogin";
+//		}
+//		Integer memberNo = (Integer) session.getAttribute("memberNo");
+//		List<CartDTO> userCart = cservice.cartAll(memberNo);
+//		PonyMemberDTO memberDTO = mservice.selectMemAll(memberNo);
+//		log.info("memberDTO: "+memberDTO);
+//		model.addAttribute("memDTO", memberDTO);
+//		log.info("여기는 GET 요청할때 출력됨");
+//		return "/shop/cart/buyPart";
+//	}
 	
-	@PostMapping("/buypart")
-	public String orderpage() {
+	@PostMapping("/buypartorder")
+	public String orderpage(HttpSession session, OrderDTO orderdto, @RequestParam(value = "chkbox[]") List<String> chkbox ) {
+		int memberNo = (int) session.getAttribute("memberNo");
+		orderdto.setMemberNo(memberNo);
+		Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+        String formattedDate = sdf.format(date);
+        orderdto.setOrderDate(formattedDate);
+		log.info("post checkArr :  "+chkbox);
 		return "/shop/cart/buyPart";
 	}
 	
