@@ -14,14 +14,15 @@ public class TestDriveServiceImple implements TestDriveService{
 	@Autowired
 	TestDriveDAO dao;
 	
+	//시승신청 추가
 	@Override
 	public void insertTestDriveSchedule(TestDriveDTO dto) {
 		dao.insertTestDriveSchedule(dto);
 	}
-
+	// 마감된 시승일정 달력에 표시
 	@Override
-	public List<TestDriveDTO> testDriveStatusButton() {
-		return dao.testDriveStatusButton();
+	public List<TestDriveDTO> showTestDriveSchedule() {
+		return dao.showTestDriveSchedule();
 	}
 	
 	@Override

@@ -132,7 +132,7 @@ $("#shopFindBtn, .shop-area-btn").on("click", function() {
 			let offset = $("#headingThree").offset();
 			$('html').animate({ scrollTop: offset.top }, 1);
 		},
-		error: function(error) {
+		error: function() {
 			console.log("에러~~~~~");
 		}
 	})
@@ -151,7 +151,7 @@ $(document).on("click", ".shop-no-btn", function() {
 	$("#collapseThree").addClass("show");
 	selectedShopNo = $(this).val();
 	$.ajax({
-		url: "/testDriveStatusButton",
+		url: "/showTestDriveSchedule",
 		success: function(response) {
 			for (var i = 0; i < response.length; i++) {
 				shopNo.push(response[i].shopNo);
@@ -309,7 +309,7 @@ function handleButtonClick(event) {
 
 	selectedSchedule = buttonYear + "-" + "0" + buttonMonth + "-" + buttonDate;
 
-	$("#selectedSchedule").val(selectedSchedule + buttonTime);
+	$("#selectedSchedule").val(selectedSchedule);
 	$("#buttonTime").val(buttonTime);
 
 	alert("선택한 차량: " + $("#selectModel option:selected").text() + "\n"
@@ -323,7 +323,7 @@ function handleButtonClick(event) {
 
 $("#OkBtn").on("click", function() {
 	var selectedModel = $("#selectModel").val();
-	if (selectedModel === "" || selectedShopNo === "") {
+	if (selectedModel === "" || selectedShopNo === "" || selectedSchedule === "") {
 		alert("모든 항목을 선택해주세요")
 		return false;
 	}

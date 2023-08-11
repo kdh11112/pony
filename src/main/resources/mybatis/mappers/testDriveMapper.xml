@@ -4,13 +4,16 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.jhta.pony.dao.TestDriveDAO">	
+
+	<!-- 시승신청 추가 -->
 	<insert id="insertTestDriveSchedule" parameterType="kr.co.jhta.pony.dto.TestDriveDTO">
 		INSERT INTO TESTDRIVE(testDriveSchedule, shopNo, memberNo, modelNo, testDriveTime)
 		VALUES(#{testDriveSchedule}, #{shopNo},${memberNo} , #{modelNo}, #{testDriveTime})
 	</insert>
 	
-	<select id="testDriveStatusButton" resultType="kr.co.jhta.pony.dto.TestDriveDTO">
-		SELECT *
+	<!-- 마감된 시승일정을 달력에 표시 -->
+	<select id="showTestDriveSchedule" resultType="kr.co.jhta.pony.dto.TestDriveDTO">
+		SELECT testDriveSchedule, shopNo, testDriveTime
 		FROM TESTDRIVE
 	</select>
 	

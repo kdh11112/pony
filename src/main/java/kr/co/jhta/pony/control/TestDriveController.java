@@ -59,12 +59,12 @@ public class TestDriveController {
 		return "redirect:testDrive";
 	}
 	
-	@GetMapping("/testDriveStatusButton")
+	@GetMapping("/showTestDriveSchedule")
 	@ResponseBody
 	public List<TestDriveDTO> testDriveStatusButton(Model model) {
-		model.addAttribute("btn", tds.testDriveStatusButton());
-		log.info("asdsadsa"+tds.testDriveStatusButton());
-		return tds.testDriveStatusButton();
+		model.addAttribute("btn", tds.showTestDriveSchedule());
+		log.info("btn"+tds.showTestDriveSchedule());
+		return tds.showTestDriveSchedule();
 	}
 	
 }

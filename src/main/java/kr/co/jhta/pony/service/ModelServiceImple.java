@@ -14,16 +14,16 @@ public class ModelServiceImple implements ModelService{
 	@Autowired
 	ModelDAO dao;
 	
-	@Override
-	public List<ModelDTO> ModelInfo() {
-		return dao.ModelInfo();
-	}
-
-
 
 	@Override
 	public ModelDTO ModelOne(String modelName) {
 		return dao.ModelOne(modelName);
+	}
+
+
+	@Override
+	public List<ModelDTO> ModelAll() {
+		return dao.ModelAll();
 	}
 	
 

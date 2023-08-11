@@ -183,7 +183,7 @@
 	            <div class="model-info-co3 col-md-3" >${model1.modelStreering}</div>
 	            <div class="model-info-co4 col-md-3" >${model2.modelStreering}</div>
 	        </div>
-		<div><a href="/modelComparison"><button type="button" class="btn btn-secondary">차량 다시 선택하기</button></a></div>
+		<div><a href="/model/modelComparison"><button type="button" class="btn btn-secondary">차량 다시 선택하기</button></a></div>
 	    </div>
 	    <div id="whiteBar3"></div>
 	</div>
