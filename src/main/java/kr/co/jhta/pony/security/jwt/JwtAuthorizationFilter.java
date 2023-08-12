@@ -73,6 +73,17 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                  catch (ExpiredJwtException e) {
                      // "JWT 토큰이 만료되었습니다"라는 메시지를 출력합니다.
                      System.out.println("JWT Token has expired");
+                     
+                     SecurityContextHolder.clearContext(); // 현재 인증 정보 제거
+                     Cookie cookie = new Cookie("jwtToken", null);
+                     cookie.setMaxAge(0); // 쿠키 만료
+                     cookie.setPath("/"); // 경로 설정
+                     response.addCookie(cookie);
+                     
+                     // 로그아웃 후 로그인 페이지로 리다이렉트
+                     response.sendRedirect("/login");
+                     
+                     
                  }
              } 
              // jwtToken이 null인 경우 (즉, 요청에 JWT 토큰이 없는 경우)
