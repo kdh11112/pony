@@ -25,6 +25,7 @@ import kr.co.jhta.pony.dto.CarRegisterDTO;
 import kr.co.jhta.pony.dto.ClientDTO;
 import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.dto.QuestionDTO;
+import kr.co.jhta.pony.dto.ReservationDTO;
 import kr.co.jhta.pony.dto.ShopDTO;
 import kr.co.jhta.pony.dto.TestDriveApplicationReservationDetailsDTO;
 import kr.co.jhta.pony.dto.TestDriveDTO;
@@ -33,6 +34,7 @@ import kr.co.jhta.pony.service.AnswerService;
 import kr.co.jhta.pony.service.CarRegisterService;
 import kr.co.jhta.pony.service.ClientService;
 import kr.co.jhta.pony.service.QuestionService;
+import kr.co.jhta.pony.service.ReservationService;
 import kr.co.jhta.pony.service.ShopService;
 import kr.co.jhta.pony.service.TestDriveApplicationReservationDetailsService;
 import kr.co.jhta.pony.service.TestDriveService;
@@ -67,6 +69,8 @@ public class MyPageController {
 	CarRegisterService carRegistrationService;
 	@Autowired
 	AnswerService aservice;
+	@Autowired
+	ReservationService reservationService;
 	//---------------------------마이페이지 메인
 	@GetMapping("/mypage")
 //	public String mypage(Principal p, HttpSession session) {
@@ -462,13 +466,13 @@ public class MyPageController {
 		
 		//---------------------------------정비예약신청 내역
 		@GetMapping("/carMaintenanceReservationDetail")
-		public String CarMaintenanceReservationDetail(Model model, @ModelAttribute TestDriveDTO dto,Principal p,
+		public String CarMaintenanceReservationDetail(Model model,Principal p,
 													  HttpSession session,HttpServletRequest req) {
 			PonyMemberDTO dto1 = service.getMemberEmail(service.getPrincipalEmail(p));
 			int memberNo = dto1.getMemberNo();
-			List<CarRegisterDTO> carRegisterlist = carRegistrationService.getCarRegistrationList(memberNo);
-			model.addAttribute("carRegisterdto",carRegisterlist);
-			log.info(">>>>>>>>>>>>>>>>>>>>>>정비예약{}",carRegisterlist);
+			List<ReservationDTO> reservationList = reservationService.getReservationList(memberNo);
+			model.addAttribute("reservationDTO",reservationList);
+			log.info(">>>>>>>>>>>>>>>>>>>>>>정비예약{}",reservationList);
 			model.addAttribute("carcnt",cService.getOwnedCarCount(memberNo));
 		    model.addAttribute("qnacount",qService.getqnaCount(memberNo));
 		    model.addAttribute("memberPoint",service.getMemberPoint(memberNo));
@@ -478,9 +482,9 @@ public class MyPageController {
 		//----------------------------------정비예약신청삭제
 		@GetMapping("/carMaintenanceReservationDelete")
 		public String CarMaintenanceReservationDetailDelete(@ModelAttribute CarRegisterDTO dto, Principal p, 
-															HttpSession session, @RequestParam int registrationNumber) {
-			carRegistrationService.deleteCarRegister(registrationNumber);
-			log.info(">>>>>>>>>>>>>>>> 정비예약내역삭제 번호 {}"+registrationNumber);
+															HttpSession session, @RequestParam int reservationNo) {
+			reservationService.deleteReservation(reservationNo);
+			log.info(">>>>>>>>>>>>>>>> 정비예약내역삭제 번호 {}"+reservationNo);
 			return "redirect:/carMaintenanceReservationDetail";
 		}
 }

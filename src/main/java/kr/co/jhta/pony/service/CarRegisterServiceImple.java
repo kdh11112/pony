@@ -88,16 +88,16 @@ public class CarRegisterServiceImple implements CarRegisterService{
 		
 		return dao.regAndcorrNumber();
 	}
-	@Override
-	public List<CarRegisterDTO> getCarRegistrationList(int memberNo) {
-		return dao.getCarRegistrationList(memberNo);
-	}
-
-	@Override
-	public void deleteCarRegister(int registrationNumber) {
-		dao.deleteCarRegister(registrationNumber);
-		
-	}
+//	@Override
+//	public List<CarRegisterDTO> getCarRegistrationList(int memberNo) {
+//		return dao.getCarRegistrationList(memberNo);
+//	}
+//
+//	@Override
+//	public void deleteCarRegister(int registrationNumber) {
+//		dao.deleteCarRegister(registrationNumber);
+//		
+//	}
 
 
 

@@ -126,7 +126,7 @@ $(document).on("click", ".shop-no-btn", function() {
 	$("#collapseThree").addClass("show");
 	shopNo = $(this).val();
 	$.ajax({
-		url: "/testDriveStatusButton",
+		url: "/showTestDriveSchedule",
 		success: function(response) {
 			for (var i = 0; i < response.length; i++) {
 				shopNo2.push(response[i].shopNo);
