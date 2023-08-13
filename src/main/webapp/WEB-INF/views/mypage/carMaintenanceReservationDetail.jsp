@@ -185,9 +185,9 @@ textarea {
 
 				$.ajax({
 					url : "/carMaintenanceReservationDelete", // 삭제 요청을 처리하는 서버의 URL
-					method : "GET", // 삭제 요청은 POST 방식으로 전송합니다.
+					method : "GET", // 삭제 요청은 GET 방식으로 전송합니다.
 					data : {
-						registrationNumber : no
+						reservationNo : no
 					}, // 삭제할 차대번호를 전달합니다.
 					success : function(data) {
 

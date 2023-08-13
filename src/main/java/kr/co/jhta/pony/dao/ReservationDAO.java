@@ -16,4 +16,6 @@ public interface ReservationDAO {
 
 	void deleteReservation(int reservationNo);
 
+	void insertCarMaintenanceReservation(ReservationDTO dto);
+
 }

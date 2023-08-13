@@ -25,4 +25,10 @@ public class ReservationServiceImple implements ReservationService{
 		
 	}
 
+	@Override
+	public void insertCarMaintenanceReservation(ReservationDTO dto) {
+		dao.insertCarMaintenanceReservation(dto);
+		
+	}
+
 }

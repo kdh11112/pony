@@ -481,7 +481,7 @@ public class MyPageController {
 		}
 		//----------------------------------정비예약신청삭제
 		@GetMapping("/carMaintenanceReservationDelete")
-		public String CarMaintenanceReservationDetailDelete(@ModelAttribute CarRegisterDTO dto, Principal p, 
+		public String CarMaintenanceReservationDetailDelete(@ModelAttribute ReservationDTO dto, Principal p, 
 															HttpSession session, @RequestParam int reservationNo) {
 			reservationService.deleteReservation(reservationNo);
 			log.info(">>>>>>>>>>>>>>>> 정비예약내역삭제 번호 {}"+reservationNo);

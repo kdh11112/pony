@@ -10,4 +10,6 @@ public interface ReservationService {
 
 	void deleteReservation(int reservationNo); //정비예약내역 삭제
 
+	void insertCarMaintenanceReservation(ReservationDTO dto); //정비예약내역insert
+
 }
