@@ -15,4 +15,8 @@ public interface OrderDetailDAO {
 	
 	//주문의 여러 부품 비용 합산
 	int getOrderTotalPrice(int orderNo);
+	
+	void insertOne(int cartNo);
+	
+	List<OrderDetailDTO> selectOne(int orderNo);
 }

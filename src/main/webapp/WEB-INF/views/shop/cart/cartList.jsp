@@ -65,6 +65,7 @@
 	color: #4c4848;
 	left: 0;
 	border-radius: 4px;
+	
 }
 .quantity_btn {
 	position: absolute;
@@ -85,6 +86,13 @@
 .minus_btn {
 	bottom: 0;
 	right: 0
+}
+.pointspan,
+.pointspan2 {
+	font-size: 70%;
+}
+.price_area--jjAq5tYP9m total--2a5HJtyfeD{
+	text-align: right;
 }
 </style>
 <script type="text/javascript" src="https://ssl.pstatic.net/tveta/libs/glad/prod/2.18.0/gfp-sdk.js" charset="utf-8"></script>
@@ -160,22 +168,26 @@
 					<script>
 						$("#selectDelete_btn").click(function(e) {
 							e.preventDefault();
-							var checkArr = new Array();
-
-							$("input[class='chkbox']:checked").each(function() {
-								checkArr.push($(this).attr("data-cartNo"));
-							});
-
-							$.ajax({
-								url : "/deleteCart",
-								type : "post",
-								data : {
-									chkbox : checkArr
-								},
-								success : function() {
-									location.href = "/cartlist";
-								}
-							});
+							var confirm_val = confirm("정말 삭제하시겠습니까?");
+							 
+                            if (confirm_val) {
+								var checkArr = new Array();
+	
+								$("input[class='chkbox']:checked").each(function() {
+									checkArr.push($(this).attr("data-cartNo"));
+								});
+	
+								$.ajax({
+									url : "/deleteCart",
+									type : "post",
+									data : {
+										chkbox : checkArr
+									},
+									success : function() {
+										location.href = "/cartlist";
+									}
+								});
+                            }
 						});
 					</script>
 				</div>
@@ -193,10 +205,12 @@
 					var finalTotalPrice = 0;
 					var count = $(".chkbox").length;
 					var totalKind = 0;
-					//var count = ($(".chkbox")[i].checked).length;
+					var point = 0;
+					  
 					for (var i = 0; i < count; i++) {
 						if ($(".chkbox")[i].checked == true) {
 							sum += parseInt($(".chkbox")[i].value);
+							point += Math.floor(parseInt($(".chkbox")[i].value*0.05));
 							totalKind += 1;
 						}
 					}
@@ -216,6 +230,11 @@
 					$("#delivery2").html(makePrice(orderDeliveryCharge));
 					$("#finalTotalPrice").html(makePrice(finalTotalPrice));
 					$("#finalTotalPrice2").html(makePrice(finalTotalPrice));
+					$("#finalPoint").html(makePrice(point));
+					/* hidden에 값 넣기 */
+					$(".delivery_input").val(delivery);
+					$(".point_input").val(point);
+				
 				}
 			</script>
 			<div class="contents--2E6XJtdAJn">
@@ -253,6 +272,7 @@
 																	</div>
 																</div>
 																<button type="button" class="btn_modify--3dB-BgyPu5" data-cartNo="${usercart.cartNo}">주문수정</button>
+																<!-- 주문 수량 수정 -->
 																<form action="/modifyCart" method="post" class="count_modify_form">
 																	<input type="hidden" name="cartNo" class="update_cartNo" />
 																	<input type="hidden" name="cartCount" class="update_cartCount" />
@@ -271,11 +291,23 @@
 														</div>
 													</div>
 												</div>
-												<td class=cart_info>
-													<input type="hidden" class="partPrice_input" value="${usercart.partPrice}">
-													<input type="hidden" class="cartCount_input" value="${usercart.cartCount}">
+												<td class="cart_info">
+												<form action="/buypart" method="get" class="orderForm">
+ 													<input type="hidden" class="partPrice_input" value="${usercart.partPrice}">
+													<input type="hidden" class="partCount_input" value="${usercart.cartCount}">
 													<input type="hidden" class="totalPrice_input" value="${usercart.partPrice * usercart.cartCount}">
+													<input type="hidden" class="delivery_input" value="">
+													<input type="hidden" class="point_input" value="">
+													<input type="hidden" class="partNo_input" value="${usercart.partNo}">
+													<input type="hidden" name="chkbox[]" id="chk" value="">
+
+												</form>
 												</td>
+<!-- 												<form action="/buypartorder" method="post" autocomplete="off" id="orderForm">
+													<input type="hidden" name="amount_form" id="amount_form" value="">
+													<input type="hidden" name="delivery_form" id="delivery_form" value="">
+													<input type="hidden" name="point_form" id="point_form" value="">
+												</form> -->
 											</c:forEach>
 										</div>
 										<div class="price--38egva9GaS">
@@ -307,6 +339,7 @@
 										<div class="inner--2z0IE5sNLy">
 											<div class="price_area--jjAq5tYP9m total--2a5HJtyfeD">
 												<span class="title--3G_o4_rhfc">주문금액</span><em><span class="num--37aOyGmdW1" id="finalTotalPrice2"></span>원</em>
+												<br /><span class="pointspan">(적립예정 <span class="pointspan2" id="finalPoint"></span>원)</span>
 											</div>
 										</div>
 									</div>
@@ -345,18 +378,23 @@
 
 								$("input[class='chkbox']:checked").each(function() {
 									checkArr.push($(this).attr("data-cartNo"));
-									alert(checkArr);
+									console.log(checkArr);
 								});
-
-								$.ajax({
-									url : "/buypart",
-									type : "post",
-									data : {chkbox : checkArr},
-									success : function(){
-										location.href = "/buypart";
-									}
 								
-								});
+ 								/* $("#chk").val(checkArr);  */
+ 								$.ajax({
+ 							        url: "/buypart",
+ 							        type: "post",
+ 							        data: { chkbox: checkArr },
+ 									success: function(response) {
+	 							        console.log("Server response:", response); // 서버 응답 데이터 출력
+	 							        // 페이지 이동 등의 작업 수행
+	 							        window.location.href = "/buypart";
+	 							    },
+	 							    error: function(xhr, status, error) {
+	 							        console.error("Request error:", error); // 요청 에러 출력
+	 							    }
+							});
 							});
 						</script>
 					</div>

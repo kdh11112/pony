@@ -1,5 +1,7 @@
 package kr.co.jhta.pony.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +23,12 @@ public class OrderDTO {
 	
 	private String orderRecipientPhone;
 	
+	private String orderRecipientZip;
+	
+	private String orderRecipientAddress;
+	
+	private String orderRecipientAddressDetail;
+	
 	private String orderStatus;
 	
 	private int orderDeliveryCharge;
@@ -28,5 +36,7 @@ public class OrderDTO {
 	private int orderPoint;
 	
 	private int orderTotal;
+	
+	private List<OrderPageItemDTO> orders;
 	
 }

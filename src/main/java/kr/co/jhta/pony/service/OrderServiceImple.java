@@ -77,5 +77,16 @@ public class OrderServiceImple implements OrderService{
 		orderdao.changeDelivery(no);
 	}
 
+	@Override
+	public void insertOrder(OrderDTO dto) {
+		orderdao.insertOrder(dto);
+		
+	}
+
+	@Override
+	public List<OrderDTO> getAllByUser(int MemberNo) {
+		return orderdao.getAllByUser(MemberNo);
+	}
+
 }
 

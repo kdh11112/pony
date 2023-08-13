@@ -1,6 +1,10 @@
 package kr.co.jhta.pony.control;
 
 import java.security.Principal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,11 +24,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.jhta.pony.dto.CartDTO;
 import kr.co.jhta.pony.dto.OrderDTO;
+import kr.co.jhta.pony.dto.OrderDetailDTO;
 import kr.co.jhta.pony.dto.PageMakeDTO;
 import kr.co.jhta.pony.dto.PartDTO;
 import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.security.service.PonyMemberService;
 import kr.co.jhta.pony.service.CartService;
+import kr.co.jhta.pony.service.OrderDetailService;
 import kr.co.jhta.pony.service.OrderService;
 import kr.co.jhta.pony.service.PartService;
 import kr.co.jhta.pony.util.Criteria;
@@ -37,17 +43,20 @@ public class ShopController {
 	private final PartService pservice;
 	private final CartService cservice;
 	private final OrderService oservice;
+	private final OrderDetailService odservice;
 	private static final Logger logger = LoggerFactory.getLogger(ShopController.class);
 	
 	@Autowired
 	public ShopController(PonyMemberService memberservice,
 							PartService partservice,
 							CartService cartservice,
-							OrderService orderservice) {
+							OrderService orderservice,
+							OrderDetailService orderdetailservice) {
 		this.mservice = memberservice;
 		this.pservice = partservice;
 		this.cservice = cartservice;
 		this.oservice = orderservice;
+		this.odservice = orderdetailservice;
 		}
 
 	// 부품목록 (고객 페이지)-------------------------------
@@ -99,17 +108,10 @@ public class ShopController {
 	@GetMapping("/cartlist")
 	public String cartlist(HttpSession session, Principal p, Model model, HttpServletRequest req, @ModelAttribute CartDTO cartdto) {
 		// 세션에 저장한 사용자의 번호
-		if((Integer) session.getAttribute("memberNo") == null) {
-			return "/ponylogin";
-		}
+
 		Integer memberNo = (Integer) session.getAttribute("memberNo");
 		log.info("userNo: "+memberNo);
 		
-		
-//		PonyMemberDTO memberDTO = mservice.getMemberEmail(p.getName());
-//		session.setAttribute("memberDTO", memberDTO);
-		
-		//int memberNo = memberDTO.getMemberNo();
 		cartdto.setMemberNo(memberNo);
 		
 		// 회원번호 기준으로 장바구니 정보를 조회
@@ -143,36 +145,96 @@ public class ShopController {
 	
 	// 부품 주문 ---------------------------------------
 	
-	@GetMapping("/buypart")
-	public String buypage(HttpSession session, Model model,
-			@ModelAttribute CartDTO cartdto/* , @RequestParam(value = "chkbox[]") List<String> chkbox */) {
-		if((Integer) session.getAttribute("memberNo") == null) {
-			return "/ponylogin";
-		}
-		Integer memberNo = (Integer) session.getAttribute("memberNo");
-		List<CartDTO> userCart = cservice.cartAll(memberNo);
+	@RequestMapping("/buypart")
+	public String getbuypage(HttpSession session, Model model) {
+		int memberNo = (int) session.getAttribute("memberNo");
 		PonyMemberDTO memberDTO = mservice.selectMemAll(memberNo);
-		log.info("memberDTO: "+memberDTO);
 		model.addAttribute("memDTO", memberDTO);
-//		log.info(""+chkbox);
-//		int cartNo = 0;
-//		for(String cartNoStr : chkbox) {
-//			cartNo = Integer.parseInt(cartNoStr);
-//			
-//		}
 		return "/shop/cart/buyPart";
+		
 	}
-	
 	@PostMapping("/buypart")
-	public String orderpage() {
+	@ResponseBody // 응답 데이터를 JSON 등으로 반환하기 위해 필요
+    public String buypage(@RequestParam(value = "chkbox[]") List<String> chkbox, Model model) {
+        
+		 List<CartDTO> cartItems = new ArrayList<>(); // 각 카트 아이템을 저장할 리스트
+
+	    for (String cartNoStr : chkbox) {
+	        int cartNo = Integer.parseInt(cartNoStr);
+	        CartDTO cartItem = cservice.getCartItemByCartNo(cartNo); // 해당 카트 정보 가져오기
+	        cartItems.add(cartItem); // 가져온 카트 정보를 리스트에 추가
+	    }
+	    log.info("cartItems : <><><><><>< "+cartItems);
+	    model.addAttribute("cartItems", cartItems);
+
+        return "redirect:/buypart";
+    }
+	
+	@PostMapping("/buypartorder")
+	public String buypartorder(HttpSession session, Model model,
+			OrderDTO orderdto, @RequestParam(value = "chkbox[]") List<String> chkbox) {
+		int memberNo = (int) session.getAttribute("memberNo");
+		PonyMemberDTO memberDTO = mservice.selectMemAll(memberNo);
+		int cartNo = 0;
+		orderdto.setMemberNo(memberNo);
+		oservice.insertOrder(orderdto);
+		
+		for(String i : chkbox) {
+			cartNo = Integer.parseInt(i);
+			log.info("cartNo???????? "+cartNo);
+			// orderId 필드가 auto increment로 설정되었다면, orderId를 따로 설정할 필요 없음
+			odservice.insertOne(cartNo); // 주문 상세 테이블 insert
+		}
+//		log.info("memberDTO: "+memberDTO);
+//		model.addAttribute("memDTO", memberDTO);
 		return "/shop/cart/buyPart";
 	}
+//	@GetMapping("/buypart")
+//	public String buypage(HttpSession session, Model model,
+//			@ModelAttribute CartDTO cartdto) {
+//		if((Integer) session.getAttribute("memberNo") == null) {
+//			return "/ponylogin";
+//		}
+//		Integer memberNo = (Integer) session.getAttribute("memberNo");
+//		List<CartDTO> userCart = cservice.cartAll(memberNo);
+//		PonyMemberDTO memberDTO = mservice.selectMemAll(memberNo);
+//		log.info("memberDTO: "+memberDTO);
+//		model.addAttribute("memDTO", memberDTO);
+//		log.info("여기는 GET 요청할때 출력됨");
+//		return "/shop/cart/buyPart";
+//	}
+	
 	
 	// 내 주문목록 --------------------------------------
 	
 	@GetMapping("/myorderlist")
-	public String myOrderList(HttpSession session, Principal p) {
+	public String myOrderList(HttpSession session, Model model) {
+		int memberNo = (int) session.getAttribute("memberNo");
+		List<OrderDTO> userOrderList = oservice.getAllByUser(memberNo);
+		for (OrderDTO order : userOrderList) {
+			List<OrderDetailDTO> orderDetails = odservice.getOrderDetailsByOrderNo(order.getOrderNo());
+			model.addAttribute("orderDetails", orderDetails);
+		}
+		model.addAttribute("userorderlist", userOrderList);
 		return "/shop/order/myOrderList";
+	}
+	
+	@GetMapping("/myorderdetail")
+	public String myOrderDetail(HttpSession session, @RequestParam("orderNo")int orderNo, Model model) throws ParseException {
+		OrderDTO order = oservice.selectOne(orderNo);
+		model.addAttribute("order",order);
+		
+		String originalPhoneNumber = order.getOrderRecipientPhone();
+		String formattedPhoneNumber = originalPhoneNumber.replaceFirst("(\\d{3})(\\d{4})(\\d+)", "$1-$2-$3");
+		model.addAttribute("formattedPhoneNumber", formattedPhoneNumber);
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    Date orderDate = dateFormat.parse(order.getOrderDate());
+	    model.addAttribute("orderDate", orderDate);
+		
+		model.addAttribute("userOrderList",odservice.selectOne(orderNo));
+		
+		return "/shop/order/myOrderDetail";
 	}
 	
 

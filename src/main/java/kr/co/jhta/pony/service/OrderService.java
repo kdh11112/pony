@@ -23,4 +23,9 @@ public interface OrderService {
 	void updateOrderTotal(int orderNo, int orderTotal);
 	
 	public void changeDelivery(String no);	//배송상태변경 -지울ㄹ지도,,
+	
+	//고객
+	void insertOrder(OrderDTO dto);
+	
+	List<OrderDTO> getAllByUser(int MemberNo);
 }

@@ -11,11 +11,26 @@
 <link href="css/admin/css/nav.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap" rel="stylesheet">
 <style id="gnb_style" type="text/css"></style>
+<style>
+.btn_editInfo {
+	margin: -1px 0 1px 20px;
+	height: 25px;
+	vertical-align: middle;
+	width: 68px;
+	border: 1px solid #dcdee0;
+	color: #303038;
+	background-color: #fff;
+	cursor: pointer;
+	font-size: 12px;
+	padding: 0;
+	background: none;
+	word-break: break-all;
+	list-style: none;
+}
+</style>
 <script type="text/javascript" src="https://ssl.pstatic.net/tveta/libs/glad/prod/2.18.0/gfp-sdk.js" charset="utf-8"></script>
 <script src="https://ssl.pstatic.net/static.gn/js/clickcrD.js" id="gnb_clickcrD" charset="utf-8"></script>
-<!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </head>
 <body>
 	<!-- Navigation-->
@@ -34,7 +49,7 @@
 							<li><a class="dropdown-item" href="/cartlist">모든 상품보기</a></li>
 							<li><hr class="dropdown-divider" /></li>
 							<li><a class="dropdown-item" href="/cartlist">장바구니</a></li>
-							<li><a class="dropdown-item" href="/myOrderList">내 주문내역</a></li>
+							<li><a class="dropdown-item" href="myorderlist">내 주문내역</a></li>
 						</ul></li>
 				</ul>
 				<form class="form-inline">
@@ -91,29 +106,29 @@
 									</tr>
 								</thead>
 								<tbody>
-
-									<tr class="seller_same_t" style="background-color: #FAFBFC !important;">
-										<td>
-											<span class="bdr"></span>
-											<div class="product_info" style="padding-left: 130px;">
-												<div class="product_dsc">
-													<strong> 엔진오일 </strong>
-													<div class="option">옵션: 소나타</div>
+										<tr class="seller_same_t" style="background-color: #FAFBFC !important;">
+											<td>
+												<span class="bdr"></span>
+												<div class="product_info" style="padding-left: 130px;">
+													<div class="product_dsc">
+								 	<c:forEach var="cartItem" items="${cartItems }">
+														<strong> <c:out value="${cartItem.partName}" /> </strong>
+														<div class="option">옵션: ${cartItem.modelName }</div>
+									</c:forEach>
+													</div>
+													<span class="vm"></span>
 												</div>
-												<span class="vm"></span>
-											</div>
-										</td>
+											</td>
 
-										<td rowspan="3">
-											<span class="deli_fee"><span class="sp_order ico_deli"></span><span class="sum _deliveryPrice2023072918466586">3,000원<a href="#" class="sp_order ico_que _deliveryFeeLayerBtn2023072918466586 _click(nmp.front.order.order_sheet.showLayerDeliveryFee(2023072992390142)) _stopDefault"></a></span><span class="_deliveryPriceText2023072918466586"></span></span>
-										</td>
+											<td rowspan="3">
+												<span class="deli_fee"><span class="sp_order ico_deli"></span><span class="sum _deliveryPrice2023072918466586">3,000원<a href="#" class="sp_order ico_que _deliveryFeeLayerBtn2023072918466586 _click(nmp.front.order.order_sheet.showLayerDeliveryFee(2023072992390142)) _stopDefault"></a></span><span class="_deliveryPriceText2023072918466586"></span></span>
+											</td>
 
-										<td rowspan="2">1개</td>
-										<td class="col_price" rowspan="2">
-											<strong><em class="_productOrderPayAmt2023072992390141">25,900</em>원</strong>
-										</td>
-									</tr>
-
+											<td rowspan="2">1개</td>
+											<td class="col_price" rowspan="2">
+												<strong><em class="_productOrderPayAmt2023072992390141">25,900</em>원</strong>
+											</td>
+										</tr>
 
 								</tbody>
 							</table>
@@ -127,20 +142,13 @@
 								<div class="deliver_option_wrap">
 									<strong class="req" title="필수입력">배송지 입력</strong>
 								</div>
-									<ul class="addr_list _deliveryPlaces _deliveryPlaces_0">
-										<li>${memDTO.memberName }</li>
-										<li>${memDTO.memberPhone }</li>
-										<li>(${memDTO.memberZip }) ${memDTO.memberAddress1 } ${memDTO.memberAddress2 }
-											<button class="btn _click(nmp.front.order.order_sheet.editDeliveryInfo()) _stopDefault">정보수정</button>
-										</li>
-									</ul>
-<!-- 									<ul class="addr_list _deliveryPlaces _deliveryPlaces_0">
-										<li><input type="text" name="" id="" /></li>
-										<li><input type="text" name="" id="" maxlength="3"/>-<input type="text" name="" id="" maxlength="4"/>-<input type="text" name="" id="" maxlength="4"/></li>
-										<li>(우편번호) 서울특별시 종로구 어쩌구 디아망 건물 4층
-											<button class="btn _click(nmp.front.order.order_sheet.editDeliveryInfo()) _stopDefault">정보수정</button>
-										</li>
-									</ul> -->
+								<ul class="addr_list _deliveryPlaces _deliveryPlaces_0">
+									<li>${memDTO.memberName }</li>
+									<li>${memDTO.memberPhone }</li>
+									<li>(${memDTO.memberZip }) ${memDTO.memberAddress1 } ${memDTO.memberAddress2 }
+										<button class="btn_editInfo">정보수정</button>
+									</li>
+								</ul>
 								<div class="_deliveryMemoOuter ">
 									<strong class="_deliveryMemoHeader" style="display: none;">배송메모</strong>
 									<div class="_deliveryMemoInner ">
@@ -161,7 +169,7 @@
 								<ul class="user_info">
 									<li>${memDTO.memberName }</li>
 									<li class="_telNoHighlight "><span class="_memberTelNumber">${memDTO.memberPhone }</span></li>
-									<li><span class="_memberEmailAddress">ju*****@n*******.com</span></li>
+									<li><span class="_memberEmailAddress">${memDTO.memberEmail }</span></li>
 								</ul>
 								<ul class="info_dsc">
 									<li class="info_confirm"><span class="_telNoNoti _telNoInfo" style="display: block">주문자 정보로 결제관련 정보가 제공됩니다.<br>정확한 정보로 등록되어있는지 확인해주세요.
@@ -272,7 +280,7 @@
 										</p></li>
 								</ul>
 								<ul class="total_list">
-									<li class="_payPointUsedAmountArea" style="display: none;"><strong class="price_sum_title">네이버페이 포인트 사용</strong>
+									<li class="_payPointUsedAmountArea" style="display: none;"><strong class="price_sum_title">포인트 사용</strong>
 										<p class="price_sum_detail">
 											<em class="_usePayPointPrice">0</em> 원
 										</p></li>
@@ -305,8 +313,6 @@
 	</footer>
 
 	<!-- //footer -->
-
-
-
 </body>
+
 </html>

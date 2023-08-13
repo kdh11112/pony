@@ -11,9 +11,43 @@
 		ORDER BY partNumber ASC
 	</select>
 
-    <select id="getOrderTotalPrice" resultType="int">
-        SELECT SUM(orderdetailAmount) 
-        FROM ORDERDETAIL 
-        WHERE orderNo = #{orderNo}
-    </select>
+	<select id="getOrderTotalPrice" resultType="int">
+		SELECT SUM(orderdetailAmount)
+		FROM ORDERDETAIL
+		WHERE orderNo = #{orderNo}
+	</select>
+
+	<insert id="insertOne" parameterType="int">
+		INSERT INTO ORDERDETAIL (partNumber, orderNo, orderdetailOrderQuantity, orderdetailAmount)
+		SELECT
+			c.partNumber,
+			(SELECT MAX(orderNo) FROM `ORDER`),
+			c.cartCount,
+			c.cartCount * p.partPrice
+		FROM
+			CART c
+		JOIN
+			`ORDER` o ON c.memberNo = o.memberNo
+		JOIN
+			`PART` p ON c.partNumber = p.partNumber
+		WHERE
+			c.cartNo = #{cartNo}
+	</insert>
+	<select id="selectOne" parameterType="int" resultType="kr.co.jhta.pony.dto.OrderDetailDTO">
+		SELECT 
+	        od.orderDetailNo, od.partNumber, od.orderNo, od.orderdetailOrderQuantity, od.orderdetailAmount,
+	        p.partName, p.partPrice, p.modelNo,
+	        m.modelName,
+	        o.orderDate, o.orderStatus
+	    FROM 
+	        ORDERDETAIL od
+	    JOIN 
+	        PART p ON od.partNumber = p.partNumber
+	    JOIN 
+	        MODEL m ON p.modelNo = m.modelNo
+	    JOIN 
+	        `ORDER` o ON od.orderNo = o.orderNo
+	    WHERE 
+	        od.orderNo = #{orderNo}
+	</select>
 </mapper>

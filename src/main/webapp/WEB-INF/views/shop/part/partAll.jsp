@@ -193,16 +193,7 @@ td.partIcontd {
 					<c:if test="${listCheck != 'empty' }">
 
 						<c:forEach var="partlist" items="${partlist }">
-							<script>
-						
-						$(document).read(function()) {
-							/* 포인트 삽입 */
-						 $(".price_span").each(function() {
-					        var partPrice = parseInt($(this).prev().text().replace(/[^\d]/g, ''));
-					        var point = Math.floor(partPrice * 0.05);
-					        $(this).html("(적립: " + point + "원)");
-					    });
-						</script>
+
 
 							<tr>
 								<td>${partlist.partNumber }</td>
@@ -225,8 +216,11 @@ td.partIcontd {
 								</td>
 
 								<td style="text-align: right !important; padding-left: 0px; padding-right: 10px;">
+									<input type="hidden" name="partPrice" value="${partlist.partPrice }" />
 									<fmt:formatNumber pattern="###,###,###원">${partlist.partPrice }</fmt:formatNumber>
-									<br /> <span class="price_span" style="font-size: 70%;">(적립: <span class="point_span"></span>원)
+									<br />
+									<fmt:formatNumber type="number" maxFractionDigits="0" value="${partlist.partPrice*0.05}" var="pointValue" />
+									<span class="price_span" style="font-size: 70%;">(적립: <c:out value="${pointValue}" />원)
 									</span>
 								</td>
 								<td class="partIcontd">
@@ -300,14 +294,6 @@ td.partIcontd {
 	<!-- Core theme JS-->
 	<script src="css/mypage/js/scripts.js"></script>
 	<script>
-	
-		$(document).read(function()) {
-			/* 포인트 삽입 */
-		    var partPrice = parseInt("${partlist.partPrice}");
-		    var point = Math.floor(partPrice * 0.05);
-		    $(".point_span").html(point);
-		}
-		
 		/* 페이징 버튼 동작시키기 위한 코드*/
 		let moveForm = $('#moveForm');
 
@@ -367,5 +353,23 @@ td.partIcontd {
 			}
 		}
 	</script>
+
+	<!-- 	<script>
+						function calculatePoint() {
+						    /* 포인트 계산 */
+						    var partPrice = $("input[name='partPrice']").val();
+						    var partPoint = Math.floor(partPrice * 0.05);
+						    console.log(partPoint);
+						    $(".point_span").html(partPoint + "원");
+						}
+
+						$(document).ready(function () {
+						    calculatePoint(); // 페이지 로딩 시 포인트 계산 함수 호출
+
+						  /*   $(".choicetype").change(function () {
+						        calculatePoint(); // 수량 변경 시 포인트 계산 함수 호출
+						    }); */
+						});
+						</script> -->
 </body>
 </html>

@@ -50,4 +50,17 @@
 		WHERE memberNo = #{memberNo} and
 		partNumber = #{partNumber}
 	</select>
+	
+	<select id="getCartItemByCartNo" resultType="kr.co.jhta.pony.dto.CartDTO" parameterType="int">
+		SELECT
+			c.cartNo, c.partNumber, c.cartCount, c.memberNo,
+			p.partName, p.partNo, p.partPrice,
+			m.modelName
+		FROM
+			CART c
+			JOIN PART p ON c.partNumber = p.partNumber
+			JOIN MODEL m ON p.modelNo = m.modelNo
+		WHERE
+			c.cartNo = #{cartNo}
+	</select>
 </mapper>
