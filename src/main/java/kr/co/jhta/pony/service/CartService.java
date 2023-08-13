@@ -15,6 +15,7 @@ public interface CartService {
 	// 카트 삭제
 	public int deleteCart(int cartNo);
 	
+	public CartDTO getCartItemByCartNo(int cartNo);
 	// 카트 수량 변경
 	public int modifyCount(CartDTO dto);
 	

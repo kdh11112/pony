@@ -206,7 +206,7 @@
 					var count = $(".chkbox").length;
 					var totalKind = 0;
 					var point = 0;
-					
+					  
 					for (var i = 0; i < count; i++) {
 						if ($(".chkbox")[i].checked == true) {
 							sum += parseInt($(".chkbox")[i].value);
@@ -232,10 +232,9 @@
 					$("#finalTotalPrice2").html(makePrice(finalTotalPrice));
 					$("#finalPoint").html(makePrice(point));
 					/* hidden에 값 넣기 */
-					$("#amount_form").val(sum);
-					$("#delivery_form").val(delivery);
-					$("#point_form").val(point);
-					
+					$(".delivery_input").val(delivery);
+					$(".point_input").val(point);
+				
 				}
 			</script>
 			<div class="contents--2E6XJtdAJn">
@@ -292,18 +291,23 @@
 														</div>
 													</div>
 												</div>
-												<td class=cart_info>
-												<form action="/buypartorder" method="post" autocomplete="off" id="orderForm">
+												<td class="cart_info">
+												<form action="/buypart" method="get" class="orderForm">
+ 													<input type="hidden" class="partPrice_input" value="${usercart.partPrice}">
+													<input type="hidden" class="partCount_input" value="${usercart.cartCount}">
+													<input type="hidden" class="totalPrice_input" value="${usercart.partPrice * usercart.cartCount}">
+													<input type="hidden" class="delivery_input" value="">
+													<input type="hidden" class="point_input" value="">
+													<input type="hidden" class="partNo_input" value="${usercart.partNo}">
+													<input type="hidden" name="chkbox[]" id="chk" value="">
+
+												</form>
+												</td>
+<!-- 												<form action="/buypartorder" method="post" autocomplete="off" id="orderForm">
 													<input type="hidden" name="amount_form" id="amount_form" value="">
-													<input type="hidden" name="chkbox[]_form" id="chk_form" value="">
 													<input type="hidden" name="delivery_form" id="delivery_form" value="">
 													<input type="hidden" name="point_form" id="point_form" value="">
-												</form>
-<%-- 													<input type="hidden" class="partPrice_input" value="${usercart.partPrice}">
-													<input type="hidden" class="cartCount_input" value="${usercart.cartCount}">
-													<input type="hidden" class="totalPrice_input" value="${usercart.partPrice * usercart.cartCount}">
-													<input type="hidden" class="delivery_input" value="${usercart.partPrice * usercart.cartCount}"> --%>
-												</td>
+												</form> -->
 											</c:forEach>
 										</div>
 										<div class="price--38egva9GaS">
@@ -374,19 +378,23 @@
 
 								$("input[class='chkbox']:checked").each(function() {
 									checkArr.push($(this).attr("data-cartNo"));
-									//alert(checkArr);
+									console.log(checkArr);
 								});
-								$("#chk_form").val(checkArr);
-								$.ajax({
-									url : "/buypartorder",
-									type : "post",
-									data : {chkbox : checkArr},
-									success : function(response){
-										$("#orderForm").submit();
-										location.href = "/buypart";
-									}
 								
-								});
+ 								/* $("#chk").val(checkArr);  */
+ 								$.ajax({
+ 							        url: "/buypart",
+ 							        type: "post",
+ 							        data: { chkbox: checkArr },
+ 									success: function(response) {
+	 							        console.log("Server response:", response); // 서버 응답 데이터 출력
+	 							        // 페이지 이동 등의 작업 수행
+	 							        window.location.href = "/buypart";
+	 							    },
+	 							    error: function(xhr, status, error) {
+	 							        console.error("Request error:", error); // 요청 에러 출력
+	 							    }
+							});
 							});
 						</script>
 					</div>

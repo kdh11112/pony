@@ -1,0 +1,645 @@
+@charset "UTF-8";
+/* NHN Technology Services UIT Development Center */
+/* Common */
+body, p,
+h1, h2, h3, h4, h5, h6,
+ul, ol, li,
+dl, dt, dd,
+table, th, td,
+form, fieldset, legend, input, textarea, button, select {
+    margin: 0;
+    padding: 0;
+}
+
+body,
+input,
+textarea,
+select,
+button,
+table {
+    font-size: 14px;
+    line-height: 17px;
+       font-family: '나눔고딕',NanumGothic,'맑은고딕',MalgunGothic,'돋움',Dotum,Helvetica,sans-serif;
+}
+
+body {
+    position: relative;
+    -webkit-text-size-adjust: none;
+}
+
+img,
+fieldset {
+    border: 0;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+em,
+address {
+    font-style: normal;
+}
+
+a {
+    text-decoration: none;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+#u_skip,
+.blind {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+}
+
+.pc_footer .logonf:before {
+    background-image: url(../img/sprite/sp_footer_pc.png);
+    background-size: 96px 26px;
+    background-repeat: no-repeat;
+}
+
+.pc_header .logo_npay:before, .pc_header .btnprev:before, .pc_header .btn_close:before, .pc_header .btnsearch:before, .pc_header .h_button_tooltip:before, .pc_header .btn_reg:before, .pc_header .btn_setting:before, .pc_header .button_tooltip_close:before, .pc_header .btn_cart:before {
+    background-image: url(../img/sprite/sp_header_pc.png);
+    background-size: 124px 87px;
+    background-repeat: no-repeat;
+}
+
+#header {
+    text-align: center;
+    background-color: #fff;
+}
+
+#header svg {
+    display: block;
+    vertical-align: top;
+}
+
+#header button {
+    border: 0 none;
+    background-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+#header .absolutev {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+#header .gnb {
+    position: relative;
+    min-height: 63px;
+    padding: 21px 0 18px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#header .gnb .pageh1 {
+    display: inline-block;
+    margin: 0 54px;
+    color: #000;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 24px;
+}
+
+#header .gnb .logo_npay {
+    left: 20px;
+}
+
+#header .gnb .logo_npay + .pageh1 {
+    margin: 0 80px;
+}
+
+#header .gnb .btnprev {
+    left: 12px;
+}
+
+#header .gnb .absoluter {
+    right: 12px;
+}
+
+#header .gnb .absoluter_sc {
+    right: 48px;
+}
+
+#header .gnb .btn_cart {
+    overflow: visible;
+    right: 54px;
+}
+
+#header .gnb .btn_cart .cart_num {
+    position: absolute;
+    left: 50%;
+    top: -4px;
+    margin-left: 2px;
+    padding: 0 5px;
+    color: #fff;
+    font-size: 11px;
+    line-height: 17px;
+    font-weight: bold;
+    background-color: #ff5252;
+    border-radius: 8px;
+    letter-spacing: -0.5px;
+}
+
+#header .gnb .btnsearch {
+    right: 60px;
+}
+
+#header .gnb .h_tooltip {
+    position: relative;
+    display: inline-block;
+    margin-left: -4px;
+    vertical-align: top;
+}
+
+#header .gnb .h_tooltip .h_button_tooltip {
+    display: block;
+    padding: 4px 3px 5px;
+}
+
+#header .gnb .h_tooltip .tooltip_layer {
+    position: absolute;
+    top: 33px;
+    right: auto;
+    left: 50%;
+    width: 272px;
+    margin-left: -146px;
+    padding: 14px 27px 14px 15px;
+    color: #666;
+    border-radius: 3px;
+    border: 1px solid #a1a1a1;
+    background-color: #fff;
+    line-height: 20px;
+    font-size: 14px;
+    box-sizing: border-box;
+    text-align: left;
+    z-index: 100;
+}
+
+#header .gnb .h_tooltip .tooltip_layer .title_tooltip {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    vertical-align: top;
+}
+
+#header .gnb .h_tooltip .tooltip_layer .tooltip_desc {
+    margin-top: 6px;
+    font-weight: normal;
+}
+
+#header .gnb .h_tooltip .tooltip_layer .button_tooltip_close {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    padding: 11px 12px;
+    border: 0 none;
+    background-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+#header .gnb .h_tooltip .tooltip_layer .list_tooltip {
+    margin-top: 2px;
+    font-weight: normal;
+}
+
+#header .gnb .h_tooltip .tooltip_layer .list_tooltip.type_hyphen {
+    margin-top: 10px;
+}
+
+#header .gnb .h_tooltip .tooltip_layer .list_tooltip.type_hyphen .item_tooltip:before {
+    content: '\002D';
+}
+
+#header .lnb .tab-menu {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+#header .lnb .tab-menu .menu-item {
+    display: table-cell;
+    text-align: center;
+}
+
+#header .lnb .tab-menu .menu-item .menu-link {
+    position: relative;
+    display: block;
+    padding: 6px 0 13px;
+    color: #999;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+}
+
+#header .lnb .tab-menu .menu-item .menu-link span {
+    position: relative;
+    display: inline-block;
+}
+
+#header .lnb .tab-menu .menu-item .menu-link span.icon-new:after {
+    position: absolute;
+    top: -1px;
+    right: -8px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #fc4c4e;
+    content: '';
+}
+
+#header .lnb .tab-menu .menu-item.on .menu-link {
+    color: #03c75a;
+    font-weight: bold;
+}
+
+#header .lnb .tab-menu .menu-item.on .menu-link:after {
+    position: absolute;
+    left: 0;
+    right: 0px;
+    bottom: 0;
+    height: 3px;
+    background-color: #03c75a;
+    content: '';
+}
+
+#header .lnb .tab-menu.type-black {
+    border-bottom: 1px solid #e8e8e8;
+}
+
+#header .lnb .tab-menu.type-black .menu-link {
+    padding: 13px 0 11px;
+    color: #666;
+}
+
+#header .lnb .tab-menu.type-black .menu-item.on .menu-link {
+    color: #000;
+}
+
+#header .lnb .tab-menu.type-black .menu-item.on .menu-link:after {
+    display: none;
+}
+
+#header .lnb .tab-menu.type-black .menu-item.on .menu-link span:before {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -12px;
+    height: 2px;
+    background-color: #000;
+    content: '';
+}
+
+#footer {
+    margin-top: 10px;
+    border-top: 1px solid #e7e7e7;
+    letter-spacing: -0.5px;
+    /* android */
+}
+
+#footer svg {
+    display: block;
+    vertical-align: top;
+}
+
+#footer .hidden {
+    position: absolute;
+    visibility: hidden;
+}
+
+#footer .info {
+    position: relative;
+    display: inline-block;
+    margin-left: -10px;
+    font-size: 0;
+    vertical-align: top;
+}
+
+#footer .info li {
+    position: relative;
+    display: inline-block;
+    padding-right: 1px;
+    vertical-align: top;
+}
+
+#footer .info li:last-child::after {
+    display: none;
+}
+
+#footer .info li:after {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 12px;
+    background-color: #d8d8d8;
+    content: '';
+}
+
+#footer .info li a {
+    display: block;
+    padding: 7px 10px;
+    color: #444;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 18px;
+}
+
+#footer .info + .logonf {
+    margin-top: 41px;
+}
+
+#footer .logonf {
+    margin: 0 0 16px;
+}
+
+#footer .description {
+    margin: 16px 0 24px;
+    color: #888;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 19px;
+}
+
+#footer .corp_info .label {
+    position: relative;
+    padding: 0 17px 0 0;
+    color: #666;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+#footer .corp_info .label:after {
+    content: '';
+    width: 7px;
+    height: 7px;
+    display: block;
+    border: 1px solid #666;
+    border-right-width: 0;
+    border-top-width: 0;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    position: absolute;
+    top: 2px;
+    right: 0;
+}
+
+#footer .corp_info .corp_info_list {
+    display: none;
+    margin-top: 22px;
+    font-weight: 500;
+}
+
+#footer .corp_info .corp_info_list li {
+    display: table;
+    width: 100%;
+    color: #666;
+    font-size: 13px;
+    line-height: 18px;
+    table-layout: fixed;
+}
+
+#footer .corp_info .corp_info_list li > span {
+    display: table-cell;
+}
+
+#footer .corp_info .corp_info_list li + li {
+    margin-top: 14px;
+}
+
+#footer .corp_info .corp_info_list li .title {
+    width: 29%;
+    color: #999;
+}
+
+#footer .corp_info .corp_info_list li a {
+    position: relative;
+    padding-right: 7px;
+    color: #3b88d5;
+}
+
+#footer .corp_info .corp_info_list li a:after {
+    content: '';
+    height: 5px;
+    width: 5px;
+    display: block;
+    border: 1px solid #3b88d5;
+    border-left-width: 0;
+    border-top-width: 0;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -3px;
+}
+
+#footer .corp_info + .android_add {
+    margin-top: 34px;
+}
+
+#footer :checked + .corp_info .label:after {
+    top: 6px;
+    -webkit-transform: rotate(-225deg);
+    -moz-transform: rotate(-225deg);
+    -ms-transform: rotate(-225deg);
+    -o-transform: rotate(-225deg);
+    transform: rotate(-225deg);
+}
+
+#footer :checked + .corp_info .corp_info_list {
+    display: block;
+}
+
+#footer .android_add .button_banner {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 12px 13px 12px 56px;
+    color: #444;
+    font-size: 17px;
+    line-height: 34px;
+    border: 1px solid #dbdbdb;
+    background-color: #fff;
+    border-radius: 4px;
+    background-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+#footer .android_add .button_banner .point_color {
+    color: #03c75a;
+}
+
+#footer .android_add .button_banner .icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#footer .android_add .button_banner .icon.npay {
+    left: 12px;
+}
+
+#footer .android_add .button_banner .icon.down {
+    right: 18px;
+}
+
+#footer .inner {
+    max-width: 1080px;
+    padding: 25px 24px 24px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+#footer .android_add {
+    display: none;
+}
+
+#footer html[data-useragent*='Android'] .android_add {
+    display: block;
+}
+
+@media (min-width: 600px) and (max-width: 1151px) {
+    #footer {
+        max-width: 616px !important;
+        margin: 10px auto 0;
+    }
+}
+
+@media (min-width: 1152px) {
+    .lnb {
+        width: 681px;
+    }
+}
+
+.pc_header {
+    background-color: red;
+}
+
+.pc_header .logo_npay:before {
+    display: block;
+    background-position: 0px 0px;
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 23px;
+    content: '';
+}
+
+.pc_header .btnprev:before {
+    display: block;
+    background-position: 0px -25px;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    content: '';
+}
+
+.pc_header .btn_close:before {
+    display: block;
+    background-position: 0px -57px;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    content: '';
+}
+
+.pc_header .btnsearch:before {
+    display: block;
+    background-position: -94px 0px;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    content: '';
+}
+
+.pc_header .h_button_tooltip:before {
+    display: block;
+    background-position: -94px -64px;
+    background-repeat: no-repeat;
+    width: 15px;
+    height: 15px;
+    content: '';
+}
+
+.pc_header .btn_reg:before {
+    display: block;
+    background-position: -32px -57px;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    content: '';
+}
+
+.pc_header .btn_setting:before {
+    display: block;
+    background-position: -94px -32px;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    content: '';
+}
+
+.pc_header .button_tooltip_close:before {
+    display: block;
+    background-position: -62px -32px;
+    background-repeat: no-repeat;
+    width: 14px;
+    height: 14px;
+    content: '';
+}
+
+.pc_header .btn_cart:before {
+    display: block;
+    background-position: -62px 0px;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    content: '';
+}
+
+.pc_footer .logonf:before {
+    display: block;
+    background-position: 0px 0px;
+    background-repeat: no-repeat;
+    width: 96px;
+    height: 26px;
+    content: '';
+}
+
+#footer .info:after {
+    content: none;
+}
+
+/*# sourceMappingURL=layout.css.map */

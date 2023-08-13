@@ -35,4 +35,8 @@ public interface OrderDAO {
 	//합산된 물건 비용 + 배송비 - 포인트 사용금액 계산 값 orderTotal로 업데이트
 	void updateOrderTotal(int orderNo, int orderTotal);
 
+	void insertOrder(OrderDTO dto);
+	
+	List<OrderDTO> getAllByUser(int MemberNo);
+	
 }

@@ -65,4 +65,9 @@ public class CartServiceImple implements CartService{
 		return dao.checkCart(dto);
 	}
 
+	@Override
+	public CartDTO getCartItemByCartNo(int cartNo) {
+		return dao.getCartItemByCartNo(cartNo);
+	}
+
 }

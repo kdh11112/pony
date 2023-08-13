@@ -25,4 +25,14 @@ public class OrderDetailServiceImple implements OrderDetailService{
 		return dao.getOrderDetailsByOrderNo(orderNo);
 	}
 
+	@Override
+	public void insertOne(int cartNo) {
+		dao.insertOne(cartNo);
+	}
+
+	@Override
+	public List<OrderDetailDTO> selectOne(int orderNo) {
+		return dao.selectOne(orderNo);
+	}
+
 }

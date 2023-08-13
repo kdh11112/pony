@@ -49,7 +49,7 @@
 							<li><a class="dropdown-item" href="/cartlist">모든 상품보기</a></li>
 							<li><hr class="dropdown-divider" /></li>
 							<li><a class="dropdown-item" href="/cartlist">장바구니</a></li>
-							<li><a class="dropdown-item" href="/myOrderList">내 주문내역</a></li>
+							<li><a class="dropdown-item" href="myorderlist">내 주문내역</a></li>
 						</ul></li>
 				</ul>
 				<form class="form-inline">
@@ -106,14 +106,15 @@
 									</tr>
 								</thead>
 								<tbody>
-								<%-- 	<c:forEach var="orderlist" items="${orderlist }"> --%>
 										<tr class="seller_same_t" style="background-color: #FAFBFC !important;">
 											<td>
 												<span class="bdr"></span>
 												<div class="product_info" style="padding-left: 130px;">
 													<div class="product_dsc">
-														<strong> 엔진오일 </strong>
-														<div class="option">옵션: 소나타</div>
+								 	<c:forEach var="cartItem" items="${cartItems }">
+														<strong> <c:out value="${cartItem.partName}" /> </strong>
+														<div class="option">옵션: ${cartItem.modelName }</div>
+									</c:forEach>
 													</div>
 													<span class="vm"></span>
 												</div>
@@ -129,7 +130,6 @@
 											</td>
 										</tr>
 
-									<%-- </c:forEach> --%>
 								</tbody>
 							</table>
 							<div class="cutting_line" style="background-color: #FAFBFC !important;"></div>
@@ -149,18 +149,6 @@
 										<button class="btn_editInfo">정보수정</button>
 									</li>
 								</ul>
-
-								<!-- 	<ul class="addr_list _deliveryPlaces _deliveryPlaces_0">
-										<li><input type="text" name="" id="" /></li>
-										<li><input type="text" name="" id="" maxlength="3"/>-<input type="text" name="" id="" maxlength="4"/>-<input type="text" name="" id="" maxlength="4"/></li>
-										<li>
-										<input type="text" id="postcode" name="postcode" class="deliveryPlace">
-											<button onclick="execDaumPostcode()">검색</button>
-										<input type="text" id="address" name="address" class="deliveryPlace">
-										<input type="text" id="detailAddress" name="detailAddress" class="deliveryPlace">	
-										</li>
-									</ul> -->
-
 								<div class="_deliveryMemoOuter ">
 									<strong class="_deliveryMemoHeader" style="display: none;">배송메모</strong>
 									<div class="_deliveryMemoInner ">

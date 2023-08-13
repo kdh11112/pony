@@ -21,4 +21,9 @@ public class OrderDetailDTO {
 	
 	private int orderdetailAmount;
 	
+	private String modelName;
+	
+	private String partName;
+	
+	private String orderStatus;
 }
