@@ -462,7 +462,7 @@ public class MyPageController {
 		
 		//---------------------------------정비예약신청 내역
 		@GetMapping("/carMaintenanceReservationDetail")
-		public String CarMaintenanceReservationDetail(Model model, @ModelAttribute TestDriveDTO dto,Principal p,
+		public String CarMaintenanceReservationDetail(Model model,Principal p,
 													  HttpSession session,HttpServletRequest req) {
 			PonyMemberDTO dto1 = service.getMemberEmail(service.getPrincipalEmail(p));
 			int memberNo = dto1.getMemberNo();
