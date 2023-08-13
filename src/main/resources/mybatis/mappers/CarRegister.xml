@@ -173,7 +173,7 @@
 	        DATE(registrationDate) = CURDATE()
 	</select>
 	<!-- 정비예약내역 가져오기 -->
-	<select id="getCarRegistrationList">
+<!-- 	<select id="getCarRegistrationList">
 		SELECT
 		r.registrationNumber,
 		r.registrationClientRequests,
@@ -189,11 +189,11 @@
 		MEMBER m ON c.memberNo = m.memberNo
 		JOIN SHOP s ON r.shopNo = s.shopNo
 		WHERE m.memberNo = #{memberNo};
-	</select>
+	</select> -->
 	<!-- 정비예약내역 삭제 -->
-	<delete id="deleteCarRegister" parameterType="int">
+	<!-- <delete id="deleteCarRegister" parameterType="int">
 		DELETE FROM REGISTRATION
 		WHERE registrationNumber = #{registrationNumber}
-	</delete>
+	</delete> -->
 
 </mapper>

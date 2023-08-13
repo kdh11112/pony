@@ -350,7 +350,7 @@ textarea {
 								<span data-v-269e3e5f>등록 차량의 자세한 정보를 확인하실 수 있습니다.</span>
 							</div>
 
-							<c:if test="${empty carRegisterdto}">
+							<c:if test="${empty reservationDTO}">
 								<div class="no-car" data-v-269e3e5f>
 									<span class="ico-nocar" data-v-269e3e5f><i
 										data-v-269e3e5f>등록된 차가 없습니다.</i></span>
@@ -358,7 +358,7 @@ textarea {
 								</div>
 							</c:if>
 							<c:if
-								test="${!empty carRegisterdto  }">
+								test="${!empty reservationDTO  }">
 								<!-- 등록차량리스트 -->
 
 								<div class="page-title">
@@ -379,26 +379,28 @@ textarea {
 													<th scope="col" class="th-num"></th>
 													
 													<th scope="col" class="th-num">정비소</th>
+													<th scope="col" class="th-num">정비소주소</th>
 													<th scope="col" class="th-num">차량번호</th>
-													<th scope="col" class="th-title">정비요청사항</th>
+													<th scope="col" class="th-title" style="width:200px">정비요청사항</th>
 													<th scope="col" class="th-date">접수일</th>
 													<th scope="col" class="th-date">입고예정일</th>
 												</tr>
 											</thead>
 											<tbody>
 												<c:forEach var="list"
-													items="${carRegisterdto }">
+													items="${reservationDTO }">
 													<tr class="list">
 														<td>
 															<!-- 등록된 차량 삭제 체크 박스 --> <input type="checkbox"
 															name="selectedCars" value="" id="selectedCarsId">
 														</td>
-														<input type="hidden" value="${list.registrationNumber}" />
+														<input type="hidden" value="${list.reservationNo}" />
 														<td>${list.shopAreaPoint}</td>
+														<td>${list.shopAddr}</td>
 														<td>${list.clientCarNumber }</td>
-														<td>${list.registrationClientRequests }</td>
-														<td>${list.registrationDate}</td>
-														<td>${list.registrationReservationDueDate  }</td>
+														<td>${list.reservationClientRequests }</td>
+														<td>${list.reservationDate}</td>
+														<td>${list.reservationDueDate  }</td>
 													</tr>
 												</c:forEach>
 
