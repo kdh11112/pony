@@ -16,6 +16,7 @@ import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.dto.ShopDTO;
 import kr.co.jhta.pony.dto.TestDriveDTO;
 import kr.co.jhta.pony.security.service.PonyMemberService;
+import kr.co.jhta.pony.service.ModelService;
 import kr.co.jhta.pony.service.ShopService;
 import kr.co.jhta.pony.service.TestDriveService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,9 +31,13 @@ public class TestDriveController {
 	private TestDriveService tds;
 	@Autowired
 	private PonyMemberService pms;
+	@Autowired
+	private ModelService ms;
+	
 	
 	@GetMapping("/testDrive")
-	public String test() {
+	public String test(Model model) {
+		model.addAttribute("model", ms.ModelAll());
 		return "testDrive";
 	}
 	
