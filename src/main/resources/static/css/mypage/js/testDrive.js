@@ -1,19 +1,7 @@
 $(document).ready(function() {
 
 	
-	$("#headingOne,#headingTwo,#headingThree").on("click", function() {
-		let checkbox1 = document.getElementById("flexCheckDefault1");
-		let checkbox2 = document.getElementById("flexCheckDefault2");
-		if (checkbox1.checked === false || checkbox2.checked === false) {
-			alert("필수항목을 동의해주세요");
-			$("#headingOneBtn").attr("data-bs-toggle", "");
-			$("#headingTwoBtn").attr("data-bs-toggle", "");
-			$("#headingThreeBtn").attr("data-bs-toggle", "");
-			return false;
-		} else {
-			$("#headingOneBtn").attr("data-bs-toggle", "collapse");
-		}
-	});
+	
 	$("#headingTwo").on("click", function() {
 		let selectModel = $("#selectModel").val();
 		if (selectModel === "") {

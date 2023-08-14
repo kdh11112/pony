@@ -31,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap"
 	rel="stylesheet">
-<script src="css/mypage/js/testDrive.js"></script>
+<script src="css/mypage/js/carMaintenanceReservation.js"></script>
 
 <style>
 .content {
@@ -176,6 +176,8 @@ textarea {
 </style>
 
 <script>
+	
+
 	function deleteCar() {
 
 		$('input:checkbox').each(function(index) {
@@ -197,7 +199,6 @@ textarea {
 		});
 		location.href = "/carMaintenanceReservationDetail";
 	}
-
 </script>
 
 </head>
@@ -228,12 +229,12 @@ textarea {
 								<li><a class="dropdown-item" href="#!">New Arrivals</a></li>
 							</ul></li>
 					</ul>
-					<form class="form-inline">
+				<!-- 	<form class="form-inline">
 						<input class="form-control mr-sm-2" type="search"
 							placeholder="Search" aria-label="Search">
 						<button class="btn btn-outline-secondary my-2 my-sm-0"
 							type="submit">검색</button>
-					</form>
+					</form> -->
 				</div>
 			</div>
 		</nav>
@@ -265,9 +266,9 @@ textarea {
 						<div class="content-body" data-v-269e3e5f>
 							<div class="my-title" data-v-269e3e5f>
 								<div class="head" data-v-269e3e5f>
-									<strong data-v-269e3e5f><a href="mypage"><span data-v-269e3e5f>${dto.memberName }</span></a>
-										님, 안녕하세요! </strong> <a href="myinfo"
-										class="btn btn-primary active infomodify_btn"><span>정보수정
+									<strong data-v-269e3e5f><a href="mypage"><span
+											data-v-269e3e5f>${dto.memberName }</span></a> 님, 안녕하세요! </strong> <a
+										href="myinfo" class="btn btn-primary active infomodify_btn"><span>정보수정
 											<!---->
 
 									</span></a>
@@ -322,8 +323,9 @@ textarea {
 											data-v-269e3e5f>
 											<div class="content-box" data-v-269e3e5f>
 												<div class="title" data-v-269e3e5f>
-													<a href="/carMaintenanceReservationDetail" class="btn btn-primary active"><span> 정비
-															예약 신청 내역 <!---->
+													<a href="/carMaintenanceReservationDetail"
+														class="btn btn-primary active"><span> 정비 예약 신청
+															내역 <!---->
 													</span></a>
 												</div>
 											</div>
@@ -357,8 +359,7 @@ textarea {
 									<p data-v-269e3e5f>등록된 차량이 없습니다.</p>
 								</div>
 							</c:if>
-							<c:if
-								test="${!empty reservationDTO  }">
+							<c:if test="${!empty reservationDTO  }">
 								<!-- 등록차량리스트 -->
 
 								<div class="page-title">
@@ -377,22 +378,21 @@ textarea {
 											<thead>
 												<tr>
 													<th scope="col" class="th-num"></th>
-													
+
 													<th scope="col" class="th-num">정비소</th>
 													<th scope="col" class="th-num">정비소주소</th>
 													<th scope="col" class="th-num">차량번호</th>
-													<th scope="col" class="th-title" style="width:200px">정비요청사항</th>
+													<th scope="col" class="th-title" style="width: 200px">정비요청사항</th>
 													<th scope="col" class="th-date">접수일</th>
 													<th scope="col" class="th-date">입고예정일</th>
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach var="list"
-													items="${reservationDTO }">
+												<c:forEach var="list" items="${reservationDTO }">
 													<tr class="list">
 														<td>
-															<!-- 등록된 차량 삭제 체크 박스 --> <input type="checkbox"
-															name="selectedCars" value="" id="selectedCarsId">
+															<!-- 등록된 차량 삭제 체크 박스 --> <input type="radio"
+															name="selectedCars2" value="" id="selectedCarsId"  class="asd">
 														</td>
 														<input type="hidden" value="${list.reservationNo}" />
 														<td>${list.shopAreaPoint}</td>
@@ -432,179 +432,252 @@ textarea {
 											</div>
 											<!-- 모달안쪽내용 -->
 											<div class="modal-body">
-												<div class="accordion accordion-flush"
-													id="accordionFlushExample">
-													<!-- 시승모델선택 아코디언 -->
-													<div class="accordion-item">
-														<h2 class="accordion-header">
-															<button class="accordion-button collapsed" type="button"
-																data-bs-toggle="collapse" data-bs-target="#collapseOne"
-																aria-expanded="false" aria-controls="flush-collapseOne"
-																id="headingOneBtn">정비차량선택</button>
-														</h2>
-														<div id="collapseOne" class="accordion-collapse collapse"
-															aria-labelledby="headingOne"
-															data-bs-parent="#accordionExample">
-															<div class="accordion-body">
-																<div class="row justify-content-center">
-																	<div class="card mx-auto" style="width: 32rem;">
-																		<select class="selectModel btn btn-secondary"
-																			id="selectModel" name="selectModel">
-																			<option value="">차량선택</option>
-																			<option value="1">AVANTE</option>
-																			<option value="2">SONATA</option>
-																			<option value="3">GRANDEUR</option>
-																			<option value="4">PALISADE</option>
-																			<option value="5">TUCSON</option>
-																		</select>
-																		<p class="card-text"></p>
-																		<img src="../images/model/vs_logo.jpg"
-																			class="card-img-top" alt="..." id="card-img1">
-																		<div>
-																			<button type="button" class="btn btn-info"
-																				id="selectOk">선택</button>
-																		</div>
-																		<div class="card-body"></div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<!-- 시승지점선택 아코디언 -->
-													<div class="accordion-item">
-														<h2 class="accordion-header" id="headingTwo">
-															<button class="accordion-button collapsed" type="button"
-																data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-																aria-expanded="false" aria-controls="collapseTwo"
-																id="headingTwoBtn">정비소선택</button>
-														</h2>
-														<div id="collapseTwo" class="accordion-collapse collapse"
-															data-bs-parent="#accordionExample"
-															aria-labelledby="headingTwo">
-															<div class="accordion-body">
-																<div class="find-shop-area row">
-																	<div class="col-md-6"
-																		style="border-right: 1px solid #D1D1D1;">
-																		<div>
-																			<input type="text" value=""
-																				placeholder="검색할 지역을 입력해주세요" id="shopAreaFind"
-																				name="shopAreaFind" />
-																		</div>
-																		<div>
-																			<button type="button" class="btn btn-primary"
-																				id="shopFindBtn">검색</button>
-																		</div>
-																	</div>
-																	<div class="col-md-6">
-																		<div class="shop-area">
-																			<button type="button"
-																				class="shop-area-btn btn btn-primary" value="서울"
-																				id="서울">서울</button>
-																			<button type="button"
-																				class="shop-area-btn btn btn-primary" value="부산"
-																				id="부산">부산</button>
-																			<button type="button"
-																				class="shop-area-btn btn btn-primary" value="대구"
-																				id="대구">대구</button>
-																			<button type="button"
-																				class="shop-area-btn btn btn-primary" value="인천"
-																				id="인천">인천</button>
-																			<button type="button"
-																				class="shop-area-btn btn btn-primary" value="광주"
-																				id="광주">광주</button>
-																		</div>
-																		<div class="shop-area">
-																			<button type="button"
-																				class="shop-area-btn btn btn-primary" value="대전"
-																				id="대전">대전</button>
-																			<button type="button"
-																				class="shop-area-btn btn btn-primary" value="경기"
-																				id="경기">경기</button>
-																			<button type="button"
-																				class="shop-area-btn btn btn-primary" value="경남"
-																				id="경남">경남</button>
-																			<button type="button"
-																				class="shop-area-btn btn btn-primary" value="경북"
-																				id="경북">경북</button>
-																			<button type="button"
-																				class="shop-area-btn btn btn-primary" value="전남"
-																				id="전남">전남</button>
-																		</div>
-																		<div class="shop-area">
-																			<button type="button"
-																				class="shop-area-btn btn btn-primary" value="전북"
-																				id="전북">전북</button>
-																			<button type="button"
-																				class="shop-area-btn btn btn-primary" value="제주"
-																				id="제주">제주</button>
-																			<button type="button"
-																				class="shop-area-btn btn btn-primary" value="충남"
-																				id="충남">충남</button>
-																			<button type="button"
-																				class="shop-area-btn btn btn-primary" value="충북"
-																				id="충북">충북</button>
-																			<button type="button"
-																				class="shop-area-btn btn btn-primary" value="세종"
-																				id="세종">세종</button>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<!-- 시승일자선택 아코디언 -->
-													<div class="accordion-item">
-														<h2 class="accordion-header" id="headingThree">
-															<button class="accordion-button collapsed" type="button"
-																data-bs-toggle="collapse"
-																data-bs-target="#collapseThree" aria-expanded="false"
-																aria-controls="collapseThree" id="headingThreeBtn">정비예약일자선택</button>
-														</h2>
-														<div id="collapseThree"
-															class="accordion-collapse collapse"
-															data-bs-parent="#accordionExample">
-															<div class="accordion-body">
-																<div class="CalendarArea">
-																	<table class="Calendar">
-																		<thead>
-																			<tr>
-																				<td onClick="prevCalendar();"
-																					style="cursor: pointer;">&#60;</td>
-																				<td colspan="5"><span id="calYear"></span>년 <span
-																					id="calMonth"></span>월</td>
-																				<td onClick="nextCalendar();"
-																					style="cursor: pointer;">&#62;</td>
-																			</tr>
-																			<tr>
-																				<td>일</td>
-																				<td>월</td>
-																				<td>화</td>
-																				<td>수</td>
-																				<td>목</td>
-																				<td>금</td>
-																				<td>토</td>
-																			</tr>
-																		</thead>
 
-																		<tbody>
+												<div class="testDriveContent text-center">
+													<form action="/updateCarMaintenanceReservation" id="frm"
+														method="post">
+														<input type="hidden" name="clientCarNumber"
+															id="clientCarNumber"> 
+														<input type="hidden"
+															name="selectedShopNo" id="selectedShopNo" /> 
+														<input
+															type="hidden" name="selectedSchedule"
+															id="selectedSchedule" />
+														<input type="hidden" name="reservationNo" id=""/>
+														<!-- =============================아코디언 영역============================= -->
+														<div class="accordion" id="accordionExample">
+															<div class="accordion-item">
+																<h2 class="accordion-header" id="headingOne">
+																	<button class="accordion-button collapsed"
+																		id="headingOneBtn" type="button"
+																		data-bs-toggle="collapse"
+																		data-bs-target="#collapseOne" aria-expanded="false"
+																		aria-controls="collapseOne">나의 정비차량 선택하기</button>
+																</h2>
+																<div id="collapseOne"
+																	class="accordion-collapse collapse"
+																	aria-labelledby="headingOne"
+																	data-bs-parent="#accordionExample">
+																	<div class="accordion-body">
+																		<div class="row justify-content-center">
+																			<div class="card mx-auto" style="width: 32rem;">
 
-																		</tbody>
-																	</table>
+
+																				<c:if test="${!hasCars}">
+																					<div class="no-car" data-v-269e3e5f>
+																						<span class="ico-nocar" data-v-269e3e5f><i
+																							data-v-269e3e5f>등록된 차가 없습니다.</i></span>
+																						<p data-v-269e3e5f>등록된 차량이 없습니다.</p>
+																						<p>
+																							<a href="/carregigo">차량등록하러가기</a>
+																						</p>
+																					</div>
+																				</c:if>
+																				<c:if test="${!empty userCars  }">
+																					<!-- 등록차량리스트 -->
+
+																					<div class="page-title">
+																						<div class="container">
+																							<h3>나의 차량목록</h3>
+																						</div>
+																					</div>
+
+																					<!-- board list area -->
+
+
+
+																					<div id="inquiry_list">
+																						<div class="container">
+																							<table class="board-table">
+																								<thead>
+																									<tr>
+																										<th scope="col" class="th-num">차량선택</th>
+																										<th scope="col" class="th-num">차대번호</th>
+																										<th scope="col" class="th-title">차량번호</th>
+																										<th scope="col" class="th-date">주행거리</th>
+																										<th scope="col" class="th-date">차종</th>
+																										<th scope="col" class="th-date">출고일</th>
+																										<th scope="col" class="th-date">생산일</th>
+																										<th scope="col" class="th-date">색상</th>
+																									</tr>
+																								</thead>
+																								<tbody>
+																									<c:forEach var="clist" items="${userCars }">
+																										<tr class="list">
+																											<td>
+																												<!-- 등록된 차량 삭제 체크 박스 --> <input type="radio"
+																												name="selectedCars"
+																												value="${clist.clientVin}"
+																												id="selectedCarsId">
+																											</td>
+																											<td>${clist.clientVin }</td>
+																											<td id="selectedCarName">${clist.clientCarNumber }</td>
+																											<td>${clist.clientDistanceDriven }</td>
+																											<td>${clist.clientCarType }</td>
+																											<td>${clist.clientShipDate }</td>
+																											<td>${clist.clientProductionDate }</td>
+																											<td>${clist.clientColor }</td>
+																										</tr>
+																									</c:forEach>
+
+																								</tbody>
+
+																							</table>
+																						</div>
+																					</div>
+																				</c:if>
+
+																				<p class="card-text"></p>
+
+																				<div class="card-body"></div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="accordion-item">
+																<h2 class="accordion-header" id="headingTwo">
+																	<button class="accordion-button collapsed"
+																		id="headingTwoBtn" type="button"
+																		data-bs-toggle="collapse"
+																		data-bs-target="#collapseTwo" aria-expanded="false"
+																		aria-controls="collapseTwo">장비소 선택하기</button>
+																</h2>
+																<div id="collapseTwo"
+																	class="accordion-collapse collapse"
+																	aria-labelledby="headingTwo"
+																	data-bs-parent="#accordionExample">
+																	<div class="accordion-body">
+																		<div class="find-shop-area row">
+																			<div class="col-md-6"
+																				style="border-right: 1px solid #D1D1D1;">
+																				<div>
+																					<input type="text" value=""
+																						placeholder="검색할 지역을 입력해주세요" id="shopAreaFind"
+																						name="shopAreaFind" />
+																				</div>
+																				<div>
+																					<button type="button" class="btn btn-primary"
+																						id="shopFindBtn">검색</button>
+																				</div>
+																			</div>
+																			<div class="col-md-6">
+																				<div class="shop-area">
+																					<button type="button"
+																						class="shop-area-btn btn btn-primary" value="서울"
+																						id="서울">서울</button>
+																					<button type="button"
+																						class="shop-area-btn btn btn-primary" value="부산"
+																						id="부산">부산</button>
+																					<button type="button"
+																						class="shop-area-btn btn btn-primary" value="대구"
+																						id="대구">대구</button>
+																					<button type="button"
+																						class="shop-area-btn btn btn-primary" value="인천"
+																						id="인천">인천</button>
+																					<button type="button"
+																						class="shop-area-btn btn btn-primary" value="광주"
+																						id="광주">광주</button>
+																				</div>
+																				<div class="shop-area">
+																					<button type="button"
+																						class="shop-area-btn btn btn-primary" value="대전"
+																						id="대전">대전</button>
+																					<button type="button"
+																						class="shop-area-btn btn btn-primary" value="경기"
+																						id="경기">경기</button>
+																					<button type="button"
+																						class="shop-area-btn btn btn-primary" value="경남"
+																						id="경남">경남</button>
+																					<button type="button"
+																						class="shop-area-btn btn btn-primary" value="경북"
+																						id="경북">경북</button>
+																					<button type="button"
+																						class="shop-area-btn btn btn-primary" value="전남"
+																						id="전남">전남</button>
+																				</div>
+																				<div class="shop-area">
+																					<button type="button"
+																						class="shop-area-btn btn btn-primary" value="전북"
+																						id="전북">전북</button>
+																					<button type="button"
+																						class="shop-area-btn btn btn-primary" value="제주"
+																						id="제주">제주</button>
+																					<button type="button"
+																						class="shop-area-btn btn btn-primary" value="충남"
+																						id="충남">충남</button>
+																					<button type="button"
+																						class="shop-area-btn btn btn-primary" value="충북"
+																						id="충북">충북</button>
+																					<button type="button"
+																						class="shop-area-btn btn btn-primary" value="세종"
+																						id="세종">세종</button>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="shop-area-point row"></div>
+																	</div>
+																</div>
+															</div>
+															<div class="accordion-item">
+																<h2 class="accordion-header" id="headingThree">
+																	<button class="accordion-button collapsed"
+																		id="headingThreeBtn" type="button"
+																		data-bs-toggle="collapse"
+																		data-bs-target="#collapseThree" aria-expanded="false"
+																		aria-controls="collapseThree">정비소 방문날짜 선택하기</button>
+																</h2>
+																<div id="collapseThree"
+																	class="accordion-collapse collapse"
+																	aria-labelledby="headingThree"
+																	data-bs-parent="#accordionExample">
+																	<div class="accordion-body">
+																		<div class="CalendarArea">
+																			<table class="Calendar">
+																				<thead>
+																					<div id="shopAreaPointName"></div>
+																					<tr>
+																						<td onClick="prevCalendar();"
+																							style="cursor: pointer;" id="prevC">&#60;</td>
+																						<td colspan="5"><span id="calYear"></span>년 <span
+																							id="calMonth"></span>월</td>
+																						<td onClick="nextCalendar();"
+																							style="cursor: pointer;" id="nextC">&#62;</td>
+																					</tr>
+																					<tr>
+																						<td>일</td>
+																						<td>월</td>
+																						<td>화</td>
+																						<td>수</td>
+																						<td>목</td>
+																						<td>금</td>
+																						<td>토</td>
+																					</tr>
+																				</thead>
+
+																				<tbody>
+
+																				</tbody>
+																			</table>
+																		</div>
+																	</div>
 																</div>
 															</div>
 														</div>
-													</div>
-												</div>
-											</div>
+
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary active"
 													data-bs-dismiss="modal">
 													<span>취소</span>
 												</button>
 												<button type="button" class="btn btn-primary active"
-													onclick="carregis()" id="OkBtn">
+													 id="OkBtn">
 													<span>변경하기</span>
 												</button>
+											</div>
+													</form>
+												</div>
+
 											</div>
 											<!--  -->
 										</div>
