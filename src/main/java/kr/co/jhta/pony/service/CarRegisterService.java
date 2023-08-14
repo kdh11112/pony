@@ -34,6 +34,8 @@ public interface CarRegisterService {
 
 	public void saveApproval(HistroyDTO histroyDTO, LocalDate registrationDate, int registrationNumber);
 
+	public List<HistroyDTO> findAllPaymentList(int i);
+
 
 
 

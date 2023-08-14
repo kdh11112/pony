@@ -51,6 +51,12 @@ public interface CarRegisterDAO {
 
 	public void updatePart(HistroyDTO dTO);
 
+	public void insertPartApproval(HistroyDTO DTO, LocalDate registrationDate, int registrationNumber);
+
+	public void insertTechApproval(HistroyDTO DTO, LocalDate registrationDate, int registrationNumber);
+
+	public List<HistroyDTO> selectPaymentList(int i);
+
 
 
 }

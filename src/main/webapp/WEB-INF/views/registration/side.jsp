@@ -64,7 +64,7 @@
           <li>
             <a href="/reg/payment">
               <i class="nc-icon nc-diamond"></i>
-              <p>일납수반</p>
+              <p>일납수납</p>
             </a>
           </li>
 		  <li>
@@ -83,9 +83,9 @@
 		                      </a>
 		                  </li>
 		                  <li>
-		                      <a href="/css/examples/pages/timeline.html">
+		                      <a href="/reg/paymentList">
 		                          <span class="nc-icon nc-single-02"></span>
-		                          <span class="sidebar-normal">문의사항</span>
+		                          <span class="sidebar-normal">결재리스트</span>
 		                      </a>
 		                  </li>
 		              </ul>

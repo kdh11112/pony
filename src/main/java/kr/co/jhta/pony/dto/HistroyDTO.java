@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class HistroyDTO {
 	
+	private int historyRN;
 	private int technologyNumber;
 	private String technologyDetail;
 	private int technologyPrice;

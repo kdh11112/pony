@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.jhta.pony.dao.ReservationDAO;
 import kr.co.jhta.pony.dto.ReservationDTO;
+import kr.co.jhta.pony.util.Criteria;
 
 @Service
 public class ReservationServiceImple implements ReservationService {
@@ -15,9 +16,9 @@ public class ReservationServiceImple implements ReservationService {
 	ReservationDAO dao;
 	
 	@Override
-	public List<ReservationDTO> getReservationListAll() {
+	public List<ReservationDTO> getAllReservation(Criteria cri) {
 			
-		return dao.getAll();
+		return dao.getAllReservation(cri);
 	}
 
 	@Override
@@ -26,23 +27,11 @@ public class ReservationServiceImple implements ReservationService {
 		return dao.selectOne(reservationNo);
 	}
 
-//	@Override
-//	public List<QuestionDTO> selectAll(int startNo, int endNo, int memberNo) {
-//		log.info(" 여기도 오고 있지 {} {} {}", startNo, endNo, memberNo);
-//
-//
-//		StartEnd se = new StartEnd(startNo, endNo);
-//
-//		//StartEnd se =  new StartEnd(startNo, endNo);
-//
-//		HashMap<String, Object> map = new HashMap<>();
-//
-//				map.put("memberNo", memberNo);
-//				map.put("startNo", startNo);
-//				map.put("endNo", endNo);
-//				log.info("map : {} {} {} ", map, map.get("memberNo"), map.get("startNo"));
-//
-//		return qdao.getAll(map);
-//	}
+	@Override
+	public int getTotalreservation() {
+
+		return dao.getTotalreservation();
+	}
+
 	
 }

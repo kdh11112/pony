@@ -3,7 +3,6 @@ package kr.co.jhta.pony.control;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,18 +18,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.jhta.pony.dto.CarRegisterDTO;
 import kr.co.jhta.pony.dto.HistroyDTO;
+import kr.co.jhta.pony.dto.HistroyDTOList;
 import kr.co.jhta.pony.dto.MechanicRegisterDTO;
+import kr.co.jhta.pony.dto.PageMakeDTO;
 import kr.co.jhta.pony.dto.ReservationDTO;
 import kr.co.jhta.pony.dto.TechnologyAndPartDTO;
 import kr.co.jhta.pony.service.CarRegisterService;
 import kr.co.jhta.pony.service.ReservationService;
 import kr.co.jhta.pony.service.TechnologyAndPartService;
+import kr.co.jhta.pony.util.Criteria;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -119,8 +120,7 @@ public class RegistrationController {
 		
 		if(registrationRN == null || registrationRN == "") { //차량 접수
 			CarRegisterDTO carRegisterDTO = extracted(regCarDTO, mechanicNo, word, number);
-			
-			log.info("위"+regCarDTO.getMemberName());
+
 			
 			carRegisterService.createRegAndcorr(carRegisterDTO);
 		}else if (registrationRN != null) { //차량 수정
@@ -228,7 +228,6 @@ public class RegistrationController {
 			Model model,HttpSession session) {
 		CarRegisterDTO carRegisterDTO = carRegisterService.findOneReg(registrationRN,registrationDate);
 		model.addAttribute("work", carRegisterService.findOneReg(registrationRN,registrationDate));
-
 		if(carRegisterDTO == null) {
 			return "/registration/work";
 		}else if(carRegisterDTO != null) {
@@ -237,7 +236,8 @@ public class RegistrationController {
 			String technologyNumberName = (String) session.getAttribute("technologyNumberName");
 			String partNumberName = (String) session.getAttribute("partNumberName");
 			if(technologyNumberName != null && partNumberName != null) {
-				
+			int technologyLength = (int) session.getAttribute("technologyLength");
+			int partLength = (int) session.getAttribute("partLength");
 
 
 			List<TechnologyAndPartDTO> technology = (List<TechnologyAndPartDTO>) session.getAttribute("technologyList");
@@ -250,16 +250,16 @@ public class RegistrationController {
 
 				
 				if( technologyNumberName.equals(number) && partNumberName.equals(number)) {
-
+				model.addAttribute("technologyLength", technologyLength);
 				model.addAttribute("technology", technology);
 				model.addAttribute("tBout", tBout);
+				model.addAttribute("partLength", partLength);
 				model.addAttribute("part", part);
 				model.addAttribute("pBout", pBout);
 				model.addAttribute("technologyAndPartBout", technologyAndPartBout);
 				}
 			}
 			
-		    
 		}
 	
 		return "/registration/work";
@@ -279,6 +279,7 @@ public class RegistrationController {
 			) {
 		
 		String[] technologyValues = request.getParameterValues("technology");
+		//log.info(""+Arrays.toString(technologyValues));
 		String[] partValues = request.getParameterValues("part");
 
 		List<TechnologyAndPartDTO> technologyList = new ArrayList<>();
@@ -289,10 +290,11 @@ public class RegistrationController {
 		    techDto.setTechnologyDetail(technologyValues[cnt++]);
 		    techDto.setTechnologyPrice(Integer.parseInt(technologyValues[cnt++]));
 		    techDto.setTechnologyNo(Integer.parseInt(technologyValues[cnt++]));
-
+		    
 		    technologyList.add(techDto);  // 생성된 'techDto'를 리스트에 추가
 		    //log.info("기술 : {}",techDto);
 		}
+		session.setAttribute("technologyLength", technologyLength);
 		session.setAttribute("technologyList", technologyList);
 		session.setAttribute("technologyBout", technologyBout);
 		session.setAttribute("technologyNumberName", technologyNumberName);
@@ -309,7 +311,7 @@ public class RegistrationController {
 		    partList.add(partDto);
 		    //log.info("부품 : {}",partDto);
 		}
-
+		session.setAttribute("partLength", partLength);
 		session.setAttribute("partList", partList);
 		session.setAttribute("partBout", partBout);
 		session.setAttribute("partNumberName", partNumberName);
@@ -392,7 +394,6 @@ public class RegistrationController {
 
 				
 				if( technologyNumberName.equals(number) && partNumberName.equals(number)) {
-
 				model.addAttribute("technology", technology);
 				model.addAttribute("tBout", tBout);
 				model.addAttribute("part", part);
@@ -404,39 +405,78 @@ public class RegistrationController {
 		return "/registration/payment";
 	}
 	
-	@PatchMapping("/reg/payment")
-	public String paymentApproval(@ModelAttribute HistroyDTO histroyDTO,
-			@ModelAttribute CarRegisterDTO carRegisterDTO,
-			@RequestParam(name = "registrationDateHi" ,required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate registrationDate,
-			@RequestParam(name = "registrationNumber",required = false, defaultValue = "0") int registrationNumber,
-			@RequestParam(name = "count",required = false, defaultValue = "0") int count
-			){
-		
-		HistroyDTO DTO = null;
-		
-			DTO = HistroyDTO.builder()
-											.partNumber(histroyDTO.getPartNumber())
-											.partName(histroyDTO.getPartName())
-											.partPrice(histroyDTO.getPartPrice())
-											.partNo(histroyDTO.getPartNo())
-											.technologyNumber(histroyDTO.getTechnologyNumber())
-											.technologyDetail(histroyDTO.getTechnologyDetail())
-											.technologyPrice(histroyDTO.getTechnologyPrice())
-											.technologyCount(histroyDTO.getTechnologyCount())
-											.build();
-												
-		carRegisterService.saveApproval(DTO, registrationDate, registrationNumber);
-		return "redirect:/reg/payment";
-	}
-	
-	
+    @PostMapping("/reg/payment")
+    public String paymentApproval(@ModelAttribute("histroyDTOList") HistroyDTOList histroyDTOList,
+                                  @RequestParam(name = "registrationDateHi", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate registrationDate,
+                                  @RequestParam(name = "registrationNumber", required = false, defaultValue = "0") int registrationNumber) {
+    	//log.info("histroyDTOList : " +histroyDTOList);
+    	ArrayList<HistroyDTO> historyList = new ArrayList<>();
+    	historyList.addAll(histroyDTOList.getTechList());
+    	historyList.addAll(histroyDTOList.getPartList());
+    	for (HistroyDTO histroyDTO : historyList) {
+            HistroyDTO DTO = HistroyDTO.builder()
+                    .partNumber(histroyDTO.getPartNumber())
+                    .partName(histroyDTO.getPartName())
+                    .partPrice(histroyDTO.getPartPrice())
+                    .partNo(histroyDTO.getPartNo())
+                    .partCount(histroyDTO.getPartCount())
+                    .technologyNumber(histroyDTO.getTechnologyNumber())
+                    .technologyDetail(histroyDTO.getTechnologyDetail())
+                    .technologyPrice(histroyDTO.getTechnologyPrice())
+                    .technologyCount(histroyDTO.getTechnologyCount())
+                    .build();
+            //log.info("몇개 : " + DTO);
+            carRegisterService.saveApproval(DTO, registrationDate, registrationNumber);
+        }
 
-	@GetMapping("/reg/reservation")
-	public String reservation(Model model) {
+        return "redirect:/reg/payment";
+    }
+    
+    @GetMapping("/reg/paymentList")
+    public String paymentList(	@RequestParam(name = "registrationRN",required = false,defaultValue = "0")Integer registrationRN,
+    							@RequestParam(name = "registrationDateHi" ,required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate registrationDate,
+    							Model model) {
+    	model.addAttribute("work", carRegisterService.findOneReg(registrationRN,registrationDate));
+		CarRegisterDTO carRegisterDTO = carRegisterService.findOneReg(registrationRN,registrationDate);
+    	if(carRegisterDTO != null) {
+    		
+    		int i = carRegisterDTO.getRegistrationNumber();
+    		
+    		List<HistroyDTO> histories = carRegisterService.findAllPaymentList(i);
+    		int totalTech = 0;
+    		int totalPart = 0;
+    		for (HistroyDTO history : histories) {
+    			totalTech += history.getTechnologyPrice();
+    		    totalPart += history.getPartPrice();
+    		}
+    		int total = totalTech+totalPart;
+
+            model.addAttribute("List", carRegisterService.findAllPaymentList(i));
+            model.addAttribute("totalTech", totalTech);
+            model.addAttribute("totalPart", totalPart);
+            model.addAttribute("total", total);
+            
+    	}
+    	
+    	return "/registration/paymentList";
+    }
+
+
+	
+	
+    @GetMapping("/reg/reservation")
+	public String reservation(Model model, Criteria cri,@RequestParam(name = "memberName", required = false) String memberName) {
+//		총게시물수
+		int totalNumber = reservationService.getTotalreservation();
 		
-		List<ReservationDTO> dto = reservationService.getReservationListAll();
+	    // 검색어가 있다면 Criteria 객체에 검색어 설정
+	    if (memberName != null && !memberName.isEmpty()) {
+	        cri.setKeyword(memberName);
+	    }
+
 		
-		model.addAttribute("reservationList",dto);
+		model.addAttribute("list",reservationService.getAllReservation(cri));//전체 페이지
+		model.addAttribute("pageMaker", new PageMakeDTO(cri, totalNumber));
 		
 		return "/registration/reservation";
 		

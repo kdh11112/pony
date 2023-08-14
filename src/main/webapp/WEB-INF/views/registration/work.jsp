@@ -27,9 +27,8 @@
 <script src="/js/bootstrap-datepicker.js"></script>
 <script src="/js/bootstrap-datepicker.ko.min.js"></script>
 <%
-	int techCount = 0; 
-	int partCount = 0;
-	
+	int techCount = 10; 
+	int partCount = 10;
 
 %>
 <script type="text/javascript">
@@ -67,7 +66,6 @@ $(function(){
 	
 	
 
-
 	var j = 0;
 	var k = 0;
 	var count1 = 1;
@@ -77,11 +75,17 @@ $(function(){
 	
 	let  total1  = 0;
 	let  total2  = 0;
+	
+	var ppap = 0;
+	
+	let techData ;
+	let partData ; 
+	
+	
 
 	function asy(){
 		let technologyNumberIdValue = $("#technologyNumberId").val();
 		let technologyDetailIdValue = $("#technologyDetailId").val();
-		
 		
 		
 		let query = 'technologyNumberAsy='+technologyNumberIdValue+'&technologyDetailAsy='+technologyDetailIdValue;
@@ -89,8 +93,7 @@ $(function(){
 		fetch('/reg/registration/modal/technology?' + query)
 		  .then(response => response.json())
 		  .then(data => {
-			  
-			  
+			techData = data;
 		    let tbody = document.getElementById("technology");
 		    
 		    tbody.innerHTML = "";
@@ -136,6 +139,9 @@ $(function(){
 		    		    })
 		    		    .then(response => response.json())
 		    		    .then(data => {
+		    		    	
+		    		    	
+		    		    	
 		    		      ++j;
    	  
 		    		      var newRow = document.createElement('tr');
@@ -149,12 +155,7 @@ $(function(){
 		    		        <td class="text-center" data-toggle="modal" data-target="#techModal" data-whatever="@mdo"><input type="text" name="technology" id="technologyPriceCell" class="technologyPriceCell" disabled="disabled"/></td>
 		    		        <td class="text-right"><input type="text" name="technology" id="technologyCountCell" class="technologyCountCell"/></td>
 		    		      `;
-		    		
-		    		     /*  technologyNumberCell.name = "technology"+(j);
-		    		      technologyDetailCell.name = "technology"+(j);
-		    		      technologyPriceCell.name = "technology"+(j);
-		    		      technologyCountCell.name = "technology"+(j); */
-
+		    			
 		    		      $("#technologyLength").val(j);
 		    		      
 		    		     var jj = 0;
@@ -165,10 +166,6 @@ $(function(){
 		    		      technologyPriceCell.id = "technologyPriceCell"+(j);
 		    		      technologyCountCell.id = "technologyCountCell"+(j);
 		    		      
-		    		      
-		    		      /* $("#technologyDelteList").on("click",function(){
-		    		    	  $(this).parentElement.parentElement.remove();
-		    		      }) */
 		    		      
 		    		      $('#'+mm).on("click",function(){
 		    		    	    var row = document.getElementById(mm); // 삭제버튼
@@ -195,20 +192,16 @@ $(function(){
 	    		        $(".technologyPriceCell").each(function(index){
 
 	    		        	 let cnt = $(".technologyPriceCell").length;
-	    		        	 console.log(cnt + " : " + index);
 	    		        	if( index +1 ==   cnt)  return
-//	    		        	tot +=parseInt($(this).val())*parseInt($(this).parent().next().find("input").val());
 	    		        	tot +=parseInt($(this).val());
 	    		        	
 	    		        	
 	    		        });
-
-	    		        $("#totalTechnology").val(tot);
+						//테크 합
+	    		         $("#totalTechnology").val(tot);
 	    		        
 	    	            })
-	    	            
-	    		        
-		    		     
+
 		    		      var tbody = document.getElementById('tbodyTech');
 		    		      tbody.appendChild(newRow);
 
@@ -222,11 +215,14 @@ $(function(){
 
 		    }
 		    
+			
 		    
 		  })
 		  .catch(error => {
 		    console.error('Error:', error);
 		  });
+		
+		
 	}
 	
 	function partAsy(){
@@ -241,7 +237,7 @@ $(function(){
 		fetch('/reg/registration/modal/part?' + query)
 		  .then(response => response.json())
 		  .then(data => {
-			  
+			  partData = data;
 			  
 			  let tbody = document.getElementById("part");
 			    
@@ -342,7 +338,7 @@ $(function(){
 		    	            
 		    	            //j값을 구하기 위한 숫자 19
 		    	            var result1 = tagId.substring(13);
-		    	            console.log(result1);
+		    	            //console.log(result1);
 		    	            parseInt($("#partPriceCell"+(result1)).val(data.partPrice*count2)); 
 		    	            total2 += parseInt($("#partPriceCell"+(result1)).val())
 		    	            $("#totalPart").val(total2);
@@ -351,7 +347,7 @@ $(function(){
 		    		        $(".partPriceCell").each(function(index){
 
 		    		        	 let cnt = $(".partPriceCell").length;
-		    		        	 console.log(cnt + " : " + index);
+		    		        	// console.log(cnt + " : " + index);
 		    		        	if( index +1 ==   cnt)  return
 //		    		        	tot +=parseInt($(this).val())*parseInt($(this).parent().next().find("input").val());
 		    		        	tot +=parseInt($(this).val());
@@ -359,7 +355,8 @@ $(function(){
 		    		        	
 		    		        });
 
-		    		        $("#totalPart").val(tot); 
+		    		         $("#totalPart").val(tot);
+
 
 		    	            })
 		    	            
@@ -374,6 +371,8 @@ $(function(){
 			    		  });
 			    		})(i);
 			    }
+			    
+			    
 			  
 		  })
 		  .catch(error => {
@@ -381,18 +380,91 @@ $(function(){
 		  });
 		
 	}
-		<% for (int i = 1; i <10 ; i++) { %>
+	
+	<% for (int i = 1; i <20 ; i++) { %>
 	  $("#technologyDelte<%= i %>").on("click", function() {
+		  console.log("값 : "+$("#technologyLength").val());
+		    var currentValue = parseInt($("#technologyLength").val());
+		        // 현재 값이 0보다 크면 1을 뺀 후 업데이트
+		        currentValue = currentValue - 1;
+		        $("#technologyLength").val(currentValue);
+		     
 	    $(this).parent().parent().remove();
 	  });
-	<% } %>
-	<% for (int i = 1; i <10 ; i++) { %>
-	$("#partDelte<%=1%>").on("click",function(){
- 		$(this).parent().parent().remove();
-		
-	}) 
-	<% } %>
+	  
+	  $("#technologyCountCell<%=i%>").on("keyup", function(evt) {
 
+	        var tagId = evt.target.id;
+	        count1 = parseInt(evt.target.value);
+	        //console.log(count2);
+	        
+	        //console.log($(this).parent().prev().prev().prev().find("input").val());
+	        var prev = $(this).parent().prev().prev().prev().find("input").val()
+	        
+	         //j값을 구하기 위한 숫자 19
+	        var result1 = tagId.substring(19);
+	        //console.log(result1);
+	        //console.log(techData[5].technologyPrice);
+	        //console.log(techData.technologyPrice);
+	        parseInt($("#technologyPriceCell"+(result1)).val(techData[prev-1].technologyPrice*count1)); 
+	        total2 += parseInt($("#technologyPriceCell"+(result1)).val())
+	        $("#totalTechnology").val(total2);
+	        // ---------------------------------------------------------------
+	         let tot = 0;
+	        $(".technologyPriceCell").each(function(index){
+
+	        	 let cnt = $(".technologyPriceCell").length;
+	        	 //console.log(cnt + " : " + index);
+	        	if( index +1 ==   cnt)  return
+//	        	tot +=parseInt($(this).val())*parseInt($(this).parent().next().find("input").val());
+	        	tot +=parseInt($(this).val());
+	        	
+	        	
+	        });
+		
+	        $("#totalTechnology").val(tot);  
+	        
+	        
+	        })
+	<% } %>
+	<% for (int i = 1; i <20 ; i++) { %>
+	$("#partDelte<%=i%>").on("click",function(){
+	    var currentValue = parseInt($("#partLength").val());
+	    
+	        // 현재 값이 0보다 크면 1을 뺀 후 업데이트
+	        currentValue += currentValue - 1;
+	        $("#partLength").val(currentValue);
+	      
+	});
+ 		$(this).parent().parent().remove();
+		 $("#partCountCell<%=i%>").on("keyup", function(evt) {
+            var tagId = evt.target.id;
+            count2 = parseInt(evt.target.value);
+            var prev = $(this).parent().prev().prev().prev().find("input").val()
+            //j값을 구하기 위한 숫자 19
+            var result1 = tagId.substring(13);
+           parseInt($("#partPriceCell"+(result1)).val(partData[prev-1].partPrice*count2)); 
+           total2 += parseInt($("#partPriceCell"+(result1)).val())
+           $("#totalPart").val(total2);
+        // ---------------------------------------------------------------
+        let tot = 0;
+        $(".partPriceCell").each(function(index){
+
+        	 let cnt = $(".partPriceCell").length;
+        	if( index +1 ==   cnt)  return
+        	tot +=parseInt($(this).val());
+        	
+        	
+        });
+
+        $("#totalPart").val(tot); 
+		
+        
+          })
+	<% } %>
+	
+
+	
 })
 
 var $j = jQuery.noConflict(); // $j 변수를 생성해서 jQuery를 사용합니다.
@@ -603,7 +675,7 @@ $j(function() {
 				        <input type="hidden" class="form-control" name="technologyNumberName" value="${work.registrationNumber }" placeholder="실실적접수번호">
 				    </div>
 				    <div class="form-group mb-0">
-				        <input type="hidden" class="form-control" id="technologyLength" name="technologyLength" value="" placeholder="">
+				        <input type="text" class="form-control" id="technologyLength" name="technologyLength" value="">
 				    </div>
                   <table class="table table-hover" id="table" >
                     <thead class=" text-primary">
@@ -632,8 +704,8 @@ $j(function() {
 					  <tr id="trTech<%= ++techCount%>">
 					    <!-- 각 td에 클래스 추가 -->
 					    <td><button type="button" id="technologyDelte<%=techCount %>" class="btn btn-primary btn-round">삭제</button></td>
-						    <td data-toggle="modal" data-target="#techModal" data-whatever="@mdo"><input type="text" name="technology" id="technologyNumberCell<%=techCount %>" value="${technology.technologyNumber}"  disabled="disabled"></td>
-						    <td data-toggle="modal" data-target="#techModal" data-whatever="@mdo"><input type="text" name="technology" id="technologyDetailCell<%=techCount %>" value="${technology.technologyDetail}" disabled="disabled"></td>
+						    <td data-toggle="modal" data-target="#techModal" data-whatever="@mdo"><input type="text" name="technology" id="technologyNumberCell<%=techCount %>" value="${technology.technologyNumber}" class="dis"  disabled="disabled"></td>
+						    <td data-toggle="modal" data-target="#techModal" data-whatever="@mdo"><input type="text" name="technology" id="technologyDetailCell<%=techCount %>" value="${technology.technologyDetail}" class="dis" disabled="disabled"></td>
 						    <td class="text-center" data-toggle="modal" data-target="#techModal" data-whatever="@mdo"><input type="text" name="technology" id="technologyPriceCell<%=techCount %>" value="${technology.technologyPrice}" class="technologyPriceCell"  disabled="disabled"/></td>
 						    <td class="text-right"><input type="text" name="technology" id="technologyCountCell<%=techCount %>" class="technologyCountCell" value="${technology.technologyNo}"/></td>
 					  </tr>
@@ -669,7 +741,7 @@ $j(function() {
 				        <input type="hidden" class="form-control" name="partNumberName" value="${work.registrationNumber }" placeholder="실질적접수번호">
 				    </div>
 				    <div class="form-group mb-0">
-				        <input type="hidden" class="form-control" id="partLength" name="partLength" value="" placeholder="">
+				        <input type="text" class="form-control" id="partLength" name="partLength" value="" placeholder="">
 				    </div>
                   <table class="table table-hover">
                     <thead class=" text-primary">
@@ -695,10 +767,10 @@ $j(function() {
                     <c:forEach var="part" items="${part}">
                       <tr id="trPArt<%= ++partCount%>">
                       <td><button type="button" id="partDelte" class="btn btn-primary btn-round">삭제</button></td>
-                        <td data-toggle="modal" data-target="#partModal" data-whatever="@mdo"><input type="text" name="part" id="partNumberCell" class="dis" value="${part.partNumber }" disabled="disabled"/></td>
-                        <td data-toggle="modal" data-target="#partModal" data-whatever="@mdo"><input type="text" name="part" id="partNameCell" class="dis" value="${part.partName }" disabled="disabled"/></td>
-                        <td class="text-center" data-toggle="modal" data-target="#partModal" data-whatever="@mdo"><input type="text" name="part" id="partPriceCell" value="${part.partPrice }" class="partPriceCell" disabled="disabled"/></td>
-                        <td class="text-right"><input type="text" name="part" id="partCountCell" class="partCountCell" value="${part.partNo }"/></td>
+                        <td data-toggle="modal" data-target="#partModal" data-whatever="@mdo"><input type="text" name="part" id="partNumberCell<%=partCount%>" class="dis" value="${part.partNumber }" disabled="disabled"/></td>
+                        <td data-toggle="modal" data-target="#partModal" data-whatever="@mdo"><input type="text" name="part" id="partNameCell<%=partCount%>" class="dis" value="${part.partName }" disabled="disabled"/></td>
+                        <td class="text-center" data-toggle="modal" data-target="#partModal" data-whatever="@mdo"><input type="text" name="part" id="partPriceCell<%=partCount%>" value="${part.partPrice }" class="partPriceCell" disabled="disabled"/></td>
+                        <td class="text-right"><input type="text" name="part" id="partCountCell<%=partCount%>" class="partCountCell" value="${part.partNo }"/></td>
                       </tr>      
                       </c:forEach> 
                       <tr id="trPArt1">
@@ -721,7 +793,7 @@ $j(function() {
             <div class="card">
               <div class="card-header">
                  <div class="row"  style="float: right; margin-right: 10px; margin-bottom: 15px;">   
-					<div>총합 : <input type="text" name="" id="totalPart" value="${technologyAndPartBout }" disabled="disabled" /></div>
+					<div>총합 : <input type="text" name="" id="totalTechAndPart" value="${technologyAndPartBout }" disabled="disabled" /></div>
                	</div>
               </div>
             </div>

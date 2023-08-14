@@ -104,8 +104,15 @@
 				h.partNumber =#{histroyDTO.partNumber} , h.partName = #{histroyDTO.partName} , h.partPrice = #{histroyDTO.partPrice} , h.partCount = #{histroyDTO.partCount}
 			WHERE r.registrationNumber = #{registrationNumber}
 			AND DATE(r.registrationDate) = #{registrationDate}
-	
 	</update>
+	
+	<insert id="insertPartApproval" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+		INSERT INTO HISTORY (registrationNumber,partNumber,partName,partPrice,partCount) VALUES(#{registrationNumber},#{DTO.partNumber},#{DTO.partName},#{DTO.partPrice},#{DTO.partCount})
+	</insert>
+	
+	<insert id="insertTechApproval" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+		INSERT INTO HISTORY (registrationNumber,technologyNumber,technologyDetail,technologyPrice,technologyCount) VALUES (#{registrationNumber},#{DTO.technologyNumber},#{DTO.technologyDetail},#{DTO.technologyPrice},#{DTO.technologyCount})
+	</insert>
 	
 	<update id="updatePart" parameterType="kr.co.jhta.pony.dto.HistroyDTO">
 		UPDATE PART p
@@ -171,7 +178,8 @@
 				on r.clientVin = c.clientVin
 				left join `MEMBER` m 
 				on c.memberNo  = m.memberNo
-				WHERE DATE(registrationDate) = #{registrationDate}) s
+				WHERE DATE(registrationDate) = #{registrationDate}
+				group by registrationNumber) s
 		WHERE registrationRN = #{registrationRN} 
 	</select>
 	
@@ -214,8 +222,30 @@
 				on h.technologyNumber = t.technologyNumber 
 				left join PART p 
 				on h.partNumber = p.partNumber
-				WHERE DATE(registrationDate) = #{registrationDate}) s
+				WHERE DATE(registrationDate) = #{registrationDate}
+				group by registrationNumber
+				) s
 		WHERE registrationRN = #{registrationRN} 
+	</select>
+	
+	<select id="selectPaymentList" parameterType="kr.co.jhta.pony.dto.HistroyDTO" resultType="kr.co.jhta.pony.dto.HistroyDTO">
+			SELECT *, ROW_NUMBER() OVER(ORDER BY historyNo ASC) historyRN
+				FROM (
+					SELECT
+						historyNo,
+						registrationNumber,
+						technologyNumber,
+						technologyDetail,
+						technologyPrice,
+						technologyCount,
+						partNumber,
+						partName,
+						partPrice,
+						partCount
+					FROM HISTORY h 
+					WHERE registrationNumber = #{registrationNumber}
+				) AS ss
+			WHERE technologyNumber != '' OR partNumber != ''
 	</select>
 	
 

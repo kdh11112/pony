@@ -33,7 +33,10 @@ $(function(){
 		$(".dis").attr("disabled", false);
 	  	$("#frm").submit(); 
 	  
-		});
+	});
+		
+	
+
 	
 })
 
@@ -106,7 +109,7 @@ $j(function() {
 					  </div>
                     </div>
                     <div class="Search">
-                    <form action="/reg/payment" method="get">
+                    <form action="/reg/paymentList" method="get">
                        <div class="form-row align-items-center">
                        		<div>
 					      		 <input type="text" id="datePicker" class="datePicker form-control" value="" name="registrationDateHi" style="height: 40px"> 
@@ -115,17 +118,16 @@ $j(function() {
 					        <input type="text" class="form-control" name="registrationRN"  placeholder="접수번호">
 					      </div>
 					      <button type="submit" class="btn btn-primary btn-round" id="nameSearch">검색</button>
-					      <input type="button" name="" id="" value="결재" class="btn btn-primary btn-round"/>
 					  </div>
 					</form>
                     </div>
                	</div>
               </div>
                	</div>
-               	<form action="/reg/payment" id="frm" method="post">
+               	<form action="/reg/paymentList" id="frm" method="get">
                	<!-- <input type="hidden" name="_method" value="PATCH"/> -->
-               	<input type="hidden" id="datePicker" class="datePicker form-control" value="" name="registrationDateHi" style="height: 40px">
-               	<input type="hidden" class="form-control" name="registrationNumber" value="${work.registrationNumber }"  placeholder="접수번호">
+               	<input type="text" id="datePicker" class="datePicker form-control" value="" name="registrationDateHi" style="height: 40px">
+               	<input type="text" class="form-control" name="registrationNumber" value="${work.registrationNumber }"  placeholder="접수번호">
                	<div class="card">
                	<div class="card-body">
                 <div class="table-responsive">
@@ -150,26 +152,33 @@ $j(function() {
                      </tr>
                     </thead>
                     <tbody id="tbodyPart">
-                     <c:forEach var="part" items="${part}" varStatus="i">
+                    <% int sum = 0; %>
+                   	<c:forEach var="List" items="${List }">
                     <tr>
-                    	<td><%=count++ %></td>
-                    	<td><input type="hidden" name="partList[${i.index}].partNumber" value="${part.partNumber }" /></td>
-                    	<td>${part.partName }<input type="hidden" name="partList[${i.index}].partName" value="${part.partName }" /></td>                    	
-                    	<td>${part.partNo }<input type="hidden" name="partList[${i.index}].partCount" value="${part.partNo }" /></td>
-                    	<td class="text-center">${part.partPrice }<input type="hidden" name="partList[${i.index}].partPrice" value="${part.partPrice }" /></td>
-                    	<td class="text-right"></td>
-                    </tr> 
-                    </c:forEach>
-                     <c:forEach var="technology" items="${technology}" varStatus="i">
-                    <tr>
-                    	<td><%=count++ %><input type="hidden" name="count" value="<%=count %>" /></td>
-                    	 <td><input type="hidden" name="techList[${i.index }].technologyNumber" value="${technology.technologyNumber}" /></td>
-                    	<td>${technology.technologyDetail}<input type="hidden" name="techList[${i.index }].technologyDetail" value="${technology.technologyDetail}"/></td>
-                    	<td>${technology.technologyNo}<input type="hidden" name="techList[${i.index }].technologyCount" value="${technology.technologyNo}" /></td>
-                    	<td class="text-center">${work.mechanicName }</td>
-                    	<td class="text-right">${technology.technologyPrice}<input type="hidden" name="techList[${i.index }].technologyPrice" value="${technology.technologyPrice}" /></td>
-                    </tr> 
-                    </c:forEach>   
+	                    <td>
+	                     	${List.historyRN }
+	                    </td>
+                    	<td>
+                    		${List.partName }
+                    		${List.technologyDetail }
+                    	</td>
+                    	<td>
+                    		<c:choose> 
+								<c:when test="${List.partCount eq 0 }">
+								</c:when> 
+								<c:otherwise>
+									${List.partCount}
+								</c:otherwise> 
+							</c:choose> 
+                    	</td>
+                    	<td class="text-center">
+                    		${List.partPrice }
+                    	</td>
+                    	<td class="text-right">
+                    		${List.technologyPrice }
+                    	</td>
+                    </tr>
+                     </c:forEach>
                     </tbody>
                   </table>
                 </div>
@@ -179,9 +188,9 @@ $j(function() {
             <div class="card">
               <div class="card-header">
                  <div class="row"  style="float: right; margin-right: 10px; margin-bottom: 15px;">   
-				  	<div style="display: inline-block; margin-right: 70px;">부품 : <input type="text" name="partBout" id="totalPart" class="dis" value="${pBout }" disabled="disabled" /></div>
-				  	<div style="display: inline-block; margin-right: 70px;">공임 : <input type="text" name="technologyBout" id="totalTechnology" class="dis" value="${tBout }" disabled="disabled" /></div>
-					<div >총합 : <input type="text" name="" id="totalPart" value="${technologyAndPartBout }" disabled="disabled" /></div>
+				  	<div style="display: inline-block; margin-right: 70px;">부품 : <input type="text" name="partBout" id="totalPart" class="dis" value="${totalTech }" disabled="disabled" /></div>
+				  	<div style="display: inline-block; margin-right: 70px;">공임 : <input type="text" name="technologyBout" id="totalTechnology" class="dis" value="${totalPart }" disabled="disabled" /></div>
+					<div >총합 : <input type="text" name="" id="totalPart" value="${total }" disabled="disabled" /></div>
                	</div>
               </div>
             </div>

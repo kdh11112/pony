@@ -4,28 +4,29 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.jhta.pony.dao.ReservationDAO">
 
-	<select id="getAll" resultType="kr.co.jhta.pony.dto.ReservationDTO">
-    SELECT
-        r.reservationNo,
-        r.reservationDate,
-        r.clientCarNumber,
-        m.memberName,
-        r.shopNo,
-        s.shopAreaPoint,
-        r.reservationClientRequests,
-        r.reservationDueDate
-    FROM
-        RESERVATION r
-        JOIN MEMBER m ON r.memberNo = m.memberNo
-        JOIN SHOP s ON r.shopNo = s.shopNo
+<select id="getAllReservation" resultType="kr.co.jhta.pony.dto.ReservationDTO">
+	 SELECT
+	        r.reservationNo,
+	        r.reservationDate,
+	        r.clientCarNumber,
+	        m.memberName,
+	        r.shopNo,
+	        s.shopAreaPoint,
+	        r.reservationClientRequests,
+	        r.reservationDueDate
+	    FROM
+	        RESERVATION r
+	        JOIN MEMBER m ON r.memberNo = m.memberNo
+	        JOIN SHOP s ON r.shopNo = s.shopNo
+	    WHERE
+	        #{keyword} IS NULL OR m.memberName LIKE CONCAT('%', #{keyword}, '%')
+	    LIMIT #{skip}, #{perPageNum}
 </select>
 
-<!-- 
-	<select id="getTotal" resultType="int">
+	<select id="getTotalreservation" resultType="int">
 		SELECT count(*) cnt
-		FROM QUESTION
+		FROM RESERVATION
 	</select>
- -->
 	
 	<select id="selectOne" parameterType="int" resultType="kr.co.jhta.pony.dto.ReservationDTO">
 		SELECT reservationNo, reservationDate, clientCarNumber, memberNo, shopNo, reservationClientRequests,reservationDueDate 
