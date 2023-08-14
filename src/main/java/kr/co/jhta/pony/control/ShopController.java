@@ -35,160 +35,194 @@ import kr.co.jhta.pony.service.OrderService;
 import kr.co.jhta.pony.service.PartService;
 import kr.co.jhta.pony.util.Criteria;
 import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 @Controller
 public class ShopController {
-	
+
 	private final PonyMemberService mservice;
 	private final PartService pservice;
 	private final CartService cservice;
 	private final OrderService oservice;
 	private final OrderDetailService odservice;
 	private static final Logger logger = LoggerFactory.getLogger(ShopController.class);
-	
+
 	@Autowired
-	public ShopController(PonyMemberService memberservice,
-							PartService partservice,
-							CartService cartservice,
-							OrderService orderservice,
-							OrderDetailService orderdetailservice) {
+	public ShopController(PonyMemberService memberservice, PartService partservice, CartService cartservice,
+			OrderService orderservice, OrderDetailService orderdetailservice) {
 		this.mservice = memberservice;
 		this.pservice = partservice;
 		this.cservice = cartservice;
 		this.oservice = orderservice;
 		this.odservice = orderdetailservice;
-		}
+	}
 
 	// 부품목록 (고객 페이지)-------------------------------
-	
+
 	/* 부품 목록 페이지 접속(페이징 적용) */
 	@GetMapping("/partall")
 	public String partAll(HttpSession session, Principal p, Model model, Criteria cri, PartDTO dto) {
 
 		List<PartDTO> partlist = pservice.searchPartList(cri);
-		
-		if(!partlist.isEmpty()) {
-			model.addAttribute("partlist", partlist);	// 검색 시 부품 존재하는 경우
+
+		if (!partlist.isEmpty()) {
+			model.addAttribute("partlist", partlist); // 검색 시 부품 존재하는 경우
 		} else {
-			model.addAttribute("listCheck", "empty");	// 검색 시 부품 존재하지 않는 경우
+			model.addAttribute("listCheck", "empty"); // 검색 시 부품 존재하지 않는 경우
 			return "/shop/part/partAll";
 		}
-		
+
 		// 페이지 이동 인터페이스 데이터
 		model.addAttribute("pageMaker", new PageMakeDTO(cri, pservice.searchPartTotal(cri)));
-		
+
 		return "/shop/part/partAll";
 	}
-	
+
 	/* 부품 전체 목록에서 장바구니 추가 */
 	@RequestMapping("/partall")
-	@ResponseBody //데이터를 바로 반환
-	public String addCart(HttpSession session, @ModelAttribute CartDTO cartdto, HttpServletRequest req,
-			Principal p) {
-		//Integer : int의 래퍼클래스로 null을 다룰 수 있음
+	@ResponseBody // 데이터를 바로 반환
+	public String addCart(HttpSession session, @ModelAttribute CartDTO cartdto, HttpServletRequest req, Principal p) {
+		// Integer : int의 래퍼클래스로 null을 다룰 수 있음
 		Integer memberNo = (Integer) session.getAttribute("memberNo");
-		if((Integer) session.getAttribute("memberNo") == null) {
+		if ((Integer) session.getAttribute("memberNo") == null) {
 			return "5";
 		}
 		PonyMemberDTO memberDTO = mservice.selectMemAll(memberNo);
 		session.setAttribute("memberDTO", memberDTO);
-		
-		
-		//memberNo = memberDTO.getMemberNo();
+
+		// memberNo = memberDTO.getMemberNo();
 		// 카트 등록
-		log.info("DTO: "+memberDTO);
+		log.info("DTO: " + memberDTO);
 		cartdto.setMemberNo(memberNo);
-		
+
 		int result = cservice.addCart(cartdto);
-		return result+"";
+		return result + "";
 	}
-	
+
 	// 장바구니 ----------------------------------------
-	
+
 	@GetMapping("/cartlist")
-	public String cartlist(HttpSession session, Principal p, Model model, HttpServletRequest req, @ModelAttribute CartDTO cartdto) {
+	public String cartlist(HttpSession session, Principal p, Model model, HttpServletRequest req,
+			@ModelAttribute CartDTO cartdto) {
 		// 세션에 저장한 사용자의 번호
 
 		Integer memberNo = (Integer) session.getAttribute("memberNo");
-		log.info("userNo: "+memberNo);
-		
+		log.info("userNo: " + memberNo);
+
 		cartdto.setMemberNo(memberNo);
-		
+
 		// 회원번호 기준으로 장바구니 정보를 조회
 		List<CartDTO> userCart = cservice.cartAll(memberNo);
-		log.info("장바구니 목록 : "+ userCart);
-		
+		log.info("장바구니 목록 : " + userCart);
+
 		model.addAttribute("usercart", userCart);
 		return "/shop/cart/cartList";
 	}
-	
+
 	/* 장바구니 수량 수정 */
 	@PostMapping("/modifyCart")
 	public String modifyCart(@ModelAttribute CartDTO cartdto, HttpSession session) {
-		
+
 		cservice.modifyCount(cartdto);
-		
+
 		return "redirect:/cartlist";
 	}
-	
+
 	/* 장바구니 삭제 */
 	@PostMapping("/deleteCart")
 	public String deleteCart(@ModelAttribute CartDTO cartdto, @RequestParam(value = "chkbox[]") List<String> chkbox) {
-		log.info("checkArr :  "+chkbox);
+		log.info("checkArr :  " + chkbox);
 		int cartNo = 0;
 		for (String cartNoStr : chkbox) {
 			cartNo = Integer.parseInt(cartNoStr);
 			cservice.deleteCart(cartNo);
-		    }
+		}
 		return "redirect:/cartlist";
 	}
-	
+
 	// 부품 주문 ---------------------------------------
-	
-	@RequestMapping("/buypart")
-	public String getbuypage(HttpSession session, Model model) {
+
+	@GetMapping("/buypart")
+	public String getbuypage(HttpSession session, Model model, @RequestParam("sum_input") int sum,
+			@RequestParam("delivery_input") int delivery, @RequestParam("totalPrice_input") int total,
+			@RequestParam("point_input") int point) {
 		int memberNo = (int) session.getAttribute("memberNo");
 		PonyMemberDTO memberDTO = mservice.selectMemAll(memberNo);
 		model.addAttribute("memDTO", memberDTO);
+		model.addAttribute("delivery", delivery);
+		model.addAttribute("sum", sum);
+		model.addAttribute("total", total);
+
+		// cartlist에서 보낸 총 포인트
+		model.addAttribute("point", point);
+		log.info("delivery >>>>>>>>>>>>> " + delivery);
+		log.info("sum >>>>>>>>>>>>> " + sum);
+		log.info("total >>>>>>>>>>>>> " + total);
+		log.info("point >>>>>>>>>>>>> " + point);
+
+		Object obj = session.getAttribute("cartItems");
+		log.info("obj >>>>>>>>>>>>> " + obj);
+		if (obj != null)
+			model.addAttribute("cartItems", obj);
+
 		return "/shop/cart/buyPart";
-		
+
 	}
-	@PostMapping("/buypart")
+
+	@PostMapping("/buypart2")
 	@ResponseBody // 응답 데이터를 JSON 등으로 반환하기 위해 필요
-    public String buypage(@RequestParam(value = "chkbox[]") List<String> chkbox, Model model) {
-        
-		 List<CartDTO> cartItems = new ArrayList<>(); // 각 카트 아이템을 저장할 리스트
+	public String buypage(@RequestParam(value = "chkbox[]") String[] chkbox, Model model, HttpSession session) {
 
-	    for (String cartNoStr : chkbox) {
-	        int cartNo = Integer.parseInt(cartNoStr);
-	        CartDTO cartItem = cservice.getCartItemByCartNo(cartNo); // 해당 카트 정보 가져오기
-	        cartItems.add(cartItem); // 가져온 카트 정보를 리스트에 추가
-	    }
-	    log.info("cartItems : <><><><><>< "+cartItems);
-	    model.addAttribute("cartItems", cartItems);
+		List<CartDTO> cartItems = new ArrayList<>(); // 각 카트 아이템을 저장할 리스트
 
-        return "redirect:/buypart";
-    }
-	
-	@PostMapping("/buypartorder")
-	public String buypartorder(HttpSession session, Model model,
-			OrderDTO orderdto, @RequestParam(value = "chkbox[]") List<String> chkbox) {
-		int memberNo = (int) session.getAttribute("memberNo");
-		PonyMemberDTO memberDTO = mservice.selectMemAll(memberNo);
-		int cartNo = 0;
-		orderdto.setMemberNo(memberNo);
-		oservice.insertOrder(orderdto);
-		
-		for(String i : chkbox) {
-			cartNo = Integer.parseInt(i);
-			log.info("cartNo???????? "+cartNo);
-			// orderId 필드가 auto increment로 설정되었다면, orderId를 따로 설정할 필요 없음
-			odservice.insertOne(cartNo); // 주문 상세 테이블 insert
+		for (String cartNoStr : chkbox) {
+			int cartNo = Integer.parseInt(cartNoStr);
+			CartDTO cartItem = cservice.getCartItemByCartNo(cartNo); // 해당 카트 정보 가져오기
+			cartItems.add(cartItem); // 가져온 카트 정보를 리스트에 추가
 		}
-//		log.info("memberDTO: "+memberDTO);
-//		model.addAttribute("memDTO", memberDTO);
+		log.info("cartItems : <><><><><>< " + cartItems);
+
+		session.setAttribute("cartItems", cartItems);
 		return "/shop/cart/buyPart";
+
 	}
+	
+//	@GetMapping("/buycarteditinfo")
+//	public String updateInfo(Model model, HttpSession session) {
+//	    int memberNo = (int) session.getAttribute("memberNo");
+//	    
+//	    String updatedHtml = "<ul class=\"addr_list _deliveryPlaces _deliveryPlaces_0\">\r\n"
+//	    		+ "	<li><input type=\"text\" name=\"\" id=\"deliveryname\" value=\"${memDTO.memberName }\"/></li>\r\n"
+//	    		+ "	<li><input type=\"text\" name=\"\" id=\"deliveryname\" value=\"${memDTO.memberPhone }\"/></li>\r\n"
+//	    		+ "	<li><input type=\"text\" name=\"\" id=\"deliveryname\" value=\"${memDTO.memberZip }\"/></li>\r\n"
+//	    		+ "	<li><input type=\"text\" name=\"\" id=\"deliveryname\" value=\"${memDTO.memberAddress1 }\"/></li>\r\n"
+//	    		+ "	<li><input type=\"text\" name=\"\" id=\"deliveryname\" value=\"${memDTO.memberAddress2 }\"/></li>\r\n"
+//	    		+ "	<button class=\"btn_editInfo\" onclick=\"Infomodify()\">정보수정</button>\r\n"
+//	    		+ "	</li>\r\n"
+//	    		+ "	</ul>";
+//
+//	    return updatedHtml; // 정보 수정 후 buyPart.jsp로 리다이렉트
+//	}
+
+//	@PostMapping("/buypartorder")
+//	public String buypartorder(HttpSession session, Model model,
+//			OrderDTO orderdto, @RequestParam(value = "chkbox[]") List<String> chkbox) {
+//		int memberNo = (int) session.getAttribute("memberNo");
+//		PonyMemberDTO memberDTO = mservice.selectMemAll(memberNo);
+//		int cartNo = 0;
+//		orderdto.setMemberNo(memberNo);
+//		oservice.insertOrder(orderdto);
+//		
+//		for(String i : chkbox) {
+//			cartNo = Integer.parseInt(i);
+//			log.info("cartNo???????? "+cartNo);
+//			// orderId 필드가 auto increment로 설정되었다면, orderId를 따로 설정할 필요 없음
+//			odservice.insertOne(cartNo); // 주문 상세 테이블 insert
+//		}
+////		log.info("memberDTO: "+memberDTO);
+////		model.addAttribute("memDTO", memberDTO);
+//		return "/shop/cart/buyPart";
+//	}
 //	@GetMapping("/buypart")
 //	public String buypage(HttpSession session, Model model,
 //			@ModelAttribute CartDTO cartdto) {
@@ -203,10 +237,9 @@ public class ShopController {
 //		log.info("여기는 GET 요청할때 출력됨");
 //		return "/shop/cart/buyPart";
 //	}
-	
-	
+
 	// 내 주문목록 --------------------------------------
-	
+
 	@GetMapping("/myorderlist")
 	public String myOrderList(HttpSession session, Model model) {
 		int memberNo = (int) session.getAttribute("memberNo");
@@ -218,24 +251,24 @@ public class ShopController {
 		model.addAttribute("userorderlist", userOrderList);
 		return "/shop/order/myOrderList";
 	}
-	
+
 	@GetMapping("/myorderdetail")
-	public String myOrderDetail(HttpSession session, @RequestParam("orderNo")int orderNo, Model model) throws ParseException {
+	public String myOrderDetail(HttpSession session, @RequestParam("orderNo") int orderNo, Model model)
+			throws ParseException {
 		OrderDTO order = oservice.selectOne(orderNo);
-		model.addAttribute("order",order);
-		
+		model.addAttribute("order", order);
+
 		String originalPhoneNumber = order.getOrderRecipientPhone();
 		String formattedPhoneNumber = originalPhoneNumber.replaceFirst("(\\d{3})(\\d{4})(\\d+)", "$1-$2-$3");
 		model.addAttribute("formattedPhoneNumber", formattedPhoneNumber);
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	    Date orderDate = dateFormat.parse(order.getOrderDate());
-	    model.addAttribute("orderDate", orderDate);
-		
-		model.addAttribute("userOrderList",odservice.selectOne(orderNo));
-		
+		Date orderDate = dateFormat.parse(order.getOrderDate());
+		model.addAttribute("orderDate", orderDate);
+
+		model.addAttribute("userOrderList", odservice.selectOne(orderNo));
+
 		return "/shop/order/myOrderDetail";
 	}
-	
 
 }

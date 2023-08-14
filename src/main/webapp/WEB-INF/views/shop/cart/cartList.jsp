@@ -99,7 +99,7 @@
 <script src="https://ssl.pstatic.net/static.gn/js/clickcrD.js" id="gnb_clickcrD" charset="utf-8"></script>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
+<!-- Core theme JS--> 
 <script src="css/mypage/js/scripts.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
@@ -232,8 +232,11 @@
 					$("#finalTotalPrice2").html(makePrice(finalTotalPrice));
 					$("#finalPoint").html(makePrice(point));
 					/* hidden에 값 넣기 */
-					$(".delivery_input").val(delivery);
+					
+					$(".totalPrice_input").val(finalTotalPrice);
+					$(".delivery_input").val(orderDeliveryCharge);
 					$(".point_input").val(point);
+					$(".sum_input").val(sum);
 				
 				}
 			</script>
@@ -254,6 +257,7 @@
 																<div class="product_description--Lh-hSnnkFf">
 																	<div class="check--2EZEnyir5V">
 																		<input type="checkbox" name="RowCheck" class="chkbox" onClick="itemSum()" value="${usercart.cartTotal }" data-cartNo="${usercart.cartNo }">
+																
 																	</div>
 																	<div class="inner--1emXN2Ic_f">
 																		<div class="info_area--2AT8d3T9eq">
@@ -293,21 +297,16 @@
 												</div>
 												<td class="cart_info">
 												<form action="/buypart" method="get" class="orderForm">
- 													<input type="hidden" class="partPrice_input" value="${usercart.partPrice}">
-													<input type="hidden" class="partCount_input" value="${usercart.cartCount}">
-													<input type="hidden" class="totalPrice_input" value="${usercart.partPrice * usercart.cartCount}">
-													<input type="hidden" class="delivery_input" value="">
-													<input type="hidden" class="point_input" value="">
-													<input type="hidden" class="partNo_input" value="${usercart.partNo}">
-													<input type="hidden" name="chkbox[]" id="chk" value="">
+													<input type="hidden" class="sum_input" name="sum_input" value="">
+													<input type="hidden" class="partCount_input" name="partCount_input" value="">
+													<input type="hidden" class="totalPrice_input" name="totalPrice_input" value="">
+													<input type="hidden" class="delivery_input" name="delivery_input" value="">
+													<input type="hidden" class="point_input" name="point_input" value="">
+													<%-- <input type="hidden" class="partNo_input" name="partNo_input" value="${usercart.partNo}"> --%>
+													<!-- <input type="hidden" name="chkbox[]" id="chk" value=""> -->
 
 												</form>
 												</td>
-<!-- 												<form action="/buypartorder" method="post" autocomplete="off" id="orderForm">
-													<input type="hidden" name="amount_form" id="amount_form" value="">
-													<input type="hidden" name="delivery_form" id="delivery_form" value="">
-													<input type="hidden" name="point_form" id="point_form" value="">
-												</form> -->
 											</c:forEach>
 										</div>
 										<div class="price--38egva9GaS">
@@ -379,22 +378,25 @@
 								$("input[class='chkbox']:checked").each(function() {
 									checkArr.push($(this).attr("data-cartNo"));
 									console.log(checkArr);
+									
 								});
-								
- 								/* $("#chk").val(checkArr);  */
+								//$(".orderForm").submit();
+								 $("#chk").val(checkArr);
  								$.ajax({
- 							        url: "/buypart",
+ 							        url: "/buypart2",
  							        type: "post",
  							        data: { chkbox: checkArr },
  									success: function(response) {
 	 							        console.log("Server response:", response); // 서버 응답 데이터 출력
 	 							        // 페이지 이동 등의 작업 수행
-	 							        window.location.href = "/buypart";
+	 							        //window.location.href = "/buypart";
+	 							       $(".orderForm").submit();
+	 							        
 	 							    },
 	 							    error: function(xhr, status, error) {
 	 							        console.error("Request error:", error); // 요청 에러 출력
 	 							    }
-							});
+							}); 
 							});
 						</script>
 					</div>

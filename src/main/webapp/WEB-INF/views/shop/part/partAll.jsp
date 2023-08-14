@@ -191,10 +191,7 @@ td.partIcontd {
 						<th></th>
 					</tr>
 					<c:if test="${listCheck != 'empty' }">
-
 						<c:forEach var="partlist" items="${partlist }">
-
-
 							<tr>
 								<td>${partlist.partNumber }</td>
 								<td style="text-align: left !important; padding-left: 50px;">${partlist.partName }</td>
