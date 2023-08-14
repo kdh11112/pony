@@ -90,21 +90,21 @@ $j(function() {
                     <div class="Search">
                        <div class="form-row align-items-center">
 					      <div class="form-group mb-0">
-					        <input type="text" class="form-control" placeholder="차대번호" id="vinIdHi" style="width : 300px" value="${work.clientVin }" disabled="disabled">
+					        <input type="text" class="form-control" placeholder="차대번호" id="vinIdHi" style="width : 250px" value="${work.clientVin }" disabled="disabled">
 					      </div>
 					  </div>
                     </div>
                     <div class="Search">
                        <div class="form-row align-items-center">
 					      <div class="form-group mb-0">
-					        <input type="text" class="form-control" placeholder="차량번호" id="carIdHi" value="${work.clientCarNumber }" disabled="disabled">
+					        <input type="text" class="form-control" placeholder="차량번호" id="carIdHi" value="${work.clientCarNumber }" style="width : 150px" disabled="disabled">
 					      </div>
 					  </div>
                     </div>
                     <div class="Search">
                        <div class="form-row align-items-center">
 					      <div class="form-group mb-0">
-					        <input type="text" class="form-control" placeholder="고객명" id="memberNameIdHi" value="${work.memberName }" disabled="disabled">
+					        <input type="text" class="form-control" placeholder="고객명" id="memberNameIdHi" value="${work.memberName }" style="width : 150px" disabled="disabled">
 					      </div>
 					  </div>
                     </div>
@@ -112,7 +112,7 @@ $j(function() {
                     <form action="/reg/paymentList" method="get">
                        <div class="form-row align-items-center">
                        		<div>
-					      		 <input type="text" id="datePicker" class="datePicker form-control" value="" name="registrationDateHi" style="height: 40px"> 
+					      		 <input type="text" id="datePicker" class="datePicker form-control" value="" name="registrationDateHi" style="height: 40px; width : 150px"> 
 					      	</div>
 					      <div class="form-group mb-0">
 					        <input type="text" class="form-control" name="registrationRN"  placeholder="접수번호">
@@ -126,8 +126,8 @@ $j(function() {
                	</div>
                	<form action="/reg/paymentList" id="frm" method="get">
                	<!-- <input type="hidden" name="_method" value="PATCH"/> -->
-               	<input type="text" id="datePicker" class="datePicker form-control" value="" name="registrationDateHi" style="height: 40px">
-               	<input type="text" class="form-control" name="registrationNumber" value="${work.registrationNumber }"  placeholder="접수번호">
+               	<input type="hidden" id="datePicker" class="datePicker form-control" value="" name="registrationDateHi" style="height: 40px">
+               	<input type="hidden" class="form-control" name="registrationNumber" value="${work.registrationNumber }"  placeholder="접수번호">
                	<div class="card">
                	<div class="card-body">
                 <div class="table-responsive">

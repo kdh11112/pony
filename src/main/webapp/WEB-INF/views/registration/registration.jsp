@@ -335,7 +335,7 @@ $j(function() {
                     <div class="Search">
                        <div class="form-row align-items-center">
 					      <div class="form-group mb-0">
-					        <input type="text" class="form-control" placeholder="차대번호" id="vinIdHi" style="width : 300px" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
+					        <input type="text" class="form-control" placeholder="차대번호" id="vinIdHi" style="width : 250px" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
 					      </div>
 					      
 					  </div>
@@ -343,21 +343,21 @@ $j(function() {
                     <div class="Search">
                        <div class="form-row align-items-center">
 					      <div class="form-group mb-0">
-					        <input type="text" class="form-control" placeholder="차량번호" id="carIdHi" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
+					        <input type="text" class="form-control" placeholder="차량번호" id="carIdHi" style="width : 150px" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
 					      </div>
 					  </div>
                     </div>
                     <div class="Search">
                        <div class="form-row align-items-center">
 					      <div class="form-group mb-0">
-					        <input type="text" class="form-control" placeholder="고객명" id="memberNameIdHi" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
+					        <input type="text" class="form-control" placeholder="고객명" id="memberNameIdHi" style="width : 150px" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
 					      </div>
 					  </div>
                     </div>
                     <div class="Search">
                        <div class="form-row align-items-center">
                        		<div>
-					      		<input type="text" id="datePicker" class="form-control" value="" name="registrationDateHi" style="height: 40px">
+					      		<input type="text" id="datePicker" class="form-control" value="" name="registrationDateHi" style="height: 40px; width : 150px;">
 					      	</div>
 					      <div class="form-group mb-0">
 					        <input type="text" class="form-control" name="registrationRN" value="${searchOne.registrationRN }" placeholder="접수번호">

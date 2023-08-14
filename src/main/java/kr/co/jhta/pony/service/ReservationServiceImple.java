@@ -28,10 +28,12 @@ public class ReservationServiceImple implements ReservationService {
 	}
 
 	@Override
-	public int getTotalreservation() {
+	public int getTotalreservation(String memberName) {
 
-		return dao.getTotalreservation();
+		return dao.getTotalreservation(memberName);
 	}
+
+
 
 	
 }

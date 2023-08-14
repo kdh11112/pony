@@ -116,7 +116,7 @@
 		          </div>
            </li>
           <li class="active-pro">
-            <a href="./upgrade.html">
+            <a href="">
               <i class="nc-icon nc-spaceship"></i>
               <%out.println("<p>" + session.getAttribute("mechanicName") + "</p>"); %>
             </a>

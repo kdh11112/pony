@@ -14,5 +14,5 @@ public interface ReservationDAO {
 
 	public List<ReservationDTO> getAllReservation(Criteria cri);
 	public ReservationDTO selectOne(int reservationNo);
-	int getTotalreservation ();
+	int getTotalreservation (String getTotalreservation);
 }

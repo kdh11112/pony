@@ -11,7 +11,7 @@ public interface ReservationService {
 		
 		public ReservationDTO selectOne(int reservationNo);
 
-		public int getTotalreservation();
+		public int getTotalreservation(String memberName);
 
 		
 		

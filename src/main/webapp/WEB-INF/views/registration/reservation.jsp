@@ -25,111 +25,91 @@
 </style>
 
 <body class="">
-  <div class="wrapper ">
-	<%@ include file="./side.jsp" %>
-    <div class="main-panel">
-      <!-- Navbar -->
-	<%@ include file="./navi.jsp" %>
-	  <!-- End Navbar -->
-    
-	      <div class="content">
-	        <div class="row">
-      
-					        <div class="col-md-12" >
-					        
-						            <div class="card card-user " style="height: 85px;">
-						              <div class="card-body" >
-					               
-					               
-						                <form action="/reg/reservation" method="get">
-						                  <div class="row">
-							          
-							                     
-							                    <div class="Search">
-							                       <div class="form-row align-items-center">
-												      <div class="form-group mb-0">
-												        <input type="text" class="form-control" placeholder="예약자" id="memberName" name="memberName" >
-												      </div>
-												  </div>
-							                    </div>
-							                    
-					  
-							                    
-							                    
-							                    <div class="Search">
-							                       <div class="form-row align-items-center">
-							                       	  <div class="form-group mb-0" style="padding-left: 50px;">
-												      	<button type="submit" class="btn btn-primary btn-round" id="nameSearch">검색</button>
-												      </div>
-												  </div>
-							                    </div>
-						               	  </div>
-						                </form>
-					                
-						              </div>
-						            </div>
-						            
-					          </div>
-          
-          
-						          <div class="col-md-12">
-						            <div class="card card-user">
-						              <div class="card-body">
-						              
-							                  <table class="table">
-								                  <tr class="trRow">
-								                  		<th>예약번호</th>
-								                  		<th>접수일</th>
-							                            <th>차량번호</th>
-								                  		<th>예약자</th>
-							                            <th>예약지점</th>
-								                        <th>고객요청사항</th>
-							                            <th>입고예정일</th>
-							                      <tr>
-							                
-							                
-									              <c:forEach var="list" items="${list }"> 
-										                   <tr class="trRow">
-											                   
-										                            <td>${list.reservationNo}</td>
-											                    	<td>${list.reservationDate}</td>
-										                            <td>${list.clientCarNumber}</td>
-											                    	<td>${list.memberName}</td>
-										                            <td>${list.shopAreaPoint}</td>
-											                        <td>${list.reservationClientRequests}</td>
-										                            <td>${list.reservationDueDate}</td>
-										                       
-										                       
-											               </tr>
-										          </c:forEach>
-									
-						                		<tr>
-													<td colspan="6" class="pagetd">
-														<nav aria-label="Page navigation example">
-															<ul class="pagination">
-																<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-																	<li class="page-item"><a class="page-link" href="${num }">${num }</a></li>
-																</c:forEach>
-															</ul>
-														</nav>
-													</td>
-												</tr>
-					 
-							                </table>
-							             
-							                <form id="moveForm" method="get">
-												<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
-												<input type="hidden" name="perPageNum" value="${pageMaker.cri.perPageNum }">
-												
-											</form>
-	
-						              </div>
-						            </div>
-						          </div>
-	        </div>
-	      </div>
-    </div>
-  </div>
+	<div class="wrapper ">
+		<%@ include file="./side.jsp"%>
+		<div class="main-panel">
+			<!-- Navbar -->
+			<%@ include file="./navi.jsp"%>
+			<!-- End Navbar -->
+			<div class="content">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card card-user " style="height: 85px;">
+							<div class="card-body">
+								<form action="/reg/reservation" method="get">
+									<div class="row">
+										<div class="Search">
+											<div class="form-row align-items-center">
+												<div class="form-group mb-0">
+													<input type="text" class="form-control" placeholder="예약자"
+														id="memberName" name="memberName">
+												</div>
+											</div>
+										</div>
+										<div class="Search">
+											<div class="form-row align-items-center">
+												<div class="form-group mb-0" style="padding-left: 50px;">
+													<button type="submit" class="btn btn-primary btn-round"
+														id="nameSearch">검색</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="card card-user">
+							<div class="card-body">
+								<table class="table">
+									<tr class="trRow">
+										<th>예약번호</th>
+										<th>접수일</th>
+										<th>차량번호</th>
+										<th>예약자</th>
+										<th>예약지점</th>
+										<th>고객요청사항</th>
+										<th>입고예정일</th>
+									<tr>
+									<c:forEach var="list" items="${list }">
+											<tr class="trRow">
+												<td>${list.reservationNo}</td>
+												<td>${list.reservationDate}</td>
+												<td>${list.clientCarNumber}</td>
+												<td>${list.memberName}</td>
+												<td>${list.shopAreaPoint}</td>
+												<td>${list.reservationClientRequests}</td>
+												<td>${list.reservationDueDate}</td>
+											</tr>
+										</c:forEach>
+									<tr>
+										<td colspan="6" class="pagetd">
+											<nav aria-label="Page navigation example">
+												<ul class="pagination">
+													<c:forEach var="num" begin="${pageMaker.startPage }"
+														end="${pageMaker.endPage }">
+														<li class="page-item"><a class="page-link"
+															href="${num }">${num }</a></li>
+													</c:forEach>
+												</ul>
+											</nav>
+										</td>
+									</tr>
+								</table>
+								<form id="moveForm" method="get">
+									<input type="hidden" name="pageNum"
+										value="${pageMaker.cri.pageNum }"> <input
+										type="hidden" name="perPageNum"
+										value="${pageMaker.cri.perPageNum }">
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 	<script>

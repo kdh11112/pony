@@ -195,7 +195,7 @@
 	    FROM
 	        REGISTRATION
 	    WHERE
-	        DATE(registrationDate) = CURDATE()
+	        DATE(registrationDate) = DATE(CONVERT_TZ(NOW(), '+00:00', '+09:00'))
 	</select>
 	
 	<select id="selectReg" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO" resultType="kr.co.jhta.pony.dto.CarRegisterDTO">

@@ -236,27 +236,30 @@ public class RegistrationController {
 			String technologyNumberName = (String) session.getAttribute("technologyNumberName");
 			String partNumberName = (String) session.getAttribute("partNumberName");
 			if(technologyNumberName != null && partNumberName != null) {
-			int technologyLength = (int) session.getAttribute("technologyLength");
 			int partLength = (int) session.getAttribute("partLength");
 
 
 			List<TechnologyAndPartDTO> technology = (List<TechnologyAndPartDTO>) session.getAttribute("technologyList");
 			int tBout = (int) session.getAttribute("technologyBout");
 			List<TechnologyAndPartDTO> part = (List<TechnologyAndPartDTO>) session.getAttribute("partList");
+			int technologyLength = (int) session.getAttribute("technologyLength");
 			int pBout = (int) session.getAttribute("partBout");
 			
-				
 				int technologyAndPartBout = tBout+pBout;
 
-				
-				if( technologyNumberName.equals(number) && partNumberName.equals(number)) {
-				model.addAttribute("technologyLength", technologyLength);
-				model.addAttribute("technology", technology);
-				model.addAttribute("tBout", tBout);
-				model.addAttribute("partLength", partLength);
-				model.addAttribute("part", part);
-				model.addAttribute("pBout", pBout);
-				model.addAttribute("technologyAndPartBout", technologyAndPartBout);
+
+				if(number.equals(technologyNumberName)&& number.equals(partNumberName)) {
+					
+					model.addAttribute("technologyLength", technologyLength);
+					model.addAttribute("technology", technology);
+					model.addAttribute("tBout", tBout);
+					model.addAttribute("partLength", partLength);
+					model.addAttribute("part", part);
+					model.addAttribute("pBout", pBout);
+					model.addAttribute("technologyAndPartBout", technologyAndPartBout);
+				}else {
+					model.addAttribute("technologyLength", 0);
+					model.addAttribute("partLength", 0);
 				}
 			}
 			
@@ -277,7 +280,6 @@ public class RegistrationController {
 			@RequestParam(name = "partBout",defaultValue = "0") int partBout
 			
 			) {
-		
 		String[] technologyValues = request.getParameterValues("technology");
 		//log.info(""+Arrays.toString(technologyValues));
 		String[] partValues = request.getParameterValues("part");
@@ -467,8 +469,8 @@ public class RegistrationController {
     @GetMapping("/reg/reservation")
 	public String reservation(Model model, Criteria cri,@RequestParam(name = "memberName", required = false) String memberName) {
 //		총게시물수
-		int totalNumber = reservationService.getTotalreservation();
-		
+		int totalNumber = reservationService.getTotalreservation(memberName);
+		log.info("totalNumber : "+totalNumber);
 	    // 검색어가 있다면 Criteria 객체에 검색어 설정
 	    if (memberName != null && !memberName.isEmpty()) {
 	        cri.setKeyword(memberName);

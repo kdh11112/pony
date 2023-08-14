@@ -23,9 +23,16 @@
 	    LIMIT #{skip}, #{perPageNum}
 </select>
 
-	<select id="getTotalreservation" resultType="int">
+	<select id="getTotalreservation" resultType="int" parameterType="String">
 		SELECT count(*) cnt
-		FROM RESERVATION
+		FROM RESERVATION r
+		JOIN MEMBER m ON r.memberNo = m.memberNo
+	    JOIN SHOP s ON r.shopNo = s.shopNo
+	    <where>
+	    	<if test="memberName != null and memberName != ''">
+	    		m.memberName LIKE CONCAT('%', #{keyword}, '%')
+	    	</if>
+	    </where>
 	</select>
 	
 	<select id="selectOne" parameterType="int" resultType="kr.co.jhta.pony.dto.ReservationDTO">
