@@ -186,57 +186,7 @@ public class ShopController {
 		return "/shop/cart/buyPart";
 
 	}
-	
-//	@GetMapping("/buycarteditinfo")
-//	public String updateInfo(Model model, HttpSession session) {
-//	    int memberNo = (int) session.getAttribute("memberNo");
-//	    
-//	    String updatedHtml = "<ul class=\"addr_list _deliveryPlaces _deliveryPlaces_0\">\r\n"
-//	    		+ "	<li><input type=\"text\" name=\"\" id=\"deliveryname\" value=\"${memDTO.memberName }\"/></li>\r\n"
-//	    		+ "	<li><input type=\"text\" name=\"\" id=\"deliveryname\" value=\"${memDTO.memberPhone }\"/></li>\r\n"
-//	    		+ "	<li><input type=\"text\" name=\"\" id=\"deliveryname\" value=\"${memDTO.memberZip }\"/></li>\r\n"
-//	    		+ "	<li><input type=\"text\" name=\"\" id=\"deliveryname\" value=\"${memDTO.memberAddress1 }\"/></li>\r\n"
-//	    		+ "	<li><input type=\"text\" name=\"\" id=\"deliveryname\" value=\"${memDTO.memberAddress2 }\"/></li>\r\n"
-//	    		+ "	<button class=\"btn_editInfo\" onclick=\"Infomodify()\">정보수정</button>\r\n"
-//	    		+ "	</li>\r\n"
-//	    		+ "	</ul>";
-//
-//	    return updatedHtml; // 정보 수정 후 buyPart.jsp로 리다이렉트
-//	}
 
-//	@PostMapping("/buypartorder")
-//	public String buypartorder(HttpSession session, Model model,
-//			OrderDTO orderdto, @RequestParam(value = "chkbox[]") List<String> chkbox) {
-//		int memberNo = (int) session.getAttribute("memberNo");
-//		PonyMemberDTO memberDTO = mservice.selectMemAll(memberNo);
-//		int cartNo = 0;
-//		orderdto.setMemberNo(memberNo);
-//		oservice.insertOrder(orderdto);
-//		
-//		for(String i : chkbox) {
-//			cartNo = Integer.parseInt(i);
-//			log.info("cartNo???????? "+cartNo);
-//			// orderId 필드가 auto increment로 설정되었다면, orderId를 따로 설정할 필요 없음
-//			odservice.insertOne(cartNo); // 주문 상세 테이블 insert
-//		}
-////		log.info("memberDTO: "+memberDTO);
-////		model.addAttribute("memDTO", memberDTO);
-//		return "/shop/cart/buyPart";
-//	}
-//	@GetMapping("/buypart")
-//	public String buypage(HttpSession session, Model model,
-//			@ModelAttribute CartDTO cartdto) {
-//		if((Integer) session.getAttribute("memberNo") == null) {
-//			return "/ponylogin";
-//		}
-//		Integer memberNo = (Integer) session.getAttribute("memberNo");
-//		List<CartDTO> userCart = cservice.cartAll(memberNo);
-//		PonyMemberDTO memberDTO = mservice.selectMemAll(memberNo);
-//		log.info("memberDTO: "+memberDTO);
-//		model.addAttribute("memDTO", memberDTO);
-//		log.info("여기는 GET 요청할때 출력됨");
-//		return "/shop/cart/buyPart";
-//	}
 
 	// 내 주문목록 --------------------------------------
 

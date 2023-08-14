@@ -48,8 +48,12 @@ public class AdminController {
 		}
 	
 	@GetMapping("/admin")
-	public String admin() {
-		return "/admin/admin";
+	public String adminindex() {
+		return "/admin/adminindex";
+	}
+	@GetMapping("/adminlogin")
+	public String adminlogin() {
+		return "/admin/adminlogin";
 	}
 
 	// 재고 관리 ------------------------------------------------------------

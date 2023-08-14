@@ -43,8 +43,7 @@
 	list-style: none;
 	color: #1e1e23;
 	letter-spacing: -0.5px;
-	font-family: '나눔고딕', NanumGothic, '맑은고딕', MalgunGothic, '돋움', Dotum,
-		Helvetica, sans-serif;
+	font-family: '나눔고딕', NanumGothic, '맑은고딕', MalgunGothic, '돋움', Dotum, Helvetica, sans-serif;
 	font-size: 12px;
 	display: table-cell;
 	vertical-align: top;
@@ -122,8 +121,6 @@
 				</div>
 
 				<!-- <form id="orderForm" name="orderForm" class="_orderForm" method="post"> -->
-				<input type="hidden" name="tempOrderId" value="">
-
 				<div class="order_content" style="width: 1098px;">
 					<div class="product_area">
 						<span class="top_line"></span>
@@ -319,20 +316,25 @@
 							<br /> <br />
 							<script>
 								function updatePointDisplay(enteredPoint) {
-									var usedPointElement = document
-											.getElementById("usedPoint");
-									usedPointElement.textContent = enteredPoint
-											+ "원";
+									var usedPointElement = document.getElementById("usedPoint");
+									usedPointElement.textContent = enteredPoint+ "원";
 								}
 
 								/* 포인트 전액사용 버튼 클릭 */
 								function useallpoint() {
 
 									var havepoint = $("#havepoint").text();
-									document.getElementById("mileage").value = havepoint;
-									document.getElementById("havepoint").textContent = "0";
-									updatePointDisplay(parseInt(havepoint)); // 전액 사용 시 updatePointDisplay 함수 호출
-									calculateTotal();
+									var total = parseInt("${total}");
+									if (havepoint > total) {
+								        havepoint = total; // 사용 포인트가 총 상품 금액보다 큰 경우 총 상품 금액으로 설정
+								    }
+									
+								    var remainingPoint = total - havepoint; // 사용한 포인트만큼 제외한 나머지 포인트
+
+								    document.getElementById("mileage").value = havepoint;
+								    document.getElementById("havepoint").textContent = remainingPoint; // 남은 포인트 설정
+								    updatePointDisplay(havepoint); // 전액 사용 시 updatePointDisplay 함수 호출
+								    calculateTotal();
 								}
 
 								/* 포인트 입력 keyup 이벤트 */
