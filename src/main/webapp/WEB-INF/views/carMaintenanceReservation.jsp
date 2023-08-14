@@ -31,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/carMaintenanceReservation/style.css" />
-<script src="css/mypage/js/testDrive.js"></script>
+<script src="js/carMaintenanceReservation/carMaintenanceReservation.js"></script>
 
 <style>
 .content {
@@ -180,6 +180,7 @@ textarea {
 	<div id="wrapper">
 		<!-- Navigation-->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		
 			<div class="container">
 				<a class="navbar-brand" href="#!"></a>
 				<button class="navbar-toggler" type="button"
@@ -212,6 +213,7 @@ textarea {
 				</div>
 			</div>
 		</nav>
+		
 		<!-- Header-->
 		<header>
 
@@ -229,36 +231,89 @@ textarea {
 			<h1 class="top-title-text2">온라인 예약으로 고객님이 원하시는 장소와 시간에 차량관리를 받을 수 있습니다.</h1>
 		</div>
 		<div class="testDriveContent text-center">
-		<form action="/testDriveInsert" id="frm" method="post">
+		<form action="/insertCarMaintenanceReservation" id="frm" method="post">
+		<input type="hidden" name="clientCarNumber" id="clientCarNumber">
+		<input type="hidden" name="selectedShopNo" id="selectedShopNo" />
+		<input type="hidden" name="selectedSchedule" id="selectedSchedule" />
 			<!-- =============================아코디언 영역============================= -->
 			<div class="accordion" id="accordionExample">
 				<div class="accordion-item">
-					<h2 class="accordion-header" id="headingZero">
-						<button class="accordion-button collapsed" id="headingZeroBtn"
-							type="button"
+					<h2 class="accordion-header" id="headingOne">
+						<button class="accordion-button collapsed" id="headingOneBtn"
+							type="button" data-bs-toggle = "collapse"
 							data-bs-target="#collapseOne" aria-expanded="false"
-							aria-controls="collapseOne">정비차량 선택하기</button>
+							aria-controls="collapseOne">나의 정비차량 선택하기</button>
 					</h2>
-					<div id="collapseZero" class="accordion-collapse collapse"
-						aria-labelledby="headingZero" data-bs-parent="#accordionExample">
+					<div id="collapseOne" class="accordion-collapse collapse"
+						aria-labelledby="headingOne" data-bs-parent="#accordionExample">
 						<div class="accordion-body">
 							<div class="row justify-content-center">
 								<div class="card mx-auto" style="width: 32rem;">
-									<select class="selectModel btn btn-secondary" id="selectModel"
-										name="selectModel">
-										<option value="">차량선택</option>
-										<option value="1">AVANTE</option>
-										<option value="2">SONATA</option>
-										<option value="3">GRANDEUR</option>
-										<option value="4">PALISADE</option>
-										<option value="5">TUCSON</option>
-									</select>
+								
+						
+							<c:if test="${!hasCars}">
+								<div class="no-car" data-v-269e3e5f>
+								<span class="ico-nocar" data-v-269e3e5f><i
+										data-v-269e3e5f>등록된 차가 없습니다.</i></span>
+									<p data-v-269e3e5f>등록된 차량이 없습니다.</p>
+									<p><a href="/carregigo">차량등록하러가기</a></p>
+								</div>	
+							</c:if>
+							<c:if test="${!empty userCars  }">
+								<!-- 등록차량리스트 -->
+								
+										<div class="page-title">
+											<div class="container">
+												<h3>나의 차량목록</h3>
+											</div>
+										</div>
+
+										<!-- board list area -->
+
+
+
+										 <div id="inquiry_list">
+											<div class="container">
+												<table class="board-table">
+													<thead>
+														<tr>
+															<th scope="col" class="th-num">차량선택</th>
+															<th scope="col" class="th-num">차대번호</th>
+															<th scope="col" class="th-title">차량번호</th>
+															<th scope="col" class="th-date">주행거리</th>
+															<th scope="col" class="th-date">차종</th>
+															<th scope="col" class="th-date">출고일</th>
+															<th scope="col" class="th-date">생산일</th>
+															<th scope="col" class="th-date">색상</th>
+														</tr>
+													</thead>
+													<tbody>
+														<c:forEach var="clist" items="${userCars }">
+															<tr class="list">
+																<td>
+																	<!-- 등록된 차량 삭제 체크 박스 --> <input type="radio"
+																	name="selectedCars" value="${clist.clientVin}"
+																	id="selectedCarsId">
+																</td>
+																<td>${clist.clientVin }</td>
+																<td id="selectedCarName">${clist.clientCarNumber }</td>
+																<td>${clist.clientDistanceDriven }</td>
+																<td>${clist.clientCarType }</td>
+																<td>${clist.clientShipDate }</td>
+																<td>${clist.clientProductionDate }</td>
+																<td>${clist.clientColor }</td>
+															</tr>
+														</c:forEach>
+
+													</tbody>
+
+												</table>
+											</div>
+										</div> 
+							</c:if>
+						
 									<p class="card-text"></p>
-									<img src="../images/model/vs_logo.jpg" class="card-img-top"
-										alt="..." id="card-img1">
-									<div>
-										<button type="button" class="btn btn-info" id="selectOk">선택</button>
-									</div>
+								
 									<div class="card-body"></div>
 								</div>
 							</div>
@@ -266,25 +321,11 @@ textarea {
 					</div>
 				</div>
 				<div class="accordion-item">
-					<h2 class="accordion-header" id="headingOne">
-						<button class="accordion-button collapsed" id="headingOneBtn"
-							type="button"
-							data-bs-target="#collapseOne" aria-expanded="false"
-							aria-controls="collapseOne">정비차량번호</button>
-					</h2>
-					<div id="collapseOne" class="accordion-collapse collapse"
-						aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-							<input type="text" />
-						</div>
-					</div>
-				</div>
-				<div class="accordion-item">
 					<h2 class="accordion-header" id="headingTwo">
 						<button class="accordion-button collapsed" id="headingTwoBtn"
-							type="button"  
+							type="button" data-bs-toggle = "collapse"
 							data-bs-target="#collapseTwo" aria-expanded="false"
-							aria-controls="collapseTwo">정비소 선택하기</button>
+							aria-controls="collapseTwo">장비소 선택하기</button>
 					</h2>
 					<div id="collapseTwo" class="accordion-collapse collapse"
 						aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
@@ -345,9 +386,9 @@ textarea {
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="headingThree">
 						<button class="accordion-button collapsed" id="headingThreeBtn"
-							type="button" 
+							type="button" data-bs-toggle = "collapse"
 							data-bs-target="#collapseThree" aria-expanded="false"
-							aria-controls="collapseThree">정비입고예정일 선택하기</button>
+							aria-controls="collapseThree">정비소 방문날짜 선택하기</button>
 					</h2>
 					<div id="collapseThree" class="accordion-collapse collapse"
 						aria-labelledby="headingThree" data-bs-parent="#accordionExample">
@@ -355,11 +396,12 @@ textarea {
 							<div class="CalendarArea">
 								<table class="Calendar">
 									<thead>
+									<div id="shopAreaPointName"></div>
 										<tr>
-											<td onClick="prevCalendar();" style="cursor: pointer;">&#60;</td>
+											<td onClick="prevCalendar();" style="cursor: pointer;" id="prevC">&#60;</td>
 											<td colspan="5"><span id="calYear"></span>년 <span
 												id="calMonth"></span>월</td>
-											<td onClick="nextCalendar();" style="cursor: pointer;">&#62;</td>
+											<td onClick="nextCalendar();" style="cursor: pointer;" id="nextC">&#62;</td>
 										</tr>
 										<tr>
 											<td>일</td>
@@ -383,7 +425,7 @@ textarea {
 			</div>
 			
 			<div style="margin-top: 50px;">
-				<button class="btn" id="OkBtn">신청하기</button>
+				<button class="btn" id="OkBtn" type="button">신청하기</button> 
 			</div>
 			</form>
 		</div>

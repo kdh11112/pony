@@ -12,4 +12,8 @@ public interface ReservationService {
 
 	void insertCarMaintenanceReservation(ReservationDTO dto); //정비예약내역insert
 
+	public List<ReservationDTO> reservationComplete();
+	
+	void updateCarMaintenanceReservation(ReservationDTO dto);
+
 }

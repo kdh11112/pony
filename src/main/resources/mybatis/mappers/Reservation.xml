@@ -1,48 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="kr.co.jhta.pony.dao.ReservationDAO">
-  <!-- 정비예약내역 가져오기 -->
-	<select id="getReservationList" parameterType="int" resultType="kr.co.jhta.pony.dto.ReservationDTO">
-		<!-- SELECT
-		r.registrationNumber,
-		r.registrationClientRequests,
+
+<mapper namespace="kr.co.jhta.pony.dao.ReservationDAO">
+	<!-- 정비예약내역 가져오기 -->
+	<select id="getReservationList" parameterType="int"
+		resultType="kr.co.jhta.pony.dto.ReservationDTO">
+		<!-- SELECT r.registrationNumber, r.registrationClientRequests, c.clientCarNumber, 
+			c.clientDistanceDriven, c.clientCarType, s.shopAreaPoint, r.registrationReservationDueDate, 
+			r.registrationDate FROM REGISTRATION r JOIN CLIENT c ON r.clientVin = c.clientVin 
+			JOIN MEMBER m ON c.memberNo = m.memberNo JOIN SHOP s ON r.shopNo = s.shopNo 
+			WHERE m.memberNo = #{memberNo}; -->
+
+		SELECT
+		r.reservationNo,
+		r.reservationClientRequests,
 		c.clientCarNumber,
 		c.clientDistanceDriven,
 		c.clientCarType,
 		s.shopAreaPoint,
-		r.registrationReservationDueDate,
-		r.registrationDate
-		FROM REGISTRATION r
-		JOIN CLIENT c ON r.clientVin = c.clientVin
-		JOIN
-		MEMBER m ON c.memberNo = m.memberNo
-		JOIN SHOP s ON r.shopNo = s.shopNo
-		WHERE m.memberNo = #{memberNo}; -->
-		
-		SELECT
-			r.reservationNo,
-			r.reservationClientRequests,
-			c.clientCarNumber,
-			c.clientDistanceDriven,
-			c.clientCarType,
-			s.shopAreaPoint,
-	        s.shopAddr,
-			r.reservationDueDate,
-			r.reservationDate
-		FROM 
-			RESERVATION r
+		s.shopAddr,
+		r.reservationDueDate,
+		r.reservationDate
+		FROM
+		RESERVATION r
 		JOIN CLIENT c ON r.clientCarNumber = c.clientCarNumber
 		JOIN
-		MEMBER m ON c.memberNo = m.memberNo
+		MEMBER m
+		ON c.memberNo = m.memberNo
 		JOIN SHOP s ON r.shopNo = s.shopNo
-		WHERE m.memberNo = #{memberNo};
+		WHERE
+		m.memberNo = #{memberNo};
 	</select>
-	
+
 	<!-- 정비예약내역 삭제 -->
 	<delete id="deleteReservation" parameterType="int">
-		DELETE FROM RESERVATION
+		DELETE FROM
+		RESERVATION
 		WHERE reservationNo = #{reservationNo}
 	</delete>
-  </mapper>
+
+	<insert id="insertCarMaintenanceReservation"
+		parameterType="kr.co.jhta.pony.dto.ReservationDTO">
+		INSERT INTO
+		RESERVATION
+		(reservationDate,clientCarNumber,memberNo,shopNo,reservationDueDate)
+		VALUES(now(),#{clientCarNumber},#{memberNo},#{shopNo},#{reservationDueDate})
+
+	</insert>
+	<update id="updateCarMaintenanceReservation"
+		parameterType="kr.co.jhta.pony.dto.ReservationDTO">
+		UPDATE RESERVATION SET
+		clientCarNumber =#{clientCarNumber},
+		shopNo = #{shopNo},
+		reservationDueDate = #{reservationDueDate}
+		WHERE reservationNo = #{reservationNo}
+	</update>
+
+</mapper>

@@ -257,19 +257,22 @@ $(document).on("click", ".shop-no-btn", function() {
 
 let selectedSchedule = ""; // 시간 선택 값을 저장할 변수를 빈 문자열로 초기화합니다.
 let clientCarNumber ="";
+let no;
 function handleButtonClick(event) {
 	const button = event.target;
 	const buttonYear = button.dataset.year;
 	const buttonMonth = button.dataset.month;
 	const buttonDate = button.parentElement.parentElement.querySelector("p").innerText;
 
-	selectedSchedule = buttonYear + "-" + "0" + buttonMonth + "-" + buttonDate;
+	selectedSchedule = selectedSchedule = buttonYear + "-" + "0" + buttonMonth + "-" + buttonDate;
  
  	clientCarNumber = $("#selectedCarName").text()
  	 	
 
 	$("#selectedSchedule").val(selectedSchedule);
-alert(selectedSchedule+"\n" + selectedShopNo + "\n" + clientCarNumber);
+	// 선택한 체크박스의 값 : no <=-  구하기 
+	
+alert(selectedSchedule+"\n" + selectedShopNo + "\n" + clientCarNumber+"\n"+no);
 	/*alert("선택한 차량: " + $("#selectedCarName").text() + "\n"
 		+ "선택한 지점: " + shopAreaPoint + "\n"
 		+ "선택한 날짜: " + selectedSchedule + "\n"
@@ -279,20 +282,7 @@ alert(selectedSchedule+"\n" + selectedShopNo + "\n" + clientCarNumber);
 	$('html').animate({ scrollTop: offset.top }, 1);
 }
 
-$(function(){
-	
-$("#OkBtn").on("click", function() {
 
-	alert(selectedSchedule+"\n" + selectedShopNo + "\n" + clientCarNumber);
-
-	console.log("asd")
-	$("#selectedSchedule").val(selectedSchedule);
-	$("#selectedShopNo").val(selectedShopNo);
-	$("#clientCarNumber").val(clientCarNumber);
-	
-	document.getElementById("frm").submit();
-})
-})
 	
 	
 
@@ -337,3 +327,64 @@ $("#OkBtn").on("click", function() {
 
 		});
 	}*/
+		$(function(){
+	
+$("#OkBtn").on("click", function() {
+
+	carMaintenanceModify();
+
+	alert(selectedSchedule+"\n" + selectedShopNo + "\n" + clientCarNumber +"\n " + no);
+
+	selectedSchedule = $("#selectedSchedule").val(selectedSchedule);
+	selectedShopNo = $("#selectedShopNo").val(selectedShopNo);
+	clientCarNumber = $("#clientCarNumber").val(clientCarNumber);
+	reservationNo = $("#reservationNo").val(no);
+	
+	
+	
+	
+	location.href="/carMaintenanceReservationDetail";
+	
+	//document.getElementById("frm").submit();
+})
+	function carMaintenanceModify() {
+
+		console.log("asd"+ $('input:radio').is(":checked"));
+		
+		//시승신청변경 modal로 하기
+
+		$('.asd').each(function(index) {
+			if ($(this).is(":checked") == true) {
+
+				no = $(this).parent().next().val().trim();
+				console.log("no : "+no);
+				console.log("selectedSchedule : "+selectedSchedule);
+				console.log("selectedShopNo : "+selectedShopNo);
+				console.log("clientCarNumber: "+clientCarNumber);
+				//console.log($("#selectModel option:selected").val());// jquery 선택한 옵션 객체의 값 구하기 
+				//var optionValue = $("#selectModel option:selected").val();
+
+				//var no = $(this).parent().next().val();
+
+				// /testdrivingmodify?modelNo=111&shopNo=222&testDriverTime=???&testDriveSchedule=????
+				$.ajax({
+					url : "/updateCarMaintenanceReservation",
+					method : "POST", //
+					data : {
+						clientCarNumber : clientCarNumber,
+						selectedShopNo : selectedShopNo,
+						selectedSchedule : selectedSchedule,
+						reservationNo : no
+					},
+					success : function(data) {
+						console.log(data);
+					}
+				});
+			}
+
+		});
+	}
+})
+	
+	
+	

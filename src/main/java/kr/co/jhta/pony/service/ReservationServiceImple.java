@@ -31,4 +31,15 @@ public class ReservationServiceImple implements ReservationService{
 		
 	}
 
+	@Override
+	public List<ReservationDTO> reservationComplete() {
+		return dao.reservationComplete();
+	}
+
+	@Override
+	public void updateCarMaintenanceReservation(ReservationDTO dto) {
+		dao.updateCarMaintenanceReservation(dto);
+		
+	}
+
 }

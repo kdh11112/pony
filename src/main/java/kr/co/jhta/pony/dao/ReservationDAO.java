@@ -12,10 +12,13 @@ import kr.co.jhta.pony.dto.ReservationDTO;
 @Repository
 public interface ReservationDAO {
 
-	List<ReservationDTO> getReservationList(int memberNo);
+	public List<ReservationDTO> getReservationList(int memberNo);
 
 	void deleteReservation(int reservationNo);
 
 	void insertCarMaintenanceReservation(ReservationDTO dto);
 
+	public List<ReservationDTO> reservationComplete();
+
+	void updateCarMaintenanceReservation(ReservationDTO dto);
 }

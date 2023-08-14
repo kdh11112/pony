@@ -467,10 +467,30 @@ public class MyPageController {
 		//---------------------------------정비예약신청 내역
 		@GetMapping("/carMaintenanceReservationDetail")
 		public String CarMaintenanceReservationDetail(Model model,Principal p,
-													  HttpSession session,HttpServletRequest req) {
+													  HttpSession session,HttpServletRequest req,
+													  @ModelAttribute ClientDTO clientDTO) {
 			PonyMemberDTO dto1 = service.getMemberEmail(service.getPrincipalEmail(p));
 			int memberNo = dto1.getMemberNo();
 			List<ReservationDTO> reservationList = reservationService.getReservationList(memberNo);
+			
+			/////////////////////////////////////////////////////
+			List<ClientDTO> userCars = cService.carList(memberNo);
+			// 등록된 차량 정보가 없을 경우의 처리
+	        if (userCars.isEmpty()) {
+	            model.addAttribute("hasCars", false);
+	        } else {
+	            model.addAttribute("hasCars", true);
+	            model.addAttribute("userCars", userCars);
+	        }
+			session.setAttribute("cdto", clientDTO);
+	        cService.carList(memberNo);
+	        
+
+			model.addAttribute("userCars", userCars); //사용자 차량정보 가져오기
+			log.info("clientdto {} 전송됨 ",userCars);
+			/////////////////////////////////////////////////////
+			
+			
 			model.addAttribute("reservationDTO",reservationList);
 			log.info(">>>>>>>>>>>>>>>>>>>>>>정비예약{}",reservationList);
 			model.addAttribute("carcnt",cService.getOwnedCarCount(memberNo));
@@ -486,5 +506,34 @@ public class MyPageController {
 			reservationService.deleteReservation(reservationNo);
 			log.info(">>>>>>>>>>>>>>>> 정비예약내역삭제 번호 {}"+reservationNo);
 			return "redirect:/carMaintenanceReservationDetail";
+		}
+		
+		//-------------------------정비예약변경
+		@PostMapping("/updateCarMaintenanceReservation")
+		@ResponseBody
+		public String updateCarMaintenanceReservation(
+				@RequestParam("clientCarNumber") String clientCarNumber,
+				@RequestParam("selectedShopNo")int shopNo,
+				@RequestParam ("selectedSchedule") String reservationDueDate,
+				@RequestParam("reservationNo")int reservationNo,
+										Principal p, HttpSession session, HttpServletRequest req, Model model) {
+			
+			
+			PonyMemberDTO dto8 = service.getMemberEmail(service.getPrincipalEmail(p));
+			int memberNo = dto8.getMemberNo();
+			
+			log.info("tests...........................");
+			ReservationDTO dto = new ReservationDTO();
+			dto.setMemberNo(memberNo);
+			dto.setClientCarNumber(clientCarNumber);
+			dto.setReservationDueDate(reservationDueDate);
+			dto.setShopNo(shopNo);
+			dto.setReservationNo(reservationNo);
+			
+			log.info(">>>>>>>>>>>>>>>>>>> 예약  {}",dto);
+			
+			reservationService.updateCarMaintenanceReservation(dto);
+			return "OK";
+		//	return "redirect:/carMaintenanceReservationDetail";
 		}
 }
