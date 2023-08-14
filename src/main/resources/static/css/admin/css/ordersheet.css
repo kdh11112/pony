@@ -1524,8 +1524,8 @@ button{border:0;background:none}
 
 /* 적립혜택노출 */
 .spot_benefit_pay{border:1px solid #efeeef;background:#fff}
-.spot_benefit_pay .fold_heading a {color: #222;letter-spacing: -0.5px;font-size: 13px;}
-.spot_benefit_pay .fold_heading a .benefit_spot_green {position: absolute; right: 33px;font-weight: bold;color: #0A58CA;}
+.spot_benefit_pay .fold_heading span {color: #222;letter-spacing: -0.5px;font-size: 13px;}
+.spot_benefit_pay .fold_heading span .benefit_spot_green {position: absolute; right: 33px;font-weight: bold;color: #0A58CA;}
 .benefit_fold_panel .thm{display:inline-block;margin-right:2px;color:#0A58CA}
 .benefit_fold_panel .fold_heading{position:relative}
 .benefit_fold_panel .fold_heading a{display:block;padding:10px 15px 9px;margin-top: 6px;border-bottom-width: 12px;margin-bottom: 6px;background:none;color:#222;font-size:13px;line-height:18px;text-decoration:none}
