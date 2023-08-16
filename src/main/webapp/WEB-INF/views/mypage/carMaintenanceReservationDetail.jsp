@@ -68,7 +68,7 @@
 }
 
 .no-car, .sub {
-	margin: 0 30px;
+	margin: 10px 40px;
 }
 
 .head {
@@ -178,7 +178,7 @@ textarea {
 <script>
 	function deleteCar() {
 
-		$('input:checkbox').each(function(index) {
+		$('input:radio').each(function(index) {
 			if ($(this).is(":checked") == true) {
 
 				var no = $(this).parent().next().val();
@@ -190,12 +190,14 @@ textarea {
 						reservationNo : no
 					}, // 삭제할 차대번호를 전달합니다.
 					success : function(data) {
-						console.log(no);
+						
 					}
 				});
 			}
+		
 		});
-		location.href = "/carMaintenanceReservationDetail";
+		 location.href = "/carMaintenanceReservationDetail";
+		console.log(no);
 	}
 </script>
 
@@ -276,13 +278,8 @@ textarea {
 							<!-- 포인트 1:1문의내역 -->
 							<div class="my-info" data-v-269e3e5f>
 								<ul data-v-269e3e5f>
-									<li data-v-269e3e5f><a
-										href="#
-											data-link-area="
-										마이페이지-메인" data-link-name="포인트" draggable="true"
-										class="btn btn-primary active" data-v-269e3e5f><span>
-												포인트 <!---->
-										</span></a> <strong data-v-269e3e5f>${memberPoint } P</strong></li>
+									<li data-v-269e3e5f>
+												 <strong data-v-269e3e5f>포인트 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${memberPoint } P</strong></li>
 
 									<li data-v-269e3e5f><a class="btn btn-primary active"
 										href="mypageqna"><span>1:1 문의 내역 <!---->
@@ -347,7 +344,7 @@ textarea {
 
 							</div>
 							<div class="sub" data-v-269e3e5f>
-								<span data-v-269e3e5f>등록 차량의 자세한 정보를 확인하실 수 있습니다.</span>
+								<span data-v-269e3e5f class="text">등록 차량의 자세한 정보를 확인하실 수 있습니다.</span>
 							</div>
 
 							<c:if test="${empty reservationDTO}">
@@ -438,7 +435,7 @@ textarea {
 														<input type="hidden" name="clientCarNumber" id="clientCarNumber"> 
 															<input type="hidden"name="selectedShopNo" id="selectedShopNo" /> 
 															<input type="hidden" name="selectedSchedule"id="selectedSchedule" /> 
-															<input type="hidden" name="reservationNo" id="reservationNo" />
+															<input type="hidden" name="reservationNo" />
 															<input type="hidden" name="reservationClientRequests2" id="reservationClientRequests" />
 														<!-- =============================아코디언 영역============================= -->
 														<div class="accordion" id="accordionExample">

@@ -340,7 +340,7 @@ $("#OkBtn").on("click", function() {
 	selectedShopNo = $("#selectedShopNo").val(selectedShopNo);
 	clientCarNumber = $("#clientCarNumber").val(clientCarNumber);
 	reservationNo = $("#reservationNo").val(no);
-	reservationClientRequests = $("#reservationClientRequests").val(reservationClientRequests);
+	reservationClientRequests = $("#reservationClientRequests").val();
 	
 	
 	

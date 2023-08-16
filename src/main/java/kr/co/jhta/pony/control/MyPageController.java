@@ -502,12 +502,13 @@ public class MyPageController {
 		}
 		//----------------------------------정비예약신청삭제
 		@GetMapping("/carMaintenanceReservationDelete")
+		@ResponseBody
 		public String CarMaintenanceReservationDetailDelete(@ModelAttribute ReservationDTO dto, Principal p, 
 															HttpSession session, @RequestParam int reservationNo) {
 			reservationService.deleteReservation(reservationNo);
 			log.info(">>>>>>>>>>>>>>>> 정비예약내역삭제 번호 {}"+reservationNo);
 			log.info(">>>>>>>>>{} 이거 동작함/.?");
-			return "redirect:/carMaintenanceReservationDetail";
+			return "Ok";
 		}
 		
 		//-------------------------정비예약변경

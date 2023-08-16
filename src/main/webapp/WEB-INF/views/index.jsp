@@ -87,6 +87,7 @@ a{text-decoration: none;}
 	left: 2%;
 	top: 20px;
 	z-index: 9999;
+	width:100px;
 }
 
 .open {
@@ -140,7 +141,7 @@ a{text-decoration: none;}
 
 .mypage {
 	position: absolute;
-	right: 80px;
+	right: 100px;
 	top: 23px;
 	color: white;
 	width: 35px;
@@ -175,6 +176,28 @@ a{text-decoration: none;}
 /* GNB(글로벌 내비게이션 바)의 링크 색상 변경 */
 .gnb a {
   color: white;
+}
+.login-link{
+	position:absolute;
+	right:45px;
+	width:60px;
+}
+.mypage-link1{
+	position:relative;
+	right:100px;
+	width:300px;
+	font-size: 15px;
+	
+}
+.mypage-link2{
+	position:absolute;
+	right:15px;
+	width:100px;
+	font-size: 15px;
+	
+}
+.gnb li:hover a {
+  color: skyblue; /* 하늘색으로 변경하려면 다른 적절한 색상 코드를 사용하세요. */
 }
 </style>
 <script src="js/jquery-3.4.1.min.js"></script>
@@ -234,7 +257,7 @@ a{text-decoration: none;}
 		<header class="header">
 			<div class="logo">
 				<a href="/index"> <img
-					src="images/KakaoTalk_20230720_160646746.png" alt="미니골프">
+					src="images/pony_motors_log_cut.png" alt="미니골프">
 				</a>
 			</div>
 			<!-- 마이페이지 링크 -->
@@ -250,8 +273,8 @@ a{text-decoration: none;}
 				</sec:authorize>
 								
 				<sec:authorize access="hasAnyRole('ROLE_USER')">
-						<a href="/logout">${username} 님 로그아웃</a>
-						<a href="/mypage" class="mypage-link">마이페이지</a>
+						<a href="/logout" class="mypage-link1">${username} 님 로그아웃</a>
+						<a href="/mypage" class="mypage-link2">마이페이지</a>
 				</sec:authorize>
 					
 					

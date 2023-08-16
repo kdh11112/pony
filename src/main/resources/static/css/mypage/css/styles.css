@@ -231,6 +231,7 @@ blockquote {
 b,
 strong {
   font-weight: bolder;
+   margin-left: 10px;
 }
 
 small, .small {
@@ -10911,4 +10912,13 @@ header img {
 div{
 	font-family: 'Orbit', sans-serif;
 }
+.my-info, .my-activity, .el-row, .username{
+	margin-left:40px;
+}
 
+.text{
+	margin-left: 10px;
+}
+.sub{
+	margin-left: 10px;
+}

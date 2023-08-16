@@ -59,7 +59,7 @@
 	
 }
 .no-car,.sub{
-	margin:0 30px;
+	margin: 10px 40px;
 }
 .head{
 		margin:20px 60px;
@@ -166,13 +166,8 @@
 								<!-- 포인트 1:1문의내역 -->
 								<div class="my-info" data-v-269e3e5f>
 									<ul data-v-269e3e5f>
-										<li data-v-269e3e5f><a
-											href="#
-											data-link-area="
-											마이페이지-메인" data-link-name="포인트" draggable="true"
-											class="btn btn-primary active" data-v-269e3e5f><span>
-													포인트 <!---->
-											</span></a> <strong data-v-269e3e5f>0 P</strong></li>
+										<li data-v-269e3e5f>
+													포인트 <strong data-v-269e3e5f> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 P</strong></li>
 
 										<li data-v-269e3e5f><a class="btn btn-primary active"
 											href="mypageqna"><span>1:1 문의 내역 <!---->
