@@ -37,6 +37,8 @@
 .content {
 	box-sizing: border-box;
 	width: 400px;
+	flex: 1;
+  overflow: auto;
 }
 
 .contant-area {
@@ -175,6 +177,33 @@ textarea {
 }
 </style>
 
+<script type="text/javascript">
+$(document).ready(function() {
+	  $('.accordion-title').on('click', function() {
+	    // 아코디언 컨텐츠가 열릴 때마다 footer 위치 업데이트
+	    updateFooterPosition();
+	  });
+	});
+
+	function updateFooterPosition() {
+	  var contentHeight = $('.content').outerHeight();
+	  var windowHeight = $(window).height();
+	  var scrollTop = $(window).scrollTop();
+	  var footerHeight = $('.footer').outerHeight();
+
+	  if (contentHeight + footerHeight > windowHeight) {
+	    // 아코디언 컨텐츠가 열려 스크롤이 발생할 경우
+	    var distanceFromBottom = contentHeight - (scrollTop + windowHeight);
+	    var newFooterPosition = Math.max(0, footerHeight - distanceFromBottom);
+
+	    $('.footer').css('bottom', newFooterPosition + 'px');
+	  } else {
+	    // 스크롤이 발생하지 않을 경우
+	    $('.footer').css('bottom', '0');
+	  }
+	}
+</script>
+
 </head>
 <body>
 	<div id="wrapper">
@@ -235,6 +264,7 @@ textarea {
 		<input type="hidden" name="clientCarNumber" id="clientCarNumber">
 		<input type="hidden" name="selectedShopNo" id="selectedShopNo" />
 		<input type="hidden" name="selectedSchedule" id="selectedSchedule" />
+		<input type="hidden" name="reservationClientRequests2" id="reservationClientRequests" />
 			<!-- =============================아코디언 영역============================= -->
 			<div class="accordion" id="accordionExample">
 				<div class="accordion-item">
@@ -422,20 +452,34 @@ textarea {
 						</div>
 					</div>
 				</div>
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="headingFour">
+						<button class="accordion-button collapsed" id="headingFourBtn"
+							type="button" data-bs-toggle = "collapse"
+							data-bs-target="#collapseFour" aria-expanded="false"
+							aria-controls="collapseFour">정비요청사항</button>
+					</h2>
+					<div id="collapseFour" class="accordion-collapse collapse"
+						aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+						<div class="accordion-body">
+							 <textarea class="form-control"  id="reservationClientRequests1"  name="reservationClientRequests"  rows="3" ></textarea>
+						</div>
+					</div>
+				</div>
 			</div>
 			
 			<div style="margin-top: 50px;">
-				<button class="btn" id="OkBtn" type="button">신청하기</button> 
+				<button class="btn" id="OkBtn" type="button" style="  margin-bottom: 50px;">신청하기</button> 
 			</div>
 			</form>
 		</div>
 		<!-- Footer-->
-		<footer class="py-5 bg-secondary">
+		<!-- <footer class="py-5 bg-secondary" >
 			<div class="container">
 				<p class="m-0 text-center text-white">Copyright &copy; Your
 					Website 2023</p>
 			</div>
-		</footer>
+		</footer> -->
 	</div>
 
 

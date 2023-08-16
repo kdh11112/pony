@@ -127,6 +127,7 @@ $(document).on("click", ".shop-no-btn", function() {
 	$("#headingTwoBtn").attr("class", "accordion-button show collapsed");
 	$("#headingThreeBtn").attr("class", "accordion-button show");
 	$("#collapseThree").addClass("show");
+
 	selectedShopNo = $(this).val();
 		var asd =$("input[name=selectedCars]:checked").val();
 		console.log(asd);
@@ -257,6 +258,7 @@ $(document).on("click", ".shop-no-btn", function() {
 
 let selectedSchedule = ""; // 시간 선택 값을 저장할 변수를 빈 문자열로 초기화합니다.
 let clientCarNumber ="";
+let reservationClientRequests = "";
 function handleButtonClick(event) {
 	const button = event.target;
 	const buttonYear = button.dataset.year;
@@ -265,11 +267,12 @@ function handleButtonClick(event) {
 
 	selectedSchedule = buttonYear + "-" + "0" + buttonMonth + "-" + buttonDate;
  
- 	clientCarNumber = $("#selectedCarName").text()
- 	 	
+ 	clientCarNumber = $("#selectedCarName").text();
+ 	 /*	reservationClientRequests = $("#reservationClientRequests").text();
+ 	 	console.log(reservationClientRequests);*/
 
 	$("#selectedSchedule").val(selectedSchedule);
-alert(selectedSchedule+"\n" + selectedShopNo + "\n" + clientCarNumber);
+alert(selectedSchedule+"\n" + selectedShopNo + "\n" + clientCarNumber+"\n"+"요청"+reservationClientRequests);
 	/*alert("선택한 차량: " + $("#selectedCarName").text() + "\n"
 		+ "선택한 지점: " + shopAreaPoint + "\n"
 		+ "선택한 날짜: " + selectedSchedule + "\n"
@@ -281,23 +284,25 @@ alert(selectedSchedule+"\n" + selectedShopNo + "\n" + clientCarNumber);
 
 $(function(){
 	
-$("#OkBtn").on("click", function() {
-
-	alert(selectedSchedule+"\n" + selectedShopNo + "\n" + clientCarNumber);
+$("#OkBtn").on("click", function(e) {
+	console.dir(e);
+	reservationClientRequests = $("#reservationClientRequests").val()
+	alert(selectedSchedule+"\n" + selectedShopNo + "\n" + clientCarNumber+"\n"+reservationClientRequests);
 
 	console.log("asd")
 	$("#selectedSchedule").val(selectedSchedule);
 	$("#selectedShopNo").val(selectedShopNo);
 	$("#clientCarNumber").val(clientCarNumber);
 	
+/*	$("#reservationClientRequests1").val(reservationClientRequests);*/
+	
+	console.log($("#reservationClientRequests1").val());
+	
 	document.getElementById("frm").submit();
 })
 })
 	
 	
-
-
-
 
 
 /*function carMaintenanceModify() {

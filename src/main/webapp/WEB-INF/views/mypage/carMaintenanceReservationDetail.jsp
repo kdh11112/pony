@@ -176,8 +176,6 @@ textarea {
 </style>
 
 <script>
-	
-
 	function deleteCar() {
 
 		$('input:checkbox').each(function(index) {
@@ -192,7 +190,7 @@ textarea {
 						reservationNo : no
 					}, // 삭제할 차대번호를 전달합니다.
 					success : function(data) {
-
+						console.log(no);
 					}
 				});
 			}
@@ -229,7 +227,7 @@ textarea {
 								<li><a class="dropdown-item" href="#!">New Arrivals</a></li>
 							</ul></li>
 					</ul>
-				<!-- 	<form class="form-inline">
+					<!-- 	<form class="form-inline">
 						<input class="form-control mr-sm-2" type="search"
 							placeholder="Search" aria-label="Search">
 						<button class="btn btn-outline-secondary my-2 my-sm-0"
@@ -392,7 +390,8 @@ textarea {
 													<tr class="list">
 														<td>
 															<!-- 등록된 차량 삭제 체크 박스 --> <input type="radio"
-															name="selectedCars2" value="" id="selectedCarsId"  class="asd">
+															name="selectedCars2" value="" id="selectedCarsId"
+															class="asd">
 														</td>
 														<input type="hidden" value="${list.reservationNo}" />
 														<td>${list.shopAreaPoint}</td>
@@ -436,14 +435,11 @@ textarea {
 												<div class="testDriveContent text-center">
 													<form action="/updateCarMaintenanceReservation" id="frm"
 														method="post">
-														<input type="hidden" name="clientCarNumber"
-															id="clientCarNumber"> 
-														<input type="hidden"
-															name="selectedShopNo" id="selectedShopNo" /> 
-														<input
-															type="hidden" name="selectedSchedule"
-															id="selectedSchedule" />
-														<input type="hidden" name="reservationNo" id=""/>
+														<input type="hidden" name="clientCarNumber" id="clientCarNumber"> 
+															<input type="hidden"name="selectedShopNo" id="selectedShopNo" /> 
+															<input type="hidden" name="selectedSchedule"id="selectedSchedule" /> 
+															<input type="hidden" name="reservationNo" id="reservationNo" />
+															<input type="hidden" name="reservationClientRequests2" id="reservationClientRequests" />
 														<!-- =============================아코디언 영역============================= -->
 														<div class="accordion" id="accordionExample">
 															<div class="accordion-item">
@@ -663,18 +659,36 @@ textarea {
 																	</div>
 																</div>
 															</div>
+															<div class="accordion-item">
+																<h2 class="accordion-header" id="headingFour">
+																	<button class="accordion-button collapsed"
+																		id="headingFourBtn" type="button"
+																		data-bs-toggle="collapse"
+																		data-bs-target="#collapseFour" aria-expanded="false"
+																		aria-controls="collapseFour">정비요청사항</button>
+																</h2>
+																<div id="collapseFour"
+																	class="accordion-collapse collapse"
+																	aria-labelledby="headingFour"
+																	data-bs-parent="#accordionExample">
+																	<div class="accordion-body"  >
+																		<textarea class="form-control"  name="reservationClientRequests" 
+																			 id="reservationClientRequests1" rows="3"></textarea>
+																	</div>
+																</div>
+															</div>
 														</div>
 
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary active"
-													data-bs-dismiss="modal">
-													<span>취소</span>
-												</button>
-												<button type="button" class="btn btn-primary active"
-													 id="OkBtn">
-													<span>변경하기</span>
-												</button>
-											</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary active"
+																data-bs-dismiss="modal">
+																<span>취소</span>
+															</button>
+															<button type="button" class="btn btn-primary active"
+																id="OkBtn">
+																<span>변경하기</span>
+															</button>
+														</div>
 													</form>
 												</div>
 
@@ -724,14 +738,29 @@ textarea {
 				<!-- 마이페이지 컨테이너 end -->
 		</section>
 		<!-- Footer-->
-		<footer class="py-5 bg-secondary">
+		<!-- <footer class="py-5 bg-secondary">
 			<div class="container">
 				<p class="m-0 text-center text-white">Copyright &copy; Your
 					Website 2023</p>
 			</div>
-		</footer>
+		</footer> -->
 	</div>
 
 
+<!-- <script type="text/javascript">
+
+	$(document).ready(function() {
+		//여기 아래 부분
+		$('#summernote').summernote({
+			  height: 300,                 // 에디터 높이
+			  minHeight: null,             // 최소 높이
+			  maxHeight: null,             // 최대 높이
+			  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+			  lang: "ko-KR",					// 한글 설정
+			  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+	          
+		});
+	});
+</script> -->
 </body>
 </html>

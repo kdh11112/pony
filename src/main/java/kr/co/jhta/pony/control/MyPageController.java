@@ -506,6 +506,7 @@ public class MyPageController {
 															HttpSession session, @RequestParam int reservationNo) {
 			reservationService.deleteReservation(reservationNo);
 			log.info(">>>>>>>>>>>>>>>> 정비예약내역삭제 번호 {}"+reservationNo);
+			log.info(">>>>>>>>>{} 이거 동작함/.?");
 			return "redirect:/carMaintenanceReservationDetail";
 		}
 		
@@ -517,6 +518,7 @@ public class MyPageController {
 				@RequestParam("selectedShopNo")int shopNo,
 				@RequestParam ("selectedSchedule") String reservationDueDate,
 				@RequestParam("reservationNo")int reservationNo,
+				@RequestParam("reservationClientRequests") String reservationClientRequests,
 										Principal p, HttpSession session, HttpServletRequest req, Model model) {
 			
 			
@@ -529,6 +531,7 @@ public class MyPageController {
 			dto.setClientCarNumber(clientCarNumber);
 			dto.setReservationDueDate(reservationDueDate);
 			dto.setShopNo(shopNo);
+			dto.setReservationClientRequests(reservationClientRequests);
 			dto.setReservationNo(reservationNo);
 			
 			log.info(">>>>>>>>>>>>>>>>>>> 예약  {}",dto);
