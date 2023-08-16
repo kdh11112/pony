@@ -258,6 +258,7 @@ $(document).on("click", ".shop-no-btn", function() {
 let selectedSchedule = ""; // 시간 선택 값을 저장할 변수를 빈 문자열로 초기화합니다.
 let clientCarNumber ="";
 let no;
+let reservationClientRequests="";
 function handleButtonClick(event) {
 	const button = event.target;
 	const buttonYear = button.dataset.year;
@@ -339,6 +340,7 @@ $("#OkBtn").on("click", function() {
 	selectedShopNo = $("#selectedShopNo").val(selectedShopNo);
 	clientCarNumber = $("#clientCarNumber").val(clientCarNumber);
 	reservationNo = $("#reservationNo").val(no);
+	reservationClientRequests = $("#reservationClientRequests").val(reservationClientRequests);
 	
 	
 	
@@ -361,6 +363,7 @@ $("#OkBtn").on("click", function() {
 				console.log("selectedSchedule : "+selectedSchedule);
 				console.log("selectedShopNo : "+selectedShopNo);
 				console.log("clientCarNumber: "+clientCarNumber);
+				console.log("reservationClientRequests : "+reservationClientRequests);
 				//console.log($("#selectModel option:selected").val());// jquery 선택한 옵션 객체의 값 구하기 
 				//var optionValue = $("#selectModel option:selected").val();
 
@@ -374,7 +377,8 @@ $("#OkBtn").on("click", function() {
 						clientCarNumber : clientCarNumber,
 						selectedShopNo : selectedShopNo,
 						selectedSchedule : selectedSchedule,
-						reservationNo : no
+						reservationNo : no,
+						reservationClientRequests : reservationClientRequests
 					},
 					success : function(data) {
 						console.log(data);

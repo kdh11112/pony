@@ -24,13 +24,16 @@
 		r.reservationDate
 		FROM
 		RESERVATION r
-		JOIN CLIENT c ON r.clientCarNumber = c.clientCarNumber
+		JOIN CLIENT c
+		ON r.clientCarNumber = c.clientCarNumber
 		JOIN
 		MEMBER m
-		ON c.memberNo = m.memberNo
+		ON c.memberNo =
+		m.memberNo
 		JOIN SHOP s ON r.shopNo = s.shopNo
 		WHERE
-		m.memberNo = #{memberNo};
+		m.memberNo =
+		#{memberNo};
 	</select>
 
 	<!-- 정비예약내역 삭제 -->
@@ -39,21 +42,26 @@
 		RESERVATION
 		WHERE reservationNo = #{reservationNo}
 	</delete>
-
+	<!-- 정비예약 입력 -->
 	<insert id="insertCarMaintenanceReservation"
 		parameterType="kr.co.jhta.pony.dto.ReservationDTO">
 		INSERT INTO
 		RESERVATION
-		(reservationDate,clientCarNumber,memberNo,shopNo,reservationDueDate)
-		VALUES(now(),#{clientCarNumber},#{memberNo},#{shopNo},#{reservationDueDate})
+		(reservationDate,clientCarNumber,memberNo,shopNo,reservationDueDate,reservationClientRequests)
+		VALUES(now(),#{clientCarNumber},#{memberNo},#{shopNo},#{reservationDueDate},#{reservationClientRequests})
 
 	</insert>
+	<!-- 정비예약 수정 -->
 	<update id="updateCarMaintenanceReservation"
 		parameterType="kr.co.jhta.pony.dto.ReservationDTO">
 		UPDATE RESERVATION SET
-		clientCarNumber =#{clientCarNumber},
+		clientCarNumber
+		=#{clientCarNumber},
 		shopNo = #{shopNo},
-		reservationDueDate = #{reservationDueDate}
+		reservationDueDate =
+		#{reservationDueDate},
+		reservationClientRequests =
+		#{reservationClientRequests}
 		WHERE reservationNo = #{reservationNo}
 	</update>
 

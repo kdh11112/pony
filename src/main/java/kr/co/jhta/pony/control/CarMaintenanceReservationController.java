@@ -71,6 +71,7 @@ public class CarMaintenanceReservationController {
 			@RequestParam("clientCarNumber")String clientCarNumber, 
 			@RequestParam("selectedShopNo")int shopNo,
 			@RequestParam("selectedSchedule") String reservationDueDate,
+			@RequestParam("reservationClientRequests") String reservationClientRequests,
 			
 			HttpSession session) {
 		ReservationDTO dto = new ReservationDTO();
@@ -91,17 +92,13 @@ public class CarMaintenanceReservationController {
 		
 		dto.setShopNo(shopNo);
 		dto.setReservationDueDate(reservationDueDate);
-					//reservationDTO.setReservationClientRequests(reservationClientRequests);
+		dto.setReservationClientRequests(reservationClientRequests);
 		dto.setClientCarNumber(clientCarNumber);
 		reservationService.insertCarMaintenanceReservation(dto);
 		
-		log.info("인서트dto ",dto);
+		log.info("인서트dto {}",dto);
 		return "confirmCarMaintenanceReservation";
 	}
-	
-	
-	
-	
-	 
+
 	
 }

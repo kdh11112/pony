@@ -693,12 +693,12 @@ textarea {
 			</div>
 		</section>
 		<!-- Footer-->
-		<footer class="py-5 bg-secondary">
+		<!-- <footer class="py-5 bg-secondary">
 			<div class="container">
 				<p class="m-0 text-center text-white">Copyright &copy; Your
 					Website 2023</p>
 			</div>
-		</footer>
+		</footer> -->
 	</div>
 
 
