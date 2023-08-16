@@ -64,6 +64,11 @@
 	padding-bottom: 20px;
 	padding-left: 20px;
 }
+.kakaopayimg {
+	width: 40px;
+	height: 20px;
+	vertical-align: middle;
+}
 </style>
 <script type="text/javascript" src="https://ssl.pstatic.net/tveta/libs/glad/prod/2.18.0/gfp-sdk.js" charset="utf-8"></script>
 <script src="https://ssl.pstatic.net/static.gn/js/clickcrD.js" id="gnb_clickcrD" charset="utf-8"></script>
@@ -74,76 +79,7 @@
 <%--아임포트 라이브러리--%>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script>
 
-function iamport(){
-	
-	/* 결제 검증 */
-	/* var flag = $("#flag").val();
-    var principalId = $("#principalId").val(); */
-    var name = $("#memberName").val();
-    var phone = $("#memberPhone").val();
-    var email = $("#email").val();
-    var postcode = $("#postcode").val();
-    var address = $("#address").val() + " " + $("#detailAddress").val();
-	
-    var partName;
-    var partNo = $("#partNo").val();
-    var modelName = $("#modelName").val();
-    var cartName = $("#cartName").val();
-    var amount = $("#amount").val();
-    var price = $("#total").text();
-    
-	/* 가맹점 식별코드 */
-	IMP.init("imp74705060"); // 예: imp00000000a
-	IMP.request_pay({
-		pg : "kcp.{TC0ONETIME}", // "kcp.{상점ID}"
-		pay_method : "card",
-		merchant_uid : "ORD20180131-0000011", // 주문번호
-		name : partName,
-		amount : price, // 숫자 타입
-		buyer_email : email,
-		buyer_name : name,
-		buyer_tel : phone, //"010-4242-4242"
-		buyer_addr : address,
-		buyer_postcode : postcode
-	}, function(rsp) { // callback
-		//rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단.
-		console.log(rsp);
-		
-		/* 결제 검증 */
-		$.ajax({
-			type : "POST",
-			url : "/veryfyIamport" + rsp.imp_uid 
-			
-			}).done(function(data){
-				console.log(data);
-				
-				//위의 rsp.paid_amount와 data.response.amount를 비교한 후 로직 실행 (import 서버검증)
-				if(rsp.paid_amount == data.response.amount){
-		        	alert("결제 및 결제검증완료");
-	        	} else {
-	        		alert("결제 실패");
-	        	}
-			});
-		});
-	}
-	    if ( rsp.success ) {
-	    	var msg = '결제가 완료되었습니다.';
-	        msg += '고유ID : ' + rsp.imp_uid;
-	        msg += '상점 거래ID : ' + rsp.merchant_uid;
-	        msg += '결제 금액 : ' + rsp.paid_amount;
-	        msg += '카드 승인번호 : ' + rsp.apply_num;
-	    } else {
-	    	 var msg = '결제에 실패하였습니다.';
-	         msg += '에러내용 : ' + rsp.error_msg;
-	    }
-	    alert(msg);
-	});
-	
-}
-
-</script>
 </head>
 <body>
 	<!-- Navigation-->
@@ -460,14 +396,20 @@ function iamport(){
 
 										<li class="paymethod _payMethodTab _naverPaymentsCardTab">
 											<div class="header">
-												<span> <input type="radio" name="payradio" value="card">
+												<span> <input type="radio" name="payradio" value="card" checked="checked">
 												</span> <label>카드결제</label> <em class="_generalPaymentAmount payment_price"><fmt:formatNumber pattern="###,###,###">${total}</fmt:formatNumber> 원</em>
 											</div>
 										</li>
 										<li class="paymethod _payMethodTab _naverPaymentsCardTab">
 											<div class="header has_detail">
+												<span> <input type="radio" name="payradio" value="kakaopay">
+												</span> <label>카카오페이</label><img src="images/kakao/kakaopay.png" class="kakaopayimg" /> <em class="_generalPaymentAmount payment_price"></em>
+											</div>
+										</li>
+										<li class="paymethod _payMethodTab _naverPaymentsCardTab">
+											<div class="header has_detail">
 												<span> <input type="radio" name="payradio" value="transfer">
-												</span> <label>무통장입금</label> <em class="_generalPaymentAmount payment_price off"></em>
+												</span> <label>무통장입금</label> <em class="_generalPaymentAmount payment_price"></em>
 											</div>
 										</li>
 									</ul>
@@ -557,7 +499,75 @@ function iamport(){
 			<p class="m-0 text-center text-white" style="font-size: 16px;">Copyright &copy; Your Website 2023</p>
 		</div>
 	</footer>
+<script>
+function iamport() {
+    var name = $("#memberName").val();
+    /* var phone = $("#memberPhone").val(); */
+    var email = $("#memberEmail").val();
+    var postcode = $("#memberZip").val();
+    var address = $("#memberAddress").val() + " " + $("#memberDetailAddress").val();
+    
+    //var partName = ""; // 어떤 값을 할당할지 지정해주세요
+    
+    var amount = $("#amount").val();
+    var price = $("#total").text();
+    
+    /* 가맹점 식별코드 */
+    var IMP = window.IMP;
+    IMP.init("imp74705060"); // 예: imp00000000a
+    
+    console.log(amount);
+    console.log(email);
+    console.log(name);
+    console.log(address);
+    console.log(postcode);
+    IMP.request_pay({
+        pg: "kakaopay.TC0ONETIME", // "kcp.{상점ID}"
+        pay_method: "card",
+        merchant_uid: "200011", // 주문번호
+        name: "엔진",
+        amount: amount, // 숫자 타입
+        buyer_email: email,
+        buyer_name: name,
+        buyer_tel: "010-3833-0284", //"010-4242-4242"
+        buyer_addr: address,
+        buyer_postcode: "01234"
+    }, function(rsp) { // 콜백 함수
+        console.log(rsp);
+        
+        if (rsp.success) {
+            var msg = '결제가 완료되었습니다.';
+            msg += '고유ID : ' + rsp.imp_uid;
+            msg += '상점 거래ID : ' + rsp.merchant_uid;
+            msg += '결제 금액 : ' + rsp.paid_amount;
+            msg += '카드 승인번호 : ' + rsp.apply_num;
+            alert(msg);
+            
+            // 결제 검증
+            $.ajax({
+                type: "POST",
+                url: "/verifyIamport/" + rsp.imp_uid // 수정된 URL 형식
+                
+            }).done(function(data) {
+                console.log(data);
+                
+                // 위의 rsp.paid_amount와 data.response.amount를 비교한 후 로직 실행 (import 서버검증)
+                if (rsp.paid_amount == data.response.amount) {
+                    alert("결제 및 결제검증완료");
+                } else {
+                    alert("결제 실패");
+                }
+            });
+        } else {
+            var msg = '결제에 실패하였습니다.';
+            msg += '에러내용 : ' + rsp.error_msg;
+            alert(msg);
+        }
+        document.location.href="/orderend";
+    });
+}
 
+</script>
 	<!-- //footer -->
 	<script>
 		function calculateTotal() {

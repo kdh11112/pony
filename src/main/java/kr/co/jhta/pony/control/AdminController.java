@@ -85,7 +85,6 @@ public class AdminController {
 	}
 	
 	// 주문 상태 변경 - 체크박스
-	 
 	@RequestMapping("/delivery") 
 	public String changeDelivery(HttpServletRequest	req, @ModelAttribute OrderDTO odto ) { 
 		String[] partCheck = req.getParameterValues("partCheck"); 

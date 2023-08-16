@@ -21,8 +21,8 @@ public class ImportApiController {
 	private IamportClient api;
 	
 	public ImportApiController() {
-		 // REST API 키와 REST API secret 를 아래처럼 순서대로 입력한다.
-//        this.api = new IamportClient("[복사했던 REST API키]","[복사했던 REST API secret]");
+		// REST API 키와 REST API secret 를 아래처럼 순서대로 입력한다.
+        // this.api = new IamportClient("[REST API키]","[REST API secret]");
         this.api = new IamportClient("[6811244560502637]","[Kb93hC6SXUZ4gTj8UI08eDeJO8Vog2toWjWpCYfQhlTPxK6oJKe3GuBz3wXqwisPKZDkg3PFJ7wnY3Wg]");
     }
 
