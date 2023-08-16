@@ -1,5 +1,6 @@
 package kr.co.jhta.pony.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.jhta.pony.dao.OrderDAO;
 import kr.co.jhta.pony.dao.OrderDetailDAO;
 import kr.co.jhta.pony.dto.OrderDTO;
+import kr.co.jhta.pony.dto.OrderPageItemDTO;
 import kr.co.jhta.pony.util.Criteria;
 import lombok.extern.slf4j.Slf4j;
 
@@ -86,6 +88,15 @@ public class OrderServiceImple implements OrderService{
 	@Override
 	public List<OrderDTO> getAllByUser(int MemberNo) {
 		return orderdao.getAllByUser(MemberNo);
+	}
+
+	@Override
+	public List<OrderPageItemDTO> getPartsInfo(List<OrderPageItemDTO> orders) {
+		//주문 페이지에 필요한 상품정보 생성
+		List<OrderDTO> result = new ArrayList<OrderDTO>();
+		
+		//전달받은 partNumber를 통해 상품정보 DB에 요청 후 생성해놓은 List 객체의 요소로 하나씩 추가
+		return null;
 	}
 
 }

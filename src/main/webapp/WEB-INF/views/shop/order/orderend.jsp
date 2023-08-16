@@ -9,7 +9,6 @@
 <link href="css/admin/css/common.css" rel="stylesheet" />
 <link href="css/admin/css/nav.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap" rel="stylesheet">
-<link rel="shortcut icon" href="https://ssl.pstatic.net/static.checkout/layout/202307261800/images/customer/favicon.ico">
 <link type="text/css" rel="stylesheet" href="https://ssl.pstatic.net/static.checkout/layout/202307261800/css/customer/chk_n_common.css">
 <link href="css/admin/css/order/finalorder.css" rel="stylesheet" />
 <link type="text/css" rel="stylesheet" href="https://order.pstatic.net/202308/09_161200_1691565120/order_customer/static/css/service/front/order/ordersheet.css?1691577253961">
@@ -35,6 +34,7 @@
 
 .bill_content {
 	padding-top: 20px !important;
+	margin-top: 6px;
 }
 
 .scroll {
@@ -70,6 +70,14 @@
 
 .orderendtxt_content {
 	padding-top: 55px !important;
+}
+
+.product_dsc {
+	width: 190px !important;
+}
+
+.product_list {
+	padding-left: 15px;
 }
 </style>
 </head>
@@ -160,31 +168,26 @@
 								<a href="#" class="_click(nmp.front.order.order_sheet.result.togglePayEventInfo()) _stopDefault">
 									<strong> 포인트 혜택 </strong> <span class="benefit_spot_green" style="color: #0A58CA;">400원</span>
 								</a>
-								<!--N=a:ctm.benefit-->
 							</dt>
 						</dl>
 
 					</div>
 
 					<div class="order_bill">
-						<span class="ob_top"></span>
 						<div class="bill_content">
 							<span class="logo"><img src="images/pony_motors_log_cut.png" alt="" class="logoimg" /></span>
 							<div class="scroll">
 								<ul class="product_list">
-									<li class="product_item"><a href="https://inflow.pay.naver.com/rd?no=511420473&amp;tr=ppc&amp;pType=P&amp;retUrl=https%3A%2F%2Fsmartstore.naver.com%2Fmain%2Fproducts%2F7548217227&amp;vcode=hOm6aJ%2FttGPr8XbuY6RbI%2BmF0g3tI732njFSPgWUWcSpFxsxHa1RcRwHVJhfAV0ov7ilUSoYDzaPwlp%2Fa%2BrUNhZBawLY74%2BxOLA0YtKE%2BxbxX%2FmIbTO%2FHop9nO5N7GFW" target="_blank">
-											<img src="https://order.pay.naver.com/proxy/phinf/shop1/20221111_65/1668095800482ux0Vj_PNG/69231628209369967_1812638268.png?type=m80" alt="망그러진 아기망곰 마스킹테이프 다꾸 폴꾸 데코 귀여운 캐릭터 종이테이프" width="74" height="74"><span class="mask"></span>
-										</a> <!--N=a:ctm.product-->
+									<li class="product_item">
 										<div class="product_dsc">
-											<a href="https://inflow.pay.naver.com/rd?no=511420473&amp;tr=ppc&amp;pType=P&amp;retUrl=https%3A%2F%2Fsmartstore.naver.com%2Fmain%2Fproducts%2F7548217227&amp;vcode=hOm6aJ%2FttGPr8XbuY6RbI%2BmF0g3tI732njFSPgWUWcSpFxsxHa1RcRwHVJhfAV0ov7ilUSoYDzaPwlp%2Fa%2BrUNhZBawLY74%2BxOLA0YtKE%2BxbxX%2FmIbTO%2FHop9nO5N7GFW" target="_blank">
-												<p>망그러진 아기망곰 마스킹테이프 다꾸 폴꾸 데코 귀여운 캐릭터 종이테이프</p>
-											</a>
-											<!--N=a:ctm.product-->
+											<p>- 망그러진 아기망곰 마스킹테이프 다꾸</p>
 											<ul class="option_list">
-												<li>주문수량 : 1개</li>
+												<li>옵션 :</li>
+												<li>주문수량 : 개</li>
 											</ul>
-											<strong class="price"><em>5,000</em>원</strong>
-										</div></li>
+											<strong class="price"><em style="padding-left: 12px;">5,000</em>원</strong>
+										</div>
+									</li>
 
 								</ul>
 							</div>
@@ -235,14 +238,14 @@
 					<div class="cutting_line cutting_line_v3"></div>
 					<div class="payment_agree_wrap">
 
-						<button class="N=a:cpt.orderlist _click(nmp.front.order.order_sheet.result.goUrl(https://order.pay.naver.com/orderStatus/2023081689911581)) _stopDefault" style="background-color: #0A58CA; border: none;">
+						<button class="" style="background-color: #0A58CA; border: none;">
 							<span class="txt_purchase">구매내역 보기</span>
 						</button>
 						<!--N=a:ctm.buylst-->
-						<button class="N=a:cpt.home _click(nmp.front.order.order_sheet.result.goUrl(http://shopping.naver.com/home/p/index.nhn)) _stopDefault" style="background-color: #0A58CA; border: none;">
+						<button class="" style="background-color: #0A58CA; border: none;">
 							<span class="txt_shophome">쇼핑 홈 가기</span>
 						</button>
-						<!--N=a:ctm.shopping-->
+						
 						<div class="shdw_bottom"></div>
 					</div>
 				</div>

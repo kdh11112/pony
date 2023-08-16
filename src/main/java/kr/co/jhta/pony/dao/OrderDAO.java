@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.jhta.pony.dto.NoticeDTO;
 import kr.co.jhta.pony.dto.OrderDTO;
+import kr.co.jhta.pony.dto.OrderPageItemDTO;
 import kr.co.jhta.pony.dto.StartEnd;
 import kr.co.jhta.pony.util.Criteria;
 
@@ -38,5 +39,7 @@ public interface OrderDAO {
 	void insertOrder(OrderDTO dto);
 	
 	List<OrderDTO> getAllByUser(int MemberNo);
+	
+	OrderPageItemDTO getPartsInfo(int partNumber);
 	
 }
