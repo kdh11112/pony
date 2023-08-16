@@ -1,0 +1,120 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+<meta name="format-detection" content="telephone=no">
+<meta name="referrer" contents="always">
+<title>네이버페이</title>
+<link rel="shortcut icon" type="image/x-icon" href="https://img.pay.naver.net/static/images/mobile/icon/android_legacy_xxxhpdi_192x192.png">
+<link type="text/css" rel="stylesheet" href="https://img.pay.naver.net/static/css/mobile/layout.css">
+<link type="text/css" rel="stylesheet" href="//img.pay.naver.net/o/mstatic/css/service/mobile/layout.css?1692005863197">
+<link type="text/css" rel="stylesheet" href="//img.pay.naver.net/o/mstatic/css/service/mobile/component.css?1692005863197">
+<link type="text/css" rel="stylesheet" href="//img.pay.naver.net/o/mstatic/css/service/mobile/buy.css?1692005863197">
+<link type="text/css" rel="stylesheet" href="//img.pay.naver.net/o/mstatic/css/service/mobile/tiles/layout.css?1692005863197">
+<link href="css/admin/css/common.css" rel="stylesheet" />
+<link href="css/admin/css/nav.css" rel="stylesheet" />
+<style>
+.footerdiv{
+height: 200px;
+}
+</style>
+</head>
+<body>
+	<div class="u_skip"></div>
+	<div class="wrap">
+
+		<!-- header -->
+		<div id="header" class="type_end">
+			<div class="gnb">
+				<h1 class="pageh1">취소 요청</h1>
+
+			</div>
+		</div>
+
+		<div class="container">
+			<div id="ct" role="main">
+				<form class="_reqForm" action="" method="post">
+					<div class="bnr_info">
+						<span class="inner"> <strong class="sjt">취소 신청이 완료되었습니다.</strong>
+						</span>
+					</div>
+					<div name="productInfoList" class="wrap_buy_box box_product_list">
+						<div class="wrap_buy_cont">
+							<ul class="check_list reject_list complete">
+								<li>
+									<div class="box">
+										<div class="inner">
+											<div class="inner_cell thmb_cell">
+												<span class="thmb"> <img src="https://img.pay.naver.net/o/proxy/phinf/shop1/20221111_65/1668095800482ux0Vj_PNG/69231628209369967_1812638268.png?type=m120" alt="망그러진 아기망곰 마스킹테이프 다꾸 폴꾸 데코 귀여운 캐릭터 종이테이프" width="69" height="69">
+												</span>
+											</div>
+											<div class="inner_cell">
+												<div class="txt_box">
+													<span class="ico_npmember type_npay"><span class="blind">네이버플러스 멤버십</span></span> <strong class="name_product"> 망그러진 아기망곰 마스킹테이프 다꾸 폴꾸 데코 귀여운 캐릭터 종이테이프 </strong>
+													<div class="amount">
+
+														<em class="unit">5,000원</em> <em class="unit">1개</em>
+													</div>
+													<em class="dsc_charge"> 배송비 3,000 원 </em> <em class="info">[스마트스토어] 유랑상점</em>
+													<div class="button_inner">
+														<button type="button" class="btn_cart _click _click(checkout.mobile.order.claim_req.done2.repurchaseOpen(2023081682817891,NORMAL)) _stopDefault" style="cursor: pointer;">장바구니 담기</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="wrap_buy_box box_amount">
+						<div class="wrap_tit type_tit">
+							<strong class="tit_txt"><span class="txt_inner">환불 예정금액</span></strong>
+						</div>
+						<div class="wrap_buy_cont final_box">
+							<div class="final_amount">
+								<strong class="cell_final"> 최종 환불 예정금액 </strong> <strong class="cell_final"><em class="num">8,000</em>원</strong>
+							</div>
+							<ul class="list_each">
+								<li class="item_each"><strong class="cell_final">네이버페이 포인트</strong> <strong class="cell_final"><em class="num">8,000</em>원</strong></li>
+							</ul>
+						</div>
+					</div>
+					<div class="notice_section">
+						<strong class="caution">확인해주세요.</strong>
+						<p class="dsc">취소 처리 현황 및 추가 취소 요청은 결제내역에서 하실 수 있습니다.</p>
+						<p class="dsc">주문번호 내 전체 상품이 취소요청되는 경우, 환불 예정금액은 취소진행중 상품금액과 합산되어 노출될 수 있습니다.</p>
+					</div>
+					<div class="button_section">
+						<div class="button_area type_multi">
+							<div class="button_bottom type_gray">
+								<a href="#" class="button _click(checkout.mobile.order.claim_req.done2.repurchaseProductOrderList()) _stopDefault">전체 장바구니 담기</a>
+							</div>
+							<div class="button_area type_gray">
+								<div class="button_bottom">
+									<a href="#" class="N=a:clb.odlst button _click(checkout.mobile.order.claim_req.done2.goPaymentList()) _stopDefault">결제 내역</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="cart_popup show" style="display: none"></div>
+				</form>
+			</div>
+		</div>
+		<div class="footerdiv">
+		
+		</div>
+		<link rel="stylesheet" href="//img.pay.naver.net/o/mstatic/css/service/mobile/tiles/layout.css">
+
+		<footer class="py-5 bg-secondary" style="background-color: #6c757d !important;">
+			<div class="container">
+				<p class="m-0 text-center text-white" style="font-size: 16px;">Copyright &copy; Your Website 2023</p>
+			</div>
+		</footer>
+	</div>
+	<hr>
+</body>
+</html>

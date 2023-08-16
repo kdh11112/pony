@@ -43,7 +43,8 @@
 	list-style: none;
 	color: #1e1e23;
 	letter-spacing: -0.5px;
-	font-family: '나눔고딕', NanumGothic, '맑은고딕', MalgunGothic, '돋움', Dotum, Helvetica, sans-serif;
+	font-family: '나눔고딕', NanumGothic, '맑은고딕', MalgunGothic, '돋움', Dotum,
+		Helvetica, sans-serif;
 	font-size: 12px;
 	display: table-cell;
 	vertical-align: top;
@@ -68,7 +69,81 @@
 <script src="https://ssl.pstatic.net/static.gn/js/clickcrD.js" id="gnb_clickcrD" charset="utf-8"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<!-- 주소검색 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<%--아임포트 라이브러리--%>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+
+function iamport(){
+	
+	/* 결제 검증 */
+	/* var flag = $("#flag").val();
+    var principalId = $("#principalId").val(); */
+    var name = $("#memberName").val();
+    var phone = $("#memberPhone").val();
+    var email = $("#email").val();
+    var postcode = $("#postcode").val();
+    var address = $("#address").val() + " " + $("#detailAddress").val();
+	
+    var partName;
+    var partNo = $("#partNo").val();
+    var modelName = $("#modelName").val();
+    var cartName = $("#cartName").val();
+    var amount = $("#amount").val();
+    var price = $("#total").text();
+    
+	/* 가맹점 식별코드 */
+	IMP.init("imp74705060"); // 예: imp00000000a
+	IMP.request_pay({
+		pg : "kcp.{TC0ONETIME}", // "kcp.{상점ID}"
+		pay_method : "card",
+		merchant_uid : "ORD20180131-0000011", // 주문번호
+		name : partName,
+		amount : price, // 숫자 타입
+		buyer_email : email,
+		buyer_name : name,
+		buyer_tel : phone, //"010-4242-4242"
+		buyer_addr : address,
+		buyer_postcode : postcode
+	}, function(rsp) { // callback
+		//rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단.
+		console.log(rsp);
+		
+		/* 결제 검증 */
+		$.ajax({
+			type : "POST",
+			url : "/veryfyIamport" + rsp.imp_uid 
+			
+			}).done(function(data){
+				console.log(data);
+				
+				//위의 rsp.paid_amount와 data.response.amount를 비교한 후 로직 실행 (import 서버검증)
+				if(rsp.paid_amount == data.response.amount){
+		        	alert("결제 및 결제검증완료");
+	        	} else {
+	        		alert("결제 실패");
+	        	}
+			});
+		});
+	}
+	    if ( rsp.success ) {
+	    	var msg = '결제가 완료되었습니다.';
+	        msg += '고유ID : ' + rsp.imp_uid;
+	        msg += '상점 거래ID : ' + rsp.merchant_uid;
+	        msg += '결제 금액 : ' + rsp.paid_amount;
+	        msg += '카드 승인번호 : ' + rsp.apply_num;
+	    } else {
+	    	 var msg = '결제에 실패하였습니다.';
+	         msg += '에러내용 : ' + rsp.error_msg;
+	    }
+	    alert(msg);
+	});
+	
+}
+
+</script>
 </head>
 <body>
 	<!-- Navigation-->
@@ -189,25 +264,35 @@
 							<div class="deliver_option_wrap">
 								<strong class="req" title="필수입력">배송지 입력</strong>
 							</div>
-							<ul class="addr_list _deliveryPlaces _deliveryPlaces_0">
-								<li><div style="width: 210px !important;">
-										<input type="text" id="recipientName" name="recipientName" value="${memDTO.memberName }" placeholder="수령인 성함을 입력해주세요" style="width: 210px !important;" />
-									</div></li>
-								<li><div style="width: 210px !important;">
-										<input type="text" id="recipientPhone" name="recipientPhone" value="${memDTO.memberPhone }" placeholder="수령인 번호를 입력해주세요" style="width: 210px !important;" />
-									</div></li>
-								<li><div style="width: 210px !important;">
-										<input type="text" id="recipientZip" name="recipientZip" style="float: left; width: 210px !important;" value="${memDTO.memberZip }" placeholder="우편번호" />
-									</div>
-									<button type="button" class="btn_editInfo" onclick="execDaumPostcode()">검색</button></li>
-								<li><div>
-										<input type="text" id="recipientAddress1" name="recipientAddress1" value="${memDTO.memberAddress1 }" placeholder="주소를 입력해주세요" />
-									</div></li>
-								<li><div>
-										<input type="text" id="recipientAddress2" name="recipientAddress2" value="${memDTO.memberAddress2 }" placeholder="상세주소를 입력해주세요" />
-									</div></li>
-
-							</ul>
+							<!-- 주문정보 전송 폼 -->
+							<form action="/buypart/order" method="post" id="orderForm">
+								<ul class="addr_list _deliveryPlaces _deliveryPlaces_0">
+									<li><div style="width: 210px !important;">
+											<input type="text" id="recipientName" name="recipientName" value="${memDTO.memberName }" placeholder="수령인 성함을 입력해주세요" style="width: 210px !important;" />
+										</div></li>
+									<li><div style="width: 210px !important;">
+											<input type="text" id="recipientPhone" name="recipientPhone" value="${memDTO.memberPhone }" placeholder="수령인 번호를 입력해주세요" style="width: 210px !important;" />
+										</div></li>
+									<li><div style="width: 210px !important;">
+											<input type="text" id="recipientZip" name="recipientZip" style="float: left; width: 210px !important;" value="${memDTO.memberZip }" placeholder="우편번호" />
+										</div>
+										<button type="button" class="btn_editInfo" onclick="execDaumPostcode()">검색</button></li>
+									<li><div>
+											<input type="text" id="recipientAddress1" name="recipientAddress1" value="${memDTO.memberAddress1 }" placeholder="주소를 입력해주세요" />
+										</div></li>
+									<li><div>
+											<input type="text" id="recipientAddress2" name="recipientAddress2" value="${memDTO.memberAddress2 }" placeholder="상세주소를 입력해주세요" />
+										</div></li>
+									<input type="hidden" name="usePoint" id="usePoint" value="" />
+									<input type="hidden" name="amount" id="amount" value="${total }" />
+									<input type="hidden" name="memberName" id="memberName" value="${memDTO.memberName }">
+									<input type="hidden" name="memberPhone" id="memberPhone" value="${memDTO.memberPhone }">
+									<input type="hidden" name="memberEmail" id="memberEmail" value="${memDTO.memberEmail }">
+									<input type="hidden" name="memberZip" id="memberZip" value="${memDTO.memberZip }">
+									<input type="hidden" name="memberAddress" id="memberAddress" value="${memDTO.memberAddress1 }">
+									<input type="hidden" name="memberDetailAddress" id="memberDetailAddress" value="${memDTO.memberAddress2 }">
+								</ul>
+							</form>
 							<script>
 								function execDaumPostcode() {
 									new daum.Postcode(
@@ -269,8 +354,6 @@
 								<li class="info_confirm"><span class="_telNoNoti _telNoInfo" style="display: block">주문자 정보로 결제관련 정보가 제공됩니다.<br>정확한 정보로 등록되어있는지 확인해주세요.
 								</span></li>
 							</ul>
-							<input type="hidden" name="order.memberName" value="${memDTO.memberName }">
-							<input type="hidden" name="order.memberCellPhoneNo" value="${memDTO.memberPhone }">
 						</div>
 
 					</div>
@@ -316,25 +399,29 @@
 							<br /> <br />
 							<script>
 								function updatePointDisplay(enteredPoint) {
-									var usedPointElement = document.getElementById("usedPoint");
-									usedPointElement.textContent = enteredPoint+ "원";
+									var usedPointElement = document
+											.getElementById("usedPoint");
+									usedPointElement.textContent = enteredPoint
+											+ "원";
 								}
 
 								/* 포인트 전액사용 버튼 클릭 */
 								function useallpoint() {
 
 									var havepoint = $("#havepoint").text();
+									var mileage = $("#mileage").text();
+									console.log(mileage);
 									var total = parseInt("${total}");
 									if (havepoint > total) {
-								        havepoint = total; // 사용 포인트가 총 상품 금액보다 큰 경우 총 상품 금액으로 설정
-								    }
-									
-								    var remainingPoint = total - havepoint; // 사용한 포인트만큼 제외한 나머지 포인트
+										havepoint = total; // 사용 포인트가 총 상품 금액보다 큰 경우 총 상품 금액으로 설정
+									}
 
-								    document.getElementById("mileage").value = havepoint;
-								    document.getElementById("havepoint").textContent = remainingPoint; // 남은 포인트 설정
-								    updatePointDisplay(havepoint); // 전액 사용 시 updatePointDisplay 함수 호출
-								    calculateTotal();
+									var remainingPoint = total - havepoint; // 사용한 포인트만큼 제외한 나머지 포인트 */
+
+									document.getElementById("mileage").value = havepoint;
+									document.getElementById("havepoint").textContent = remainingPoint; // 남은 포인트 설정
+									updatePointDisplay(havepoint); // 전액 사용 시 updatePointDisplay 함수 호출
+									calculateTotal();
 								}
 
 								/* 포인트 입력 keyup 이벤트 */
@@ -368,7 +455,6 @@
 								}
 							</script>
 							<div class="payment_wrap ">
-
 								<div class="payment">
 									<ul class="paymethod_list _paymentsArea" style="display: block;">
 
@@ -386,13 +472,12 @@
 										</li>
 									</ul>
 
-
-
 									<dl class="spot_benefit_pay benefit_fold_panel _payEventHeader _benefitAreaDisplayStatus on" style="display: block;">
 										<dt class="fold_heading">
-											<span class="_click(nmp.front.order.order_sheet.togglePayEventInfo()) _stopDefault"> <strong>포인트 적립</strong><span class="benefit_spot_green">총 <em class="_totalBenefitMileageWithPayEvent"><fmt:formatNumber pattern="###,###,###원">
+											<span class="_click(nmp.front.order.order_sheet.togglePayEventInfo()) _stopDefault"> <strong>포인트 적립</strong><span class="benefit_spot_green">총 <em class="_totalBenefitMileageWithPayEvent"> <fmt:formatNumber pattern="###,###,###원">
 															<c:out value="${point }" />
-														</fmt:formatNumber> </em>
+														</fmt:formatNumber>
+												</em>
 											</span>
 											</span>
 										</dt>
@@ -451,11 +536,11 @@
 									</p></li>
 							</ul>
 						</div>
-						<input type="hidden" class="_totalPayAmount" value="55800">
+						<input type="hidden" class="_totalPayAmount" value="">
 					</div>
 
 					<div class="payment_agree_wrap">
-						<button class="btn_payment _click(nmp.front.order.order_sheet.account()) _stopDefault _doPayButton">결제하기</button>
+						<button class="btn_payment _click" onclick="iamport();">결제하기</button>
 					</div>
 
 				</div>
@@ -476,7 +561,11 @@
 	<!-- //footer -->
 	<script>
 		function calculateTotal() {
-			var total = ${total};
+			var total = $
+			{
+				total
+			}
+			;
 			console.log(total);
 			// 총 상품금액
 			var enteredPoint = parseInt(document.getElementById("mileage").value); // 사용자가 입력한 포인트
@@ -487,7 +576,12 @@
 			// 총 결제금액을 페이지에 표시
 			var totalPaymentElement = document
 					.querySelector("._generalPaymentAmount");
-			totalPaymentElement.textContent = finalTotal.toLocaleString() + "원";
+			if (finaltotal = 0) {
+				totalPaymentElement.textContent = 0 + "원";
+			} else {
+				totalPaymentElement.textContent = finalTotal.toLocaleString()
+						+ "원";
+			}
 		}
 	</script>
 </body>

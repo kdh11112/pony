@@ -32,7 +32,7 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
 
   if (xhr.status === 200) {
     // 응답이 성공적으로 돌아왔을 때 리다이렉트
-    window.location.href = "/adminindex"; // 리다이렉트될 페이지로 이동
+    window.location.href = "/admin"; // 리다이렉트될 페이지로 이동
   } else {
     console.error("Error:", xhr.statusText);
   }

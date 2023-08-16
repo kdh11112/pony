@@ -230,11 +230,11 @@ a {
 					<span class="dropbtn"><img src="images/pngegg.png" alt="" /></span>
 					<div class="dropdown-content">
 
-						<sec:authorize access="!hasAnyRole('ROLE_ADMIN')">
+						<sec:authorize access="!hasAnyRole('ROLE_USER')">
 							<a href="/adminlogin" class="login-link">관리자 로그인</a>
 						</sec:authorize>
 
-						<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+						<sec:authorize access="hasAnyRole('ROLE_USER')">
 							<a href="/logout">${username} 님 로그아웃</a>
 						</sec:authorize>
 

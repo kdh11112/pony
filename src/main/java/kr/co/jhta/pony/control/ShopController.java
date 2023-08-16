@@ -186,7 +186,13 @@ public class ShopController {
 		return "/shop/cart/buyPart";
 
 	}
-
+	
+	@PostMapping("/buypart/order")
+	public String payment() {
+		
+		return "/shop/order/order";
+	}
+	
 
 	// 내 주문목록 --------------------------------------
 
@@ -219,6 +225,16 @@ public class ShopController {
 		model.addAttribute("userOrderList", odservice.selectOne(orderNo));
 
 		return "/shop/order/myOrderDetail";
+	}
+	
+	@GetMapping("/order")
+	public String order() {
+		return "/shop/order/order";
+	}
+	
+	@GetMapping("/ordercancel")
+	public String ordercancel() {
+		return "/shop/order/ordercancel";
 	}
 
 }
