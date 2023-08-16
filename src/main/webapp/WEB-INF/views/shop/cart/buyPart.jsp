@@ -43,8 +43,7 @@
 	list-style: none;
 	color: #1e1e23;
 	letter-spacing: -0.5px;
-	font-family: '나눔고딕', NanumGothic, '맑은고딕', MalgunGothic, '돋움', Dotum,
-		Helvetica, sans-serif;
+	font-family: '나눔고딕', NanumGothic, '맑은고딕', MalgunGothic, '돋움', Dotum, Helvetica, sans-serif;
 	font-size: 12px;
 	display: table-cell;
 	vertical-align: top;
@@ -64,6 +63,7 @@
 	padding-bottom: 20px;
 	padding-left: 20px;
 }
+
 .kakaopayimg {
 	width: 40px;
 	height: 20px;
@@ -186,6 +186,12 @@
 														<c:out value="${cartItem.partPrice * cartItem.cartCount}" />
 													</fmt:formatNumber></em></strong>
 										</td>
+										<td class="parts_table_price_td">
+											<input type="hidden" class="parts_partNumber" name="" value="${cartItem.partNumber}" />
+											<input type="hidden" class="parts_cartCount" name="" value="${cartItem.cartCount}" />
+											<input type="hidden" class="parts_partName" name="" value="${cartItem.partName}" />
+											<input type="hidden" class="parts_partPrice" name="" value="${cartItem.partPrice}" />
+										</td>
 									</tr>
 								</tbody>
 							</c:forEach>
@@ -201,32 +207,41 @@
 								<strong class="req" title="필수입력">배송지 입력</strong>
 							</div>
 							<!-- 주문정보 전송 폼 -->
-							<form action="/buypart/order" method="post" id="orderForm">
+							<form action="/buypart/order" method="post" id="orderForm" class="orderForm">
 								<ul class="addr_list _deliveryPlaces _deliveryPlaces_0">
 									<li><div style="width: 210px !important;">
-											<input type="text" id="recipientName" name="recipientName" value="${memDTO.memberName }" placeholder="수령인 성함을 입력해주세요" style="width: 210px !important;" />
+											<input type="text" id="orderRecipientName" name="orderRecipientName" value="${memDTO.memberName }" placeholder="수령인 성함을 입력해주세요" style="width: 210px !important;" />
 										</div></li>
 									<li><div style="width: 210px !important;">
-											<input type="text" id="recipientPhone" name="recipientPhone" value="${memDTO.memberPhone }" placeholder="수령인 번호를 입력해주세요" style="width: 210px !important;" />
+											<input type="text" id="orderRecipientPhone" name="orderRecipientPhone" value="${memDTO.memberPhone }" placeholder="수령인 번호를 입력해주세요" style="width: 210px !important;" />
 										</div></li>
 									<li><div style="width: 210px !important;">
-											<input type="text" id="recipientZip" name="recipientZip" style="float: left; width: 210px !important;" value="${memDTO.memberZip }" placeholder="우편번호" />
+											<input type="text" id="orderRecipientZip" name="orderRecipientZip" style="float: left; width: 210px !important;" value="${memDTO.memberZip }" placeholder="우편번호" />
 										</div>
 										<button type="button" class="btn_editInfo" onclick="execDaumPostcode()">검색</button></li>
 									<li><div>
-											<input type="text" id="recipientAddress1" name="recipientAddress1" value="${memDTO.memberAddress1 }" placeholder="주소를 입력해주세요" />
+											<input type="text" id="orderRecipientAddress" name="orderRecipientAddress" value="${memDTO.memberAddress1 }" placeholder="주소를 입력해주세요" />
 										</div></li>
 									<li><div>
-											<input type="text" id="recipientAddress2" name="recipientAddress2" value="${memDTO.memberAddress2 }" placeholder="상세주소를 입력해주세요" />
+											<input type="text" id="orderRecipientAddressDetail" name="orderRecipientAddressDetail" value="${memDTO.memberAddress2 }" placeholder="상세주소를 입력해주세요" />
 										</div></li>
-									<input type="hidden" name="usePoint" id="usePoint" value="" />
-									<input type="hidden" name="amount" id="amount" value="${total }" />
+									<input type="hidden" name="orderPoint" id="orderPoint" value="" />
+									<input type="hidden" name="orderdetailAmount" id="orderdetailAmount" value="" />
+									<input type="hidden" name="memberNo" id="memberNo" value="${memDTO.memberNo }">
 									<input type="hidden" name="memberName" id="memberName" value="${memDTO.memberName }">
 									<input type="hidden" name="memberPhone" id="memberPhone" value="${memDTO.memberPhone }">
 									<input type="hidden" name="memberEmail" id="memberEmail" value="${memDTO.memberEmail }">
 									<input type="hidden" name="memberZip" id="memberZip" value="${memDTO.memberZip }">
 									<input type="hidden" name="memberAddress" id="memberAddress" value="${memDTO.memberAddress1 }">
 									<input type="hidden" name="memberDetailAddress" id="memberDetailAddress" value="${memDTO.memberAddress2 }">
+									<input type="hidden" id="parts_totalPrice" name="parts_totalPrice" value="${cartItem.partNumber}" />
+									<input type="hidden" id="orderdetailOrderQuantity" name="orderdetailOrderQuantity" value="${cartItem.cartCount}" />
+									<input type="hidden" id="partName" name="partName" value="${cartItem.partName}" />
+									<input type="hidden" id="modelName" name="modelName" value="${cartItem.modelName}" />
+									<input type="hidden" id="orderTotal" name="orderTotal" value="" />
+									<input type="hidden" id="orderSavePoint" name="orderSavePoint" value="" />
+									<input type="hidden" id="orderDeliveryCharge" name="orderDeliveryCharge" value="" />
+									<input type="hidden" id="partPrice" name="partPrice" value="${partItem.partPrice }" />
 								</ul>
 							</form>
 							<script>
@@ -250,15 +265,15 @@
 
 													// 우편번호와 주소 정보를 해당 필드에 넣는다.
 													document
-															.getElementById('recipientZip').value = data.zonecode;
+															.getElementById('orderRecipientZip').value = data.zonecode;
 													document
-															.getElementById("recipientAddress1").value = addr;
+															.getElementById("orderRecipientAddress").value = addr;
 													// 커서를 상세주소 필드로 이동한다.
 													document
-															.getElementById("recipientAddress2").value = '';
+															.getElementById("orderRecipientAddressDetail").value = '';
 													document
 															.getElementById(
-																	"recipientAddress2")
+																	"orderRecipientAddressDetail")
 															.focus();
 												}
 											}).open();
@@ -268,7 +283,7 @@
 								<strong class="_deliveryMemoHeader" style="display: none;">배송메모</strong>
 								<div class="_deliveryMemoInner ">
 									<div class="comments deliveryMemo">
-										<p class="products_tit _deliveryMemoProductName deliverySingleMemo">엔진오일 외 1건</p>
+										<p class="products_tit _deliveryMemoProductName deliverySingleMemo">엔진오일 외 <span class="totalKind_span">0</span>건</p>
 
 										<div class="dropdown_wrap">
 											<input type="text" placeholder="요청사항을 직접 입력합니다" title="배송 메세지" name="deliveryMemo" class="deli_msg placeholder _deliveryForm deliverySingleMemo _click(nmp.front.order.order_sheet.showLatestDeliveryMemo()) _stopDefault">
@@ -322,73 +337,74 @@
 									</div>
 									<div class="area_item">
 										<div class="input_area _useNaverCashInputArea point_green">
-											<input type="text" id="mileage" title="포인트" name="payAmounts" value="0" maxlength="7" onkeyup="updatePoint(this.value)">
+											<!-- <input type="text" id="mileage" title="포인트" name="payAmounts" value="0" maxlength="7" onkeyup="updatePoint(this.value)"> -->
+											<input type="text" id="mileage" title="포인트" name="payAmounts" value="0" maxlength="7" >
 											<span class="measure">원</span>
 											<button type="button" class="btn_delete _clearPoint _click(nmp.front.order.order_sheet.clearPoint()) _stopDefault" style="display: none;">
 												<span class="blind">사용 포인트 삭제</span>
 											</button>
 										</div>
-										<button class="btn type_npaypoint" onclick="useallpoint();">전액사용</button>
+										<button class="btn type_point_N" data-state="N">전액사용</button>
+										<!-- <button class="btn type_point_Y" data-state="Y" style="display: none;">사용취소</button> -->
+										<!-- <button class="btn type_npaypoint" data-state="N" onclick="useallpoint();">전액사용</button> -->
 									</div>
 								</li>
 							</ul>
 							<br /> <br />
 							<script>
-								function updatePointDisplay(enteredPoint) {
-									var usedPointElement = document
-											.getElementById("usedPoint");
-									usedPointElement.textContent = enteredPoint
-											+ "원";
-								}
-
-								/* 포인트 전액사용 버튼 클릭 */
-								function useallpoint() {
-
-									var havepoint = $("#havepoint").text();
-									var mileage = $("#mileage").text();
-									console.log(mileage);
-									var total = parseInt("${total}");
-									if (havepoint > total) {
-										havepoint = total; // 사용 포인트가 총 상품 금액보다 큰 경우 총 상품 금액으로 설정
+								/* 사용자가 포인트 입력 */
+								$("#mileage").on("propertychange change keyup paste input", function(){
+									/* 사용자가 가지고 있는 포인트를 최대값으로 설정 */
+									const maxPoint = parseInt('${memDTO.memberPoint }');
+									/* 사용자가 입력한 값 */
+									console.log(maxPoint);
+									let inputValue = parseInt($(this).val());
+									/* 0보다 작은 값 입력하면 값은 0 고정 */
+									if(inputValue < 0){
+										$(this).val(0);
+									/* 보유 포인트보다 많은 값 입력하면 maxPoint 값으로 고정 */
+									}else if(inputValue > maxPoint){
+										$(this).val(maxPoint);
 									}
+									setTotalInfo();
+									
+								});
+								
+								/* 포인트 전액사용 버튼 클릭 */
+								$(".btn.type_point_N").on("click", function(){
+								// function useallpoint() {
+									const maxPoint = parseInt('${memDTO.memberPoint }');
+									console.log(maxPoint);
+									//let state = $(this).data("state");	
+									
+									$("#mileage").val(maxPoint);
+									setTotalInfo();
+									/* if(state == 'N'){
+										console.log("n동작");
+										//값 변경
+										$("#mileage").val(maxPoint);
+										//글 변경
+										$(".btn type_point").css("display", "inline-block");
+										$(".btn type_point").css("display", "none");
+										
+									} else if(state == 'Y'){
+										console.log("y동작");
+										//값 변경
+										$("#mileage").val(0);
+										//글 변경
+										$(".btn type_point").css("display", "none");
+										$(".btn type_point").css("display", "inline-block");		
+									}		 */
 
-									var remainingPoint = total - havepoint; // 사용한 포인트만큼 제외한 나머지 포인트 */
-
-									document.getElementById("mileage").value = havepoint;
+									/* document.getElementById("mileage").value = havepoint;
 									document.getElementById("havepoint").textContent = remainingPoint; // 남은 포인트 설정
 									updatePointDisplay(havepoint); // 전액 사용 시 updatePointDisplay 함수 호출
-									calculateTotal();
-								}
+									calculateTotal(); 
+								} */
+									
+								});
 
-								/* 포인트 입력 keyup 이벤트 */
-								function updatePoint(inputValue) {
-									var havepointElement = document
-											.getElementById("havepoint");
-									var remainingPoint = parseInt(havepointElement
-											.getAttribute("value"));
-
-									if (inputValue === "") {
-										inputValue = "0"; // Set the value to "0" if input is empty
-									}
-
-									var enteredPoint = parseInt(inputValue);
-
-									if (enteredPoint > remainingPoint) {
-										enteredPoint = remainingPoint;
-									}
-
-									var calculatedRemainingPoint = remainingPoint
-											- enteredPoint;
-
-									if (calculatedRemainingPoint < 0) {
-										calculatedRemainingPoint = 0;
-									}
-
-									havepointElement.textContent = calculatedRemainingPoint;
-									document.getElementById("mileage").value = enteredPoint;
-									updatePointDisplay(enteredPoint);
-									calculateTotal();
-								}
+								
 							</script>
 							<div class="payment_wrap ">
 								<div class="payment">
@@ -397,7 +413,7 @@
 										<li class="paymethod _payMethodTab _naverPaymentsCardTab">
 											<div class="header">
 												<span> <input type="radio" name="payradio" value="card" checked="checked">
-												</span> <label>카드결제</label> <em class="_generalPaymentAmount payment_price"><fmt:formatNumber pattern="###,###,###">${total}</fmt:formatNumber> 원</em>
+												</span> <label>카드결제</label> <em class="_generalPaymentAmount payment_price"><span class="finalTotal_span2"></span> 원</em>
 											</div>
 										</li>
 										<li class="paymethod _payMethodTab _naverPaymentsCardTab">
@@ -459,22 +475,18 @@
 												<c:out value="${delivery }" />
 											</fmt:formatNumber></em>
 									</p></li>
+									
 								<li><strong>포인트 사용</strong>
 									<p>
 										<dummy class="_totalDeliveryFeeSign">-</dummy>
-										<em id="usedPoint" class="_totalDeliveryFee"><fmt:formatNumber pattern="###,###,###원">0</fmt:formatNumber></em>
+										<em id="usedPoint" class="_totalDeliveryFee"><span class="usePoint_span">0</span>원</em>
 									</p></li>
 							</ul>
 							<ul class="total_list">
-								<li class="_payPointUsedAmountArea" style="display: none;"><strong class="price_sum_title">포인트 사용</strong>
-									<p class="price_sum_detail">
-										<em class="_usePayPointPrice">0</em> 원
-									</p></li>
+								
 								<li class="_generalPaymentAmountArea total_item" style="display: list-item;"><strong class="price_sum_title _generalPaymentClass">총 결제금액</strong>
 									<p class="price_sum_detail">
-										<em class="_generalPaymentAmount"><fmt:formatNumber pattern="###,###,###원">
-												<c:out value="${total}" />
-											</fmt:formatNumber></em>
+										<em class="_generalPaymentAmount"><span class="finalTotal_span">0</span>원</em>
 									</p></li>
 							</ul>
 						</div>
@@ -482,7 +494,8 @@
 					</div>
 
 					<div class="payment_agree_wrap">
-						<button class="btn_payment _click" onclick="iamport();">결제하기</button>
+						<button class="btn_payment" >결제하기</button>
+						<!-- <button class="btn_payment _click" onclick="iamport();">결제하기</button> -->
 					</div>
 
 				</div>
@@ -499,100 +512,92 @@
 			<p class="m-0 text-center text-white" style="font-size: 16px;">Copyright &copy; Your Website 2023</p>
 		</div>
 	</footer>
-<script>
-function iamport() {
-    var name = $("#memberName").val();
-    /* var phone = $("#memberPhone").val(); */
-    var email = $("#memberEmail").val();
-    var postcode = $("#memberZip").val();
-    var address = $("#memberAddress").val() + " " + $("#memberDetailAddress").val();
-    
-    //var partName = ""; // 어떤 값을 할당할지 지정해주세요
-    
-    var amount = $("#amount").val();
-    var price = $("#total").text();
-    
-    /* 가맹점 식별코드 */
-    var IMP = window.IMP;
-    IMP.init("imp74705060"); // 예: imp00000000a
-    
-    console.log(amount);
-    console.log(email);
-    console.log(name);
-    console.log(address);
-    console.log(postcode);
-    IMP.request_pay({
-        pg: "kakaopay.TC0ONETIME", // "kcp.{상점ID}"
-        pay_method: "card",
-        merchant_uid: "200011", // 주문번호
-        name: "엔진",
-        amount: amount, // 숫자 타입
-        buyer_email: email,
-        buyer_name: name,
-        buyer_tel: "010-3833-0284", //"010-4242-4242"
-        buyer_addr: address,
-        buyer_postcode: "01234"
-    }, function(rsp) { // 콜백 함수
-        console.log(rsp);
-        
-        if (rsp.success) {
-            var msg = '결제가 완료되었습니다.';
-            msg += '고유ID : ' + rsp.imp_uid;
-            msg += '상점 거래ID : ' + rsp.merchant_uid;
-            msg += '결제 금액 : ' + rsp.paid_amount;
-            msg += '카드 승인번호 : ' + rsp.apply_num;
-            alert(msg);
-            
-            // 결제 검증
-            $.ajax({
-                type: "POST",
-                url: "/verifyIamport/" + rsp.imp_uid // 수정된 URL 형식
-                
-            }).done(function(data) {
-                console.log(data);
-                
-                // 위의 rsp.paid_amount와 data.response.amount를 비교한 후 로직 실행 (import 서버검증)
-                if (rsp.paid_amount == data.response.amount) {
-                    alert("결제 및 결제검증완료");
-                } else {
-                    alert("결제 실패");
-                }
-            });
-        } else {
-            var msg = '결제에 실패하였습니다.';
-            msg += '에러내용 : ' + rsp.error_msg;
-            alert(msg);
-        }
-        document.location.href="/orderend";
-    });
-}
-
-</script>
 	<!-- //footer -->
 	<script>
-		function calculateTotal() {
-			var total = $
-			{
-				total
-			}
-			;
-			console.log(total);
-			// 총 상품금액
-			var enteredPoint = parseInt(document.getElementById("mileage").value); // 사용자가 입력한 포인트
-
-			// 총 결제금액에서 사용 포인트를 빼서 계산
-			var finalTotal = total - enteredPoint;
-
-			// 총 결제금액을 페이지에 표시
-			var totalPaymentElement = document
-					.querySelector("._generalPaymentAmount");
-			if (finaltotal = 0) {
-				totalPaymentElement.textContent = 0 + "원";
-			} else {
-				totalPaymentElement.textContent = finalTotal.toLocaleString()
-						+ "원";
-			}
-		}
+	$(document).ready(function(){
+		setTotalInfo();
+	});
+	
+	
+	function setTotalInfo(){
+		var totalPrice = 0;
+		var orderdetailOrderQuantity = 0;	//수량
+		var totalKind = 0;
+		var finaltotalKind = 0;
+		var totalPoint = 0;	//적립 포인트
+		var deliveryPrice = 0;
+		var usePoint = 0;
+		var finalTotalPrice = 0;
+		
+		totalPrice = ${total};
+		totalPoint = ${point};
+		deliveryPrice = ${delivery};
+		
+		console.log(totalPrice);
+		console.log(totalPoint);
+		console.log(deliveryPrice);
+		$(".parts_table_price_td").each(function(index, element){
+			// 총 갯수
+			orderdetailOrderQuantity += parseInt($(element).find(".parts_cartCount").val());
+			// 총 종류
+			totalKind += 1;
+		});
+		finaltotalKind = totalKind - 1 ;
+		finalTotalPrice = totalPrice + deliveryPrice;	
+		
+		/* 사용 포인트 */
+		usePoint = $("#mileage").val();
+		
+		finalTotalPrice = totalPrice - usePoint;	
+		
+		/* 값 삽입 */
+		// 총 가격
+		$(".totalPrice_span").html(totalPrice.toLocaleString());
+		// 총 종류
+		$(".totalKind_span").html(finaltotalKind);	
+		// 최종 가격(총 가격 + 배송비)
+		$(".finalTotal_span").html(finalTotalPrice.toLocaleString());		
+		$(".finalTotal_span2").html(finalTotalPrice.toLocaleString());		
+		// 할인가(사용 포인트)
+		$(".usePoint_span").html(usePoint.toLocaleString());
+		//$("#orderdetailAmount").val(finalTotalPrice);
+		$("#orderPoint").val(usePoint);
+		$("#orderDeliveryCharge").val(deliveryPrice);
+		$("#orderTotal").val(finalTotalPrice);
+		$("#orderSavePoint").val(totalPoint);
+		$("#orderdetailOrderQuantity").val(totalPoint);
+		
+	}
+	
+	</script>
+	<script>
+		$(".btn_payment").on("click", function(){
+			
+			/* 상품정보 */
+			let form_contents = ''; 
+			$(".parts_table_price_td").each(function(index, element){
+				let partNumber = $(element).find(".parts_partNumber").val();
+				let orderdetailOrderQuantity = $(element).find(".parts_cartCount").val();
+				let partName = $(element).find(".parts_partName").val();
+				let partPrice = $(element).find(".parts_partPrice").val();
+				
+				let partNumber_input = "<input name='orders[" + index + "].partNumber' type='hidden' value='" + partNumber + "'>";
+				form_contents += partNumber_input;
+				
+				let orderdetailOrderQuantity_input = "<input name='orders[" + index + "].orderdetailOrderQuantity' type='hidden' value='" + orderdetailOrderQuantity + "'>";
+				form_contents += orderdetailOrderQuantity_input;
+				
+				let partName_input = "<input name='orders[" + index + "].partName' type='hidden' value='" + partName + "'>";
+				form_contents += partName_input;
+				
+				let partPrice_input = "<input name='orders[" + index + "].partPrice' type='hidden' value='" + partPrice + "'>";
+				form_contents += partPrice_input;
+			});	
+			$(".orderForm").append(form_contents);	
+			
+			/* 서버 전송 */
+			$(".orderForm").submit();
+		});
 	</script>
 </body>
 

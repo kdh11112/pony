@@ -145,14 +145,14 @@ public class ShopController {
 	@GetMapping("/buypart")
 	public String getbuypage(HttpSession session, Model model, @RequestParam("sum_input") int sum,
 			@RequestParam("delivery_input") int delivery, @RequestParam("totalPrice_input") int total,
-			@RequestParam("point_input") int point) {
+			@RequestParam("point_input") int point, OrderDTO orderdto) {
 		int memberNo = (int) session.getAttribute("memberNo");
 		PonyMemberDTO memberDTO = mservice.selectMemAll(memberNo);
 		model.addAttribute("memDTO", memberDTO);
 		model.addAttribute("delivery", delivery);
 		model.addAttribute("sum", sum);
 		model.addAttribute("total", total);
-
+		System.out.println("orders: "+orderdto.getOrders());
 		// cartlist에서 보낸 총 포인트
 		model.addAttribute("point", point);
 		log.info("delivery >>>>>>>>>>>>> " + delivery);
@@ -171,7 +171,7 @@ public class ShopController {
 
 	@PostMapping("/buypart2")
 	@ResponseBody // 응답 데이터를 JSON 등으로 반환하기 위해 필요
-	public String buypage(@RequestParam(value = "chkbox[]") String[] chkbox, Model model, HttpSession session) {
+	public String buypage(@RequestParam(value = "chkbox[]") String[] chkbox, Model model, HttpSession session, OrderDTO orderdto) {
 
 		List<CartDTO> cartItems = new ArrayList<>(); // 각 카트 아이템을 저장할 리스트
 
@@ -182,17 +182,22 @@ public class ShopController {
 		}
 		log.info("cartItems : <><><><><>< " + cartItems);
 
+		System.out.println("orders: "+orderdto.getOrders());
 		session.setAttribute("cartItems", cartItems);
 		return "/shop/cart/buyPart";
 
 	}
 	
-//	@PostMapping("/buypart/order")
-//	public String payment() {
-//		
-//		return "/shop/order/order";
-//	}
+	@PostMapping("/buypart/order")
+	public String payment(OrderDTO orderdto, HttpServletRequest req) {
+		System.out.println(orderdto);
+		return "/shop/order/orderend";
+	}
 	
+	@PostMapping("/api/order")
+	public String apiOrder() {
+		return "order";
+	}
 	
 	@GetMapping("/orderend")
 	public String order() {
