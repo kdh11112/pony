@@ -500,7 +500,7 @@ textarea {
 																											<td>
 																												<!-- 등록된 차량 삭제 체크 박스 --> <input type="radio"
 																												name="selectedCars"
-																												value="${clist.clientVin}"
+																												value="${clist.clientCarNumber}"
 																												id="selectedCarsId">
 																											</td>
 																											<td>${clist.clientVin }</td>
@@ -669,8 +669,8 @@ textarea {
 																	aria-labelledby="headingFour"
 																	data-bs-parent="#accordionExample">
 																	<div class="accordion-body"  >
-																		<textarea class="form-control"  name="reservationClientRequests" 
-																			 id="reservationClientRequests1" rows="3"></textarea>
+																	<textarea class="form-control"  id="reservationClientRequests"  name="reservationClientRequestsaaa"  rows="3" ></textarea>
+																			  
 																	</div>
 																</div>
 															</div>
