@@ -102,21 +102,17 @@ public class CarRegisterServiceImple implements CarRegisterService{
 		return carRegisterDAO.selectReg(registrationRN,registrationDate);
 	}
 
+	@Transactional
 	@Override
 	public void saveApproval(HistroyDTO DTO, LocalDate registrationDate, int registrationNumber) {
-//		carRegisterDAO.updatesaveApproval(DTO,registrationDate,registrationNumber);
-
-		log.info("서비스단 : "+DTO.getTechnologyNumber());
-		
-		log.info("접수번호"+registrationNumber);
 		
 		if(DTO.getTechnologyNumber() == 0) {
 			carRegisterDAO.insertPartApproval(DTO,registrationDate,registrationNumber);
 			carRegisterDAO.updatePart(DTO);
+		}else {
+			carRegisterDAO.insertTechApproval(DTO,registrationDate,registrationNumber);			
 		}
-		if(DTO.getPartNumber() == 0) {
-			carRegisterDAO.insertTechApproval(DTO,registrationDate,registrationNumber);
-		}
+
 		
 	}
 

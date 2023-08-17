@@ -134,7 +134,7 @@ $j(function() {
                     <tr>
                       <th>
                    		#
-          	      	</th>
+        	 	     </th>
                       <th>
                         부품명 및 작업내용
                       </th>
@@ -153,21 +153,21 @@ $j(function() {
                      <c:forEach var="part" items="${part}" varStatus="i">
                     <tr>
                     	<td><%=count++ %></td>
-                    	<td><input type="hidden" name="partList[${i.index}].partNumber" value="${part.partNumber }" /></td>
                     	<td>${part.partName }<input type="hidden" name="partList[${i.index}].partName" value="${part.partName }" /></td>                    	
                     	<td>${part.partNo }<input type="hidden" name="partList[${i.index}].partCount" value="${part.partNo }" /></td>
                     	<td class="text-center">${part.partPrice }<input type="hidden" name="partList[${i.index}].partPrice" value="${part.partPrice }" /></td>
                     	<td class="text-right"></td>
+                    	<td><input type="hidden" name="partList[${i.index}].partNumber" value="${part.partNumber }" /></td>
                     </tr> 
                     </c:forEach>
                      <c:forEach var="technology" items="${technology}" varStatus="i">
                     <tr>
                     	<td><%=count++ %><input type="hidden" name="count" value="<%=count %>" /></td>
-                    	 <td><input type="hidden" name="techList[${i.index }].technologyNumber" value="${technology.technologyNumber}" /></td>
                     	<td>${technology.technologyDetail}<input type="hidden" name="techList[${i.index }].technologyDetail" value="${technology.technologyDetail}"/></td>
                     	<td>${technology.technologyNo}<input type="hidden" name="techList[${i.index }].technologyCount" value="${technology.technologyNo}" /></td>
                     	<td class="text-center">${work.mechanicName }</td>
                     	<td class="text-right">${technology.technologyPrice}<input type="hidden" name="techList[${i.index }].technologyPrice" value="${technology.technologyPrice}" /></td>
+                    	<td><input type="hidden" name="techList[${i.index }].technologyNumber" value="${technology.technologyNumber}" /></td>
                     </tr> 
                     </c:forEach>   
                     </tbody>
