@@ -188,9 +188,11 @@ public class ShopController {
 
 	}
 	
-	@PostMapping("/buypart/order")
+	@PostMapping("/order")
 	public String payment(OrderDTO orderdto, HttpServletRequest req) {
+		
 		System.out.println(orderdto);
+		oservice.order(orderdto);
 		return "/shop/order/orderend";
 	}
 	

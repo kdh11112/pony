@@ -63,4 +63,12 @@
 		WHERE
 			c.cartNo = #{cartNo}
 	</select>
+	
+	<!-- 주문 후 카트 삭제 -->
+	<delete id="deleteOrderCart">
+		DELETE
+		FROM CART
+		WHERE memberNo = #{memberNo}
+		AND partNumber = #{partNumber}
+	</delete>
 </mapper>

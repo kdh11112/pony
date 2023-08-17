@@ -10,7 +10,7 @@
 <link href="css/admin/css/nav.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap" rel="stylesheet">
 <link type="text/css" rel="stylesheet" href="https://ssl.pstatic.net/static.checkout/layout/202307261800/css/customer/chk_n_common.css">
-<link href="css/admin/css/order/finalorder.css" rel="stylesheet" />
+<!-- <link href="css/admin/css/order/finalorder.css" rel="stylesheet" /> -->
 <link type="text/css" rel="stylesheet" href="https://order.pstatic.net/202308/09_161200_1691565120/order_customer/static/css/service/front/order/ordersheet.css?1691577253961">
 <style>
 .logoimg {
@@ -86,8 +86,6 @@
 
 		<!-- u_skip -->
 		<div id="u_skip"></div>
-		<!-- //u_skip -->
-
 		<!-- Navigation-->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container">
@@ -225,11 +223,7 @@
 										</p>
 									</div>
 								</div>
-								<!-- 무장애 시스템 -->
 							</div>
-							<!-- 결제상세 End -->
-
-
 						</div>
 						<span class="ob_bottom"></span>
 					</div>
@@ -238,13 +232,13 @@
 					<div class="cutting_line cutting_line_v3"></div>
 					<div class="payment_agree_wrap">
 
-						<button class="" style="background-color: #0A58CA; border: none;">
+						<a href="/myorderlist"><button class="" style="background-color: #0A58CA; border: none;" >
 							<span class="txt_purchase">구매내역 보기</span>
-						</button>
+						</button></a>
 						<!--N=a:ctm.buylst-->
-						<button class="" style="background-color: #0A58CA; border: none;">
-							<span class="txt_shophome">쇼핑 홈 가기</span>
-						</button>
+						<a href="/partall"><button class="" style="background-color: #0A58CA; border: none;">
+							<span class="txt_shophome">부품 목록 가기</span>
+						</button></a>
 						
 						<div class="shdw_bottom"></div>
 					</div>

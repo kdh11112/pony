@@ -42,8 +42,17 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
         List<GrantedAuthority> authorities = new ArrayList<>();
+        
+        //System.out.println("유저디테일 지나가니? 현재 권한 " + dto.getMemberRole() );
+        
+        if(dto.getMemberRole().equals("ROLE_ADMIN")) {
+           authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
+           //System.out.println("이프 안에 왓어? " );
+           
+        }else {
         authorities.add(new SimpleGrantedAuthority(Role.USER.getValue()));
-
+        }
+        
         return new User(dto.getMemberEmail(), dto.getMemberPassword(), authorities);
     }
 }

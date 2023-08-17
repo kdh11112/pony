@@ -97,5 +97,12 @@
 		WHERE p.partName LIKE concat('%',#{partName}, '%') 
 		ORDER BY p.partName, p.partPrice
 	</select>
+	
+	<!-- 부품 정보 -->
+	<select id="getPartsInfo" resultType="kr.co.jhta.pony.dto.PartDTO">
+		SELECT p.partNumber, p.partName, p.partPrice, p.partNo, p.modelNo, m.modelName
+		FROM PART p LEFT OUTER JOIN MODEL m on p.modelNo = m.modelNo
+		WHERE partNumber = #{partNumber}
+	</select>
 
 </mapper>
