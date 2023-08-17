@@ -192,18 +192,21 @@ public class ShopController {
 	@PostMapping("/order")
 	public String payment(OrderDTO orderdto, HttpServletRequest req) {
 		
-		System.out.println(orderdto);
+		//주문 후 주문 DB 저장 + 장바구니 삭제 등
 		oservice.order(orderdto);
+		log.info("ㅇㅕ기는 /order");
 		return "/shop/order/orderend";
 	}
 	
 	@PostMapping("/api/order")
 	public String apiOrder() {
+		log.info("ㅇㅕ기는 /api/order");
 		return "order";
 	}
 	
 	@GetMapping("/orderend")
 	public String order() {
+		log.info("ㅇㅕ기는 /orderend");
 		return "/shop/order/orderend";
 	}
 	
@@ -212,14 +215,16 @@ public class ShopController {
 	// 내 주문목록 --------------------------------------
 
 	@GetMapping("/myorderlist")
-	public String myOrderList(HttpSession session, Model model) {
+	public String myOrderList(HttpSession session, Model model, OrderDTO orderdto) {
 		
 		int memberNo = (int) session.getAttribute("memberNo");
 		List<OrderDTO> userOrderList = oservice.getAllByUser(memberNo);
 		for (OrderDTO order : userOrderList) {
 			List<OrderDetailDTO> orderDetails = odservice.getOrderDetailsByOrderNo(order.getOrderNo());
 			model.addAttribute("orderDetails", orderDetails);
-		}
+			int kind = odservice.countKind(order.getOrderNo());
+			model.addAttribute("kind", kind);
+			};
 		model.addAttribute("userorderlist", userOrderList);
 		return "/shop/order/myOrderList";
 	}
@@ -229,17 +234,15 @@ public class ShopController {
 			throws ParseException {
 		OrderDTO order = oservice.selectOne(orderNo);
 		model.addAttribute("order", order);
-
-		String originalPhoneNumber = order.getOrderRecipientPhone();
-		String formattedPhoneNumber = originalPhoneNumber.replaceFirst("(\\d{3})(\\d{4})(\\d+)", "$1-$2-$3");
-		model.addAttribute("formattedPhoneNumber", formattedPhoneNumber);
+		
+		List<OrderDetailDTO> orderDetails = odservice.selectOne(orderNo);
+		System.out.println(""+orderDetails);
+		model.addAttribute("orderDetails", orderDetails);
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date orderDate = dateFormat.parse(order.getOrderDate());
 		model.addAttribute("orderDate", orderDate);
-
-		model.addAttribute("userOrderList", odservice.selectOne(orderNo));
-
+		
 		return "/shop/order/myOrderDetail";
 	}
 

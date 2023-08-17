@@ -35,4 +35,9 @@ public class OrderDetailServiceImple implements OrderDetailService{
 		return dao.selectOne(orderNo);
 	}
 
+	@Override
+	public int countKind(int orderNo) {
+		return dao.countKind(orderNo);
+	}
+
 }
