@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="../css/model/modelComparison1.css">
 </head>
 <body>
+
 	<form action="/model/modelComparison2" id="frm">
 		<div>
 			<img src="../images/model/vs_top.png" alt="" id="topImg">
