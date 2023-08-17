@@ -50,7 +50,7 @@
           <a class="nav-link" href="/testDrive">시승신청</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/mypage">정비예약</a>
+          <a class="nav-link" href="/carMaintenanceReservation">정비예약</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

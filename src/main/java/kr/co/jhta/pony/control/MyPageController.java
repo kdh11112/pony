@@ -182,7 +182,7 @@ public class MyPageController {
 			session.setAttribute("dto",dto2);
 			log.info("dto2 {} ",dto2);
 			int memberNo = dto2.getMemberNo();
-			String contents = req.getParameter("contents");
+			String contents = req.getParameter("textareacontents");
 			String title = req.getParameter("title");
 			dto.setQuestionTitle(title);
 			dto.setMemberNo(memberNo);
