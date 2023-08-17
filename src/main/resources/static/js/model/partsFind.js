@@ -13,7 +13,7 @@ $(document).ready(function() {
 			$('#parts-find-text').autocomplete({
 				source: function(request, response) {
 					$.ajax({
-						url: "/model/searchParts2",
+						url: "/model/searchParts",
 						data: { partName: partsFindText},
 						dataType: 'json',
 						success: function(data) {
