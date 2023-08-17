@@ -25,7 +25,7 @@ import kr.co.jhta.pony.util.Criteria;
 
 @Controller
 public class AdminController {
-  
+	
 
 	private final NoticeService nservice;
 	private final QuestionService qservice;

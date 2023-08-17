@@ -2202,7 +2202,8 @@ div[class*=loading_wrapper] .LoadingBar_article__2tr5Z {
 .Product_name__2hvoM {
     display: flex;
     display: -ms-flexbox;
-    font-weight: 500
+    font-weight: 500;
+    margin-left: 0px;
 }
 
 .Product_name__2hvoM .Product_summary__1M29R {

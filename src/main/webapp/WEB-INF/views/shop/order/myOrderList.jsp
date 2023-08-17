@@ -72,8 +72,7 @@
 											<label class="SubFilterItem_label__1qXQf">배송진행 <em class="SubFilter_point__8P9fF">2</em></label>
 										</div></li>
 									<li class="SubFilter_item__2o8uJ"><div class="SubFilterItem_article__2Mick">
-											<input type="checkbox" class="hidden">
-											<label class="SubFilterItem_label__1qXQf">최대 <em class="SubFilter_point__8P9fF">6,955원</em> 포인트 적립 가능
+											<label class="SubFilterItem_label__1qXQf">주문취소 <em class="SubFilter_point__8P9fF"> </em>
 											</label>
 										</div></li>
 								</ul>
@@ -113,8 +112,8 @@
 										</div>
 									</div>
 									<ul class="OrderPaymentActionButtons_article__21iuu">
-										<li class="OrderPaymentActionButtons_item-button__3Ok1c"><button type="button" class="ActionButton_article__2Tfs0 ActionButton_highlight__2tQ-Z">구매확정</button></li>
-										<li class="OrderPaymentActionButtons_item-button__3Ok1c"><button type="button" class="ActionButton_article__2Tfs0 claim" >상품문의</button></li>
+										<li class="OrderPaymentActionButtons_item-button__3Ok1c"><a href=""><button type="button" class="ActionButton_article__2Tfs0 ActionButton_highlight__2tQ-Z">구매확정</button></a></li>
+										<li class="OrderPaymentActionButtons_item-button__3Ok1c"><a href="/mypageqna"><button type="button" class="ActionButton_article__2Tfs0 claim" >상품문의</button></a></li>
 									</ul>
 								</div></li>
 						</c:forEach>

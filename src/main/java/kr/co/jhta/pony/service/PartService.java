@@ -35,6 +35,8 @@ public interface PartService {
 	public void adminDeleteCheck(String no);
 	
 	public List<PartDTO> searchPart(String partName);
+	
 	public List<PartDTO> searchPart2(String partName);
 	
+	public PartDTO getPartsInfo(int PartNumber);
 }

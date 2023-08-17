@@ -105,5 +105,12 @@
 		GROUP BY partName
 		ORDER BY partName
 	</select>
+	
+	<!-- 부품 정보 -->
+	<select id="getPartsInfo" resultType="kr.co.jhta.pony.dto.PartDTO">
+		SELECT p.partNumber, p.partName, p.partPrice, p.partNo, p.modelNo, m.modelName
+		FROM PART p LEFT OUTER JOIN MODEL m on p.modelNo = m.modelNo
+		WHERE partNumber = #{partNumber}
+	</select>
 
 </mapper>

@@ -43,7 +43,8 @@
 	list-style: none;
 	color: #1e1e23;
 	letter-spacing: -0.5px;
-	font-family: '나눔고딕', NanumGothic, '맑은고딕', MalgunGothic, '돋움', Dotum, Helvetica, sans-serif;
+	font-family: '나눔고딕', NanumGothic, '맑은고딕', MalgunGothic, '돋움', Dotum,
+		Helvetica, sans-serif;
 	font-size: 12px;
 	display: table-cell;
 	vertical-align: top;
@@ -63,11 +64,16 @@
 	padding-bottom: 20px;
 	padding-left: 20px;
 }
-
-.kakaopayimg {
+.kakaopayimg{
 	width: 40px;
 	height: 20px;
 	vertical-align: middle;
+}
+.tosspayimg {
+	width: 40px;
+	height: 20px;
+	vertical-align: middle;
+	padding-left: 3px;
 }
 </style>
 <script type="text/javascript" src="https://ssl.pstatic.net/tveta/libs/glad/prod/2.18.0/gfp-sdk.js" charset="utf-8"></script>
@@ -131,7 +137,6 @@
 					</h3>
 				</div>
 
-				<!-- <form id="orderForm" name="orderForm" class="_orderForm" method="post"> -->
 				<div class="order_content" style="width: 1098px;">
 					<div class="product_area">
 						<span class="top_line"></span>
@@ -180,17 +185,18 @@
 											</td>
 										</c:if>
 										<td rowspan="2">${cartItem.cartCount}개</td>
-										<td class="col_price" rowspan="2">
+										<td class="col_price_td" rowspan="2">
 											<input type="hidden" id="cartTotal" value="${cartItem.partPrice * cartItem.cartCount}" />
 											<strong><em class="_productOrderPayAmt2023072992390141"><fmt:formatNumber pattern="###,###,###원">
 														<c:out value="${cartItem.partPrice * cartItem.cartCount}" />
 													</fmt:formatNumber></em></strong>
-										</td>
-										<td class="parts_table_price_td">
+										<!-- <td class="col_price"> -->
 											<input type="hidden" class="parts_partNumber" name="" value="${cartItem.partNumber}" />
 											<input type="hidden" class="parts_cartCount" name="" value="${cartItem.cartCount}" />
 											<input type="hidden" class="parts_partName" name="" value="${cartItem.partName}" />
 											<input type="hidden" class="parts_partPrice" name="" value="${cartItem.partPrice}" />
+											<input type="hidden" class="parts_modelName" name="" value="${cartItem.modelName}" />
+										<!-- </td> -->
 										</td>
 									</tr>
 								</tbody>
@@ -207,7 +213,7 @@
 								<strong class="req" title="필수입력">배송지 입력</strong>
 							</div>
 							<!-- 주문정보 전송 폼 -->
-							<form action="/buypart/order" method="post" id="orderForm" class="orderForm">
+							<form action="/order" method="post" id="orderForm" class="orderForm">
 								<ul class="addr_list _deliveryPlaces _deliveryPlaces_0">
 									<li><div style="width: 210px !important;">
 											<input type="text" id="orderRecipientName" name="orderRecipientName" value="${memDTO.memberName }" placeholder="수령인 성함을 입력해주세요" style="width: 210px !important;" />
@@ -226,7 +232,6 @@
 											<input type="text" id="orderRecipientAddressDetail" name="orderRecipientAddressDetail" value="${memDTO.memberAddress2 }" placeholder="상세주소를 입력해주세요" />
 										</div></li>
 									<input type="hidden" name="orderPoint" id="orderPoint" value="" />
-									<input type="hidden" name="orderdetailAmount" id="orderdetailAmount" value="" />
 									<input type="hidden" name="memberNo" id="memberNo" value="${memDTO.memberNo }">
 									<input type="hidden" name="memberName" id="memberName" value="${memDTO.memberName }">
 									<input type="hidden" name="memberPhone" id="memberPhone" value="${memDTO.memberPhone }">
@@ -235,20 +240,16 @@
 									<input type="hidden" name="memberAddress" id="memberAddress" value="${memDTO.memberAddress1 }">
 									<input type="hidden" name="memberDetailAddress" id="memberDetailAddress" value="${memDTO.memberAddress2 }">
 									<input type="hidden" id="parts_totalPrice" name="parts_totalPrice" value="${cartItem.partNumber}" />
-									<input type="hidden" id="orderdetailOrderQuantity" name="orderdetailOrderQuantity" value="${cartItem.cartCount}" />
-									<input type="hidden" id="partName" name="partName" value="${cartItem.partName}" />
-									<input type="hidden" id="modelName" name="modelName" value="${cartItem.modelName}" />
 									<input type="hidden" id="orderTotal" name="orderTotal" value="" />
 									<input type="hidden" id="orderSavePoint" name="orderSavePoint" value="" />
 									<input type="hidden" id="orderDeliveryCharge" name="orderDeliveryCharge" value="" />
-									<input type="hidden" id="partPrice" name="partPrice" value="${partItem.partPrice }" />
+									<input type="hidden" id="orderPaymentTool" name="orderPaymentTool" value="" />
 								</ul>
 							</form>
 							<script>
 								function execDaumPostcode() {
 									new daum.Postcode(
-											{
-												oncomplete : function(data) {
+											{ oncomplete : function(data) {
 													// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
 													// 각 주소의 노출 규칙에 따라 주소를 조합한다.
@@ -264,17 +265,11 @@
 													}
 
 													// 우편번호와 주소 정보를 해당 필드에 넣는다.
-													document
-															.getElementById('orderRecipientZip').value = data.zonecode;
-													document
-															.getElementById("orderRecipientAddress").value = addr;
+													document.getElementById('orderRecipientZip').value = data.zonecode;
+													document.getElementById("orderRecipientAddress").value = addr;
 													// 커서를 상세주소 필드로 이동한다.
-													document
-															.getElementById("orderRecipientAddressDetail").value = '';
-													document
-															.getElementById(
-																	"orderRecipientAddressDetail")
-															.focus();
+													document.getElementById("orderRecipientAddressDetail").value = '';
+													document.getElementById("orderRecipientAddressDetail").focus();
 												}
 											}).open();
 								}
@@ -283,7 +278,9 @@
 								<strong class="_deliveryMemoHeader" style="display: none;">배송메모</strong>
 								<div class="_deliveryMemoInner ">
 									<div class="comments deliveryMemo">
-										<p class="products_tit _deliveryMemoProductName deliverySingleMemo">엔진오일 외 <span class="totalKind_span">0</span>건</p>
+										<p class="products_tit _deliveryMemoProductName deliverySingleMemo">
+											엔진오일 외 <span class="totalKind_span">0</span>건
+										</p>
 
 										<div class="dropdown_wrap">
 											<input type="text" placeholder="요청사항을 직접 입력합니다" title="배송 메세지" name="deliveryMemo" class="deli_msg placeholder _deliveryForm deliverySingleMemo _click(nmp.front.order.order_sheet.showLatestDeliveryMemo()) _stopDefault">
@@ -338,7 +335,7 @@
 									<div class="area_item">
 										<div class="input_area _useNaverCashInputArea point_green">
 											<!-- <input type="text" id="mileage" title="포인트" name="payAmounts" value="0" maxlength="7" onkeyup="updatePoint(this.value)"> -->
-											<input type="text" id="mileage" title="포인트" name="payAmounts" value="0" maxlength="7" >
+											<input type="text" id="mileage" title="포인트" name="payAmounts" value="0" maxlength="7">
 											<span class="measure">원</span>
 											<button type="button" class="btn_delete _clearPoint _click(nmp.front.order.order_sheet.clearPoint()) _stopDefault" style="display: none;">
 												<span class="blind">사용 포인트 삭제</span>
@@ -353,58 +350,59 @@
 							<br /> <br />
 							<script>
 								/* 사용자가 포인트 입력 */
-								$("#mileage").on("propertychange change keyup paste input", function(){
-									/* 사용자가 가지고 있는 포인트를 최대값으로 설정 */
-									const maxPoint = parseInt('${memDTO.memberPoint }');
-									/* 사용자가 입력한 값 */
-									console.log(maxPoint);
-									let inputValue = parseInt($(this).val());
-									/* 0보다 작은 값 입력하면 값은 0 고정 */
-									if(inputValue < 0){
-										$(this).val(0);
-									/* 보유 포인트보다 많은 값 입력하면 maxPoint 값으로 고정 */
-									}else if(inputValue > maxPoint){
-										$(this).val(maxPoint);
-									}
-									setTotalInfo();
-									
-								});
-								
+								$("#mileage")
+										.on( "propertychange change keyup paste input",
+												function() {
+													/* 사용자가 가지고 있는 포인트를 최대값으로 설정 */
+													const maxPoint = parseInt('${memDTO.memberPoint }');
+													/* 사용자가 입력한 값 */
+													console.log(maxPoint);
+													let inputValue = parseInt($(this).val());
+													/* 0보다 작은 값 입력하면 값은 0 고정 */
+													if (inputValue < 0) {
+														$(this).val(0);
+														/* 보유 포인트보다 많은 값 입력하면 maxPoint 값으로 고정 */
+													} else if (inputValue > maxPoint) {
+														$(this).val(maxPoint);
+													}
+													setTotalInfo();
+												});
+
 								/* 포인트 전액사용 버튼 클릭 */
-								$(".btn.type_point_N").on("click", function(){
-								// function useallpoint() {
-									const maxPoint = parseInt('${memDTO.memberPoint }');
-									console.log(maxPoint);
-									//let state = $(this).data("state");	
-									
-									$("#mileage").val(maxPoint);
-									setTotalInfo();
-									/* if(state == 'N'){
-										console.log("n동작");
-										//값 변경
-										$("#mileage").val(maxPoint);
-										//글 변경
-										$(".btn type_point").css("display", "inline-block");
-										$(".btn type_point").css("display", "none");
-										
-									} else if(state == 'Y'){
-										console.log("y동작");
-										//값 변경
-										$("#mileage").val(0);
-										//글 변경
-										$(".btn type_point").css("display", "none");
-										$(".btn type_point").css("display", "inline-block");		
-									}		 */
+								$(".btn.type_point_N")
+										.on( "click",
+												function() {
+													// function useallpoint() {
+													const maxPoint = parseInt('${memDTO.memberPoint }');
+													console.log(maxPoint);
+													//let state = $(this).data("state");	
+													const totalPrice = parseInt('${total}');
+													console.log(totalPrice);
+													if(totalPrice > maxPoint){
+														$("#mileage").val(maxPoint);
+														setTotalInfo();
+													}else if(totalPrice <= maxPoint){
+														$("#mileage").val(totalPrice);
+														setTotalInfo();
+													}
+													/* if(state == 'N'){
+														console.log("n동작");
+														//값 변경
+														$("#mileage").val(maxPoint);
+														//글 변경
+														$(".btn type_point").css("display", "inline-block");
+														$(".btn type_point").css("display", "none");
+														
+													} else if(state == 'Y'){
+														console.log("y동작");
+														//값 변경
+														$("#mileage").val(0);
+														//글 변경
+														$(".btn type_point").css("display", "none");
+														$(".btn type_point").css("display", "inline-block");		
+													}		 */
 
-									/* document.getElementById("mileage").value = havepoint;
-									document.getElementById("havepoint").textContent = remainingPoint; // 남은 포인트 설정
-									updatePointDisplay(havepoint); // 전액 사용 시 updatePointDisplay 함수 호출
-									calculateTotal(); 
-								} */
-									
-								});
-
-								
+												});
 							</script>
 							<div class="payment_wrap ">
 								<div class="payment">
@@ -412,7 +410,7 @@
 
 										<li class="paymethod _payMethodTab _naverPaymentsCardTab">
 											<div class="header">
-												<span> <input type="radio" name="payradio" value="card" checked="checked">
+												<span> <input type="radio" name="payradio" value="nice" checked="checked">
 												</span> <label>카드결제</label> <em class="_generalPaymentAmount payment_price"><span class="finalTotal_span2"></span> 원</em>
 											</div>
 										</li>
@@ -424,8 +422,8 @@
 										</li>
 										<li class="paymethod _payMethodTab _naverPaymentsCardTab">
 											<div class="header has_detail">
-												<span> <input type="radio" name="payradio" value="transfer">
-												</span> <label>무통장입금</label> <em class="_generalPaymentAmount payment_price"></em>
+												<span> <input type="radio" name="payradio" value="tosspay">
+												</span> <label>토스페이</label><img src="images/tosspay.png" class="tosspayimg" /> <em class="_generalPaymentAmount payment_price"></em>
 											</div>
 										</li>
 									</ul>
@@ -475,7 +473,7 @@
 												<c:out value="${delivery }" />
 											</fmt:formatNumber></em>
 									</p></li>
-									
+
 								<li><strong>포인트 사용</strong>
 									<p>
 										<dummy class="_totalDeliveryFeeSign">-</dummy>
@@ -483,7 +481,7 @@
 									</p></li>
 							</ul>
 							<ul class="total_list">
-								
+
 								<li class="_generalPaymentAmountArea total_item" style="display: list-item;"><strong class="price_sum_title _generalPaymentClass">총 결제금액</strong>
 									<p class="price_sum_detail">
 										<em class="_generalPaymentAmount"><span class="finalTotal_span">0</span>원</em>
@@ -494,8 +492,8 @@
 					</div>
 
 					<div class="payment_agree_wrap">
-						<button class="btn_payment" >결제하기</button>
-						<!-- <button class="btn_payment _click" onclick="iamport();">결제하기</button> -->
+						<!-- <button class="btn_payment" onclick="iamport();">결제하기</button> -->
+						<button class="btn_payment _click" onclick="iamport();">결제하기</button>
 					</div>
 
 				</div>
@@ -514,90 +512,208 @@
 	</footer>
 	<!-- //footer -->
 	<script>
-	$(document).ready(function(){
-		setTotalInfo();
-	});
-	
-	
-	function setTotalInfo(){
-		var totalPrice = 0;
-		var orderdetailOrderQuantity = 0;	//수량
-		var totalKind = 0;
-		var finaltotalKind = 0;
-		var totalPoint = 0;	//적립 포인트
-		var deliveryPrice = 0;
-		var usePoint = 0;
-		var finalTotalPrice = 0;
-		
-		totalPrice = ${total};
-		totalPoint = ${point};
-		deliveryPrice = ${delivery};
-		
-		console.log(totalPrice);
-		console.log(totalPoint);
-		console.log(deliveryPrice);
-		$(".parts_table_price_td").each(function(index, element){
-			// 총 갯수
-			orderdetailOrderQuantity += parseInt($(element).find(".parts_cartCount").val());
-			// 총 종류
-			totalKind += 1;
+		$(document).ready(function() {
+			setTotalInfo();
 		});
-		finaltotalKind = totalKind - 1 ;
-		finalTotalPrice = totalPrice + deliveryPrice;	
-		
-		/* 사용 포인트 */
-		usePoint = $("#mileage").val();
-		
-		finalTotalPrice = totalPrice - usePoint;	
-		
-		/* 값 삽입 */
-		// 총 가격
-		$(".totalPrice_span").html(totalPrice.toLocaleString());
-		// 총 종류
-		$(".totalKind_span").html(finaltotalKind);	
-		// 최종 가격(총 가격 + 배송비)
-		$(".finalTotal_span").html(finalTotalPrice.toLocaleString());		
-		$(".finalTotal_span2").html(finalTotalPrice.toLocaleString());		
-		// 할인가(사용 포인트)
-		$(".usePoint_span").html(usePoint.toLocaleString());
-		//$("#orderdetailAmount").val(finalTotalPrice);
-		$("#orderPoint").val(usePoint);
-		$("#orderDeliveryCharge").val(deliveryPrice);
-		$("#orderTotal").val(finalTotalPrice);
-		$("#orderSavePoint").val(totalPoint);
-		$("#orderdetailOrderQuantity").val(totalPoint);
-		
-	}
-	
+
+		function setTotalInfo() {
+			var totalPrice = 0;
+			var orderdetailOrderQuantity = 0; //수량
+			var totalKind = 0;
+			var finaltotalKind = 0;
+			var totalPoint = 0; //적립 포인트
+			var deliveryPrice = 0;
+			var usePoint = 0;
+			var finalTotalPrice = 0;
+
+			totalPrice = ${total};
+			totalPoint = ${point};
+			deliveryPrice = ${delivery};
+
+			console.log(totalPrice);
+			console.log(totalPoint);
+			console.log(deliveryPrice);
+			$(".col_price_td").each(
+					function(index, element) {
+						// 총 갯수
+						orderdetailOrderQuantity += parseInt($(element).find(".parts_cartCount").val());
+						// 총 종류
+						totalKind += 1;
+					});
+			finaltotalKind = totalKind - 1;
+			finalTotalPrice = totalPrice + deliveryPrice;
+
+			/* 사용 포인트 */
+			usePoint = $("#mileage").val();
+
+			finalTotalPrice = totalPrice - usePoint;
+
+			/* 값 삽입 */
+			// 총 가격
+			$(".totalPrice_span").html(totalPrice.toLocaleString());
+			// 총 종류
+			$(".totalKind_span").html(finaltotalKind);
+			// 최종 가격(총 가격 + 배송비)
+			$(".finalTotal_span").html(finalTotalPrice.toLocaleString());
+			$(".finalTotal_span2").html(finalTotalPrice.toLocaleString());
+			// 할인가(사용 포인트)
+			$(".usePoint_span").html(usePoint.toLocaleString());
+			//$("#orderdetailAmount").val(finalTotalPrice);
+			$("#orderPoint").val(usePoint);
+			$("#orderDeliveryCharge").val(deliveryPrice);
+			$("#orderTotal").val(finalTotalPrice);
+			$("#orderSavePoint").val(totalPoint);
+			$("#orderdetailOrderQuantity").val(totalPoint);
+
+		}
 	</script>
 	<script>
-		$(".btn_payment").on("click", function(){
-			
-			/* 상품정보 */
-			let form_contents = ''; 
-			$(".parts_table_price_td").each(function(index, element){
-				let partNumber = $(element).find(".parts_partNumber").val();
-				let orderdetailOrderQuantity = $(element).find(".parts_cartCount").val();
-				let partName = $(element).find(".parts_partName").val();
-				let partPrice = $(element).find(".parts_partPrice").val();
-				
-				let partNumber_input = "<input name='orders[" + index + "].partNumber' type='hidden' value='" + partNumber + "'>";
-				form_contents += partNumber_input;
-				
-				let orderdetailOrderQuantity_input = "<input name='orders[" + index + "].orderdetailOrderQuantity' type='hidden' value='" + orderdetailOrderQuantity + "'>";
-				form_contents += orderdetailOrderQuantity_input;
-				
-				let partName_input = "<input name='orders[" + index + "].partName' type='hidden' value='" + partName + "'>";
-				form_contents += partName_input;
-				
-				let partPrice_input = "<input name='orders[" + index + "].partPrice' type='hidden' value='" + partPrice + "'>";
-				form_contents += partPrice_input;
-			});	
-			$(".orderForm").append(form_contents);	
-			
-			/* 서버 전송 */
-			$(".orderForm").submit();
-		});
+	/* 결제 기능 */
+	function iamportCommon(selectedPaymentMethod, pg, partName, amount, email, name, phone, address, postcode) {
+	    var IMP = window.IMP;
+	    IMP.init("imp74705060"); // 예: imp00000000a
+
+	    console.log(amount);
+	    console.log(email);
+	    console.log(name);
+	    console.log(address);
+	    console.log(postcode);
+
+	    IMP.request_pay({
+	        pg: pg,
+	        pay_method: "card",
+	        merchant_uid: new Date().getTime(),
+	        name: partName,
+	        amount: amount,
+	        buyer_email: email,
+	        buyer_name: name,
+	        buyer_tel: phone,
+	        buyer_addr: address,
+	        buyer_postcode: postcode
+	    }, function (rsp) {
+	        console.log(rsp);
+
+	        if (rsp.success) {
+	            OrderInfo();
+	            var msg = '결제가 완료되었습니다.';
+	            msg += '고유ID : ' + rsp.imp_uid;
+	            msg += '상점 거래ID : ' + rsp.merchant_uid;
+	            msg += '결제 금액 : ' + rsp.paid_amount;
+	            msg += '카드 승인번호 : ' + rsp.apply_num;
+	            alert(msg);
+
+	            $.ajax({
+	                type: "POST",
+	                url: "/verifyIamport/" + rsp.imp_uid
+	            }).done(function (data) {
+	                console.log(data);
+
+	                if (rsp.paid_amount == data.response.amount) {
+	                    alert("결제 및 결제검증완료");
+	                } else {
+	                    cancelPayment(rsp.imp_uid);
+	                }
+	            });
+	        } else {
+	            var msg = '결제에 실패하였습니다.';
+	            msg += '에러내용 : ' + rsp.error_msg;
+	            alert(msg);
+	            document.location.href = "/cartlist";
+	        }
+	    });
+	}
+
+	function iamport() {
+	    var name = $("#memberName").val();
+	    var phone = $("#memberPhone").val();
+	    var email = $("#memberEmail").val();
+	    var postcode = $("#memberZip").val();
+	    var address = $("#memberAddress").val() + " " + $("#memberDetailAddress").val();
+	    var partName = $(".parts_partName").val();
+	    var amount = $("#orderTotal").val();
+	    var price = $("#total").text();
+		
+	    let selectedPaymentMethod = $("input[name='payradio']:checked").val();
+
+	    if (selectedPaymentMethod === "kakaopay") {
+	        iamportCommon(selectedPaymentMethod, "kakaopay.TC0ONETIME", partName, amount, email, name, phone, address, postcode);
+	        selectedPaymentMethod = $("#orderPaymentTool").val();
+	    } else if (selectedPaymentMethod === "tosspay") {
+	        iamportCommon(selectedPaymentMethod, "tosspay.tosstest", partName, amount, email, name, phone, address, postcode);
+	        selectedPaymentMethod = $("#orderPaymentTool").val();
+	    } else if (selectedPaymentMethod === "nice") {
+	        iamportCommon(selectedPaymentMethod, "nice.iamport00m", partName, amount, email, name, phone, address, postcode);
+	        selectedPaymentMethod = $("#orderPaymentTool").val();
+	    }
+	    document.location.href = "/order" + rsp.imp_uid; 
+	}
+
+
+		//주문 비즈니스 로직
+		/* function orderProcess(data, imp_uid) {
+			$.ajax({
+				type : "POST",
+				url : '/api/order',
+				data : JSON.stringify(req_data),
+				contentType : "application/json; charset=utf-8",
+				dataType : "json",
+				success : function(rsp) {
+					alert("결제되었습니다.");
+					location.href = "/order/" + rsp.data;
+
+				},
+				error : function(xhr) {
+					var errorResponse = JSON.parse(xhr.responseText);
+					var errorMessage = errorResponse.errorMessage;
+					alert(errorMessage);
+
+					// 결제 취소 요청
+					cancelPayment(imp_uid);
+				}
+			});
+		} */
+
+	</script>
+	<script>
+	function OrderInfo(){
+		/* 상품정보 */
+		let form_contents = '';
+		let totalOrderdetailAmount = 0;
+		$(".col_price_td")
+				.each( function(index, element) {
+					let partNumber = $(element).find(".parts_partNumber").val();
+					let orderdetailOrderQuantity = $(element).find(".parts_cartCount").val();
+					let partName = $(element).find(".parts_partName").val();
+					let partPrice = $(element).find(".parts_partPrice").val();
+					let modelName = $(element).find(".parts_modelName").val();
+
+					let orderdetailAmount = partPrice * orderdetailOrderQuantity;
+					totalOrderdetailAmount += orderdetailAmount;
+
+					let partNumber_input = "<input name='orders[" + index + "].partNumber' type='hidden' value='" + partNumber + "'>";
+					form_contents += partNumber_input;
+
+					let orderdetailOrderQuantity_input = "<input name='orders[" + index + "].orderdetailOrderQuantity' type='hidden' value='" + orderdetailOrderQuantity + "'>";
+					form_contents += orderdetailOrderQuantity_input;
+
+					let partName_input = "<input name='orders[" + index + "].partName' type='hidden' value='" + partName + "'>";
+					form_contents += partName_input;
+
+					let partPrice_input = "<input name='orders[" + index + "].partPrice' type='hidden' value='" + partPrice + "'>";
+					form_contents += partPrice_input;
+
+					let modelName_input = "<input name='orders[" + index + "].modelName' type='hidden' value='" + modelName + "'>";
+					form_contents += modelName_input;
+
+					let orderdetailAmount_input = "<input name='orders[" + index + "].orderdetailAmount' type='hidden' value='" + orderdetailAmount + "'>";
+					form_contents += orderdetailAmount_input;
+				});
+		$(".orderForm").append(form_contents);
+		console.log(totalOrderdetailAmount); 
+		/* 서버 전송 */
+		$(".orderForm").submit();
+		
+	}
 	</script>
 </body>
 

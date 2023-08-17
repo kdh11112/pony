@@ -26,5 +26,9 @@ public interface CartDAO {
 	// 카트 확인
 	CartDTO checkCart(CartDTO dto);
 	
+	
 	CartDTO getCartItemByCartNo(int cartNo);
+	
+	// 카드 삭제(주문 후)
+	int deleteOrderCart(CartDTO dto);
 }
