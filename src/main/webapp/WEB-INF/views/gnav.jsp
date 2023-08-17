@@ -13,12 +13,13 @@
 	.nav-link{
 		width:100px;
 	}
-	.mypagebtn{
+	.mypageGo{
 		 float:right; 
 		z-index: 9999;
 		position: absolute;
 		right: 2%;
 		top: 5px;
+		padding-top:20px;
 	}
 	.navbar-brand>img{
 		/* width:100px; height:70px; */
@@ -32,6 +33,18 @@
 	.navbar{
 	height:80px;
 	}
+	* {
+    margin: 0px;
+    padding: 0px;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none
+}
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -79,7 +92,7 @@
       </ul>
     </div>
       <div class="d-flex">
-        <a class="btn" href="/mypage">mypage</a>
+        <a class="mypageGo" href="/mypage">mypage</a>
       </div>
   </div>
 </nav>
