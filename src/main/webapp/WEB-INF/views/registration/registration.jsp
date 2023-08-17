@@ -188,10 +188,25 @@ $("#vin").on("click", function() {
   }
 
   $("input[value='차량접수/수정']").on("click",function(){
-	  
-	  $("#Form").submit(); 
+	  let nullCheck = $("#registrationRNId").val();
+	  let befor = $("#beforDrivenId").val();	
+	  let after = $("#afterDrivenId").val();
+	  if(nullCheck == null ){		  
+		  alert("접수번호를 다시 입력해주세요");
+	  }else{
+		  if(befor > after){
+			  alert("주행거리를 확인해주세요");
+		  }else{
+	  		$("#Form").submit(); 
+		  }
+		  
+	  }
 	  
   });
+  
+  
+  
+  
   
   $("#meId").on("click",function(){
 	  ajaxMC();
@@ -360,7 +375,7 @@ $j(function() {
 					      		<input type="text" id="datePicker" class="form-control" value="" name="registrationDateHi" style="height: 40px; width : 150px;">
 					      	</div>
 					      <div class="form-group mb-0">
-					        <input type="text" class="form-control" name="registrationRN" value="${searchOne.registrationRN }" placeholder="접수번호">
+					        <input type="text" class="form-control" id="registrationRNId" name="registrationRN" value="${searchOne.registrationRN }" placeholder="접수번호">
 					      </div>
 					      <button type="submit" class="btn btn-primary btn-round" id="nameSearch">검색</button>
 					      <!-- <button type="submit" class="btn btn-primary btn-round">차량접수/수정</button> -->

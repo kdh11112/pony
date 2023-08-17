@@ -10,7 +10,7 @@
 	</insert>
 	
 	<insert id="insertClient" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
-		INSERT INTO MEMBER(memberEmail,memberName,memberPhone,memberPassword) VALUES(#{memberEmail},#{memberName},#{memberPhone},#{memberName})
+		INSERT INTO MEMBER(memberEmail,memberName,memberPhone,memberPassword) VALUES(#{memberEmail},#{memberName},#{memberPhone},#{memberPassword})
 	</insert>
 	
 	<select id="selectClientNo" resultType="int" parameterType="int">

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +45,8 @@ public class RegistrationController {
 	@Autowired
 	ReservationService reservationService;
 
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	public RegistrationController(CarRegisterService carRegisterService,
 			TechnologyAndPartService technologyAndPartService) {
@@ -129,8 +132,7 @@ public class RegistrationController {
 			
 			CarRegisterDTO carRegisterDTO = extracted(regCarDTO, mechanicNo, clientDistanceDriven, regiNum, regiNumber);
 			
-			log.info("밑 : "+clientDistanceDriven);
-
+			
 			carRegisterService.saveRegAndEdit(carRegisterDTO);
 		}
 		return "redirect:/reg/registration";
@@ -167,6 +169,7 @@ public class RegistrationController {
 			int regiNumber) {
 		CarRegisterDTO carRegisterDTO = CarRegisterDTO
 				.builder()
+				.clientVin(regCarDTO.getClientVin())
 				.clientCarNumber(regCarDTO.getClientCarNumber())
 				.clientDistanceDriven(clientDistanceDriven)
 				.memberName(regCarDTO.getMemberName())
@@ -206,19 +209,21 @@ public class RegistrationController {
 	
 	
 	@PostMapping("/reg/carRegister")
-	public String regCarCRegisterOk(@ModelAttribute CarRegisterDTO regCarDTO) {
-		CarRegisterDTO	.builder()
+	public String regCarCRegisterOk(@ModelAttribute CarRegisterDTO regCarDTO,@RequestParam("memberName")String memberName) {
+		CarRegisterDTO dto = 	CarRegisterDTO.builder()
 						.clientVin(regCarDTO.getClientVin())
 						.clientCarNumber(regCarDTO.getClientCarNumber())
 						.clientDistanceDriven(regCarDTO.getClientDistanceDriven())
 						.clientCarType(regCarDTO.getClientCarType())
+						.clientColor(regCarDTO.getClientColor())
 						.clientProductionDate(regCarDTO.getClientProductionDate())
 						.clientShipDate(regCarDTO.getClientShipDate())
 						.memberEmail(regCarDTO.getMemberEmail())
 						.memberName(regCarDTO.getMemberName())
+						.memberPassword(passwordEncoder.encode(regCarDTO.getMemberName()))
 						.memberPhone(regCarDTO.getMemberPhone())
 						.build();
-		carRegisterService.createCarRegister(regCarDTO);
+		carRegisterService.createCarRegister(dto);
 		return "/registration/carRegister";
 	}
 	

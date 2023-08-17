@@ -29,6 +29,7 @@ public class CarRegisterDTO {
 	private String memberEmail; //차주이메일
 	private String memberName; //차주성함.
 	private String memberPhone; //차주전화번호.
+	private String memberPassword;
 	private int registrationNumber; //접수번호.
 	private int registrationRN; //위에 접수번호를 하려고헀지만 실질적인 접수번호가 됨
 	private String registrationClientRequests; //고객요청사항
