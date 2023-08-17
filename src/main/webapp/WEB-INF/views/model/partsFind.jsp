@@ -21,7 +21,7 @@
 
 <body>
 		<div>
-			<img src="../images/model/vs_top.png" alt="" id="topImg">
+			<img src="../images/model/vs_top.png" id="topImg">
 		</div>
 		<div id="whiteBar"></div>
 		<div id="whiteBar2">
