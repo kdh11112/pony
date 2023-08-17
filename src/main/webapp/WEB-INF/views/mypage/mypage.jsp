@@ -84,10 +84,10 @@
 <body>
 	<div id="wrapper">
 		<!-- Navigation-->
-		
+		<jsp:include page="/WEB-INF/views/gnav.jsp" />
 		<!-- Header-->
 		<header>
-	<jsp:include page="/WEB-INF/views/gnav.jsp" />
+	
 			<img src="images/cloud.jpg" alt="" />
 			<div class="header-content text-center text-black">
 				<h1 class="display-4 fw-bolder">마이페이지</h1>
