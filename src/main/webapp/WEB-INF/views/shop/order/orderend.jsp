@@ -83,7 +83,6 @@
 </head>
 <body class="w_bg1">
 	<div id="wrap">
-
 		<!-- u_skip -->
 		<div id="u_skip"></div>
 		<!-- Navigation-->
@@ -99,7 +98,7 @@
 						<li class="nav-item"><a class="nav-link" href="#!">About</a></li>
 						<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="/cartlist">모든 상품보기</a></li>
+								<li><a class="dropdown-item" href="/partall">모든 상품보기</a></li>
 								<li><hr class="dropdown-divider" /></li>
 								<li><a class="dropdown-item" href="/cartlist">장바구니</a></li>
 								<li><a class="dropdown-item" href="myorderlist">내 주문내역</a></li>
@@ -156,8 +155,8 @@
 							<div class="info_dsc">
 								<ul>
 									<li>정희진</li>
-									<li>010-3833-0284</li>
-									<li>(01876)</li>
+									<li>010-</li>
+									<li>(0)</li>
 								</ul>
 							</div>
 						</div>
@@ -239,7 +238,6 @@
 						<a href="/partall"><button class="" style="background-color: #0A58CA; border: none;">
 							<span class="txt_shophome">부품 목록 가기</span>
 						</button></a>
-						
 						<div class="shdw_bottom"></div>
 					</div>
 				</div>

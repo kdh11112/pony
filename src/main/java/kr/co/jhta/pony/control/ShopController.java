@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.jhta.pony.dto.CartDTO;
+import kr.co.jhta.pony.dto.MyOrderListDTO;
 import kr.co.jhta.pony.dto.OrderDTO;
 import kr.co.jhta.pony.dto.OrderDetailDTO;
 import kr.co.jhta.pony.dto.PageMakeDTO;
@@ -212,6 +213,7 @@ public class ShopController {
 
 	@GetMapping("/myorderlist")
 	public String myOrderList(HttpSession session, Model model) {
+		
 		int memberNo = (int) session.getAttribute("memberNo");
 		List<OrderDTO> userOrderList = oservice.getAllByUser(memberNo);
 		for (OrderDTO order : userOrderList) {

@@ -64,11 +64,16 @@
 	padding-bottom: 20px;
 	padding-left: 20px;
 }
-
-.kakaopayimg {
+.kakaopayimg{
 	width: 40px;
 	height: 20px;
 	vertical-align: middle;
+}
+.tosspayimg {
+	width: 40px;
+	height: 20px;
+	vertical-align: middle;
+	padding-left: 3px;
 }
 </style>
 <script type="text/javascript" src="https://ssl.pstatic.net/tveta/libs/glad/prod/2.18.0/gfp-sdk.js" charset="utf-8"></script>
@@ -180,18 +185,18 @@
 											</td>
 										</c:if>
 										<td rowspan="2">${cartItem.cartCount}개</td>
-										<td class="col_price" rowspan="2">
+										<td class="col_price_td" rowspan="2">
 											<input type="hidden" id="cartTotal" value="${cartItem.partPrice * cartItem.cartCount}" />
 											<strong><em class="_productOrderPayAmt2023072992390141"><fmt:formatNumber pattern="###,###,###원">
 														<c:out value="${cartItem.partPrice * cartItem.cartCount}" />
 													</fmt:formatNumber></em></strong>
-										</td>
-										<td class="parts_table_price_td">
+										<!-- <td class="col_price"> -->
 											<input type="hidden" class="parts_partNumber" name="" value="${cartItem.partNumber}" />
 											<input type="hidden" class="parts_cartCount" name="" value="${cartItem.cartCount}" />
 											<input type="hidden" class="parts_partName" name="" value="${cartItem.partName}" />
 											<input type="hidden" class="parts_partPrice" name="" value="${cartItem.partPrice}" />
 											<input type="hidden" class="parts_modelName" name="" value="${cartItem.modelName}" />
+										<!-- </td> -->
 										</td>
 									</tr>
 								</tbody>
@@ -238,6 +243,7 @@
 									<input type="hidden" id="orderTotal" name="orderTotal" value="" />
 									<input type="hidden" id="orderSavePoint" name="orderSavePoint" value="" />
 									<input type="hidden" id="orderDeliveryCharge" name="orderDeliveryCharge" value="" />
+									<input type="hidden" id="orderPaymentTool" name="orderPaymentTool" value="" />
 								</ul>
 							</form>
 							<script>
@@ -370,9 +376,15 @@
 													const maxPoint = parseInt('${memDTO.memberPoint }');
 													console.log(maxPoint);
 													//let state = $(this).data("state");	
-
-													$("#mileage").val(maxPoint);
-													setTotalInfo();
+													const totalPrice = parseInt('${total}');
+													console.log(totalPrice);
+													if(totalPrice > maxPoint){
+														$("#mileage").val(maxPoint);
+														setTotalInfo();
+													}else if(totalPrice <= maxPoint){
+														$("#mileage").val(totalPrice);
+														setTotalInfo();
+													}
 													/* if(state == 'N'){
 														console.log("n동작");
 														//값 변경
@@ -389,12 +401,6 @@
 														$(".btn type_point").css("display", "none");
 														$(".btn type_point").css("display", "inline-block");		
 													}		 */
-
-													/* document.getElementById("mileage").value = havepoint;
-													document.getElementById("havepoint").textContent = remainingPoint; // 남은 포인트 설정
-													updatePointDisplay(havepoint); // 전액 사용 시 updatePointDisplay 함수 호출
-													calculateTotal(); 
-													} */
 
 												});
 							</script>
@@ -417,7 +423,7 @@
 										<li class="paymethod _payMethodTab _naverPaymentsCardTab">
 											<div class="header has_detail">
 												<span> <input type="radio" name="payradio" value="tosspay">
-												</span> <label>토스페이</label> <em class="_generalPaymentAmount payment_price"></em>
+												</span> <label>토스페이</label><img src="images/tosspay.png" class="tosspayimg" /> <em class="_generalPaymentAmount payment_price"></em>
 											</div>
 										</li>
 									</ul>
@@ -527,7 +533,7 @@
 			console.log(totalPrice);
 			console.log(totalPoint);
 			console.log(deliveryPrice);
-			$(".parts_table_price_td").each(
+			$(".col_price_td").each(
 					function(index, element) {
 						// 총 갯수
 						orderdetailOrderQuantity += parseInt($(element).find(".parts_cartCount").val());
@@ -612,6 +618,7 @@
 	            var msg = '결제에 실패하였습니다.';
 	            msg += '에러내용 : ' + rsp.error_msg;
 	            alert(msg);
+	            document.location.href = "/cartlist";
 	        }
 	    });
 	}
@@ -625,17 +632,20 @@
 	    var partName = $(".parts_partName").val();
 	    var amount = $("#orderTotal").val();
 	    var price = $("#total").text();
-
+		
 	    let selectedPaymentMethod = $("input[name='payradio']:checked").val();
 
 	    if (selectedPaymentMethod === "kakaopay") {
 	        iamportCommon(selectedPaymentMethod, "kakaopay.TC0ONETIME", partName, amount, email, name, phone, address, postcode);
+	        selectedPaymentMethod = $("#orderPaymentTool").val();
 	    } else if (selectedPaymentMethod === "tosspay") {
 	        iamportCommon(selectedPaymentMethod, "tosspay.tosstest", partName, amount, email, name, phone, address, postcode);
+	        selectedPaymentMethod = $("#orderPaymentTool").val();
 	    } else if (selectedPaymentMethod === "nice") {
 	        iamportCommon(selectedPaymentMethod, "nice.iamport00m", partName, amount, email, name, phone, address, postcode);
+	        selectedPaymentMethod = $("#orderPaymentTool").val();
 	    }
-	    document.location.href = "/order" + rsp.imp_uid; // 이 부분은 요구사항에 맞게 적절히 조정해야합니다.
+	    document.location.href = "/order" + rsp.imp_uid; 
 	}
 
 
@@ -669,7 +679,7 @@
 		/* 상품정보 */
 		let form_contents = '';
 		let totalOrderdetailAmount = 0;
-		$(".parts_table_price_td")
+		$(".col_price_td")
 				.each( function(index, element) {
 					let partNumber = $(element).find(".parts_partNumber").val();
 					let orderdetailOrderQuantity = $(element).find(".parts_cartCount").val();
@@ -699,7 +709,7 @@
 					form_contents += orderdetailAmount_input;
 				});
 		$(".orderForm").append(form_contents);
-		console.log(totalOrderdetailAmount);
+		console.log(totalOrderdetailAmount); 
 		/* 서버 전송 */
 		$(".orderForm").submit();
 		
