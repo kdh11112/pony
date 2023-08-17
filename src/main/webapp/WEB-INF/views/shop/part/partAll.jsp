@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap" rel="stylesheet">
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 .content {
 	box-sizing: border-box;
@@ -59,10 +59,6 @@
 }
 
 .choicetype {
-	-o-appearance: none;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
 	height: 35px;
 	padding: 5px 10px 5px 10px;
 	border-radius: 4px;
@@ -80,6 +76,56 @@
 
 .table th, td {
 	text-align: center;
+}
+
+#selectAction img {
+	backgrond-color: white;
+}
+/* 검색 영역 */
+.search_wrap {
+	margin-top: 15px;
+}
+
+.search_input {
+	position: relative;
+	text-align: center;
+}
+
+.search_input input[name='keyword'] {
+	padding: 4px 10px;
+	font-size: 15px;
+	height: 20px;
+	line-height: 20px;
+}
+
+.search_btn {
+	height: 32px;
+	width: 80px;
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 20px;
+	position: absolute;
+	margin-left: 15px;
+	background-color: #c3daf7;
+}
+
+button[name='selectpartNumber'] {
+	border: none;
+	background-color: white;
+}
+
+span.partNo {
+	color: red;
+	font-size: 3px;
+}
+
+td.partIcontd {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.price_span {
+	color: #5390DC;
 }
 }
 </style>
@@ -127,72 +173,107 @@
 		<!-- Section-->
 		<section class="py-5 two-column-layout">
 			<div class="container">
-				<form action="" method="get">
-					<table class="table">
-						<colgroup>
-							<col width="130">
-							<col width="400">
-							<col width="190">
-							<col width="150">
-							<col width="130">
-							<col width="50">
-						</colgroup>
-						<tr>
-							<th>부품번호</th>
-							<th>부품명</th>
-							<th>옵션</th>
-							<th>수량</th>
-							<th>금액</th>
-							<th></th>
-						</tr>
+				<table class="table">
+					<colgroup>
+						<col width="110">
+						<col width="370">
+						<col width="170">
+						<col width="110">
+						<col width="110">
+						<col width="80">
+					</colgroup>
+					<tr>
+						<th>부품번호</th>
+						<th>부품명</th>
+						<th>모델명</th>
+						<th>수량</th>
+						<th>금액</th>
+						<th></th>
+					</tr>
+					<c:if test="${listCheck != 'empty' }">
 						<c:forEach var="partlist" items="${partlist }">
 							<tr>
 								<td>${partlist.partNumber }</td>
 								<td style="text-align: left !important; padding-left: 50px;">${partlist.partName }</td>
+								<td>${partlist.modelName }</td>
 								<td>
-									<select name="option" class="choicetype" id="option_car">
-										<option value=" ">--</option>
-										<option value="AVANTE">AVANTE</option>
-										<option value="SONATA">SONATA</option>
-										<option value="GRANDEUR">GRANDEUR</option>
-										<option value="PALISADE">PALISADE</option>
-										<option value="TUCSON">TUCSON</option>
-									</select>
+									<!-- 최대 주문 가능수량 : 재고수량, 재고 없으면 선택 비활성화 -->
+									<c:if test="${partlist.partNo != 0}">
+										<select name="selectpartNo" class="choicetype" style="width: 70px;">
+											<c:forEach begin="1" end="${partlist.partNo }" var="i">
+												<option value="${i }">${i }</option>
+											</c:forEach>
+										</select>
+									</c:if>
+									<c:if test="${partlist.partNo == 0}">
+										<select name="selectCount" class="choicetype" style="width: 70px;">
+											<option value="0">0</option>
+										</select>
+									</c:if>
 								</td>
-								<td>
-									<!-- 최대 주문 가능수량 : 재고수량 -->
-									<select name="type" class="choicetype" id="option_count">
-										<c:forEach begin="1" end="${partlist.partNo }" var="i">
-											<option value="${i }">${i }</option>
-										</c:forEach>
-									</select>
+
+								<td style="text-align: right !important; padding-left: 0px; padding-right: 10px;">
+									<input type="hidden" name="partPrice" value="${partlist.partPrice }" />
+									<fmt:formatNumber pattern="###,###,###원">${partlist.partPrice }</fmt:formatNumber>
+									<br />
+									<fmt:formatNumber type="number" maxFractionDigits="0" value="${partlist.partPrice*0.05}" var="pointValue" />
+									<span class="price_span" style="font-size: 70%;">(적립: <c:out value="${pointValue}" />원)
+									</span>
 								</td>
-								<td style="text-align: right !important; padding-right: 35px;">
-									<fmt:formatNumber pattern="###,###,###">${partlist.partPrice }</fmt:formatNumber>
-								</td>
-								<td>
-									<input type="hidden" name="" value="${partlist.partNumber }" />
-									<input type="image" src="css/admin/assets/cart.png" style="width: 12px; height: 12px;" />
+								<td class="partIcontd">
+									<c:if test="${partlist.partNo != 0}">
+										<button type="submit" class="addCart" name="selectpartNumber" value="${partlist.partNumber }">
+											<input type="hidden" name="selectpartNum" value="${partlist.partNumber }" />
+											<img src="css/admin/assets/cart.png" style="width: 12px; height: 12px;" />
+										</button>
+									</c:if>
+
+									<c:if test="${partlist.partNo == 0}">
+										<span class="partNo" style="text-align: left !important">Out of stock</span>
+									</c:if>
 								</td>
 							</tr>
 						</c:forEach>
+					</c:if>
+					<c:if test="${listCheck == 'empty'}">
 						<tr>
-							<td colspan="6" class="pagetd">
-								<nav aria-label="Page navigation example">
-									<ul class="pagination">
-										<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-											<li class="page-item"><a class="page-link" href="?pageNum=${num }">${num }</a></li>
-										</c:forEach>
-									</ul>
-								</nav>
-							</td>
+							<td colspan="6" class="table_empty">등록된 부품이 없습니다.</td>
 						</tr>
-					</table>
-				</form>
+					</c:if>
+					<tr>
+						<td colspan="6" class="pagetd">
+							<nav aria-label="Page navigation example">
+								<ul class="pagination">
+									<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+										<li class="page-item"><a class="page-link" href="${num }">${num }</a></li>
+									</c:forEach>
+								</ul>
+							</nav>
+						</td>
+					</tr>
+				</table>
+
 				<!-- 수정, 조회 후 현재 페이지로 다시 리다이렉트하게 하기 위해 hidden으로 현재 페이지 정보 넘겨줌 -->
-				<form id="moveForm" method="get">
+				<form id="moveForm" action="/partall" method="get">
 					<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 					<input type="hidden" name="perPageNum" value="${pageMaker.cri.perPageNum }">
+					<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">
+					<input type="hidden" name="type" value="${pageMaker.cri.type}">
+				</form>
+			</div>
+
+			<!-- 검색 Area -->
+			<div class="search_wrap">
+				<form name="searchForm" action="/partall" method="get">
+					<div class="search_input">
+						<select name="type" class="choicetype">
+							<option value="">--</option>
+							<option value="P">부품명</option>
+							<option value="M">모델명</option>
+						</select>
+						<input id="search" type="search" name="keyword" placeholder="검색어를 입력해주세요." value="">
+						<button type="submit" class="btn search_btn">검색</button>
+					</div>
 				</form>
 			</div>
 		</section>
@@ -210,33 +291,82 @@
 	<!-- Core theme JS-->
 	<script src="css/mypage/js/scripts.js"></script>
 	<script>
-		/* 수정, 조회 후 현재 페이지로 다시 리다이렉트하게 하기 위해 hidden으로 현재 페이지 정보 넘겨줌 */
-		let moveForm = $("#moveForm");
-
-		$(".move")
-				.on(
-						"click",
-						function(e) {
-							e.preventDefault();
-							moveForm
-									.append("<input type='hidden' name='partno' value='"
-											+ $(this).attr("href") + "'>");
-							moveForm.attr("action", "/partall");
-							moveForm.submit();
-						});
-
 		/* 페이징 버튼 동작시키기 위한 코드*/
-		$(".page-link").on("click", function(e) {
+		let moveForm = $('#moveForm');
 
+		$(".page-item a").on("click", function(e) {
 			e.preventDefault();
 			/* form 태그 내부 pageNum과 관련된 input 태그의 value 값을 클릭한 a태그의 페이지 번호로 삽입 */
 			moveForm.find("input[name='pageNum']").val($(this).attr("href"));
-			/* form태그 action 속성 추가 및 "/partall"을 속성값으로 추가 */
-			moveForm.attr("action", "/partall");
 			/* form 태그 서버 전송 */
 			moveForm.submit();
+		});
+
+		let searchForm = $('#searchForm');
+
+		/* 부품 이름 검색 버튼 동작 */
+		$("#searchForm button").on("click", function(e) {
+			e.preventDefault();
+			/* 검색 키워드 유효성 검사 */
+			if (!searchForm.find("input[name='keyword']").val()) {
+				alert("키워드를 입력하십시오");
+				return false;
+			}
+			searchForm.find("input[name='pageNum']").val("1");
+			searchForm.submit();
 
 		});
+
+		$(".addCart").on(
+				"click",
+				function(e) {
+					const form = {
+						partNumber : $(this).closest("tr").find(
+								"input[name='selectpartNum']").val(),
+						cartCount : $(this).closest("tr").find(
+								"select[name='selectpartNo']").val()
+					};
+
+					$.ajax({
+						url : '/partall',
+						type : 'POST',
+						data : form,
+						success : function(result) {
+							cartAlert(result);
+						}
+					})
+				});
+		function cartAlert(result) {
+			if (result == 0) {
+				alert("장바구니에 추가하지 못하였습니다.");
+			} else if (result == 1) {
+				alert("장바구니에 추가되었습니다.");
+			} else if (result == 2) {
+				alert("장바구니에 이미 추가된 상품입니다.");
+				location.replace("cartlist");
+			} else if (result == 5) {
+				alert("로그인이 필요합니다.");
+				location.replace("login");
+			}
+		}
 	</script>
+
+	<!-- 	<script>
+						function calculatePoint() {
+						    /* 포인트 계산 */
+						    var partPrice = $("input[name='partPrice']").val();
+						    var partPoint = Math.floor(partPrice * 0.05);
+						    console.log(partPoint);
+						    $(".point_span").html(partPoint + "원");
+						}
+
+						$(document).ready(function () {
+						    calculatePoint(); // 페이지 로딩 시 포인트 계산 함수 호출
+
+						  /*   $(".choicetype").change(function () {
+						        calculatePoint(); // 수량 변경 시 포인트 계산 함수 호출
+						    }); */
+						});
+						</script> -->
 </body>
 </html>

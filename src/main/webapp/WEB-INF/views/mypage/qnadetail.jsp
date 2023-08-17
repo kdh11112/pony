@@ -63,7 +63,7 @@
 }
 
 .no-car, .sub {
-	margin: 0 30px;
+	margin: 10px 40px;
 }
 
 .head {
@@ -149,9 +149,9 @@
 						<div class="content-body" data-v-269e3e5f>
 							<div class="my-title" data-v-269e3e5f>
 								<div class="head" data-v-269e3e5f>
-									<strong data-v-269e3e5f><span data-v-269e3e5f>${dto.memberName }</span>
-										님, 안녕하세요! </strong> <a href=""
-										class="btn btn-primary active infomodify_btn"><span>정보수정
+									<strong data-v-269e3e5f><a href="mypage"><span
+											data-v-269e3e5f>${dto.memberName }</span></a> 님, 안녕하세요! </strong> <a
+										href="myinfo" class="btn btn-primary active infomodify_btn"><span>정보수정
 											<!---->
 
 									</span></a>
@@ -161,17 +161,11 @@
 							<!-- 포인트 1:1문의내역 -->
 							<div class="my-info" data-v-269e3e5f>
 								<ul data-v-269e3e5f>
-									<li data-v-269e3e5f><a
-										href="#
-											data-link-area="
-										마이페이지-메인" data-link-name="포인트" draggable="true"
-										class="btn btn-primary active" data-v-269e3e5f><span>
-												포인트 <!---->
-										</span></a> <strong data-v-269e3e5f>0 P</strong></li>
+									<li data-v-269e3e5f><strong data-v-269e3e5f>포인트 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${memberPoint } P</strong></li>
 
 									<li data-v-269e3e5f><a class="btn btn-primary active"
 										href="mypageqna"><span>1:1 문의 내역 <!---->
-										</span></a> <strong data-v-269e3e5f>0 건</strong></li>
+										</span></a> <strong data-v-269e3e5f>${qnacount } 건</strong></li>
 								</ul>
 							</div>
 							<!-- 포인트 1:1문의내역 end-->
@@ -193,9 +187,7 @@
 											data-v-269e3e5f>
 											<div class="content-box" data-v-269e3e5f>
 												<div class="title" data-v-269e3e5f>
-													<a href="#
-															draggable="
-														true" class="btn btn-primary active"><span>시승
+													<a href="testdriving" class="btn btn-primary active"><span>시승
 															신청 내역 <!---->
 													</span></a>
 												</div>
@@ -208,10 +200,9 @@
 											data-v-269e3e5f>
 											<div class="content-box" data-v-269e3e5f>
 												<div class="title" data-v-269e3e5f>
-													<a href="#
-															draggable="
-														true" class="btn btn-primary active"><span> 정비
-															예약 신청 내역 <!---->
+													<a href="/carMaintenanceReservationDetail"
+														class="btn btn-primary active"><span> 정비 예약 신청
+															내역 <!---->
 													</span></a>
 												</div>
 											</div>
@@ -268,16 +259,28 @@
 											</tr>
 										</tbody>
 										<tfoot>
-											<tr>
-												<th>답변</th>
-												<td class="td-answer" colspan="8">${detail.questionContents }</td>
-											</tr>
+											<c:if test="${!empty answer }">
+												<tr>
+													<th>답변</th>
+													<td class="td-answer">${answer.answerContents }</td>
+												</tr>
+											</c:if>
+											<c:if test="${empty answer }">
+												<tr>
+													<th>답변</th>
+													<td class="td-answer" colspan="8">답변이 아직 없습니다.</td>
+												</tr>
+											</c:if>
+
 										</tfoot>
 									</table>
-									<a href="/mypageqna"> <input type="button" class="btn btn-outline-dark" value="목록" /></a> 
-									<a href="/qnamodify?questionNo=${detail.questionNo }"> <input type="button" class="btn btn-outline-dark" value="수정" /></a> 
-									<a href="qnadelete?questionNo=${detail.questionNo }"> <input type="button" class="btn btn-outline-danger" value="삭제" /></a>
-										
+									<a href="/mypageqna"> <input type="button"
+										class="btn btn-outline-dark" value="목록" /></a> <a
+										href="/qnamodify?questionNo=${detail.questionNo }"> <input
+										type="button" class="btn btn-outline-dark" value="수정" /></a> <a
+										href="qnadelete?questionNo=${detail.questionNo }"> <input
+										type="button" class="btn btn-outline-danger" value="삭제" /></a>
+
 								</div>
 							</div>
 						</section>

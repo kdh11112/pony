@@ -1,24 +1,30 @@
 package kr.co.jhta.pony.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+//reservationNo int AI PK 
+//reservationDate varchar(255) 
+//clientCarNumber varchar(255) 
+//memberNo int 
+//shopNo int 
+//reservationClientRequests varchar(255) 
+//reservationDueDate
+//정비예약DTO mypage 정비예약내역  정비예약하기
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class ReservationDTO {
-
 	private int reservationNo;
 	private String reservationDate;
 	private String clientCarNumber;
 	private int memberNo;
-	private String memberName;
-	private int shopNo;	
-	private String shopAreaPoint;
+	private int shopNo;
 	private String reservationClientRequests;
 	private String reservationDueDate;
-	
+	private String shopAreaPoint;
+    private String shopAddr;
+	private String memberName;
+
 }

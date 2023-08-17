@@ -163,7 +163,7 @@
 }
 
 .no-car, .sub {
-	margin: 0 30px;
+	margin: 10px 40px;
 }
 
 .head {
@@ -279,17 +279,11 @@
 							<!-- 포인트 1:1문의내역 -->
 							<div class="my-info" data-v-269e3e5f>
 								<ul data-v-269e3e5f>
-									<li data-v-269e3e5f><a
-										href="#
-											data-link-area="
-										마이페이지-메인" data-link-name="포인트" draggable="true"
-										class="btn btn-primary active" data-v-269e3e5f><span>
-												포인트 <!---->
-										</span></a> <strong data-v-269e3e5f>0 P</strong></li>
+									<li data-v-269e3e5f><strong data-v-269e3e5f> 포인트&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${memberPoint } P</strong></li>
 
 									<li data-v-269e3e5f><a class="btn btn-primary active"
 										href="mypageqna"><span>1:1 문의 내역 <!---->
-										</span></a> <strong data-v-269e3e5f>0 건</strong></li>
+										</span></a> <strong data-v-269e3e5f>${qnacount } 건</strong></li>
 								</ul>
 							</div>
 							<!-- 포인트 1:1문의내역 end-->
@@ -319,7 +313,7 @@
 											</div>
 										</div>
 
-										<div class="el-col el-col-8"
+										<!-- <div class="el-col el-col-8"
 											style="padding-left: 10px; padding-right: 10px;"
 											data-v-269e3e5f>
 											<div class="content-box" data-v-269e3e5f>
@@ -327,11 +321,11 @@
 													<a href="#
 															draggable="
 														true" class="btn btn-primary active"><span>
-															차량기본관리 <!---->
+															차량기본관리
 													</span></a>
 												</div>
 											</div>
-										</div>
+										</div> -->
 									</div>
 								</div>
 							</div>
@@ -354,7 +348,7 @@
 											data-v-269e3e5f>
 											<div class="content-box" data-v-269e3e5f>
 												<div class="title" data-v-269e3e5f>
-													<a href="" class="btn btn-primary active"><span>시승
+													<a href="testdriving" class="btn btn-primary active"><span>시승
 															신청 내역 <!---->
 													</span></a>
 												</div>
@@ -367,9 +361,7 @@
 											data-v-269e3e5f>
 											<div class="content-box" data-v-269e3e5f>
 												<div class="title" data-v-269e3e5f>
-													<a href="#
-															draggable="
-														true" class="btn btn-primary active"><span> 정비
+													<a href="/carMaintenanceReservationDetail" class="btn btn-primary active"><span> 정비
 															예약 신청 내역 <!---->
 													</span></a>
 												</div>
@@ -388,7 +380,7 @@
 					<div id="mycarinfo">
 						<div class="my-car" data-v-269e3e5f>
 							<div class="title mycarTitle" data-v-269e3e5f>
-								<strong data-v-269e3e5f> 나의 자동차 <span data-v-269e3e5f>0대</span></strong>
+								<strong data-v-269e3e5f> 나의 자동차 <span data-v-269e3e5f>${carcnt }대</span></strong>
 
 							</div>
 							<div class="sub" data-v-269e3e5f>

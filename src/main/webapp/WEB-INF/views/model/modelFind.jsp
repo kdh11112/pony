@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,7 @@
 <link rel="stylesheet" href="../css/model/modelFind.css">
 </head>
 <body>
-	<form action="/modelDetail" id="frm">
+	<form action="/model/modelDetail" id="frm">
 	    <div><img src="../images/model/vs_top.png" alt="" id="topImg"></div>
 	    <div id="whiteBar"></div>
 	        <div id="whiteBar2">
@@ -29,11 +30,9 @@
 	                            <div class="select text-center">
 	                                <select class="selectModel btn btn-secondary" id="selectModel" name="selectModel" >
                                         <option value="">차량선택</option>
-                                        <option value="AVANTE">AVANTE</option>
-	                                    <option value="SONATA">SONATA</option>
-	                                    <option value="GRANDEUR">GRANDEUR</option>
-	                                    <option value="PALISADE">PALISADE</option>
-	                                    <option value="TUCSON">TUCSON</option>
+                                        <c:forEach var="data" items="${model}">
+                                        <option value="${data.modelName}">${data.modelName}</option>
+                                    </c:forEach>
                                     </select>
 	                            </div>
 	                            <p class="card-text"></p>

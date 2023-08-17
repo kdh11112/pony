@@ -37,7 +37,9 @@ public interface CarRegisterService {
 	public List<HistroyDTO> findAllPaymentList(int i);
 
 
+	//public List<CarRegisterDTO> getCarRegistrationList(int memberNo); //사용자의 정비예약내역 list 
 
+	//public void deleteCarRegister(int registrationNumber); //사용자의 정비예약내역 삭제
 
 
 	

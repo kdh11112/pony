@@ -57,6 +57,8 @@ public interface CarRegisterDAO {
 
 	public List<HistroyDTO> selectPaymentList(int i);
 
-
+	public int regAndcorrNumber();
+	//public void deleteCarRegister(int registrationNumber);
+	//public List<CarRegisterDTO> getCarRegistrationList(int memberNo);
 
 }

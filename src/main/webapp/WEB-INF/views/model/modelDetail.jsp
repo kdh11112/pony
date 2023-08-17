@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -117,7 +118,7 @@
 								<div id="collapseTwo" class="accordion-collapse collapse"
 									aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
 									<div class="accordion-body">
-										<form action="/modelDetail" id="frm">
+										<form action="/model/modelDetail" id="frm">
 											<div class="container">
 												<div class="row justify-content-center">
 													<div class="col-md-6" id="cardArea">
@@ -125,11 +126,9 @@
 															<select class="selectModel btn btn-secondary"
 																id="selectModel" name="selectModel">
 																<option value="">차량선택</option>
-																<option value="AVANTE">AVANTE</option>
-																<option value="SONATA">SONATA</option>
-																<option value="GRANDEUR">GRANDEUR</option>
-																<option value="PALISADE">PALISADE</option>
-																<option value="TUCSON">TUCSON</option>
+																<c:forEach var="data" items="${model2}">
+																	<option value="${data.modelName}">${data.modelName}</option>
+																</c:forEach>
 															</select>
 															<div>
 																<button class="btn btn-info" id="selectOk">선택</button>
@@ -160,14 +159,14 @@
 		<p id="designContent1"></p>
 		<p id="designContent2"></p>
 	</div>
-		<div class="row imgArea">
-			<div class="col-md-6">
-				<img src="" alt="" id="modelImg3"> 
-				<img src="" alt="" id="modelImg5">
-			</div>
+	<div class="row imgArea">
 		<div class="col-md-6">
-			<img src="" alt="" id="modelImg4">
-			<img src="" alt="" id="modelImg6">
+			<img src="" alt="" id="modelImg3"> <img src="" alt=""
+				id="modelImg5">
+		</div>
+		<div class="col-md-6">
+			<img src="" alt="" id="modelImg4"> <img src="" alt=""
+				id="modelImg6">
 		</div>
 	</div>
 

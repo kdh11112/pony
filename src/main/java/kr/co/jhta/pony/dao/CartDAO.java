@@ -12,16 +12,19 @@ import kr.co.jhta.pony.dto.CartDTO;
 public interface CartDAO {
 	
 	// 카트 목록
-	List<CartDTO> cartAll(String memberNo);
+	List<CartDTO> cartAll(int memberNo);
 	
 	// 카트 추가
-	void addCart(CartDTO dto);
+	int addCart(CartDTO dto);
 	
 	// 카트 삭제
-	void deleteCart(int cartNo);
+	int deleteCart(int cartNo);
 	
 	// 카트 수량 변경
-	void modifyCount(CartDTO dto);
+	int modifyCount(CartDTO dto);
 	
 	// 카트 확인
+	CartDTO checkCart(CartDTO dto);
+	
+	CartDTO getCartItemByCartNo(int cartNo);
 }

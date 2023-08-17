@@ -6216,7 +6216,7 @@
 }
 
 .option--1bwpDWrPvl {
-    padding-top: 12px;
+    /* padding-top: 12px; */
     margin-left: 2px;
     line-height: 18px;
     word-wrap: break-word;
@@ -6320,7 +6320,7 @@
 }
 
 .pc_type .option--1bwpDWrPvl {
-    padding: 12px 0;
+    /* padding: 12px 0; */
     line-height: 18px
 }
 
@@ -7869,7 +7869,9 @@
 }
 
 .price_area--jjAq5tYP9m.total--2a5HJtyfeD {
-    margin-bottom: 0
+    margin-bottom: 0;
+    text-align: right;
+    color: #0A58CA;
 }
 
 .price_area--jjAq5tYP9m.total--2a5HJtyfeD .title--3G_o4_rhfc,.price_area--jjAq5tYP9m.total--2a5HJtyfeD em {

@@ -64,7 +64,7 @@
 }
 
 .no-car, .sub {
-	margin: 0 30px;
+	margin: 10px 40px;
 }
 
 .head {
@@ -139,7 +139,7 @@
 					<div class="content-body" data-v-269e3e5f>
 						<div class="my-title" data-v-269e3e5f>
 							<div class="head" data-v-269e3e5f>
-								<strong data-v-269e3e5f><span data-v-269e3e5f>${dto.memberName }</span>
+								<strong data-v-269e3e5f><a href="/mypage"><span data-v-269e3e5f>${dto.memberName }</span></a>
 									님, 안녕하세요! </strong> <a href="/myinfo"
 									class="btn btn-primary active infomodify_btn"><span>정보수정
 										<!---->
@@ -151,16 +151,11 @@
 						<!-- 포인트 1:1문의내역 -->
 						<div class="my-info" data-v-269e3e5f>
 							<ul data-v-269e3e5f>
-								<li data-v-269e3e5f><a href="#
-											data-link-area="
-									마이페이지-메인" data-link-name="포인트" draggable="true"
-									class="btn btn-primary active" data-v-269e3e5f><span>
-											포인트 <!---->
-									</span></a> <strong data-v-269e3e5f>0 P</strong></li>
+								<li data-v-269e3e5f><strong data-v-269e3e5f>포인트  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${memberPoint } P</strong></li>
 
 								<li data-v-269e3e5f><a class="btn btn-primary active"
 									href="mypageqna"><span>1:1 문의 내역 <!---->
-									</span></a> <strong data-v-269e3e5f>0 건</strong></li>
+									</span></a> <strong data-v-269e3e5f>${qnacount }건</strong></li>
 							</ul>
 						</div>
 						<!-- 포인트 1:1문의내역 end-->
@@ -195,9 +190,7 @@
 										data-v-269e3e5f>
 										<div class="content-box" data-v-269e3e5f>
 											<div class="title" data-v-269e3e5f>
-												<a href="#
-															draggable="
-													true" class="btn btn-primary active"><span> 정비
+												<a href="carMaintenanceReservationDetail" class="btn btn-primary active"><span> 정비
 														예약 신청 내역 <!---->
 												</span></a>
 											</div>

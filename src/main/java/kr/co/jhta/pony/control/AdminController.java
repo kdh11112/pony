@@ -48,8 +48,12 @@ public class AdminController {
 		}
 	
 	@GetMapping("/admin")
-	public String admin() {
-		return "/admin/admin";
+	public String adminindex() {
+		return "/admin/adminindex";
+	}
+	@GetMapping("/adminlogin")
+	public String adminlogin() {
+		return "/admin/adminlogin";
 	}
 
 	// 재고 관리 ------------------------------------------------------------
@@ -81,7 +85,6 @@ public class AdminController {
 	}
 	
 	// 주문 상태 변경 - 체크박스
-	 
 	@RequestMapping("/delivery") 
 	public String changeDelivery(HttpServletRequest	req, @ModelAttribute OrderDTO odto ) { 
 		String[] partCheck = req.getParameterValues("partCheck"); 

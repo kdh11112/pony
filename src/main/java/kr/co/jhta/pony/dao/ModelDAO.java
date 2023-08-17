@@ -10,6 +10,6 @@ import kr.co.jhta.pony.dto.ModelDTO;
 @Repository
 @Mapper
 public interface ModelDAO {
-	public List<ModelDTO> ModelInfo();
+	public List<ModelDTO> ModelAll();
 	public ModelDTO ModelOne(String modelName);
 }

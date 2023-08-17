@@ -44,43 +44,31 @@
 </head>
 <body>
 	<div class="d-flex" id="wrapper">
-        <!-- Sidebar-->
-        <div class="border-end bg-white" id="sidebar-wrapper">
-            <div class="sidebar-heading border-bottom bg-light">
-            	<img alt="" src="css/admin/assets/invi.png"> 
-     			<a class="logo-link" href="/admin"> PONY Admin</a>
-     		</div>
-            <div class="list-group list-group-flush">
-            	<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/adminpartlist">재고관리</a>
-            	<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/adminorderlist">주문목록</a>
-            	<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/questionlist">고객문의</a>
-            	<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/adminnotice">공지사항</a>
-        	</div>
-        </div>
         <!-- Page content wrapper-->
         <div id="page-content-wrapper">
-            <!-- Top navigation-->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                <div class="container-fluid">
-                    <img id="sidebarToggle" src="css/admin/assets/list.png">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                            <li class="nav-item active"><a class="nav-link" href="/admin">AdminHome</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/">UserPage</a></li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#!">Action</a>
-                                    <a class="dropdown-item" href="#!">Another action</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#!">Something else here</a>
-                                </div>
-                            </li>
-                        </ul>
+             <!-- Top navigation-->
+                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                    <div class="container-fluid">
+                        <img id="sidebarToggle" src="css/admin/assets/list.png"></img>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                                <li class="nav-item active"><a class="nav-link" href="/admin">AdminHome</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/login">UserPage</a></li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="/adminpartlist">재고관리</a>
+                                        <a class="dropdown-item" href="/adminorderlist">주문목록</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="/questionlist">고객문의</a>
+                                        <a class="dropdown-item" href="/adminnotice">공지사항</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </nav>
+                </nav>
             
             <!-- Page content-->
 	        <div class="container-fluid">

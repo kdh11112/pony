@@ -8,7 +8,7 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.7.13</version>
 		<relativePath /> <!-- lookup parent from repository -->
-	</parent> 
+	</parent>
 	<groupId>kr.co.jhta</groupId>
 	<artifactId>pony</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -109,13 +109,28 @@
 			<artifactId>spring-security-taglibs</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+		<!-- 아임포트 REST API연동 모듈 -->
+		<dependency>
+			<groupId>com.github.iamport</groupId>
+			<artifactId>iamport-rest-client-java</artifactId>
+			<version>0.2.14</version>
+		</dependency>
 
 
 	</dependencies>
-
-
-
-
+	
+	<!-- 아임포트 REST API연동 모듈 -->
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
 
 	<build>
 		<plugins>
@@ -149,5 +164,3 @@
 	</build>
 
 </project>
-
-

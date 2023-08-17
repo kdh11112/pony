@@ -3,19 +3,20 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.jhta.pony.dao.OrderDAO">
-
 	<!-- ORDER는 예약어이므로 ''로 감싸 테이블임을 표시해야 함 -->
 
+	<!-- =============== 관리자 ============== -->
+
 	<select id="getAllByAdmin" resultType="kr.co.jhta.pony.dto.OrderDTO">
-		SELECT orderNo, orderDate, memberNo, orderRecipientName, orderRecipientPhone, orderStatus, orderDeliveryCharge, orderPoint, orderTotal
-		FROM (SELECT orderNo, orderDate, memberNo, orderRecipientName, orderRecipientPhone, orderStatus, orderDeliveryCharge, orderPoint, orderTotal
+		SELECT orderNo, orderDate, memberNo, orderRecipientName, orderRecipientPhone, orderRecipientZip, orderRecipientAddress, orderRecipientAddressDetail, orderStatus, orderDeliveryCharge, orderPoint, orderTotal, orderPaymentTool
+		FROM (SELECT orderNo, orderDate, memberNo, orderRecipientName, orderRecipientPhone, orderRecipientZip, orderRecipientAddress, orderRecipientAddressDetail, orderStatus, orderDeliveryCharge, orderPoint, orderTotal, orderPaymentTool
 		FROM `ORDER` ORDER BY orderNo DESC) AS T1
 		LIMIT #{skip}, #{perPageNum}
 	</select>
 
 	<!-- selectOne -->
 	<select id="selectOne" parameterType="int" resultType="kr.co.jhta.pony.dto.OrderDTO">
-		SELECT orderNo, orderDate, memberNo, orderRecipientName, orderRecipientPhone, orderStatus, orderDeliveryCharge, orderPoint, orderTotal
+		SELECT orderNo, orderDate, memberNo, orderRecipientName, orderRecipientPhone, orderRecipientZip, orderRecipientAddress, orderRecipientAddressDetail, orderStatus, orderDeliveryCharge, orderPoint, orderTotal, orderPaymentTool
 		FROM `ORDER`
 		WHERE orderNo = #{orderNo}
 	</select>
@@ -53,7 +54,7 @@
 		SET orderTotal = #{orderTotal}
 		WHERE orderNo = #{orderNo}
 	</update>
-	
+
 	<!-- 배송상태 변경 목적 -->
 	<update id="changeDelivery" parameterType="String">
 		UPDATE `ORDER`
@@ -61,4 +62,33 @@
 		WHERE orderNo = #{orderNo}
 	</update>
 
+
+	<!-- =============== 고객 주문 ============== -->
+
+	<insert id="insertOrder" parameterType="kr.co.jhta.pony.dto.OrderDTO">
+		INSERT INTO `ORDER`(orderNo, orderDate, memberNo, orderRecipientName, orderRecipientPhone, orderRecipientZip, orderRecipientAddress, orderRecipientAddressDetail, orderStatus, orderDeliveryCharge, orderPoint, orderTotal, orderPaymentTool)
+		VALUES (#{orderNo}, now(), #{memberNo}, #{orderRecipientName}, #{orderRecipientPhone }, '배송준비중' , #{orderDeliveryCharge}, #{orderPoint}, #{orderTotal}, #{orderPaymentTool})
+
+	</insert>
+
+	<select id="getAllByUser" resultType="kr.co.jhta.pony.dto.OrderDTO" parameterType="int">
+		SELECT orderNo, orderDate, memberNo, orderRecipientName, orderRecipientPhone, orderRecipientZip, orderRecipientAddress, orderRecipientAddressDetail, orderStatus, orderDeliveryCharge, orderPoint, orderTotal, orderPaymentTool
+		FROM `ORDER`
+		WHERE memberNo = #{memberNo}
+	</select>
+
+	<!-- 주문 상품 정보 -->
+	<select id="getPartsInfo" resultType="kr.co.jhta.pony.dto.OrderPageItemDTO">
+		SELECT
+			p.partNumber,
+			p.partName,
+			p.partPrice,
+			m.modelName
+		FROM
+			PART p
+		JOIN
+			MODEL m ON p.modelNo = m.modelNo
+		WHERE
+			p.partNumber = #{partNumber};
+	</select>
 </mapper>

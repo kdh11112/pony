@@ -3,6 +3,7 @@ package kr.co.jhta.pony.service;
 import java.util.List;
 
 import kr.co.jhta.pony.dto.OrderDTO;
+import kr.co.jhta.pony.dto.OrderPageItemDTO;
 import kr.co.jhta.pony.dto.StartEnd;
 import kr.co.jhta.pony.util.Criteria;
 
@@ -23,4 +24,11 @@ public interface OrderService {
 	void updateOrderTotal(int orderNo, int orderTotal);
 	
 	public void changeDelivery(String no);	//배송상태변경 -지울ㄹ지도,,
+	
+	//고객
+	void insertOrder(OrderDTO dto);
+	//고객 본인의 주문내역 확인
+	List<OrderDTO> getAllByUser(int MemberNo);
+	/* 주문 정보 */
+	public List<OrderPageItemDTO> getPartsInfo(List<OrderPageItemDTO> orders);
 }

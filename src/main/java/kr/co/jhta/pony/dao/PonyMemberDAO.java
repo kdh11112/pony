@@ -14,12 +14,12 @@ public interface PonyMemberDAO {
 	
 	public PonyMemberDTO ponyMemberOne(String email);
 
-	public void createPonyMember(PonyMemberDTO dto);
+	public void generatePonyMember(PonyMemberDTO dto);
 
 	public Object getAll(StartEnd se);
 
 	public int getTotal();
-
+	
 	public void increaseHits(int noticeNo);
 
 	public Object selectOne(int noticeNo);
@@ -34,6 +34,10 @@ public interface PonyMemberDAO {
 	
 	public int idChk(PonyMemberDTO dto) throws Exception;
 
+
+	public void addUser(PonyMemberDTO dto);
+
+	public PonyMemberDTO selectMemAll(int memberNo);
 	
-	
+	public Object getMemberPoint(int memberNo);
 }

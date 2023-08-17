@@ -14,24 +14,10 @@
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="css/admin/css/styles.css" rel="stylesheet" />
 <link href="css/admin/css/board.css" rel="stylesheet" />
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	<div class="d-flex" id="wrapper">
-		<!-- Sidebar-->
-		<div class="border-end bg-white" id="sidebar-wrapper">
-			<div class="sidebar-heading border-bottom bg-light">
-				<img alt="" src="css/admin/assets/invi.png">
-				<a class="logo-link" href="/admin"> PONY Admin</a>
-			</div>
-			<div class="list-group list-group-flush">
-				<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/adminpartlist">재고관리</a>
-				<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/adminorderlist">주문목록</a>
-				<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/questionlist">고객문의</a>
-				<a class="list-group-item list-group-item-action list-group-item-light p-3" href="/adminnotice">공지사항</a>
-			</div>
-		</div>
 		<!-- Page content wrapper-->
 		<div id="page-content-wrapper">
 			<!-- Top navigation-->
@@ -47,10 +33,11 @@
 							<li class="nav-item"><a class="nav-link" href="/">UserPage</a></li>
 							<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
 								<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="#!">Action</a>
-									<a class="dropdown-item" href="#!">Another action</a>
-									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="#!">Something else here</a>
+                                        <a class="dropdown-item" href="/adminpartlist">재고관리</a>
+                                        <a class="dropdown-item" href="/adminorderlist">주문목록</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="/questionlist">고객문의</a>
+                                        <a class="dropdown-item" href="/adminnotice">공지사항</a>
 								</div></li>
 						</ul>
 					</div>

@@ -12,286 +12,10 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	
+<!-- css링크 -->
+<link rel="stylesheet" href="../css/model/testDrive.css">
 </head>
-
-<style>
-#topImg {
-	width: 100%;
-	height: 300px;
-}
-
-#whiteBar {
-	height: 30px;
-	background-color: white;
-}
-
-.top-title {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	height: 150px;
-	background-color: rgb(244, 250, 255);
-	margin-bottom: 100px
-}
-
-.top-title-text {
-	font-size: 80px;
-	font-weight: bold;
-	color: #5E5E5E;
-}
-
-.top-title-text2 {
-	font-size: 15px;
-	font-weight: bold;
-	color: #5E5E5E;
-}
-
-.accordion {
-	width: 60%;
-	margin: auto;
-}
-
-#contents1 {
-	width: 600px;
-	margin: auto;
-	font-weight: 600;
-}
-
-.form-check {
-	width: 70px;
-	margin: auto;
-	margin-top: 30px;
-	font-size: 20px;
-}
-
-.testDriveContent {
-	width: 100%;
-	min-height: 100px;
-}
-
-.agreeArea {
-	width: 1120px;
-	margin: auto;
-	min-height: 60px;
-}
-
-.agreeAreaContent {
-	margin-top: 100px;
-	border-top: 1px solid black;
-	border-bottom: 1px solid black;
-}
-
-#agree-title {
-	display: flex;
-	margin-bottom: 20px;
-	font-size: 17px;
-	font-weight: bold;
-}
-
-.agree-check {
-	display: flex;
-	margin-left: 300px;
-	font-weight: bold;
-	color: #5E5E5E;
-	font-size: 15px;
-	height: 30px;
-}
-
-.accordion {
-	margin-top: 100px;
-}
-
-#selectModel {
-	font-weight: bold;
-	font-size: 17px;
-	background-color: rgb(134, 167, 236);
-	border: 0px;
-}
-
-#selectOk {
-	width: 70px;
-	margin-left: 320px;
-	background-color: rgb(32, 103, 162);
-	border: 1px;
-	color: white;
-	font-weight: bold;
-	font-size: 17px;
-}
-
-.scrollspyHeading {
-	margin-top: 20px;
-	margin-bottom: 30px;
-	font-weight: bold;
-}
-
-.scrollspy-example>p {
-	line-height: 25px;
-	margin-top: -10px;
-	color: #0a2a5b;
-	font-size: 14px;
-	font-weight: 600;
-}
-
-.modal-title {
-	margin-top: 30px;
-	font-weight: bold;
-	text-align: center;
-}
-
-.modal-content {
-	width: 120%;
-}
-
-.modal-body {
-	height: 700px;
-	overflow: auto;
-}
-
-.agree-btn {
-	margin: auto;
-	background-color: rgb(32, 103, 162);
-}
-
-.accordion-button:not(.collapsed) {
-	background-color: rgb(193, 220, 255);
-	color: white;
-	font-weight: bold;
-	text-align: center;
-	font-size: 17px;
-}
-
-#flexCheckDefault1, #flexCheckDefault2, #checkLabel1, #checkLabel2 {
-	cursor: pointer;
-}
-
-#OkBtn {
-	color: white;
-	background-color: rgb(32, 103, 162);
-	font-weight: bold;
-}
-
-#shopAreaFind {
-	width: 70%;
-	margin-top: 50px;
-	margin-bottom: 20px;
-}
-
-.btn {
-	background-color: rgb(32, 103, 162);
-	border: 1px;
-}
-
-.shop-area {
-	margin-bottom: 10px;
-}
-
-.btn-primary {
-	--bs-btn-hover-bg: rgb(193, 220, 255);
-}
-
-.shop-area-point {
-	margin-top: 30px;
-	border-top: 2px solid #D1D1D1;
-}
-
-.shop-detail {
-	margin-top: 30px;
-}
-
-.shop-detail>p {
-	font-size: 15px;
-}
-
-.shop-detail>h4 {
-	font-weight: bold;
-	color: #5E5E5E;
-}
-
-.shop-no-btn {
-	background-color: #f19797;
-	font-weight: bold;
-}
-
-.accordion-button {
-	color: #5E5E5E;
-	background-color: #f9f9f9;
-	font-weight: bold;
-}
-
-.Calendar>thead>tr:first-child>td {
-	font-size: 1.7em;
-	font-weight: bold;
-	color: #5E5E5E;
-}
-
-.Calendar>thead>tr:last-child>td {
-	font-weight: bold;
-	background-color: rgb(134, 167, 236);
-	color: white;
-	border: 1px solid white;
-}
-.Calendar{
-	width: 100%;
-}
-.Calendar>tbody>tr>td>p {
-	height: 70px;
-	border-radius: 45px;
-	transition-duration: .2s;
-	line-height: 45px;
-	margin: 2.5px;
-	display: block;
-	text-align: center;
-}
-
-.pastDay {
-	color: lightgray;
-	border: 1px solid #E4DCD3;
-}
-
-.today {
-	width:14.28%;
-	color: white;
-	font-weight: bold;
-	background-color: rgb(193, 220, 255);
-	cursor: pointer;
-}
-
-.futureDay {
-	background-color: #FFFFFF;
-	cursor: pointer;
-	border: 1px solid #E4DCD3;
-	font-weight: 600;
-	color: #5E5E5E;
-}
-
-.CalendarArea {
-	background-color: white;
-	height: auto;
-	width: 100%;
-	margin: 0px;
-	padding: 20px;
-	margin: 0 auto;
-	border-radius: 5px;
-	box-shadow: 0px 40px 30px -20px rgba(0, 0, 0, 0.3);
-}
-.button-row {
-	font-size: 15px;
-}
-
-.button-row>button {
-	background-color: white;
-	border: 1px solid #E4DCD3;
-	color: #5E5E5E;
-	margin: 4px;
-}
-
-.button-row>button:hover {
-	background-color: rgb(134, 167, 236);
-	color: white;
-	font-weight: bold;
-}
-</style>
 <body>
 	
 		<div>
@@ -303,7 +27,12 @@
 			<h1 class="top-title-text2">포니에서 제공하는 편리한 시승신청 서비스를 이용해보세요.</h1>
 		</div>
 		<div class="testDriveContent text-center">
-		<form action="/testDriveInsert" id="frm" method="post">
+		<form action="/addTestDrive" id="frm" method="post">
+			<input type="hidden" name="selectedSchedule" id="selectedSchedule" />
+			
+			<input type="hidden" name="selectedShopNo" id="selectedShopNo" />
+			<input type="hidden" name="selectedModel" id="selectedModel" />
+			<input type="hidden" name="buttonTime" id="buttonTime" />
 			<div class="agreeArea ">
 				<div class="agreeAreaContent ">
 					<div style="color: white;">empty</div>
@@ -440,11 +169,12 @@
 							<div class="CalendarArea">
 								<table class="Calendar">
 									<thead>
+									<div id="shopAreaPointName"></div>
 										<tr>
-											<td onClick="prevCalendar();" style="cursor: pointer;">&#60;</td>
+											<td onClick="prevCalendar();" style="cursor: pointer;" id="prevC">&#60;</td>
 											<td colspan="5"><span id="calYear"></span>년 <span
 												id="calMonth"></span>월</td>
-											<td onClick="nextCalendar();" style="cursor: pointer;">&#62;</td>
+											<td onClick="nextCalendar();" style="cursor: pointer;" id="nextC">&#62;</td>
 										</tr>
 										<tr>
 											<td>일</td>
@@ -466,12 +196,14 @@
 					</div>
 				</div>
 			</div>
-			
 			<div style="margin-top: 100px;">
-				<button class="btn" id="OkBtn">신청하기</button>
+				<button type="button" class="btn" id="OkBtn">신청하기</button>
 			</div>
 			</form>
 		</div>
+	
+	
+	
 	
 		<!-- =======================모달영역===================== -->
 		<div class="modal" tabindex="-1" id="modal1">
@@ -586,5 +318,6 @@
 			</div>
 		</div>
 	<script src="../js/model/testDrive.js"></script>
+	
 </body>
 </html>

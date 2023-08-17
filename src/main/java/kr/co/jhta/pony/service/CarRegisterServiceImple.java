@@ -120,7 +120,16 @@ public class CarRegisterServiceImple implements CarRegisterService{
 	public List<HistroyDTO> findAllPaymentList(int i) {
 		return carRegisterDAO.selectPaymentList(i);
 	}
-
+//	@Override
+//	public List<CarRegisterDTO> getCarRegistrationList(int memberNo) {
+//		return dao.getCarRegistrationList(memberNo);
+//	}
+//
+//	@Override
+//	public void deleteCarRegister(int registrationNumber) {
+//		dao.deleteCarRegister(registrationNumber);
+//		
+//	}
 
 
 

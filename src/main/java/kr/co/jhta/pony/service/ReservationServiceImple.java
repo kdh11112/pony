@@ -10,10 +10,38 @@ import kr.co.jhta.pony.dto.ReservationDTO;
 import kr.co.jhta.pony.util.Criteria;
 
 @Service
-public class ReservationServiceImple implements ReservationService {
+public class ReservationServiceImple implements ReservationService{
 
 	@Autowired
 	ReservationDAO dao;
+	
+	@Override
+	public List<ReservationDTO> getReservationList(int memberNo) {
+		return dao.getReservationList(memberNo);
+	}
+
+	@Override
+	public void deleteReservation(int reservationNo) {
+		dao.deleteReservation(reservationNo);
+		
+	}
+
+	@Override
+	public void insertCarMaintenanceReservation(ReservationDTO dto) {
+		dao.insertCarMaintenanceReservation(dto);
+		
+	}
+
+	@Override
+	public List<ReservationDTO> reservationComplete() {
+		return dao.reservationComplete();
+	}
+
+	@Override
+	public void updateCarMaintenanceReservation(ReservationDTO dto) {
+		dao.updateCarMaintenanceReservation(dto);
+		
+	}
 	
 	@Override
 	public List<ReservationDTO> getAllReservation(Criteria cri) {
@@ -33,7 +61,4 @@ public class ReservationServiceImple implements ReservationService {
 		return dao.getTotalreservation(memberName);
 	}
 
-
-
-	
 }

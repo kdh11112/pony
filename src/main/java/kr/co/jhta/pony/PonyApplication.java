@@ -9,8 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 public class PonyApplication {
 
-	
-	@Bean// 이런 객체를 스프링에게 관리해줘..  순환참조가 생기므로 SecuretyConfig에서 옮겨옴 
+	@Bean 
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}

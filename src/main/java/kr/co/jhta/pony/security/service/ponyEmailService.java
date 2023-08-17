@@ -85,7 +85,7 @@ import lombok.extern.slf4j.Slf4j;
 	    public String sendEmailMessage(String toEmail) throws Exception {
 	        MimeMessage message = createMessage(toEmail);
 	        try {
-	        					//생성키 암호키, 유저이메일, 유효시간 을 레디스 DB에 저장
+	        					//생성키 암호키, 유저이메일, 유효시간(1분) 을 레디스 DB에 저장
 	        	redisUtil.setDataExpire(ePw, toEmail, 60 * 1L);
 	            javaMailSender.send(message); // 메일 발송
 	        } catch (MailException es) {
