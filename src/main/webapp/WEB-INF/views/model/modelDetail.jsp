@@ -20,6 +20,7 @@
 </script>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/gnav.jsp" />
 	<div>
 		<img src="../images/model/vs_top.png" alt="" id="topImg">
 	</div>
