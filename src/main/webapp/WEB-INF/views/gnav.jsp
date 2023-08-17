@@ -12,6 +12,7 @@
 	}
 	.nav-link{
 		width:100px;
+		font-size: 17px;
 	}
 	.mypageGo{
 		 float:right; 
@@ -27,8 +28,8 @@
 		left: 2%;
 		top: 5px;
 		z-index: 9999;
-		width:100px;
-		height:60px;
+		width:80px;
+		height:68px;
 	}
 	.navbar{
 	height:80px;
