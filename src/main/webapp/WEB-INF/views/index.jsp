@@ -288,9 +288,10 @@ a{text-decoration: none;}
 
 				<ul class="gnb">
 					<li><a href="/testDrive">시승신청</a></li>
+					<li><a href="javascript:carReservation()">정비예약</a></li>
 					<li><a href="/model/modelFind">모델검색</a></li>
 					<li><a href="/model/modelComparison">모델비교</a></li>
-					<li><a href="javascript:carReservation()">정비예약</a></li>
+					<li><a href="/notice">공지사항</a></li>
 				</ul>
 
 				<a href="#" class="close"> <img src="images/button_close.png"

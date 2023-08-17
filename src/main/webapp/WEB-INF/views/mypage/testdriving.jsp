@@ -277,12 +277,6 @@ textarea {
 								<li><a class="dropdown-item" href="#!">New Arrivals</a></li>
 							</ul></li>
 					</ul>
-					<form class="form-inline">
-						<input class="form-control mr-sm-2" type="search"
-							placeholder="Search" aria-label="Search">
-						<button class="btn btn-outline-secondary my-2 my-sm-0"
-							type="submit">검색</button>
-					</form>
 				</div>
 			</div>
 		</nav>
