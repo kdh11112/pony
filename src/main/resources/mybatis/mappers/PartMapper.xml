@@ -94,8 +94,16 @@
 	<select id="searchPart" parameterType="String" resultType="kr.co.jhta.pony.dto.PartDTO">
 		SELECT p.partNumber, p.partName, p.partPrice, p.modelNo, m.modelName
 		FROM PART p LEFT JOIN MODEL m on p.modelNo = m.modelNo
-		WHERE p.partName LIKE concat('%',#{partName}, '%') 
+		WHERE p.partName = #{partName}
 		ORDER BY p.partName, p.partPrice
+	</select>
+	
+	<select id="searchPart2" parameterType="String" resultType="String">
+		SELECT partName, partNo
+		FROM PART
+		WHERE partName LIKE concat('%',#{partName}, '%') 
+		GROUP BY partName
+		ORDER BY partName
 	</select>
 
 </mapper>

@@ -36,6 +36,7 @@ public class indexController {
 		return "/ponylogin";
 	}
 
+	
 	@GetMapping("/ponyreg")
 	public String goreg() {
 		return "/ponyregistration";

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,11 +76,10 @@
 									<select class="selectModel btn btn-secondary" id="selectModel"
 										name="selectModel">
 										<option value="">차량선택</option>
-										<option value="1">AVANTE</option>
-										<option value="2">SONATA</option>
-										<option value="3">GRANDEUR</option>
-										<option value="4">PALISADE</option>
-										<option value="5">TUCSON</option>
+										<c:forEach var="data" items="${model}">
+										<option value="${data.modelNo }">${data.modelName }</option>
+										</c:forEach>
+									
 									</select>
 									<p class="card-text"></p>
 									<img src="../images/model/vs_logo.jpg" class="card-img-top"

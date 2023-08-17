@@ -73,4 +73,10 @@ public class ModelController {
 		return ps.searchPart(partName);
 	}
 	
+	@GetMapping("/searchParts2")
+	@ResponseBody
+	public List<PartDTO> searchParts2(@RequestParam("partName")String partName, Model model) {
+		log.info("partName : "+ps.searchPart2(partName));
+		return ps.searchPart2(partName);
+	}
 }
