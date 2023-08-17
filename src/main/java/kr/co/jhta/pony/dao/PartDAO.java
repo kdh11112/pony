@@ -40,5 +40,7 @@ public interface PartDAO {
 	void adminDeleteCheck(String no);
 
 	List<PartDTO> searchPart(String partName);
+
+	List<PartDTO> searchPart2(String partName);
 	
 }
