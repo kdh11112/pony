@@ -177,7 +177,7 @@ textarea {
 }
 </style>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(document).ready(function() {
 	  $('.accordion-title').on('click', function() {
 	    // 아코디언 컨텐츠가 열릴 때마다 footer 위치 업데이트
@@ -202,7 +202,7 @@ $(document).ready(function() {
 	    $('.footer').css('bottom', '0');
 	  }
 	}
-</script>
+</script> -->
 
 </head>
 <body>
@@ -322,7 +322,7 @@ $(document).ready(function() {
 															<tr class="list">
 																<td>
 																	<!-- 등록된 차량 삭제 체크 박스 --> <input type="radio"
-																	name="selectedCars" value="${clist.clientVin}"
+																	name="selectedCars" value="${clist.clientCarNumber}"
 																	id="selectedCarsId">
 																</td>
 																<td>${clist.clientVin }</td>
@@ -462,7 +462,8 @@ $(document).ready(function() {
 					<div id="collapseFour" class="accordion-collapse collapse"
 						aria-labelledby="headingThree" data-bs-parent="#accordionExample">
 						<div class="accordion-body">
-							 <textarea class="form-control"  id="reservationClientRequests1"  name="reservationClientRequests"  rows="3" ></textarea>
+						
+							 <textarea class="form-control"  id="reservationClientRequests"  name="reservationClientRequests"  rows="3" ></textarea>
 						</div>
 					</div>
 				</div>

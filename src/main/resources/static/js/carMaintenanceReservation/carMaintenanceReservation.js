@@ -249,10 +249,13 @@ function leftPad(value) {
 }
 
 
+let reservationClientRequests22;
 let shopAreaPoint = "";
 $(document).on("click", ".shop-no-btn", function() {
+	reservationClientRequests22 = document.getElementById("reservationClientRequests").value;
 	shopAreaPoint = $(this).closest(".shop-detail").find("h4").text();
 	document.getElementById("shopAreaPointName").innerText = shopAreaPoint;
+	console.log(reservationClientRequests22);
 	// 이하 코드 생략
 });
 
@@ -264,15 +267,17 @@ function handleButtonClick(event) {
 	const buttonYear = button.dataset.year;
 	const buttonMonth = button.dataset.month;
 	const buttonDate = button.parentElement.parentElement.querySelector("p").innerText;
+	reservationClientRequests = $("#reservationClientRequests").val()
 
 	selectedSchedule = buttonYear + "-" + "0" + buttonMonth + "-" + buttonDate;
  
- 	clientCarNumber = $("#selectedCarName").text();
+ 	clientCarNumber = $("input[name=selectedCars]:checked").val();
+ 	console.log
  	 /*	reservationClientRequests = $("#reservationClientRequests").text();
  	 	console.log(reservationClientRequests);*/
 
 	$("#selectedSchedule").val(selectedSchedule);
-alert(selectedSchedule+"\n" + selectedShopNo + "\n" + clientCarNumber+"\n"+"요청"+reservationClientRequests);
+alert(selectedSchedule+"\n" + selectedShopNo + "\n" + clientCarNumber+"\n"/*"요청"+reservationClientRequests*/);
 	/*alert("선택한 차량: " + $("#selectedCarName").text() + "\n"
 		+ "선택한 지점: " + shopAreaPoint + "\n"
 		+ "선택한 날짜: " + selectedSchedule + "\n"
@@ -286,7 +291,8 @@ $(function(){
 	
 $("#OkBtn").on("click", function(e) {
 	console.dir(e);
-	reservationClientRequests = $("#reservationClientRequests").val()
+	//reservationClientRequests = $("#reservationClientRequests").val()
+	console.log(reservationClientRequests);
 	alert(selectedSchedule+"\n" + selectedShopNo + "\n" + clientCarNumber+"\n"+reservationClientRequests);
 
 	console.log("asd")
@@ -296,7 +302,6 @@ $("#OkBtn").on("click", function(e) {
 	
 /*	$("#reservationClientRequests1").val(reservationClientRequests);*/
 	
-	console.log($("#reservationClientRequests1").val());
 	
 	document.getElementById("frm").submit();
 })
