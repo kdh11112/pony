@@ -21,6 +21,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
 <script src="css/mypage/js/scripts.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	<!-- Navigation-->
@@ -68,11 +69,10 @@
 
 								<ul class="SubFilter_article__3yTR-">
 									<li class="SubFilter_item__2o8uJ"><div class="SubFilterItem_article__2Mick">
-											<input type="checkbox" class="hidden">
-											<label class="SubFilterItem_label__1qXQf">배송진행 <em class="SubFilter_point__8P9fF">2</em></label>
+											<label class="SubFilterItem_label__1qXQf">배송진행 <em class="SubFilter_point__8P9fF"><span class="delivery"></span></em></label>
 										</div></li>
 									<li class="SubFilter_item__2o8uJ"><div class="SubFilterItem_article__2Mick">
-											<label class="SubFilterItem_label__1qXQf">주문취소 <em class="SubFilter_point__8P9fF"> </em>
+											<label class="SubFilterItem_label__1qXQf">주문취소 <em class="SubFilter_point__8P9fF"><span class="cancelOrder"></span> </em>
 											</label>
 										</div></li>
 								</ul>
@@ -99,7 +99,7 @@
 											</a>
 										</div>
 										<div class="Product_info__2eRJ4">
-											<span class="Product_date__2vtji"><c:set var="orderDateString" value="${userorderlist.orderDate}" /> <fmt:parseDate var="orderDate" value="${orderDateString}" pattern="yyyy-MM-dd" /> <fmt:formatDate value="${orderDate}" pattern="MM. dd" /> 결제 </span><strong class="Product_name__2hvoM"><span class="ProductName_article__zaafE">엔진오일 외 1개</span></strong><span class="Product_price__3Ug1K"><fmt:formatNumber pattern="###,###,###원"> ${userorderlist.orderTotal }</fmt:formatNumber><span class="Product_icon__bdb1m"><svg xmlns="http://www.w3.org/2000/svg" width="46" height="16" viewBox="0 0 49 15">
+											<span class="Product_date__2vtji"><c:set var="orderDateString" value="${userorderlist.orderDate}" /> <fmt:parseDate var="orderDate" value="${orderDateString}" pattern="yyyy-MM-dd" /> <fmt:formatDate value="${orderDate}" pattern="MM. dd" /> 결제 </span><strong class="Product_name__2hvoM"><span class="ProductName_article__zaafE">엔진오일 외 <span class="ordercount">${kind }</span>개</span></strong><span class="Product_price__3Ug1K"><fmt:formatNumber pattern="###,###,###원"> ${userorderlist.orderTotal }</fmt:formatNumber><span class="Product_icon__bdb1m"><svg xmlns="http://www.w3.org/2000/svg" width="46" height="16" viewBox="0 0 49 15">
 													
 													</svg></span></span>
 											<div class="Product_detail__1Hktq">
@@ -132,5 +132,6 @@
 	</footer>
 
 	<!-- //footer -->
+
 </body>
 </html>

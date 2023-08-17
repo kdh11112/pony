@@ -283,7 +283,7 @@
 										</p>
 
 										<div class="dropdown_wrap">
-											<input type="text" placeholder="요청사항을 직접 입력합니다" title="배송 메세지" name="deliveryMemo" class="deli_msg placeholder _deliveryForm deliverySingleMemo _click(nmp.front.order.order_sheet.showLatestDeliveryMemo()) _stopDefault">
+											<input type="text" placeholder="요청사항을 직접 입력합니다" title="배송 메세지" name="deliveryMemo" class="deli_msg placeholder _deliveryForm ">
 										</div>
 										<span class="length deliverySingleMemo">500자까지 입력 가능합니다.</span>
 									</div>
@@ -492,7 +492,6 @@
 					</div>
 
 					<div class="payment_agree_wrap">
-						<!-- <button class="btn_payment" onclick="iamport();">결제하기</button> -->
 						<button class="btn_payment _click" onclick="iamport();">결제하기</button>
 					</div>
 
@@ -569,6 +568,31 @@
 	</script>
 	<script>
 	/* 결제 기능 */
+	function iamport() {
+	    var name = $("#memberName").val();
+	    var phone = $("#memberPhone").val();
+	    var email = $("#memberEmail").val();
+	    var postcode = $("#memberZip").val();
+	    var address = $("#memberAddress").val() + " " + $("#memberDetailAddress").val();
+	    var partName = $(".parts_partName").val();
+	    var amount = $("#orderTotal").val();
+	    var price = $("#total").text();
+		
+	    let selectedPaymentMethod = $("input[name='payradio']:checked").val();
+
+	    if (selectedPaymentMethod === "kakaopay") {
+	        iamportCommon(selectedPaymentMethod, "kakaopay.TC0ONETIME", partName, amount, email, name, phone, address, postcode);
+	        $("#orderPaymentTool").val("kakaopay");
+	    } else if (selectedPaymentMethod === "tosspay") {
+	        iamportCommon(selectedPaymentMethod, "tosspay.tosstest", partName, amount, email, name, phone, address, postcode);
+	        $("#orderPaymentTool").val("tosspay");
+	    } else if (selectedPaymentMethod === "nice") {
+	        iamportCommon(selectedPaymentMethod, "nice.iamport00m", partName, amount, email, name, phone, address, postcode);
+	        $("#orderPaymentTool").val("nice");
+	    }
+	    //document.location.href = "/order" + rsp.imp_uid; 
+	}
+	
 	function iamportCommon(selectedPaymentMethod, pg, partName, amount, email, name, phone, address, postcode) {
 	    var IMP = window.IMP;
 	    IMP.init("imp74705060"); // 예: imp00000000a
@@ -601,15 +625,22 @@
 	            msg += '결제 금액 : ' + rsp.paid_amount;
 	            msg += '카드 승인번호 : ' + rsp.apply_num;
 	            alert(msg);
-
+				
+	            
 	            $.ajax({
 	                type: "POST",
-	                url: "/verifyIamport/" + rsp.imp_uid
+	                url: "/verifyIamport/" + rsp.imp_uid,
+	                headers: { "Content-Type": "application/json" },
+                    data: {
+                        imp_uid: rsp.imp_uid,
+                        merchant_uid: rsp.merchant_uid
+                    }
 	            }).done(function (data) {
 	                console.log(data);
 
 	                if (rsp.paid_amount == data.response.amount) {
 	                    alert("결제 및 결제검증완료");
+	                    location.replace('/orderend');
 	                } else {
 	                    cancelPayment(rsp.imp_uid);
 	                }
@@ -621,32 +652,8 @@
 	            document.location.href = "/cartlist";
 	        }
 	    });
-	}
-
-	function iamport() {
-	    var name = $("#memberName").val();
-	    var phone = $("#memberPhone").val();
-	    var email = $("#memberEmail").val();
-	    var postcode = $("#memberZip").val();
-	    var address = $("#memberAddress").val() + " " + $("#memberDetailAddress").val();
-	    var partName = $(".parts_partName").val();
-	    var amount = $("#orderTotal").val();
-	    var price = $("#total").text();
-		
-	    let selectedPaymentMethod = $("input[name='payradio']:checked").val();
-
-	    if (selectedPaymentMethod === "kakaopay") {
-	        iamportCommon(selectedPaymentMethod, "kakaopay.TC0ONETIME", partName, amount, email, name, phone, address, postcode);
-	        selectedPaymentMethod = $("#orderPaymentTool").val();
-	    } else if (selectedPaymentMethod === "tosspay") {
-	        iamportCommon(selectedPaymentMethod, "tosspay.tosstest", partName, amount, email, name, phone, address, postcode);
-	        selectedPaymentMethod = $("#orderPaymentTool").val();
-	    } else if (selectedPaymentMethod === "nice") {
-	        iamportCommon(selectedPaymentMethod, "nice.iamport00m", partName, amount, email, name, phone, address, postcode);
-	        selectedPaymentMethod = $("#orderPaymentTool").val();
-	    }
-	    document.location.href = "/order" + rsp.imp_uid; 
-	}
+	
+										}
 
 
 		//주문 비즈니스 로직
@@ -673,8 +680,6 @@
 			});
 		} */
 
-	</script>
-	<script>
 	function OrderInfo(){
 		/* 상품정보 */
 		let form_contents = '';

@@ -23,6 +23,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
 <script src="css/mypage/js/scripts.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 </style>
 </head>
@@ -82,29 +83,29 @@
 				<li class="detail_section">
 					<ul class="order_list">
 						<!-- productOrder 단위로 반복 -->
-						<c:forEach var="userorderdetail" items="${userOrderList }">
+						<c:forEach var="orderDetails" items="${orderDetails }">
 							<li>
 								<div class="order_list_item">
 									<div class="product_info">
-										<span class="icon_text status"><c:out value="${userorderdetail.orderStatus }" /></span>
-										<c:out value="${userorderdetail.partName }" />
+										<span class="icon_text status"><c:out value="${order.orderStatus }" /></span>
+										<c:out value="${orderDetails.partName }" />
 
 										<!-- 상품 금액 -->
 										<div class="sum_amount">
 											<strong class="discount_price"><fmt:formatNumber pattern="###,###,###원">
-													<c:out value="${userorderdetail.orderdetailAmount }" />
+													<c:out value="${orderDetails.orderdetailAmount }" />
 												</fmt:formatNumber> </strong>
 										</div>
 
 										<p class="ordernum">
 											주문수량 :
-											<c:out value="${userorderdetail.orderdetailOrderQuantity }" />
+											<c:out value="${orderDetails.orderdetailOrderQuantity }" />
 											개
 										</p>
 
 										<!-- 옵션 / 사은품 -->
 										<ul class="option_list">
-											<li><span class="icon_text option">옵션</span> MODEL: <c:out value="${userorderdetail.modelName }" /></li>
+											<li><span class="icon_text option">옵션</span> MODEL: <c:out value="${orderDetails.modelName }" /></li>
 
 										</ul>
 									</div>
@@ -128,7 +129,7 @@
 							<li><strong>수령인</strong><span><c:out value="${order.orderRecipientName }" /></span></li>
 							<li><strong>연락처</strong>
 								<div>
-									<c:out value="${formattedPhoneNumber}" />
+									<c:out value="${order.orderRecipientPhone}" />
 								</div></li>
 							<li><strong>배송지</strong><span><c:out value="${order.orderRecipientZip}" /></span><br>
 							<c:out value="${order.orderRecipientAddress}" /><br>
@@ -187,13 +188,13 @@
 									</p>
 								</div>
 							</li>
-							<li class="type_main_payment"><strong>카드 결제</strong> <em class="amount"><span><fmt:formatNumber pattern="###,###,###원">
+							<li class="type_main_payment"><strong><span><c:out value="${order.orderPaymentTool }" /></span> 결제</strong> <em class="amount"><span><fmt:formatNumber pattern="###,###,###원">
 											<c:out value="${order.orderTotal - order.orderPoint }" />
 										</fmt:formatNumber></span></em>
 								<div class="payment_detail_info">
-									신한(4221-****-****-****) <span class="card_payment_type"> 일시불 </span>
+									<span class="card_payment_type"></span>
 								</div>
-								<ul class="dot_list type_round">
+								<ul class="dot_list type_round" style="padding-left: 0px;">
 									<li>결제 상세 내역은 카드사로 문의하시면 정확하게 확인할 수 있습니다.</li>
 								</ul></li>
 						</ul>
