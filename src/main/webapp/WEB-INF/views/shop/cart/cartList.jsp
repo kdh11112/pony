@@ -2,13 +2,23 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <title>PONY MOTORS</title>
 <link href="css/admin/css/nav.css" rel="stylesheet" />
+<link href="css/mypage/css/styles.css" rel="stylesheet" />
 <link href="css/admin/css/cart/app.css" rel="stylesheet" />
 <link href="css/admin/css/cart/global.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap" rel="stylesheet">
+<script type="text/javascript" src="https://ssl.pstatic.net/tveta/libs/glad/prod/2.18.0/gfp-sdk.js" charset="utf-8"></script>
+<script src="https://ssl.pstatic.net/static.gn/js/clickcrD.js" id="gnb_clickcrD" charset="utf-8"></script>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS--> 
+<script src="css/mypage/js/scripts.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <style id="gnb_style" type="text/css"></style>
 <style>
 .product_info--TaUyJVEOf0 {
@@ -94,42 +104,14 @@
 .price_area--jjAq5tYP9m total--2a5HJtyfeD{
 	text-align: right;
 }
+.container-fluid{
+	height: 64px;
+}
 </style>
-<script type="text/javascript" src="https://ssl.pstatic.net/tveta/libs/glad/prod/2.18.0/gfp-sdk.js" charset="utf-8"></script>
-<script src="https://ssl.pstatic.net/static.gn/js/clickcrD.js" id="gnb_clickcrD" charset="utf-8"></script>
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS--> 
-<script src="css/mypage/js/scripts.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 <body>
 	<!-- Navigation-->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container">
-			<a class="navbar-brand" href="#!"></a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-					<li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="/partall">모든 상품보기</a></li>
-							<li><hr class="dropdown-divider" /></li>
-							<li><a class="dropdown-item" href="/cartlist">장바구니</a></li>
-							<li><a class="dropdown-item" href="/myorderlist">내 주문내역</a></li>
-						</ul></li>
-				</ul>
-				<form class="form-inline">
-					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" id="search" name="search">검색</button>
-				</form>
-			</div>
-		</div>
-	</nav>
+	<jsp:include page="/WEB-INF/views/gnav.jsp" />
 	<!-- header -->
 	<header>
 		<img src="images/cloud.jpg" alt="" class="cloud" />
@@ -240,6 +222,7 @@
 				
 				}
 			</script>
+			
 			<div class="contents--2E6XJtdAJn">
 				<div class="store_container--382-BRTlye M511263889">
 					<div class="store_card--EAQK-9jWb0 expand">

@@ -12,4 +12,6 @@ public interface OrderDetailService {
 	public void insertOne(int cartNo);
 	
 	public List<OrderDetailDTO> selectOne(int orderNo);
+	
+	public int countKind(int orderNo);
 }

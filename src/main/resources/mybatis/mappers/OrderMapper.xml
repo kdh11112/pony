@@ -74,59 +74,76 @@
 	<!-- 주문 상품 정보 -->
 	<select id="getPartsInfo" resultType="kr.co.jhta.pony.dto.OrderPageItemDTO">
 		SELECT
-			p.partNumber,
-			p.partName,
-			p.partPrice,
-			m.modelName
+		p.partNumber,
+		p.partName,
+		p.partPrice,
+		m.modelName
 		FROM
-			PART p
+		PART p
 		JOIN
-			MODEL m ON p.modelNo = m.modelNo
+		MODEL m ON p.modelNo = m.modelNo
 		WHERE
-			p.partNumber = #{partNumber};
+		p.partNumber = #{partNumber};
 	</select>
-	
+
 	<!-- 주문 정보 -->
 	<select id="getOrderInfo" resultType="kr.co.jhta.pony.dto.OrderDetailDTO">
 		SELECT
-			p.partNumber,
-			p.partPrice,
-			m.modelName
+		p.partNumber,
+		p.partPrice,
+		m.modelName
 		FROM
-			PART p
+		PART p
 		JOIN
-			MODEL m ON p.modelNo = m.modelNo
+		MODEL m ON p.modelNo = m.modelNo
 		WHERE
-			p.partNumber = #{partNumber};
+		p.partNumber = #{partNumber};
 	</select>
-	
+
 	<!-- 주문 테이블 등록 -->
-	<insert id="insertOrder" >
+	<insert id="insertOrder">
 		INSERT INTO `ORDER`(orderNo, orderDate, memberNo, orderRecipientName, orderRecipientPhone, orderRecipientZip, orderRecipientAddress, orderRecipientAddressDetail, orderStatus, orderDeliveryCharge, orderPoint, orderTotal, orderPaymentTool )
-		VALUES (#{orderNo}, now(), #{memberNo}, #{orderRecipientName}, #{orderRecipientPhone }, #{orderRecipientZip }, #{orderRecipientAddress }, #{orderRecipientAddressDetail }, '배송준비중' , #{orderDeliveryCharge}, #{orderPoint}, #{orderTotal}, #{orderPaymentTool}) 
+		VALUES (#{orderNo}, now(), #{memberNo}, #{orderRecipientName}, #{orderRecipientPhone }, #{orderRecipientZip }, #{orderRecipientAddress }, #{orderRecipientAddressDetail }, '배송준비중' , #{orderDeliveryCharge}, #{orderPoint}, #{orderTotal}, #{orderPaymentTool})
 	</insert>
-	
+
 	<!-- 주문 아이템 디테일 테이블 등록 -->
-	<insert id="insertOrderDetail" >
+	<insert id="insertOrderDetail">
 		INSERT INTO ORDERDETAIL (orderNo, partNumber, orderdetailOrderQuantity, orderdetailAmount )
-		VALUES (#{orderNo}, #{partNumber}, #{orderdetailOrderQuantity}, #{orderdetailAmount }) 
+		VALUES (#{orderNo}, #{partNumber}, #{orderdetailOrderQuantity}, #{orderdetailAmount })
 	</insert>
-	
+
 	<!-- 주문 후 멤버 포인트 차감 -->
-	<update id="deductPoint" >
+	<update id="deductPoint">
 		UPDATE MEMBER
-		SET memberPoint = #{memberPoint} 
+		SET memberPoint = #{memberPoint}
 		WHERE memberNo = #{memberNo}
 	</update>
-	
+
 	<!-- 주문 후 상품 재고 차감 -->
-	<update id="deductPartNo" >
+	<update id="deductPartNo">
 		UPDATE `PART`
-		SET partNo = #{partNo} 
+		SET partNo = #{partNo}
 		WHERE partNumber = #{partNumber}
 	</update>
-	
-	
-	
-	
+
+	<!-- 주문취소 -->
+	<update id="orderCancle">
+		UPDATE `ORDER` 
+		SET orderStatus = '주문취소' 
+		WHERE orderNo = #{orderNo}
+	</update>
+
+	<!-- 주문 상품 정보(주문취소) -->
+	<select id="getOrderItemInfo" resultType="kr.co.jhta.pony.dto.OrderDetailDTO">
+		SELECT * FROM `ORDER`
+		WHERE orderNo = #{orderNo}
+	</select>
+
+	<!-- 주문 정보(주문 취소) -->
+	<select id="getOrders" resultType="kr.co.jhta.pony.dto.OrderDTO">
+		SELECT * FROM `ORDER`
+		WHERE orderNo = #{orderNo}
+	</select>
+
+
 </mapper>

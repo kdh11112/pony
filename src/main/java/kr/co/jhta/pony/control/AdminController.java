@@ -1,5 +1,7 @@
 package kr.co.jhta.pony.control;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.jhta.pony.dto.AnswerDTO;
 import kr.co.jhta.pony.dto.NoticeDTO;
+import kr.co.jhta.pony.dto.OrderCancelDTO;
 import kr.co.jhta.pony.dto.OrderDTO;
+import kr.co.jhta.pony.dto.OrderDetailDTO;
 import kr.co.jhta.pony.dto.PageMakeDTO;
 import kr.co.jhta.pony.dto.QuestionDTO;
 import kr.co.jhta.pony.service.AnswerService;
@@ -22,7 +26,9 @@ import kr.co.jhta.pony.service.OrderDetailService;
 import kr.co.jhta.pony.service.OrderService;
 import kr.co.jhta.pony.service.QuestionService;
 import kr.co.jhta.pony.util.Criteria;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class AdminController {
 	
@@ -67,7 +73,7 @@ public class AdminController {
 	public String adminorderlist(Model model, Criteria cri) {
 		
 		model.addAttribute("orderlist",oservice.getAllByAdmin(cri));
-
+		
 		model.addAttribute("pageMaker", new PageMakeDTO(cri, oservice.getTotal()));
 		
 		return "/admin/order/adminOrderAll";
@@ -79,11 +85,15 @@ public class AdminController {
 	public String orderdetail(@RequestParam("orderNo")int orderNo, Model model) {
 		model.addAttribute("order",oservice.selectOne(orderNo));
 		model.addAttribute("list", odservice.getOrderDetailsByOrderNo(orderNo));
+
 		
+		List<OrderDetailDTO> orderDetails = odservice.selectOne(orderNo);
+		System.out.println("orderDetails: "+orderDetails);
+		model.addAttribute("orderDetails", orderDetails);
 		
 		return "/admin/order/adminOrderDetail";
 	}
-	
+
 	// 주문 상태 변경 - 체크박스
 	@RequestMapping("/delivery") 
 	public String changeDelivery(HttpServletRequest	req, @ModelAttribute OrderDTO odto ) { 
@@ -99,6 +109,13 @@ public class AdminController {
 		return "redirect:/adminorderlist"; 
 	}
 	
+	@PostMapping("/ordercancel")
+	public String OrderCancel(OrderCancelDTO ocdto){
+
+	oservice.orderCancle(ocdto);
+
+	return "redirect:/adminorderlist";
+	}
 	
 	
 	// 고객 문의 ------------------------------------------------------------
