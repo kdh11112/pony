@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class AdminController {
 	
- 
+  
 	private final NoticeService nservice;
 	private final QuestionService qservice;
 	private final AnswerService aservice;
