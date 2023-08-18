@@ -1,4 +1,8 @@
 $(document).ready(function() {
+	// 페이지 스크롤 이동
+	let offset = $(".top-title").offset();
+	$('html').animate({ scrollTop: offset.top }, 1);
+
 	function Comma(value) {
 		return value.replace(/(\d+)/, function(number) {
 			return parseInt(number).toLocaleString();
@@ -14,7 +18,7 @@ $(document).ready(function() {
 				source: function(request, response) {
 					$.ajax({
 						url: "/model/searchParts2",
-						data: { partName: partsFindText},
+						data: { partName: partsFindText },
 						dataType: 'json',
 						success: function(data) {
 							if (data.length > 0) {
@@ -42,12 +46,13 @@ $(document).ready(function() {
 
 			});
 		}
-		
+
 	});
 
 
 
 	$("#parts-find-btn").on("click", function() {
+
 		let partsFindText = document.getElementById("parts-find-text").value;
 		document.getElementById("parts-find-text").value = "";
 		console.log(partsFindText);
@@ -70,6 +75,9 @@ $(document).ready(function() {
 						+ "원</div> <div class='col-md-1'></div></div>";
 					$("div.card-body").append(data);
 				}
+				// 페이지 스크롤 이동
+				let offset = $(".searched-parts").offset();
+				$('html').animate({ scrollTop: offset.top }, 1);
 			},
 			error: function(error) {
 				console.log(error + "에러~");

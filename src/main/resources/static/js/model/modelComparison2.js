@@ -1,12 +1,16 @@
 $(document).ready(function() {
-    function valueComma(value) {
-        return value.replace(/\d+/, function(number) {
-            return parseInt(number).toLocaleString();
-        });
-    }
+	// 페이지 스크롤 이동
+	let offset = $(".row").offset();
+	$('html').animate({ scrollTop: offset.top }, 1);
 
-    $(".comma").each(function() {
-        let value = $(this).text();
-        $(this).text(valueComma(value));
-    });
+	function valueComma(value) {
+		return value.replace(/\d+/, function(number) {
+			return parseInt(number).toLocaleString();
+		});
+	}
+
+	$(".comma").each(function() {
+		let value = $(this).text();
+		$(this).text(valueComma(value));
+	});
 });

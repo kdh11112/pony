@@ -78,9 +78,10 @@
 												<a href="adminorderdetail?orderNo=${list.orderNo }">${list.orderNo }</a>
 											</td>
 											<td>
-												<a href="adminorderdetail?orderNo=${list.orderNo }">${list.orderTotal }</a>
+												${list.orderTotal }
 											</td>
-											<td>${list.memberNo }</td>
+											<td>${list.memberNo }
+											</td>
 											<td>
 												<fmt:parseDate var="dateString" value="${list.orderDate }" pattern="yyyy-MM-dd HH:mm:ss" />
 												<fmt:formatDate value="${dateString }" pattern="yyyy-MM-dd HH:mm" />
@@ -88,7 +89,7 @@
 											<!-- 답변상태에 따른 글씨색 변화 -->
 											<c:choose>
 												<c:when test="${list.orderStatus == '배송준비중'}">
-													<td class="td-status" style="color: blue;">${list.orderStatus}</td>
+													<td class="td-status" style="color: navy;">${list.orderStatus}</td>
 												</c:when>
 												<c:when test="${list.orderStatus == '배송중' || '배송완료'}">
 													<td class="td-status" style="color: black;">${list.orderStatus}</td>
