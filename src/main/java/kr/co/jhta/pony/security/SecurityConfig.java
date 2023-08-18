@@ -86,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
    protected void configure(HttpSecurity http) throws Exception {
       http.cors().and().csrf().disable().authorizeRequests()
             .antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll() // 정적 리소스에 대해서도 인증 없이 접근 허용
-            .antMatchers("/login", "/", "/ponyreg", "/ponyRegOk","/mailConfirm","/autoEmailOk", "/model/**", "/admin", "/adminlogin","/idCheck").permitAll() // 로그인 페이지와 기본페이지는 인증 없이 접근 허용
+            .antMatchers("/login", "/", "/ponyreg", "/ponyRegOk","/mailConfirm","/autoEmailOk", "/model/**", "/admin", "/adminlogin","/idCheck","/reg/**","/reg").permitAll() // 로그인 페이지와 기본페이지는 인증 없이 접근 허용
             .antMatchers("/adminnotice", "/adminpartlist", "/adminorderlist", "/questionlist", "/questiondetail", "/admindetail", "/adminorderdetail").hasRole("ADMIN")
             .anyRequest().authenticated() // 그 외 모든 요청은 인증된 사용자만 접근 가능
 //            .authorizeHttpRequests() //인가정책
