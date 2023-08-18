@@ -5,6 +5,8 @@ $(document).ready(function() {
 	
 	/* ========================= 첫번째 이용동의 영역 클릭시 모달창 오픈 ==========================*/
 	$("#check1,#flexCheckDefault1").on("click", function() {
+		let checkbox = document.getElementById("flexCheckDefault1");
+		checkbox.checked = false;
 		$("#modal1").modal("show");
 
 	})
