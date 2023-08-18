@@ -28,8 +28,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap"
 	rel="stylesheet">
+	
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
+
 
 <style>
+*{
+font-family: 'NanumSquareRound' !important;
+
+}
+
 .content {
 	box-sizing: border-box;
 	width: 400px;

@@ -46,11 +46,6 @@ public class indexController {
 	public String loginOk() {
 		return "/ponylogin";
 	}
-	
-//	@GetMapping("/testuser")
-//	public String testuser(Principal principal, Model model, @AuthenticationPrincipal AccountContext userAccount) {
-//		model.addAttribute("name", principal.getName());
-//		return "/textview";
-//	}
+
 	
 }

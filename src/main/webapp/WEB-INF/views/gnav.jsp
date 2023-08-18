@@ -3,9 +3,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
+
+
 <style>
+
+	*{
+	font-family: 'NanumSquareRound';
+	}
 	#navbarSupportedContent{
 		padding-left:450px;
+		
 	}
 	.nav-item{
 		padding:0 50px;

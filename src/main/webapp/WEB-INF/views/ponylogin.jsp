@@ -7,14 +7,14 @@
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
 	rel="stylesheet" />
-<!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-	rel="stylesheet" />
+
+	
 <!-- MDB -->
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
 	rel="stylesheet" />
+
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
 
 
 <script>
@@ -59,6 +59,13 @@ function redirectToKaKao(){
   .form-outline input:not(:placeholder-shown) ~ label {
     transform: translateY(-1.5rem);
   }
+  
+  *{
+  	
+	font-family: 'NanumGothic';
+	
+  }
+  
 </style>
 
 
@@ -66,7 +73,9 @@ function redirectToKaKao(){
 <title>Insert title here</title>
 </head>
 <body>
-
+<!-- Navigation-->
+		<jsp:include page="/WEB-INF/views/gnav.jsp" />
+		
 	<section class="vh-100">
 	
 		<div class="container py-5 h-100">

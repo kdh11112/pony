@@ -32,6 +32,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap"
 	rel="stylesheet">
 <script src="css/mypage/js/carMaintenanceReservation.js"></script>
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
 
 <style>
 .content {

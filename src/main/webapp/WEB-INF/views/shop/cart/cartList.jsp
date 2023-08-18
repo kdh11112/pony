@@ -11,7 +11,8 @@
 <link href="css/mypage/css/styles.css" rel="stylesheet" />
 <link href="css/admin/css/cart/app.css" rel="stylesheet" />
 <link href="css/admin/css/cart/global.css" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap" rel="stylesheet">
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
+
 <script type="text/javascript" src="https://ssl.pstatic.net/tveta/libs/glad/prod/2.18.0/gfp-sdk.js" charset="utf-8"></script>
 <script src="https://ssl.pstatic.net/static.gn/js/clickcrD.js" id="gnb_clickcrD" charset="utf-8"></script>
 <!-- Bootstrap core JS-->
@@ -21,6 +22,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <style id="gnb_style" type="text/css"></style>
 <style>
+*{
+font-family: 'NanumSquareRound' !important;
+
+}
 .product_info--TaUyJVEOf0 {
 	border-bottom: 1px solid #ececef;
 }
