@@ -4,6 +4,8 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html lang="ko">
 <head>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
 <title>PONY MOTORS</title>
 <link href="css/admin/css/order.css" rel="stylesheet" />
 <link href="css/admin/css/ordersheet.css" rel="stylesheet" />

@@ -206,6 +206,11 @@ $(document).ready(function() {
 </script> -->
 
 </head>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+<title>PONY MOTORS</title>
 <body>
 	<div id="wrapper">
 		<!-- Navigation-->
@@ -214,9 +219,8 @@ $(document).ready(function() {
 		<!-- Header-->
 		<header>
 
-			<img src="images/cloud.jpg" alt="" />
+			<img src="../images/model/banner_v01.jpg" alt="" />
 			<div class="header-content text-center text-black">
-
 				<p class="lead fw-normal text-black-50 mb-0"></p>
 			</div>
 

@@ -7,7 +7,9 @@
 <!doctype html>
 <html>
 <head>
-<title></title>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+<title>PONY MOTORS</title>
 <meta charset="UTF-8">
 
 <style>

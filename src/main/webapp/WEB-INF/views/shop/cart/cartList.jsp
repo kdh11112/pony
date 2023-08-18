@@ -6,8 +6,10 @@
 <html lang="ko">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
 <title>PONY MOTORS</title>
-<link href="css/admin/css/nav.css" rel="stylesheet" />
+<!-- <link href="css/admin/css/nav.css" rel="stylesheet" /> -->
 <link href="css/mypage/css/styles.css" rel="stylesheet" />
 <link href="css/admin/css/cart/app.css" rel="stylesheet" />
 <link href="css/admin/css/cart/global.css" rel="stylesheet" />
@@ -19,6 +21,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS--> 
 <script src="css/mypage/js/scripts.js"></script>
+<!-- bootstrap css -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <style id="gnb_style" type="text/css"></style>
 <style>

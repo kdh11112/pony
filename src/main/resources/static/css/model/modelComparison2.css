@@ -1,5 +1,26 @@
 @charset "UTF-8";
+/* Header */
+header {
+    position: relative;
+    text-align: center;
+    
+}
 
+header img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover; /* 이미지가 컨테이너에 꽉 채워지도록 설정 */
+}
+
+/* Overlay the text on the image */
+.header-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    
+}
 
     .container{
         margin-top: 100px;
@@ -11,10 +32,10 @@
         justify-content: center;
         align-items: center;
         height: 150px;
-        background-color: rgb(247, 244, 239);
+        background-color:  rgb(244, 250, 255);
     }
     .top-title-text{
-        font-size: 80px;
+        font-size: 50px;
         font-weight:bold;
         color: #5E5E5E;
     }
@@ -25,9 +46,10 @@
     }
  
     .model-name{
-        height: 70px;
+        height: 55px;
+        padding-top: 5px;
         background-color: #5E5E5E;
-        font-size: 45px;
+        font-size: 35px;
         font-weight: bold;
         text-align: center;
         color: aliceblue;
@@ -43,12 +65,12 @@
     .model-info-co2{
         width: 120px;
         font-weight: 600;
-        background-color: rgb(240, 240, 240);
+        background-color: rgb(244 247 249);
         
     }
     .model-info-co3,
     .model-info-co4{
-        background-color: #EAEBE6;
+        background-color: rgb(244, 250, 255);
         font-size:15px;
         font-weight: 600;
         height:30px;

@@ -8,6 +8,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
 <title>PONY MOTORS</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap" rel="stylesheet">
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />

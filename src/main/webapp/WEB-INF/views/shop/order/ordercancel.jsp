@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
 <title>PONY MOTORS</title>
 <link type="text/css" rel="stylesheet" href="https://img.pay.naver.net/static/css/mobile/layout.css">
 <link type="text/css" rel="stylesheet" href="//img.pay.naver.net/o/mstatic/css/service/mobile/layout.css?1692005863197">
