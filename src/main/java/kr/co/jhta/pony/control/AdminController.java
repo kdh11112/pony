@@ -38,7 +38,7 @@ public class AdminController {
 	private final AnswerService aservice;
 	private final OrderDetailService odservice;
 	private final OrderService oservice;
-
+     
 
 	@Autowired
 	public AdminController(NoticeService nservice,
