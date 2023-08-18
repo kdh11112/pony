@@ -4,6 +4,7 @@
 <html>
 <head>
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
+<!-- Favicon -->
 
 
 <style>
@@ -68,23 +69,6 @@ a {
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         
-        <li class="nav-item">
-          <a class="nav-link" href="/testDrive">시승신청</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/carMaintenanceReservation">정비예약</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            shop
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/partall">모든상품보기</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/cartlist">장바구니</a></li>
-            <li><a class="dropdown-item" href="/myorderlist">내주문내역</a></li>
-          </ul>
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             모델
@@ -95,14 +79,44 @@ a {
             <li><a class="dropdown-item" href="/model/modelComparison">모델비교</a></li>
           </ul>
         </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="/testDrive">시승신청</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/carMaintenanceReservation">정비예약</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="/model/partsFind">부품검색</a>
         </li>
+         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            shop
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/partall">모든상품보기</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/cartlist">장바구니</a></li>
+            <li><a class="dropdown-item" href="/myorderlist">내주문내역</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
-      <div class="d-flex">
+    
+    <div class="mypage">
+			<div class="dropdown">
+				
+				<div class="dropdown-content">
+						<a href="/mypage" class="mypage-link2">MyPage </a>
+						<a href="/logout" class="mypage-link1" style="padding-left: 15px; padding-right: 25px;"> Logout</a>
+				</div>
+			</div>
+	</div>
+    
+<!--       <div class="d-flex">
         <a class="mypageGo" href="/mypage">mypage</a>
-      </div>
+        <a class="mypageGo" href="/mypage">mypage</a>        
+      </div> -->
   </div>
 </nav>
 </body>

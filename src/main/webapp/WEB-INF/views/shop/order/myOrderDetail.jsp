@@ -6,6 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
 <title>PONY MOTORS</title>
 <link href="css/admin/css/order/orderdetaillayout.css" rel="stylesheet" />
 <link href="css/admin/css/order/orderdetail.css" rel="stylesheet" />

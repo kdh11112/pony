@@ -462,7 +462,7 @@ public class MyPageController {
 			
 			testDriveService.deleteTestDrive(testDriveNo);
 			log.info(">>>>>>>>>>>>>>>>>testdriveno : "+testDriveNo);
-			return "redirect:/testdriving";
+			return "redirect:/mypage/testdriving";
 		}
 		
 		//---------------------------------정비예약신청 내역

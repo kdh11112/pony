@@ -13,7 +13,9 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>mypage</title>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+<title>PONY MOTORS</title>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -22,7 +24,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Bootstrap JS -->
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="css/mypage/css/styles.css" rel="stylesheet" />
 <link href="css/mypage/css/board.css" rel="stylesheet" />

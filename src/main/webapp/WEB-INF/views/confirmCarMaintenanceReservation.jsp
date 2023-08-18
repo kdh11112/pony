@@ -13,7 +13,9 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>CarReservation</title>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+<title>PONY MOTORS</title>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">

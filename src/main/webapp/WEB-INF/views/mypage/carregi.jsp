@@ -13,7 +13,9 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>mypage</title>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+<title>PONY MOTORS</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Bootstrap icons-->
@@ -302,6 +304,7 @@
 		</footer>
 	</div>
 	<!-- Bootstrap core JS-->
+	
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
