@@ -12,7 +12,7 @@
 <!-- <link href="css/admin/css/nav.css" rel="stylesheet" /> -->
 <link href="css/mypage/css/styles.css" rel="stylesheet" />
 <link href="css/admin/css/cart/app.css" rel="stylesheet" />
-<link href="css/admin/css/cart/global.css" rel="stylesheet" />
+<!-- <link href="css/admin/css/cart/global.css" rel="stylesheet" /> -->
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
 
 <script type="text/javascript" src="https://ssl.pstatic.net/tveta/libs/glad/prod/2.18.0/gfp-sdk.js" charset="utf-8"></script>

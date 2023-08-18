@@ -33,8 +33,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap"
 	rel="stylesheet">
-	<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
-	
+<link
+	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css"
+	rel="stylesheet">
+
 <script src="css/mypage/js/testDrive.js"></script>
 
 <style>
@@ -249,7 +251,9 @@ textarea {
 				});
 			}
 		});
-		location.href = "/testdriving";
+		setTimeout(function() {
+			location.href = "/testdriving";
+		}, 300);
 	}
 </script>
 
@@ -293,7 +297,9 @@ textarea {
 							<!-- 포인트 1:1문의내역 -->
 							<div class="my-info" data-v-269e3e5f>
 								<ul data-v-269e3e5f>
-									<li data-v-269e3e5f><strong data-v-269e3e5f>포인트 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${memberPoint } P</strong></li>
+									<li data-v-269e3e5f><strong data-v-269e3e5f>포인트
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${memberPoint }
+											P</strong></li>
 
 									<li data-v-269e3e5f><a class="btn btn-primary active"
 										href="mypageqna"><span>1:1 문의 내역 <!---->
@@ -302,7 +308,7 @@ textarea {
 							</div>
 							<!-- 포인트 1:1문의내역 end-->
 
-							<!--시승신청내역 정비예약내역-->
+							<!--시승신청내역 예약내역-->
 							<div class="my-activity" data-v-269e3e5f>
 								<div class="category-title" data-v-269e3e5f></div>
 								<div class="details" data-v-269e3e5f>
@@ -342,7 +348,7 @@ textarea {
 									</div>
 								</div>
 							</div>
-							<!-- 시승신청내역 정비예약내역 end -->
+							<!-- 시승신청내역 예약내역 end -->
 						</div>
 
 
@@ -434,7 +440,7 @@ textarea {
 									<div class="modal-dialog modal-xl">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h1 class="modal-title fs-5" id="exampleModalLabel">정비신청예약변경</h1>
+												<h1 class="modal-title fs-5" id="exampleModalLabel">시승신청예약변경</h1>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
@@ -448,7 +454,7 @@ textarea {
 															<button class="accordion-button collapsed" type="button"
 																data-bs-toggle="collapse" data-bs-target="#collapseOne"
 																aria-expanded="false" aria-controls="flush-collapseOne"
-																id="headingOneBtn">정비모델선택</button>
+																id="headingOneBtn">시승모델선택</button>
 														</h2>
 														<div id="collapseOne" class="accordion-collapse collapse"
 															aria-labelledby="headingOne"
@@ -567,7 +573,7 @@ textarea {
 															<button class="accordion-button collapsed" type="button"
 																data-bs-toggle="collapse"
 																data-bs-target="#collapseThree" aria-expanded="false"
-																aria-controls="collapseThree" id="headingThreeBtn">정비예정일자선택</button>
+																aria-controls="collapseThree" id="headingThreeBtn">시승예정일자선택</button>
 														</h2>
 														<div id="collapseThree"
 															class="accordion-collapse collapse"
@@ -624,7 +630,7 @@ textarea {
 								<!-- 차량등록삭제 모달버튼 -->
 								<button type="button" class="btn btn-primary active"
 									data-bs-toggle="modal" data-bs-target="#exampleModal1">
-									<span>정비예약취소</span>
+									<span>시승예약취소</span>
 								</button>
 
 								<!-- 시승예약내역 삭제 start -->
@@ -634,12 +640,12 @@ textarea {
 									<div class="modal-dialog modal-xl">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h1 class="modal-title fs-5" id="exampleModalLabel">정비예약취소</h1>
+												<h1 class="modal-title fs-5" id="exampleModalLabel">시승예약취소</h1>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
 											<div class="modal-body">
-												<p>정비예약을 취소하시겠습니까?</p>
+												<p>시승예약을 취소하시겠습니까?</p>
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary active"

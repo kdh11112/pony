@@ -199,8 +199,9 @@ textarea {
 			}
 		
 		});
-		 location.href = "/carMaintenanceReservationDetail";
-		console.log(no);
+		setTimeout(function() {
+			 location.href = "/carMaintenanceReservationDetail";
+				}, 300);
 	}
 </script>
 
