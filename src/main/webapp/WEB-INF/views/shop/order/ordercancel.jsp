@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
-<title></title>
+<title>PONY MOTORS</title>
 <link type="text/css" rel="stylesheet" href="https://img.pay.naver.net/static/css/mobile/layout.css">
 <link type="text/css" rel="stylesheet" href="//img.pay.naver.net/o/mstatic/css/service/mobile/layout.css?1692005863197">
 <link type="text/css" rel="stylesheet" href="//img.pay.naver.net/o/mstatic/css/service/mobile/component.css?1692005863197">
@@ -37,32 +37,7 @@
 	<div class="u_skip"></div>
 
 		<!-- Navigation-->
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<div class="container">
-				<a class="navbar-brand" href="#!"></a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-						<li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-						<li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-						<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="/cartlist">모든 상품보기</a></li>
-								<li><hr class="dropdown-divider" /></li>
-								<li><a class="dropdown-item" href="/cartlist">장바구니</a></li>
-								<li><a class="dropdown-item" href="myorderlist">내 주문내역</a></li>
-							</ul></li>
-					</ul>
-					<form class="form-inline">
-						<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-						<button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" id="search" name="search">검색</button>
-					</form>
-				</div>
-			</div>
-		</nav>
-		
+		<jsp:include page="/WEB-INF/views/gnav.jsp" />
 		<!-- header -->
 		<header>
 			<img src="images/cloud.jpg" alt="" class="cloud" />

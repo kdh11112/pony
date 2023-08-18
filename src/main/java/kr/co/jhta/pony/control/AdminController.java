@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.jhta.pony.dto.AnswerDTO;
 import kr.co.jhta.pony.dto.NoticeDTO;
+import kr.co.jhta.pony.dto.OrderCancelDTO;
 import kr.co.jhta.pony.dto.OrderDTO;
 import kr.co.jhta.pony.dto.OrderDetailDTO;
 import kr.co.jhta.pony.dto.PageMakeDTO;
@@ -108,6 +109,13 @@ public class AdminController {
 		return "redirect:/adminorderlist"; 
 	}
 	
+	@PostMapping("/ordercancel")
+	public String OrderCancel(OrderCancelDTO ocdto){
+
+	oservice.orderCancle(ocdto);
+
+	return "redirect:/adminorderlist";
+	}
 	
 	
 	// 고객 문의 ------------------------------------------------------------

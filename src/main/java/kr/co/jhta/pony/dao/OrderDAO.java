@@ -60,4 +60,13 @@ public interface OrderDAO {
 	// 주문 후 재고 차감
 	int deductPartNo(PartDTO partdto);
 	
+	// 주문 취소
+	int orderCancle(String orderNo);
+	
+	// 주문 상품 정보 - 주문 취소
+	List<OrderDetailDTO> getOrderItemInfo(String orderNo);
+	
+	// 주문 정보 - 주문 취소
+	OrderDTO getOrders(String orderNo);
+	
 }

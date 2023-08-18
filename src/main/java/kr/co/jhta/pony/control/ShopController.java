@@ -226,6 +226,7 @@ public class ShopController {
 			model.addAttribute("kind", kind);
 			};
 		model.addAttribute("userorderlist", userOrderList);
+		model.addAttribute("memberNo", memberNo);
 		return "/shop/order/myOrderList";
 	}
 

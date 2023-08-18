@@ -248,7 +248,7 @@ a {
 			<nav class="nav">
 
 				<ul class="gnb">
-					<li><a href="/adminpartlist">재고관리</a></li>
+					<!-- <li><a href="/adminpartlist">재고관리</a></li> -->
 					<li><a href="/adminorderlist">주문목록</a></li>
 					<li><a href="/questionlist">고객문의</a></li>
 					<li><a href="/adminnotice">공지사항</a></li>
