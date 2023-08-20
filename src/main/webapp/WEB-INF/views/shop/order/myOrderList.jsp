@@ -8,7 +8,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>myorderlist</title>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+<title>PONY MOTORS</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap" rel="stylesheet">
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Bootstrap icons-->
@@ -21,34 +23,16 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
 <script src="css/mypage/js/scripts.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+.container-fluid{
+	height: 64px;
+}
+</style>
 </head>
 <body>
 	<!-- Navigation-->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container">
-			<a class="navbar-brand" href="#!"></a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-					<li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="/cartlist">모든 상품보기</a></li>
-							<li><hr class="dropdown-divider" /></li>
-							<li><a class="dropdown-item" href="/cartlist">장바구니</a></li>
-							<li><a class="dropdown-item" href="myorderlist">내 주문내역</a></li>
-						</ul></li>
-				</ul>
-				<form class="form-inline">
-					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" id="search" name="search">검색</button>
-				</form>
-			</div>
-		</div>
-	</nav>
+	<jsp:include page="/WEB-INF/views/gnav.jsp" />
 	<!-- header -->
 	<header>
 		<img src="images/cloud.jpg" alt="" class="cloud" />
@@ -68,12 +52,10 @@
 
 								<ul class="SubFilter_article__3yTR-">
 									<li class="SubFilter_item__2o8uJ"><div class="SubFilterItem_article__2Mick">
-											<input type="checkbox" class="hidden">
-											<label class="SubFilterItem_label__1qXQf">배송진행 <em class="SubFilter_point__8P9fF">2</em></label>
+											<label class="SubFilterItem_label__1qXQf">배송진행 <em class="SubFilter_point__8P9fF"><span class="delivery"></span></em></label>
 										</div></li>
 									<li class="SubFilter_item__2o8uJ"><div class="SubFilterItem_article__2Mick">
-											<input type="checkbox" class="hidden">
-											<label class="SubFilterItem_label__1qXQf">최대 <em class="SubFilter_point__8P9fF">6,955원</em> 포인트 적립 가능
+											<label class="SubFilterItem_label__1qXQf">주문취소 <em class="SubFilter_point__8P9fF"><span class="cancelOrder"></span> </em>
 											</label>
 										</div></li>
 								</ul>
@@ -100,7 +82,8 @@
 											</a>
 										</div>
 										<div class="Product_info__2eRJ4">
-											<span class="Product_date__2vtji"><c:set var="orderDateString" value="${userorderlist.orderDate}" /> <fmt:parseDate var="orderDate" value="${orderDateString}" pattern="yyyy-MM-dd" /> <fmt:formatDate value="${orderDate}" pattern="MM. dd" /> 결제 </span><strong class="Product_name__2hvoM"><span class="ProductName_article__zaafE">엔진오일 외 1개</span></strong><span class="Product_price__3Ug1K"><fmt:formatNumber pattern="###,###,###원"> ${userorderlist.orderTotal }</fmt:formatNumber><span class="Product_icon__bdb1m"><svg xmlns="http://www.w3.org/2000/svg" width="46" height="16" viewBox="0 0 49 15">
+											<span class="Product_date__2vtji"><c:set var="orderDateString" value="${userorderlist.orderDate}" /> <fmt:parseDate var="orderDate" value="${orderDateString}" pattern="yyyy-MM-dd" /> <fmt:formatDate value="${orderDate}" pattern="MM. dd" /> 결제 </span><strong class="Product_name__2hvoM"><span class="ProductName_article__zaafE">엔진오일 외 <span class="ordercount">${kind }</span>개
+											</span></strong><span class="Product_price__3Ug1K"><fmt:formatNumber pattern="###,###,###원"> ${userorderlist.orderTotal }</fmt:formatNumber><span class="Product_icon__bdb1m"><svg xmlns="http://www.w3.org/2000/svg" width="46" height="16" viewBox="0 0 49 15">
 													
 													</svg></span></span>
 											<div class="Product_detail__1Hktq">
@@ -112,13 +95,25 @@
 											</a>
 										</div>
 									</div>
+									<!-- 주문취소 오류남 ㅎㅎ -->
 									<ul class="OrderPaymentActionButtons_article__21iuu">
-										<li class="OrderPaymentActionButtons_item-button__3Ok1c"><button type="button" class="ActionButton_article__2Tfs0 ActionButton_highlight__2tQ-Z">구매확정</button></li>
-										<li class="OrderPaymentActionButtons_item-button__3Ok1c"><button type="button" class="ActionButton_article__2Tfs0 claim" >상품문의</button></li>
+										<c:if test="${userorderlist.orderStatus == '배송준비중' }">
+											<li class="OrderPaymentActionButtons_item-button__3Ok1c"><button class="ActionButton_article__2Tfs0 cancelbtn" data-orderNo="${userorderlist.orderNo}" style="background-color: #E2EFF3; font-weight: 700;">주문취소</button></li>
+										</c:if>
+										<c:if test="${userorderlist.orderStatus == '배송중' }">
+											<li class="OrderPaymentActionButtons_item-button__3Ok1c"><button type="button" class="ActionButton_article__2Tfs0 ActionButton_highlight__2tQ-Z">구매확정</button></li>
+										</c:if>
+										<li class="OrderPaymentActionButtons_item-button__3Ok1c"><a href="/mypageqna">
+												<button type="button" class="ActionButton_article__2Tfs0 claim">상품문의</button>
+											</a></li>
 									</ul>
 								</div></li>
 						</c:forEach>
 					</ul>
+					<form id="cancelForm" action="ordercancel" method="post">
+						<input type="hidden" name="orderNo">
+						<input type="hidden" name="memberNo" value="${memberNo}">
+					</form>
 				</div>
 
 
@@ -133,5 +128,13 @@
 	</footer>
 
 	<!-- //footer -->
+	<script>
+		$(".cancelbtn").on("click", function(e) {
+			e.preventDefault();
+			let no = $(this).data("orderNo");
+			$("#cancelForm").find("input[name='orderNo']").val(no);
+			$("#cancelForm").submit();
+		});
+	</script>
 </body>
 </html>

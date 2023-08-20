@@ -50,4 +50,10 @@
 	    WHERE 
 	        od.orderNo = #{orderNo}
 	</select>
+	<!-- getTotal 전체 건수 카운트 -->
+	<select id="countKind" resultType="int">
+		SELECT count(partNumber)
+		FROM ORDERDETAIL
+		WHERE orderNo = #{orderNo}
+	</select>
 </mapper>

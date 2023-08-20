@@ -12,16 +12,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import io.swagger.annotations.Api;
 import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.dto.ShopDTO;
 import kr.co.jhta.pony.dto.TestDriveDTO;
 import kr.co.jhta.pony.security.service.PonyMemberService;
+import kr.co.jhta.pony.service.ModelService;
 import kr.co.jhta.pony.service.ShopService;
 import kr.co.jhta.pony.service.TestDriveService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@Api(tags = "테스트드라이버")
 public class TestDriveController {
 	
 	@Autowired
@@ -30,9 +33,13 @@ public class TestDriveController {
 	private TestDriveService tds;
 	@Autowired
 	private PonyMemberService pms;
+	@Autowired
+	private ModelService ms;
+	
 	
 	@GetMapping("/testDrive")
-	public String test() {
+	public String test(Model model) {
+		model.addAttribute("model", ms.ModelAll());
 		return "testDrive";
 	}
 	
@@ -58,7 +65,7 @@ public class TestDriveController {
 		dto.setTestDriveTime(testDriveTime);
 		tds.insertTestDriveSchedule(dto);
 		log.info("dto {} 전송됨 ",dto);
-		return "redirect:testDrive";
+		return "confirmTestDrive";
 	}
 	
 

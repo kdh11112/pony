@@ -5,6 +5,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+<title>PONY MOTORS</title>
 <style>
 .main-panel {
   min-height: 100vh;
@@ -91,7 +94,7 @@ $(function(){
 		
 		let query = 'technologyNumberAsy='+technologyNumberIdValue+'&technologyDetailAsy='+technologyDetailIdValue;
 
-		fetch('/reg/registration/modal/technology?' + query)
+		fetch('/reg/work/modal/technology?' + query)
 		  .then(response => response.json())
 		  .then(data => {
 			techData = data;
@@ -132,7 +135,7 @@ $(function(){
 		    		
 		    		  $("#row" + (index + 1)).on("click", function () {
 		    	
-		    		    fetch('/reg/registration/modal/technologyData', {
+		    		    fetch('/reg/work/modal/technologyData', {
 		    		      method: "POST",
 		    		      headers: {
 		    		        'Content-Type': 'application/json'
@@ -239,7 +242,7 @@ $(function(){
 		
 		let query = 'partNumberAsy='+partNumberIdValue+'&partNameAsy='+partNameIdValue;
 
-		fetch('/reg/registration/modal/part?' + query)
+		fetch('/reg/work/modal/part?' + query)
 		  .then(response => response.json())
 		  .then(data => {
 			  partData = data;
@@ -280,7 +283,7 @@ $(function(){
 			    	(function(index) {
 			    		  $("#rows" + (index + 1)).on("click", function () {
 			    	
-			    		    fetch('/reg/registration/modal/partData', {
+			    		    fetch('/reg/work/modal/partData', {
 			    		      method: "POST",
 			    		      headers: {
 			    		        'Content-Type': 'application/json'
@@ -645,7 +648,7 @@ $j(function() {
 					      		 <input type="text" id="datePicker" class="datePicker form-control" value="" name="registrationDateHi" style="height: 40px; width : 150px;"> 
 					      	</div>
 					      <div class="form-group mb-0">
-					        <input type="text" class="form-control" name="registrationRN" value="${searchOne.registrationRN }" placeholder="접수번호">
+					        <input type="text" class="form-control" name="registrationRN" value="${searchOne.registrationRN }" placeholder="접수번호" style="width: 100px;">
 					      </div>
 					      
 					      <button type="submit" class="btn btn-primary btn-round" id="nameSearch">검색</button>

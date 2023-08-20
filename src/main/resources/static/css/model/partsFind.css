@@ -1,0 +1,93 @@
+@charset "UTF-8";
+/* Header */
+header {
+    position: relative;
+    text-align: center;
+    
+}
+
+header img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover; /* 이미지가 컨테이너에 꽉 채워지도록 설정 */
+}
+
+/* Overlay the text on the image */
+.header-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    
+}
+#parts-find-text{
+	margin-left: 100px;
+	width: 80%;
+	height: 50px;
+}
+
+#parts-find-btn {
+	width: 100px;
+	height: 50px;
+}
+
+.search-text-btn {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.card {
+	background-color: #f0fffd;
+}
+
+.card-text {
+	font-size: 20px;
+	font-weight: bold;
+	color: #5E5E5E;
+	text-align: center;
+	height: 50px;
+}
+
+.card-body {
+	font-size: 15px;
+	font-weight: bold;
+	color: #5E5E5E;
+	text-align: center;
+	padding: 0px;
+	margin-bottom: 30px;
+}
+
+.back {
+	background-color: white;
+}
+
+.col-md-3 {
+	margin-left: 20px;
+}
+
+.searched-parts {
+	font-size: 15px;
+}
+
+.searched-col {
+	border-top: 10px solid white;
+	border-bottom: 10px solid white;
+}
+
+ul {
+	list-style: none;
+	font-size: 18px;
+	background-color: white;
+	width: 35%;
+}
+
+.ui-menu-item {
+	margin-left:-30px;
+}
+.ui-menu-item div.ui-state-hover, 
+.ui-menu-item div.ui-state-active {
+	background-color: rgb(193, 220, 255);
+	color: white;
+	font-weight: bold;
+}

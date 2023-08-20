@@ -10,11 +10,18 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet" />
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
 <script src="js/jwt.js"></script>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+<title>PONY MOTORS</title>
 </head>
 <body>
+	<!-- Navigation-->
+	<jsp:include page="/WEB-INF/views/gnav.jsp" />
 
 	<section class="vh-100">
 
@@ -78,7 +85,7 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="password" id="password" name="password" value="aaaa" class="form-control form-control-lg shadow-sm" />
+													<input type="password" id="password" name="password" value="" class="form-control form-control-lg shadow-sm" />
 													<label>Password</label>
 													<span id="passwordValidationMsg" style="color: red; display: block;">비밀번호를 입력해주세요.</span>
 												</div>
@@ -90,7 +97,7 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="password" id="password2" value="aaaa" class="form-control form-control-lg shadow-sm" />
+													<input type="password" id="password2" value="" class="form-control form-control-lg shadow-sm" />
 													<label>ConfirmPassword</label>
 													<span id="passwordValidationMsg2" style="color: red; display: none;">비밀번호와 일치하지 않습니다.</span>
 												</div>
@@ -103,7 +110,7 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="text" id="fullName" name="fullName" value="Test" class="form-control form-control-lg shadow-sm" />
+													<input type="text" id="fullName" name="fullName" value="" class="form-control form-control-lg shadow-sm" />
 													<label>FullName</label>
 												</div>
 											</div>
@@ -123,7 +130,7 @@
 									            </div>
 									            
 									            <div style="margin-left: 10px;">
-									                <input type="text" id="secondInput" value="3" class="form-control form-control-lg shadow-sm" maxlength="1" style="width: 30px; height: 58px;" />
+									                <input type="text" id="secondInput" value="" class="form-control form-control-lg shadow-sm" maxlength="1" style="width: 30px; height: 58px;" />
 									            </div>
 									            <div class="d-flex align-items-center">
 									                <span style="margin-right: 5px">* * * * * *</span>
@@ -140,7 +147,7 @@
 										<div class="row">
 											<div class="col">
 												<div class="form-floating">
-													<input type="text" id="phone" name="phone" value="01055555555" class="form-control form-control-lg shadow-sm phone" maxlength="13" />
+													<input type="text" id="phone" name="phone" value="" class="form-control form-control-lg shadow-sm phone" maxlength="13" />
 													<label>Phone</label>
 												</div>
 											</div>

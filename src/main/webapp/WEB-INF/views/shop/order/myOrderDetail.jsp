@@ -6,7 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>myorderlist</title>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+<title>PONY MOTORS</title>
 <link href="css/admin/css/order/orderdetaillayout.css" rel="stylesheet" />
 <link href="css/admin/css/order/orderdetail.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap" rel="stylesheet">
@@ -23,36 +25,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
 <script src="css/mypage/js/scripts.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 </style>
 </head>
 <body>
 	<!-- Navigation-->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container">
-			<a class="navbar-brand" href="#!"></a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-					<li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="/cartlist">모든 상품보기</a></li>
-							<li><hr class="dropdown-divider" /></li>
-							<li><a class="dropdown-item" href="/cartlist">장바구니</a></li>
-							<li><a class="dropdown-item" href="myorderlist">내 주문내역</a></li>
-						</ul></li>
-				</ul>
-				<form class="form-inline">
-					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" id="search" name="search">검색</button>
-				</form>
-			</div>
-		</div>
-	</nav>
+	<jsp:include page="/WEB-INF/views/gnav.jsp" />
 	<!-- header -->
 	<header>
 		<img src="images/cloud.jpg" alt="" class="cloud" />
@@ -82,29 +61,29 @@
 				<li class="detail_section">
 					<ul class="order_list">
 						<!-- productOrder 단위로 반복 -->
-						<c:forEach var="userorderdetail" items="${userOrderList }">
+						<c:forEach var="orderDetails" items="${orderDetails }">
 							<li>
 								<div class="order_list_item">
 									<div class="product_info">
-										<span class="icon_text status"><c:out value="${userorderdetail.orderStatus }" /></span>
-										<c:out value="${userorderdetail.partName }" />
+										<span class="icon_text status"><c:out value="${order.orderStatus }" /></span>
+										<c:out value="${orderDetails.partName }" />
 
 										<!-- 상품 금액 -->
 										<div class="sum_amount">
 											<strong class="discount_price"><fmt:formatNumber pattern="###,###,###원">
-													<c:out value="${userorderdetail.orderdetailAmount }" />
+													<c:out value="${orderDetails.orderdetailAmount }" />
 												</fmt:formatNumber> </strong>
 										</div>
 
 										<p class="ordernum">
 											주문수량 :
-											<c:out value="${userorderdetail.orderdetailOrderQuantity }" />
+											<c:out value="${orderDetails.orderdetailOrderQuantity }" />
 											개
 										</p>
 
 										<!-- 옵션 / 사은품 -->
 										<ul class="option_list">
-											<li><span class="icon_text option">옵션</span> MODEL: <c:out value="${userorderdetail.modelName }" /></li>
+											<li><span class="icon_text option">옵션</span> MODEL: <c:out value="${orderDetails.modelName }" /></li>
 
 										</ul>
 									</div>
@@ -128,7 +107,7 @@
 							<li><strong>수령인</strong><span><c:out value="${order.orderRecipientName }" /></span></li>
 							<li><strong>연락처</strong>
 								<div>
-									<c:out value="${formattedPhoneNumber}" />
+									<c:out value="${order.orderRecipientPhone}" />
 								</div></li>
 							<li><strong>배송지</strong><span><c:out value="${order.orderRecipientZip}" /></span><br>
 							<c:out value="${order.orderRecipientAddress}" /><br>
@@ -187,13 +166,13 @@
 									</p>
 								</div>
 							</li>
-							<li class="type_main_payment"><strong>카드 결제</strong> <em class="amount"><span><fmt:formatNumber pattern="###,###,###원">
+							<li class="type_main_payment"><strong><span><c:out value="${order.orderPaymentTool }" /></span> 결제</strong> <em class="amount"><span><fmt:formatNumber pattern="###,###,###원">
 											<c:out value="${order.orderTotal - order.orderPoint }" />
 										</fmt:formatNumber></span></em>
 								<div class="payment_detail_info">
-									신한(4221-****-****-****) <span class="card_payment_type"> 일시불 </span>
+									<span class="card_payment_type"></span>
 								</div>
-								<ul class="dot_list type_round">
+								<ul class="dot_list type_round" style="padding-left: 0px;">
 									<li>결제 상세 내역은 카드사로 문의하시면 정확하게 확인할 수 있습니다.</li>
 								</ul></li>
 						</ul>

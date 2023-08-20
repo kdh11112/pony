@@ -27,6 +27,7 @@ public class OrderDetailDTO {
 	
 	private int partPrice;
 	
+	
 	/* 상품 한개 구매 시 획득 포인트 */
 	private int savePoint;
 	

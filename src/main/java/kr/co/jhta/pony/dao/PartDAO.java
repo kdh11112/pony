@@ -41,4 +41,8 @@ public interface PartDAO {
 
 	List<PartDTO> searchPart(String partName);
 	
+	List<PartDTO> searchPart2(String partName);
+
+	// 부품 정보
+	PartDTO getPartsInfo(int PartNumber);
 }

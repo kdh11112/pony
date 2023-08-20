@@ -6,7 +6,9 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Log in</title>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+<title>PONY MOTORS</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -111,11 +113,11 @@ function getCookie(cookieName) {
 	    </div>
     </div>
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" id="id" name="mechanicNo" placeholder="사원번호">
+        <input type="text" class="form-control" id="id" name="mechanicNo" value="1" placeholder="사원번호">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" name="mechanicPw" placeholder="비밀번호">
+        <input type="password" class="form-control" name="mechanicPw" value="123" placeholder="비밀번호">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">

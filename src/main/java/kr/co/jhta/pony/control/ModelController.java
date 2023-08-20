@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import io.swagger.annotations.Api;
 import kr.co.jhta.pony.dto.PartDTO;
 import kr.co.jhta.pony.service.ModelService;
 import kr.co.jhta.pony.service.PartService;
@@ -18,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("/model")
+@Api(tags = "모델")
 public class ModelController {
 
 	@Autowired
@@ -73,4 +75,10 @@ public class ModelController {
 		return ps.searchPart(partName);
 	}
 	
+	@GetMapping("/searchParts2")
+	@ResponseBody
+	public List<PartDTO> searchParts2(@RequestParam("partName")String partName, Model model) {
+		log.info("partName : "+ps.searchPart2(partName));
+		return ps.searchPart2(partName);
+	}
 }

@@ -10,6 +10,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
 <title>PONY MOTORS</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -17,11 +19,16 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="css/mypage/css/styles.css" rel="stylesheet" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap" rel="stylesheet">
+
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
+*{
+font-family: 'NanumSquareRound' !important;
+
+}
 .content {
 	box-sizing: border-box;
 	width: 400px;
@@ -133,34 +140,7 @@ td.partIcontd {
 <body>
 	<div id="wrapper">
 		<!-- Navigation-->
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<div class="container">
-				<a class="navbar-brand" href="#!"></a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-						<li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-						<li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-						<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="/partall">모든 상품보기</a></li>
-								<li>
-									<hr class="dropdown-divider" />
-								</li>
-								<li><a class="dropdown-item" href="/cartlist">장바구니</a></li>
-								<li><a class="dropdown-item" href="/myorderlist">내 주문내역</a></li>
-							</ul></li>
-					</ul>
-					<form class="form-inline">
-						<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-						<button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">검색</button>
-					</form>
-				</div>
-			</div>
-		</nav>
-
+		<jsp:include page="/WEB-INF/views/gnav.jsp" />
 		<!-- Header-->
 		<header>
 			<img src="images/cloud.jpg" alt="" />

@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import io.swagger.annotations.Api;
 import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.security.service.PonyMemberService;
 
 @Controller
+@Api(tags = "인덱스")
 public class indexController {
 	
 	@Autowired
@@ -36,6 +38,7 @@ public class indexController {
 		return "/ponylogin";
 	}
 
+	
 	@GetMapping("/ponyreg")
 	public String goreg() {
 		return "/ponyregistration";
@@ -45,11 +48,6 @@ public class indexController {
 	public String loginOk() {
 		return "/ponylogin";
 	}
-	
-//	@GetMapping("/testuser")
-//	public String testuser(Principal principal, Model model, @AuthenticationPrincipal AccountContext userAccount) {
-//		model.addAttribute("name", principal.getName());
-//		return "/textview";
-//	}
+
 	
 }

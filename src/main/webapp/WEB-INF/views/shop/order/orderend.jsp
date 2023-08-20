@@ -5,12 +5,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="Content-Script-Type" content="text/javascript">
 <meta http-equiv="Content-Style-Type" content="text/css">
-<title></title>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+<title>PONY MOTORS</title>
 <link href="css/admin/css/common.css" rel="stylesheet" />
 <link href="css/admin/css/nav.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap" rel="stylesheet">
 <link type="text/css" rel="stylesheet" href="https://ssl.pstatic.net/static.checkout/layout/202307261800/css/customer/chk_n_common.css">
-<link href="css/admin/css/order/finalorder.css" rel="stylesheet" />
+<!-- <link href="css/admin/css/order/finalorder.css" rel="stylesheet" /> -->
 <link type="text/css" rel="stylesheet" href="https://order.pstatic.net/202308/09_161200_1691565120/order_customer/static/css/service/front/order/ordersheet.css?1691577253961">
 <style>
 .logoimg {
@@ -83,37 +85,10 @@
 </head>
 <body class="w_bg1">
 	<div id="wrap">
-
 		<!-- u_skip -->
 		<div id="u_skip"></div>
-		<!-- //u_skip -->
-
 		<!-- Navigation-->
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<div class="container">
-				<a class="navbar-brand" href="#!"></a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-						<li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-						<li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-						<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="/cartlist">모든 상품보기</a></li>
-								<li><hr class="dropdown-divider" /></li>
-								<li><a class="dropdown-item" href="/cartlist">장바구니</a></li>
-								<li><a class="dropdown-item" href="myorderlist">내 주문내역</a></li>
-							</ul></li>
-					</ul>
-					<form class="form-inline">
-						<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-						<button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" id="search" name="search">검색</button>
-					</form>
-				</div>
-			</div>
-		</nav>
+		<jsp:include page="/WEB-INF/views/gnav.jsp" />
 		<!-- header -->
 		<header>
 			<img src="images/cloud.jpg" alt="" class="cloud" />
@@ -149,7 +124,7 @@
 					<div class="orderend_info">
 						<div class="info_wrap">
 							<h4>주문번호</h4>
-							<span class="ordernumber"> <strong>2023081689911581</strong>
+							<span class="ordernumber"> <strong>23235204</strong>
 							</span>
 						</div>
 
@@ -157,16 +132,16 @@
 							<h4>배송지정보</h4>
 							<div class="info_dsc">
 								<ul>
-									<li>정희진</li>
-									<li>010-3833-0284</li>
-									<li>(01876)</li>
+									<li>이철민</li>
+									<li>010-1234-5678</li>
+									<li>(03134) 서울 종로구 율곡로10길 105 디아망</li>
 								</ul>
 							</div>
 						</div>
 						<dl class="benefit_fold_panel on spot_benefit_pay">
 							<dt class="fold_heading">
 								<a href="#" class="_click(nmp.front.order.order_sheet.result.togglePayEventInfo()) _stopDefault">
-									<strong> 포인트 혜택 </strong> <span class="benefit_spot_green" style="color: #0A58CA;">400원</span>
+									<strong> 포인트 혜택 </strong> <span class="benefit_spot_green" style="color: #0A58CA;">9,840원</span>
 								</a>
 							</dt>
 						</dl>
@@ -180,12 +155,17 @@
 								<ul class="product_list">
 									<li class="product_item">
 										<div class="product_dsc">
-											<p>- 망그러진 아기망곰 마스킹테이프 다꾸</p>
+											<p>- 엔진오일</p>
 											<ul class="option_list">
-												<li>옵션 :</li>
-												<li>주문수량 : 개</li>
+												<li>옵션 : SONATA</li>
+												<li>주문수량 : 2개</li>
 											</ul>
-											<strong class="price"><em style="padding-left: 12px;">5,000</em>원</strong>
+											<p>- 브레이크</p>	
+											<ul class="option_list">
+												<li>옵션 : AVANTE</li>
+												<li>주문수량 : 3개</li>
+											</ul>
+											<strong class="price"><em style="padding-left: 12px;">196,800</em>원</strong>
 										</div>
 									</li>
 
@@ -197,17 +177,17 @@
 								<div class="sum">
 									<strong class="price_sum_title">주문금액</strong>
 									<p class="price_sum_detail" style="color: #0A58CA;">
-										<em>8,000</em>원
+										<em>196,800</em>원
 									</p>
 								</div>
 								<ul class="calc_list">
 									<li><strong>상품금액</strong>
 										<p>
-											<em>6,000</em>원
+											<em>196,800</em>원
 										</p></li>
 									<li><strong>배송비</strong>
 										<p>
-											+<em>3,000</em>원
+											+<em>0</em>원
 										</p></li>
 
 								</ul>
@@ -221,15 +201,11 @@
 									<div class="sum">
 										<strong class="price_sum_title">포인트 사용</strong>
 										<p class="price_sum_detail" style="color: #0A58CA;">
-											<em>8,000</em>원
+											<em>8,500</em>원
 										</p>
 									</div>
 								</div>
-								<!-- 무장애 시스템 -->
 							</div>
-							<!-- 결제상세 End -->
-
-
 						</div>
 						<span class="ob_bottom"></span>
 					</div>
@@ -238,14 +214,13 @@
 					<div class="cutting_line cutting_line_v3"></div>
 					<div class="payment_agree_wrap">
 
-						<button class="" style="background-color: #0A58CA; border: none;">
+						<a href="/myorderlist"><button class="" style="background-color: #0A58CA; border: none;" >
 							<span class="txt_purchase">구매내역 보기</span>
-						</button>
+						</button></a>
 						<!--N=a:ctm.buylst-->
-						<button class="" style="background-color: #0A58CA; border: none;">
-							<span class="txt_shophome">쇼핑 홈 가기</span>
-						</button>
-						
+						<a href="/partall"><button class="" style="background-color: #0A58CA; border: none;">
+							<span class="txt_shophome">부품 목록 가기</span>
+						</button></a>
 						<div class="shdw_bottom"></div>
 					</div>
 				</div>

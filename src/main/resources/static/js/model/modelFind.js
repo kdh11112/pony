@@ -1,5 +1,9 @@
 
 $(function() {
+	// 페이지 스크롤 이동
+	let offset = $(".top-title").offset();
+	$('html').animate({ scrollTop: offset.top }, 1);
+	
 	$("select").change(function() {
 		var selectedModel = $("#selectModel").val();
 
