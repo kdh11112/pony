@@ -101,6 +101,7 @@ public class ponyRegisterController {
 	    	
 	    //	log.info(authenticated);
 	    	log.info("요청 수신");
+	    	log.info(passwordEncoder.encode("admin"));
 	    	dto.setMemberEmail(memberEmail);
 	    	int cnt = service.idChk(dto);
 

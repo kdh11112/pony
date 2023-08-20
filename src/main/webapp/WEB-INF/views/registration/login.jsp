@@ -113,11 +113,11 @@ function getCookie(cookieName) {
 	    </div>
     </div>
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" id="id" name="mechanicNo" placeholder="사원번호">
+        <input type="text" class="form-control" id="id" name="mechanicNo" value="1" placeholder="사원번호">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" name="mechanicPw" placeholder="비밀번호">
+        <input type="password" class="form-control" name="mechanicPw" value="123" placeholder="비밀번호">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">

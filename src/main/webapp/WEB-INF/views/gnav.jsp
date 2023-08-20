@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <head>
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
 <!-- Favicon -->
@@ -60,6 +62,23 @@ a {
 <title>Insert title here</title>
 </head>
 <body>
+ 		<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+	    <%
+        String cookieName = "jwtToken";
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(cookieName)) {
+                    // 쿠키의 유효 기간을 0으로 설정하여 삭제
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                    break;
+                }
+            }
+        }
+    	%>
+ 		</sec:authorize>
+
 	<nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="/"><img src="../images/pony_motors_log_cut.png" alt="" /></a>

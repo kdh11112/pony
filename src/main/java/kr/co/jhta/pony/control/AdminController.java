@@ -1,5 +1,6 @@
 package kr.co.jhta.pony.control;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import kr.co.jhta.pony.dto.OrderDTO;
 import kr.co.jhta.pony.dto.OrderDetailDTO;
 import kr.co.jhta.pony.dto.PageMakeDTO;
 import kr.co.jhta.pony.dto.QuestionDTO;
+import kr.co.jhta.pony.security.service.PonyMemberService;
 import kr.co.jhta.pony.service.AnswerService;
 import kr.co.jhta.pony.service.NoticeService;
 import kr.co.jhta.pony.service.OrderDetailService;
@@ -38,23 +40,28 @@ public class AdminController {
 	private final AnswerService aservice;
 	private final OrderDetailService odservice;
 	private final OrderService oservice;
-     
+    private final PonyMemberService pservice;
 
 	@Autowired
 	public AdminController(NoticeService nservice,
 						   QuestionService qservice,
 						   AnswerService aservice,
 						   OrderDetailService odservice,
-						   OrderService oservice) {
+						   OrderService oservice,
+						   PonyMemberService pservice) {
 		this.nservice = nservice;
 		this.qservice = qservice;
 		this.aservice = aservice;
 		this.odservice = odservice;
 		this.oservice = oservice;
+		this.pservice = pservice;
 		}
 	
 	@GetMapping("/admin")
-	public String adminindex() {
+	public String adminindex(Principal p, Model model) {
+		if(p!=null) {
+			model.addAttribute("username", pservice.getPrincipalEmail(p));
+			}
 		return "/admin/adminindex";
 	}
 	@GetMapping("/adminlogin")
