@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
+import io.swagger.annotations.Api;
 import kr.co.jhta.pony.dto.CarRegisterDTO;
 import kr.co.jhta.pony.dto.ClientDTO;
 import kr.co.jhta.pony.dto.PonyMemberDTO;
@@ -49,6 +50,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@Api(tags = "마이페이지")
 public class MyPageController {
 
 	@Autowired
@@ -182,7 +184,7 @@ public class MyPageController {
 			session.setAttribute("dto",dto2);
 			log.info("dto2 {} ",dto2);
 			int memberNo = dto2.getMemberNo();
-			String contents = req.getParameter("contents");
+			String contents = req.getParameter("textareacontents");
 			String title = req.getParameter("title");
 			dto.setQuestionTitle(title);
 			dto.setMemberNo(memberNo);

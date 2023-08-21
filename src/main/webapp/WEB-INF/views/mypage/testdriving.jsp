@@ -13,7 +13,9 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>mypage</title>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+<title>PONY MOTORS</title>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -22,7 +24,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Bootstrap JS -->
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="css/mypage/css/styles.css" rel="stylesheet" />
 <link href="css/mypage/css/board.css" rel="stylesheet" />
@@ -31,6 +33,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap"
 	rel="stylesheet">
+<link
+	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css"
+	rel="stylesheet">
+
 <script src="css/mypage/js/testDrive.js"></script>
 
 <style>
@@ -245,7 +251,9 @@ textarea {
 				});
 			}
 		});
-		location.href = "/testdriving";
+		setTimeout(function() {
+			location.href = "/testdriving";
+		}, 300);
 	}
 </script>
 
@@ -253,39 +261,7 @@ textarea {
 <body>
 	<div id="wrapper">
 		<!-- Navigation-->
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<div class="container">
-				<a class="navbar-brand" href="#!"></a>
-				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-					aria-controls="navbarSupportedContent" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-						<li class="nav-item"><a class="nav-link active"
-							aria-current="page" href="#!">Home</a></li>
-						<li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
-							role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="#!">All Products</a></li>
-								<li><hr class="dropdown-divider" /></li>
-								<li><a class="dropdown-item" href="#!">Popular Items</a></li>
-								<li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-							</ul></li>
-					</ul>
-					<form class="form-inline">
-						<input class="form-control mr-sm-2" type="search"
-							placeholder="Search" aria-label="Search">
-						<button class="btn btn-outline-secondary my-2 my-sm-0"
-							type="submit">검색</button>
-					</form>
-				</div>
-			</div>
-		</nav>
+		<jsp:include page="/WEB-INF/views/gnav.jsp" />
 		<!-- Header-->
 		<header>
 
@@ -321,7 +297,9 @@ textarea {
 							<!-- 포인트 1:1문의내역 -->
 							<div class="my-info" data-v-269e3e5f>
 								<ul data-v-269e3e5f>
-									<li data-v-269e3e5f><strong data-v-269e3e5f>포인트 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${memberPoint } P</strong></li>
+									<li data-v-269e3e5f><strong data-v-269e3e5f>포인트
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${memberPoint }
+											P</strong></li>
 
 									<li data-v-269e3e5f><a class="btn btn-primary active"
 										href="mypageqna"><span>1:1 문의 내역 <!---->
@@ -330,7 +308,7 @@ textarea {
 							</div>
 							<!-- 포인트 1:1문의내역 end-->
 
-							<!--시승신청내역 정비예약내역-->
+							<!--시승신청내역 예약내역-->
 							<div class="my-activity" data-v-269e3e5f>
 								<div class="category-title" data-v-269e3e5f></div>
 								<div class="details" data-v-269e3e5f>
@@ -370,7 +348,7 @@ textarea {
 									</div>
 								</div>
 							</div>
-							<!-- 시승신청내역 정비예약내역 end -->
+							<!-- 시승신청내역 예약내역 end -->
 						</div>
 
 
@@ -462,7 +440,7 @@ textarea {
 									<div class="modal-dialog modal-xl">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h1 class="modal-title fs-5" id="exampleModalLabel">정비신청예약변경</h1>
+												<h1 class="modal-title fs-5" id="exampleModalLabel">시승신청예약변경</h1>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
@@ -476,7 +454,7 @@ textarea {
 															<button class="accordion-button collapsed" type="button"
 																data-bs-toggle="collapse" data-bs-target="#collapseOne"
 																aria-expanded="false" aria-controls="flush-collapseOne"
-																id="headingOneBtn">정비모델선택</button>
+																id="headingOneBtn">시승모델선택</button>
 														</h2>
 														<div id="collapseOne" class="accordion-collapse collapse"
 															aria-labelledby="headingOne"
@@ -595,7 +573,7 @@ textarea {
 															<button class="accordion-button collapsed" type="button"
 																data-bs-toggle="collapse"
 																data-bs-target="#collapseThree" aria-expanded="false"
-																aria-controls="collapseThree" id="headingThreeBtn">정비예정일자선택</button>
+																aria-controls="collapseThree" id="headingThreeBtn">시승예정일자선택</button>
 														</h2>
 														<div id="collapseThree"
 															class="accordion-collapse collapse"
@@ -652,7 +630,7 @@ textarea {
 								<!-- 차량등록삭제 모달버튼 -->
 								<button type="button" class="btn btn-primary active"
 									data-bs-toggle="modal" data-bs-target="#exampleModal1">
-									<span>정비예약취소</span>
+									<span>시승예약취소</span>
 								</button>
 
 								<!-- 시승예약내역 삭제 start -->
@@ -662,12 +640,12 @@ textarea {
 									<div class="modal-dialog modal-xl">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h1 class="modal-title fs-5" id="exampleModalLabel">정비예약취소</h1>
+												<h1 class="modal-title fs-5" id="exampleModalLabel">시승예약취소</h1>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
 											<div class="modal-body">
-												<p>정비예약을 취소하시겠습니까?</p>
+												<p>시승예약을 취소하시겠습니까?</p>
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary active"

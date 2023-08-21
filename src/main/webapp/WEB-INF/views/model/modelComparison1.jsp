@@ -5,7 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+<title>PONY MOTORS</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <!-- CSS only -->
@@ -19,10 +21,14 @@
 <link rel="stylesheet" href="../css/model/modelComparison1.css">
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/gnav.jsp" />
 	<form action="/model/modelComparison2" id="frm">
-		<div>
-			<img src="../images/model/vs_top.png" alt="" id="topImg">
+	<header>
+		<img src="../images/model/banner_v01.jpg" alt="" />
+		<div class="header-content text-center text-black">
+			<p class="lead fw-normal text-black-50 mb-0"></p>
 		</div>
+	</header>
 		<div id="whiteBar"></div>
 		<div id="whiteBar2">
 			<div class="top-title text-center">

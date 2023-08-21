@@ -264,16 +264,23 @@ function handleButtonClick(event) {
 	const buttonYear = button.dataset.year;
 	const buttonMonth = button.dataset.month;
 	const buttonDate = button.parentElement.parentElement.querySelector("p").innerText;
-
-	selectedSchedule = selectedSchedule = buttonYear + "-" + "0" + buttonMonth + "-" + buttonDate;
+ 	
+ 	reservationClientRequests = $("textarea[name=reservationClientRequestsaaa]").val(); 
+ 	
+ 	//$("#reservationClientRequests").val()	
+ 	
+	
+	selectedSchedule = buttonYear + "-" + "0" + buttonMonth + "-" + buttonDate;
  
- 	clientCarNumber = $("#selectedCarName").text()
- 	 	
+ 	clientCarNumber = $("input[name=selectedCars]:checked").val();
+ 	
+ 	//아래꺼 수정함
+ 	
 
 	$("#selectedSchedule").val(selectedSchedule);
 	// 선택한 체크박스의 값 : no <=-  구하기 
-	
-alert(selectedSchedule+"\n" + selectedShopNo + "\n" + clientCarNumber+"\n"+no);
+alert(selectedSchedule+"\n" + selectedShopNo + "\n" + clientCarNumber+"\n" + reservationClientRequests);
+//alert(selectedSchedule+"\n" + selectedShopNo + "\n" + clientCarNumber+"\n"+no);
 	/*alert("선택한 차량: " + $("#selectedCarName").text() + "\n"
 		+ "선택한 지점: " + shopAreaPoint + "\n"
 		+ "선택한 날짜: " + selectedSchedule + "\n"
@@ -340,7 +347,7 @@ $("#OkBtn").on("click", function() {
 	selectedShopNo = $("#selectedShopNo").val(selectedShopNo);
 	clientCarNumber = $("#clientCarNumber").val(clientCarNumber);
 	reservationNo = $("#reservationNo").val(no);
-	reservationClientRequests = $("#reservationClientRequests").val();
+	reservationClientRequests = $("#reservationClientRequests1").val();
 	
 	
 	
@@ -354,7 +361,7 @@ $("#OkBtn").on("click", function() {
 		console.log("asd"+ $('input:radio').is(":checked"));
 		
 		//시승신청변경 modal로 하기
-
+	 	reservationClientRequests = $("textarea[name=reservationClientRequestsaaa]").val();
 		$('.asd').each(function(index) {
 			if ($(this).is(":checked") == true) {
 
@@ -379,8 +386,10 @@ $("#OkBtn").on("click", function() {
 						selectedSchedule : selectedSchedule,
 						reservationNo : no,
 						reservationClientRequests : reservationClientRequests
+						
 					},
 					success : function(data) {
+						console.log(reservationClientRequests);
 						console.log(data);
 					}
 				});

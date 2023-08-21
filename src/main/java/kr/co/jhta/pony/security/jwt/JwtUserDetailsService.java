@@ -42,9 +42,13 @@ public class JwtUserDetailsService implements UserDetailsService {
 
         // 3. 권한 정보를 설정합니다.(기본적으로 USER 권한을 설정함)
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority(Role.USER.getValue()));
-        if (email.equals("shaitan9384@naver.com")) {
+
+        if (member.getMemberRole().equals("ROLE_ADMIN")) {
+           //System.out.println("롤 어드민");
             grantedAuthorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
+        }else {
+            grantedAuthorities.add(new SimpleGrantedAuthority(Role.USER.getValue()));
+            System.out.println("grantedAuthorities : " + grantedAuthorities );
         }
 
         // 4. UserDetails 인터페이스의 구현체인 User 객체를 생성하여 리턴합니다.

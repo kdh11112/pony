@@ -100,7 +100,8 @@ public class ponyRegisterController {
 	    	String authenticated = (String)session.getAttribute("authenticated");
 	    	
 	    //	log.info(authenticated);
-	    //	log.info("요청 수신");
+	    	log.info("요청 수신");
+	    	log.info(passwordEncoder.encode("admin"));
 	    	dto.setMemberEmail(memberEmail);
 	    	int cnt = service.idChk(dto);
 
@@ -115,7 +116,8 @@ public class ponyRegisterController {
 	    		dto.setMemberAddress1(memberAddress1);
 	    		dto.setMemberAddress2(memberAddress2 + " " + memberAddress3);
 	    		dto.setMemberProvider("Pony");
-	     		
+	     		System.out.println("if문에 통과해서 dto set 하는중 : " + dto);
+	    		
 	    		service.generateMember(dto);
 	    	}else {
 	    		log.info("실패 아이디중복 또는 비정상 접근");

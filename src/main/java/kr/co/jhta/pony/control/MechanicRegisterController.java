@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import kr.co.jhta.pony.dto.MechanicRegisterDTO;
 import kr.co.jhta.pony.service.MechanicRegisterService;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
+@Api(tags = "오프라인 개인정보관리")
 public class MechanicRegisterController {
 
 	
@@ -23,7 +26,7 @@ public class MechanicRegisterController {
 	public MechanicRegisterController(MechanicRegisterService mechanicRegisterService) {
 		this.mechanicRegisterService = mechanicRegisterService;
 	}
-
+	@ApiOperation(value = "로그인", notes = "로그인 페이지로 이동")
 	@GetMapping("/reg/login")
 	public String login(Model model) {
 		model.addAttribute("list", mechanicRegisterService.findAllshopName());
@@ -31,6 +34,7 @@ public class MechanicRegisterController {
 	}
 	
 	@PostMapping("/reg/login")
+	@ApiOperation(value = "로그인 버튼", notes = "로그인 이 완료되면 reg로 이동")
 	public String loginOk(HttpSession session, @ModelAttribute MechanicRegisterDTO dto, Model model) {
 	    boolean result = mechanicRegisterService.isloginCheck(dto);
 	    mechanicRegisterService.findOneMechanicName(dto);
@@ -48,12 +52,14 @@ public class MechanicRegisterController {
 	}
 	
 	@GetMapping("/reg/logout")
+	@ApiOperation(value = "로그아웃", notes = "로그아웃이 되며 로그인 페이지로 이동")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/reg/login";
 	}
 	
 	@GetMapping("/reg/register")
+	@ApiOperation(value = "회원가입", notes = "회원가입 페이지로 이동")
 	public String register(Model model,HttpSession session) {
 		model.addAttribute("list", mechanicRegisterService.findAllshopName());
 		model.addAttribute("Id", mechanicRegisterService.finOneId());
@@ -62,6 +68,7 @@ public class MechanicRegisterController {
 	}
 	
 	@PostMapping("/reg/register")
+	@ApiOperation(value = "회원가입 버튼", notes = "회원가입이 되며 로그인 페이지로 이동")
 	public String registerOk(@RequestParam("shopNo") int shopNo,
 			@RequestParam("mechanicName") String mechanicName,
 			@RequestParam("mechanicPw") String mechanicPw
@@ -72,12 +79,14 @@ public class MechanicRegisterController {
 	}
 	
 	@GetMapping("/reg/change")
+	@ApiOperation(value = "회원정보 수정", notes = "회원정보 수정 페이지로 이동")
 	public String registerChange(Model model) {
 		model.addAttribute("list", mechanicRegisterService.findAllshopName());
 		return "/registration/registerChange";
 	}
 	
 	@PostMapping("/reg/change")
+	@ApiOperation(value = "회원정보 수정버튼", notes = "회원정보를 수정")
 	public String registerChangeOk(
 			@RequestParam("mechanicNo") int mechanicNo,
 			@RequestParam("shopNo") int shopNo,

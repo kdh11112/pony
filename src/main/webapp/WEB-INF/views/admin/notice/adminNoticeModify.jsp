@@ -34,7 +34,7 @@
 			<!-- Top navigation-->
 			<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
 				<div class="container-fluid">
-					<img id="sidebarToggle" src="css/admin/assets/list.png">
+					 <a href="/admin"><img id="sidebarToggle" src="images/pony_motors_log_cut.png"></img></a>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav ms-auto mt-2 mt-lg-0">
@@ -43,11 +43,11 @@
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
 								<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="/adminpartlist">재고관리</a>
-                                        <a class="dropdown-item" href="/adminorderlist">주문목록</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="/questionlist">고객문의</a>
-                                        <a class="dropdown-item" href="/adminnotice">공지사항</a>
+									<!-- <a class="dropdown-item" href="/adminpartlist">재고관리</a> -->
+									<a class="dropdown-item" href="/adminorderlist">주문목록</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="/questionlist">고객문의</a>
+									<a class="dropdown-item" href="/adminnotice">공지사항</a>
 								</div>
 							</li>
 						</ul>

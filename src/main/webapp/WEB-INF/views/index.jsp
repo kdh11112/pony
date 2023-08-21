@@ -7,7 +7,9 @@
 <!doctype html>
 <html>
 <head>
-<title></title>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+<title>PONY MOTORS</title>
 <meta charset="UTF-8">
 
 <style>
@@ -237,7 +239,7 @@ a{text-decoration: none;}
   
  });
  
- 
+ /* 정비예약 로그인 후 접근 */
  	function carReservation(){
  		<sec:authorize access="hasAnyRole('ROLE_USER')">
  			location.href="/carMaintenanceReservation";
@@ -249,10 +251,40 @@ a{text-decoration: none;}
 			
 		</sec:authorize>
  	}
+ 	/* 시승신청 로그인후 접근 */
+ 	function testDriveReservation(){
+
+ 		
+ 		<sec:authorize access="hasAnyRole('ROLE_USER')">
+ 			location.href="/testDrive";
+		</sec:authorize>
+ 		
+		<sec:authorize access="!hasAnyRole('ROLE_USER')">
+			alert("로그인 후 사용가능한 페이지입니다.");
+		location.href="/login";			
+		</sec:authorize>
+ 	}
  	
 </script>
 </head>
 <body>
+ 		<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+	    <%
+        String cookieName = "jwtToken";
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(cookieName)) {
+                    // 쿠키의 유효 기간을 0으로 설정하여 삭제
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                    break;
+                }
+            }
+        }
+    	%>
+ 		</sec:authorize>
+
 	<div class="container">
 		<header class="header">
 			<div class="logo">
@@ -287,10 +319,14 @@ a{text-decoration: none;}
 			<nav class="nav">
 
 				<ul class="gnb">
-					<li><a href="/testDrive">시승신청</a></li>
+					<li><a href="javascript:testDriveReservation()">시승신청</a></li>
+					<li><a href="javascript:carReservation()">정비예약</a></li>
 					<li><a href="/model/modelFind">모델검색</a></li>
 					<li><a href="/model/modelComparison">모델비교</a></li>
-					<li><a href="javascript:carReservation()">정비예약</a></li>
+					<li><a href="/notice">공지사항</a></li>
+					<br><br>
+					<li><a href="/admin">관리자</a></li>
+					<li><a href="/reg">정비사</a></li>
 				</ul>
 
 				<a href="#" class="close"> <img src="images/button_close.png"

@@ -1,7 +1,12 @@
 $(document).ready(function() {
-
+	// 페이지 스크롤 이동
+	let offset = $(".top-title").offset();
+	$('html').animate({ scrollTop: offset.top }, 1);
+	
 	/* ========================= 첫번째 이용동의 영역 클릭시 모달창 오픈 ==========================*/
 	$("#check1,#flexCheckDefault1").on("click", function() {
+		let checkbox = document.getElementById("flexCheckDefault1");
+		checkbox.checked = false;
 		$("#modal1").modal("show");
 
 	})
@@ -233,7 +238,6 @@ function buildCalendar() {
 				newButton.classList.add("openButton");
 				for (let k = 0; k < testDriveTime.length; k++) {
 					testtotal = testDriveSchedule[k] + testDriveTime[k];
-						console.log("디비 :" + testDriveSchedule[k]+ testDriveTime[k]);
 					if (testtotal === testDriveButton) {
 						if (selectedShopNo == shopNo[k]) {
 							newButton.classList.replace("openButton", "closeButton");

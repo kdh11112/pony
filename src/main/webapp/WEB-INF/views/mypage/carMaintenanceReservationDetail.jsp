@@ -13,7 +13,9 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>mypage</title>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+<title>PONY MOTORS</title>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -22,7 +24,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Bootstrap JS -->
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="css/mypage/css/styles.css" rel="stylesheet" />
 <link href="css/mypage/css/board.css" rel="stylesheet" />
@@ -32,6 +34,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap"
 	rel="stylesheet">
 <script src="css/mypage/js/carMaintenanceReservation.js"></script>
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
 
 <style>
 .content {
@@ -196,8 +199,9 @@ textarea {
 			}
 		
 		});
-		 location.href = "/carMaintenanceReservationDetail";
-		console.log(no);
+		setTimeout(function() {
+			 location.href = "/carMaintenanceReservationDetail";
+				}, 300);
 	}
 </script>
 
@@ -205,39 +209,7 @@ textarea {
 <body>
 	<div id="wrapper">
 		<!-- Navigation-->
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<div class="container">
-				<a class="navbar-brand" href="#!"></a>
-				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-					aria-controls="navbarSupportedContent" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-						<li class="nav-item"><a class="nav-link active"
-							aria-current="page" href="#!">Home</a></li>
-						<li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
-							role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="#!">All Products</a></li>
-								<li><hr class="dropdown-divider" /></li>
-								<li><a class="dropdown-item" href="#!">Popular Items</a></li>
-								<li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-							</ul></li>
-					</ul>
-					<!-- 	<form class="form-inline">
-						<input class="form-control mr-sm-2" type="search"
-							placeholder="Search" aria-label="Search">
-						<button class="btn btn-outline-secondary my-2 my-sm-0"
-							type="submit">검색</button>
-					</form> -->
-				</div>
-			</div>
-		</nav>
+		<jsp:include page="/WEB-INF/views/gnav.jsp" />
 		<!-- Header-->
 		<header>
 
@@ -500,7 +472,7 @@ textarea {
 																											<td>
 																												<!-- 등록된 차량 삭제 체크 박스 --> <input type="radio"
 																												name="selectedCars"
-																												value="${clist.clientVin}"
+																												value="${clist.clientCarNumber}"
 																												id="selectedCarsId">
 																											</td>
 																											<td>${clist.clientVin }</td>
@@ -669,8 +641,8 @@ textarea {
 																	aria-labelledby="headingFour"
 																	data-bs-parent="#accordionExample">
 																	<div class="accordion-body"  >
-																		<textarea class="form-control"  name="reservationClientRequests" 
-																			 id="reservationClientRequests1" rows="3"></textarea>
+																	<textarea class="form-control"  id="reservationClientRequests"  name="reservationClientRequestsaaa"  rows="3" ></textarea>
+																			  
 																	</div>
 																</div>
 															</div>

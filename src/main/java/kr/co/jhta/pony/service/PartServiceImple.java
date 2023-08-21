@@ -114,6 +114,16 @@ public class PartServiceImple implements PartService{
 		return partdao.getModelNoList(keyword);
 	}
 
+	@Override
+	public List<PartDTO> searchPart2(String partName) {
+		return partdao.searchPart2(partName);
+	}
+	
+	public PartDTO getPartsInfo(int PartNumber) {
+		return partdao.getPartsInfo(PartNumber);
+
+	}
+
 
 
 

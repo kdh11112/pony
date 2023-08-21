@@ -2,21 +2,22 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+<title>PONY MOTORS</title>
 <head>
 <!-- Font Awesome -->
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-	rel="stylesheet" />
-<!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
 	rel="stylesheet" />
 <!-- MDB -->
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
 	rel="stylesheet" />
 
-
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 //로그인 폼의 Submit 이벤트 처리 (login.js)
 document.getElementById("loginForm").addEventListener("submit", function (event) {
@@ -59,6 +60,13 @@ function redirectToKaKao(){
   .form-outline input:not(:placeholder-shown) ~ label {
     transform: translateY(-1.5rem);
   }
+  
+  *{
+  	
+	font-family: 'NanumGothic';
+	
+  }
+  
 </style>
 
 
@@ -66,7 +74,9 @@ function redirectToKaKao(){
 <title>Insert title here</title>
 </head>
 <body>
-
+<!-- Navigation-->
+		<jsp:include page="/WEB-INF/views/gnav.jsp" />
+		
 	<section class="vh-100">
 	
 		<div class="container py-5 h-100">
@@ -83,13 +93,13 @@ function redirectToKaKao(){
 						<form action="/login_proc" method="post">
 
 							<div class="form-outline mb-4">
-	 							<input type="email" name="email" id="email" class="form-control form-control-lg shadow-sm" value="djw2717@naver.com"/>
+	 							<input type="email" name="email" id="email" class="form-control form-control-lg shadow-sm" value=""/>
 	    						<label class="form-label" for="email">Email</label>
 							</div>
 
 
 							<div class="form-outline mb-4">
-								<input type="password" id="password" name="password" class="form-control form-control-lg shadow-sm" value="aaaa"/>
+								<input type="password" id="password" name="password" class="form-control form-control-lg shadow-sm" value=""/>
 								<label class="form-label">Password</label>
 							</div>
 
