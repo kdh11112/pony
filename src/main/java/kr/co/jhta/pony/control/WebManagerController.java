@@ -18,7 +18,7 @@ import kr.co.jhta.pony.util.Criteria;
 
 
 @Controller
-@Api(tags = "웹")
+@Api(tags = "공지사항")
 public class WebManagerController {
 	
 	@Autowired

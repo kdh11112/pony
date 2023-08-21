@@ -40,7 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@Api(tags = "샵")
+@Api(tags = "구매")
 public class ShopController {
 
 	private final PonyMemberService mservice;

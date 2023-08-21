@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-@Api(tags = "차?")
+@Api(tags = "정비예약")
 public class CarMaintenanceReservationController {
 	
 	@Autowired

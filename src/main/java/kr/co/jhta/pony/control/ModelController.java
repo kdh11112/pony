@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("/model")
-@Api(tags = "모델")
+@Api(tags = "차량모델")
 public class ModelController {
 
 	@Autowired

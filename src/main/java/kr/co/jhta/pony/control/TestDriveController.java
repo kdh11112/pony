@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@Api(tags = "테스트드라이버")
+@Api(tags = "시승신청")
 public class TestDriveController {
 	
 	@Autowired

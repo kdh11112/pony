@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@Api(tags = "어드민")
+@Api(tags = "관리자")
 public class AdminController {
 	
   

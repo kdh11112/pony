@@ -17,7 +17,7 @@ import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.security.service.PonyMemberService;
 
 @Controller
-@Api(tags = "인덱스")
+@Api(tags = "메인")
 public class indexController {
 	
 	@Autowired

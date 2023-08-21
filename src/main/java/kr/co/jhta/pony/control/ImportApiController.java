@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@Api(tags = "임포트")
+@Api(tags = "결제")
 public class ImportApiController {
 	private IamportClient api;
 	
