@@ -41,7 +41,7 @@
 							<li class="nav-item active"><a class="nav-link" href="/admin">AdminHome</a></li>
 							<li class="nav-item"><a class="nav-link" href="/">UserPage</a></li>
 							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+								<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">▼</a>
 								<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 									<!-- <a class="dropdown-item" href="/adminpartlist">재고관리</a> -->
 									<a class="dropdown-item" href="/adminorderlist">주문목록</a>
