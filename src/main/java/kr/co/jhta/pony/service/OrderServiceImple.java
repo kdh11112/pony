@@ -150,14 +150,15 @@ public class OrderServiceImple implements OrderService {
 			log.info("orderitem >>>>>>>>>> "+orderitem);
 			// 기본 정보 셋팅
 			orderitem.initSaleTotal();
-			log.info("orderitem22222 >>>>>>>>>> "+orderitem);
 			// List 객체 추가
 			oddto.add(orderitem);
 		}
 		// OrderDTO 셋팅
 		dto.setOrders(oddto);
+		
+		log.info("dtodto");
 		dto.getOrderPriceInfo();
-		log.info("dtoooooooooo "+dto);
+
 		// DB 주문, 주문상품(, 배송정보)넣기
 
 		// OrderNo 만들기 (멤버번호+주문날짜)
@@ -167,12 +168,7 @@ public class OrderServiceImple implements OrderService {
 		dto.setOrderNo(orderNo);
 
 		// DB에 넣기
-		
-		log.info(" dto ><,<<<<<<<<< "+dto);
 		orderdao.insertOrder(dto);
-		
-		
-		
 		for (OrderDetailDTO odetaildto : dto.getOrders()) {
 			odetaildto.setOrderNo(orderNo);
 			orderdao.insertOrderDetail(odetaildto);
