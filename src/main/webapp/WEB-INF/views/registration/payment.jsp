@@ -167,7 +167,7 @@ $j(function() {
                     	<td><%=count++ %><input type="hidden" name="count" value="<%=count %>" /></td>
                     	<td>${technology.technologyDetail}<input type="hidden" name="techList[${i.index }].technologyDetail" value="${technology.technologyDetail}"/></td>
                     	<td>${technology.technologyNo}<input type="hidden" name="techList[${i.index }].technologyCount" value="${technology.technologyNo}" /></td>
-                    	<td class="text-center">${work.mechanicName }</td>
+                    	<td class="text-center"></td>
                     	<td class="text-right">${technology.technologyPrice}<input type="hidden" name="techList[${i.index }].technologyPrice" value="${technology.technologyPrice}" /></td>
                     	<td><input type="hidden" name="techList[${i.index }].technologyNumber" value="${technology.technologyNumber}" /></td>
                     </tr> 
