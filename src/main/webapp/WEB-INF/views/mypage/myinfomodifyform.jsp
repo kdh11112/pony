@@ -169,9 +169,7 @@ textarea {
 											data-v-269e3e5f>
 											<div class="content-box" data-v-269e3e5f>
 												<div class="title" data-v-269e3e5f>
-													<a href="#
-															draggable="
-														true" class="btn btn-primary active"><span>시승
+													<a href="testdriving" class="btn btn-primary active"><span>시승
 															신청 내역 <!---->
 													</span></a>
 												</div>
