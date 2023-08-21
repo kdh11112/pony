@@ -101,7 +101,7 @@
 	</select>
 
 	<!-- 주문 테이블 등록 -->
-	<insert id="insertOrder">
+	<insert id="insertOrder" parameterType="kr.co.jhta.pony.dto.OrderDTO">
 		INSERT INTO `ORDER`(orderNo, orderDate, memberNo, orderRecipientName, orderRecipientPhone, orderRecipientZip, orderRecipientAddress, orderRecipientAddressDetail, orderStatus, orderDeliveryCharge, orderPoint, orderTotal, orderPaymentTool )
 		VALUES (#{orderNo}, now(), #{memberNo}, #{orderRecipientName}, #{orderRecipientPhone }, #{orderRecipientZip }, #{orderRecipientAddress }, #{orderRecipientAddressDetail }, '배송준비중' , #{orderDeliveryCharge}, #{orderPoint}, #{orderTotal}, #{orderPaymentTool})
 	</insert>
