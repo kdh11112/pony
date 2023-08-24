@@ -40,11 +40,6 @@ public class TestDriveServiceImple implements TestDriveService{
 		return dao.testDriveCount(memberNo);
 	}
 
-	@Override
-	public List<TestDriveDTO> testDriveStatusButton() {
-		// TODO Auto-generated method stub
-		return dao.testDriveStatusButton();
-	}
 
 	@Override
 	public void updatedTestDrive(TestDriveDTO dto) {

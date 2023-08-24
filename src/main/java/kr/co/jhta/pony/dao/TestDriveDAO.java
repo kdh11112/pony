@@ -18,5 +18,4 @@ public interface TestDriveDAO {
 
 	public void deleteTestDrive(int testDriveNo);
 	public Object testDriveCount(int memberNo);
-	public List<TestDriveDTO> testDriveStatusButton();
 }

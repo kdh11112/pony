@@ -71,7 +71,7 @@ public class TestDriveController {
 
 	@GetMapping("/showTestDriveSchedule")
 	@ResponseBody
-	public List<TestDriveDTO> testDriveStatusButton(Model model) {
+	public List<TestDriveDTO> showTestDriveSchedule(Model model) {
 		model.addAttribute("btn", tds.showTestDriveSchedule());
 		log.info("btn"+tds.showTestDriveSchedule());
 		return tds.showTestDriveSchedule();
