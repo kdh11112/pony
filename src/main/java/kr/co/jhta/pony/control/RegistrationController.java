@@ -455,7 +455,9 @@ public class RegistrationController {
                     .build();
             //log.info("몇개 : " + DTO);
             carRegisterService.saveApproval(DTO, registrationDate, registrationNumber);
+
         }
+    	carRegisterService.saveApprovalList(historyList, registrationNumber);
 
         return "redirect:/reg/payment";
     }
@@ -467,10 +469,10 @@ public class RegistrationController {
     							Model model) {
     	model.addAttribute("work", carRegisterService.findOneReg(registrationRN,registrationDate));
 		CarRegisterDTO carRegisterDTO = carRegisterService.findOneReg(registrationRN,registrationDate);
+		System.out.println("asd");
     	if(carRegisterDTO != null) {
     		
     		int i = carRegisterDTO.getRegistrationNumber();
-    		
     		List<HistroyDTO> histories = carRegisterService.findAllPaymentList(i);
     		int totalTech = 0;
     		int totalPart = 0;

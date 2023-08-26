@@ -3,6 +3,8 @@ package kr.co.jhta.pony.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.apache.ibatis.annotations.CacheNamespace;
+
 import kr.co.jhta.pony.dto.CarRegisterDTO;
 import kr.co.jhta.pony.dto.HistroyDTO;
 import kr.co.jhta.pony.dto.MechanicRegisterDTO;
@@ -33,6 +35,7 @@ public interface CarRegisterService {
 	public CarRegisterDTO findOneReg(int registrationRN,LocalDate registrationDate);
 
 	public void saveApproval(HistroyDTO histroyDTO, LocalDate registrationDate, int registrationNumber);
+	public void saveApprovalList(List<HistroyDTO> list, int registrationNumber);
 
 	public List<HistroyDTO> findAllPaymentList(int i);
 

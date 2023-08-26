@@ -5,6 +5,12 @@
   
 <mapper namespace="kr.co.jhta.pony.dao.CarRegisterDAO">
 
+	<cache
+	  eviction="FIFO"
+	  flushInterval="60000"
+	  size="512"
+	  readOnly="true"/>
+
 	<insert id="insertCar" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
 		INSERT INTO CLIENT(clientVin,clientCarNumber,clientDistanceDriven,clientCarType,clientShipDate,clientProductionDate,clientColor,memberNo) VALUES(#{regCarDTO.clientVin},#{regCarDTO.clientCarNumber},#{regCarDTO.clientDistanceDriven},#{regCarDTO.clientCarType},#{regCarDTO.clientShipDate},#{regCarDTO.clientProductionDate},#{regCarDTO.clientColor},#{no})
 	</insert>
@@ -84,8 +90,10 @@
 	</select>
 	
 	<insert id="insertRegAndcorr" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
+	LOCK TABLES REGISTRATION WRITE;
 	INSERT INTO REGISTRATION(registrationClientRequests,registrationSignificant,mechanicNo,clientVin,shopNo,registrationDate) 
-				values(#{registrationClientRequests},#{registrationSignificant},#{mechanicNo},#{clientVin},#{shopNo},CONVERT_TZ(NOW(), '+00:00', '+09:00'))
+					VALUES(#{registrationClientRequests},#{registrationSignificant},#{mechanicNo},#{clientVin},#{shopNo},CONVERT_TZ(NOW(), '+00:00', '+09:00'));
+	UNLOCK TABLES;
 	</insert>
 	
 	<select id="selectRegAndcorrNumber" resultType="int">
@@ -93,8 +101,10 @@
 	</select>
 	
 	<insert id="insertRegAndcorrRemain" parameterType="kr.co.jhta.pony.dto.HistroyDTO">
+	LOCK TABLES HISTORY WRITE;
 	INSERT INTO HISTORY (registrationNumber,clientCarNumber,memberName,clientDistanceDriven ,shopNo,shopArea,shopAreaPoint,mechanicName)
-				VALUES(#{registrationNumber},#{clientCarNumber},#{memberName},#{clientDistanceDriven},#{shopNo},#{shopArea},#{shopAreaPoint},#{mechanicName})
+				VALUES(#{registrationNumber},#{clientCarNumber},#{memberName},#{clientDistanceDriven},#{shopNo},#{shopArea},#{shopAreaPoint},#{mechanicName});
+	UNLOCK TABLES;
 	</insert>
 	
 	<update id="updatesaveApproval" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO" >
@@ -110,6 +120,14 @@
 		INSERT INTO HISTORY (registrationNumber,partNumber,partName,partPrice,partCount) VALUES(#{registrationNumber},#{DTO.partNumber},#{DTO.partName},#{DTO.partPrice},#{DTO.partCount})
 	</insert>
 	
+	<insert id="insertPartApprovalList" parameterType="map">
+		INSERT INTO HISTORY (registrationNumber,partNumber,partName,partPrice,partCount) 
+		VALUES
+		<foreach collection="partList" item="part" separator=",">
+		(#{registrationNumber},#{part.partNumber},#{part.partName},#{part.partPrice},#{part.partCount})
+		</foreach>
+	</insert>
+	
 	<insert id="insertTechApproval" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO">
 		INSERT INTO HISTORY (registrationNumber,technologyNumber,technologyDetail,technologyPrice,technologyCount) VALUES (#{registrationNumber},#{DTO.technologyNumber},#{DTO.technologyDetail},#{DTO.technologyPrice},#{DTO.technologyCount})
 	</insert>
@@ -117,7 +135,7 @@
 	<update id="updatePart" parameterType="kr.co.jhta.pony.dto.HistroyDTO">
 		UPDATE PART p
 		JOIN HISTORY h on p.partNumber = h.partNumber
-		SET p.partNo = p.partNo - #{partNo}
+		SET p.partNo = p.partNo - #{partCount}
 		WHERE h.partNumber = #{partNumber}
 	</update>
 	
@@ -198,7 +216,7 @@
 	        DATE(registrationDate) = DATE(CONVERT_TZ(NOW(), '+00:00', '+09:00'))
 	</select>
 	
-	<select id="selectReg" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO" resultType="kr.co.jhta.pony.dto.CarRegisterDTO">
+	<select id="selectReg" parameterType="kr.co.jhta.pony.dto.CarRegisterDTO" resultType="kr.co.jhta.pony.dto.CarRegisterDTO" useCache="true">
 		SELECT * 
 		FROM (select row_number() over(order by registrationDate asc) registrationRN,
 					r.registrationNumber,
@@ -228,7 +246,8 @@
 		WHERE registrationRN = #{registrationRN} 
 	</select>
 	
-	<select id="selectPaymentList" parameterType="kr.co.jhta.pony.dto.HistroyDTO" resultType="kr.co.jhta.pony.dto.HistroyDTO">
+	
+	<select id="selectPaymentList" parameterType="kr.co.jhta.pony.dto.HistroyDTO" resultType="kr.co.jhta.pony.dto.HistroyDTO" useCache="true">
 			SELECT *, ROW_NUMBER() OVER(ORDER BY historyNo ASC) historyRN
 				FROM (
 					SELECT

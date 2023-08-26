@@ -1,5 +1,6 @@
 package kr.co.jhta.pony.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -14,8 +15,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CarRegisterDTO {
+public class CarRegisterDTO implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
 	private String clientVin; //차대번호.
 	private String clientCarNumber; //차량번호.
 	private int clientDistanceDriven; //주행거리.

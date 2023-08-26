@@ -89,7 +89,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
              // jwtToken이 null인 경우 (즉, 요청에 JWT 토큰이 없는 경우)
              else {
                  // 경고 메시지를 로깅합니다. jwtToken은 null이므로 아무것도 출력되지 않습니다.
-                 logger.warn(jwtToken);
+  //logger.warn(jwtToken); 너무 많이 null이 떠서 잠시 주석
                  //logger.warn("요청객체에 JWT 토큰 없음 String : " + jwtToken);
              }
 

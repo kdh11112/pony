@@ -2,15 +2,16 @@ package kr.co.jhta.pony.dao;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import kr.co.jhta.pony.dto.CarRegisterDTO;
 import kr.co.jhta.pony.dto.HistroyDTO;
 import kr.co.jhta.pony.dto.MechanicRegisterDTO;
-import kr.co.jhta.pony.dto.TechnologyAndPartDTO;
-import lombok.extern.slf4j.Slf4j;
 
 @Mapper
 @Repository
@@ -52,12 +53,14 @@ public interface CarRegisterDAO {
 	public void updatePart(HistroyDTO dTO);
 
 	public void insertPartApproval(HistroyDTO DTO, LocalDate registrationDate, int registrationNumber);
-
+	public void insertPartApprovalList(Map<String, Object> paramMap);
+	
 	public void insertTechApproval(HistroyDTO DTO, LocalDate registrationDate, int registrationNumber);
 
 	public List<HistroyDTO> selectPaymentList(int i);
 
 	public int regAndcorrNumber();
+	
 	//public void deleteCarRegister(int registrationNumber);
 	//public List<CarRegisterDTO> getCarRegistrationList(int memberNo);
 

@@ -7,8 +7,10 @@
 
 	<!-- 시승신청 추가 -->
 	<insert id="insertTestDriveSchedule" parameterType="kr.co.jhta.pony.dto.TestDriveDTO">
-		INSERT INTO TESTDRIVE(testDriveSchedule, shopNo, memberNo, modelNo, testDriveTime)
-		VALUES(#{testDriveSchedule}, #{shopNo},${memberNo} , #{modelNo}, #{testDriveTime})
+		LOCK TABLES TESTDRIVE WRITE;
+      		INSERT INTO TESTDRIVE(testDriveSchedule, shopNo, memberNo, modelNo, testDriveTime)
+     		VALUES(#{testDriveSchedule}, #{shopNo},#{memberNo} , #{modelNo}, #{testDriveTime});
+     	UNLOCK TABLES;
 	</insert>
 	
 	<!-- 마감된 시승일정을 달력에 표시 -->

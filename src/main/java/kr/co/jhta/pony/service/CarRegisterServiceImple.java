@@ -1,7 +1,9 @@
 package kr.co.jhta.pony.service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +12,6 @@ import kr.co.jhta.pony.dao.CarRegisterDAO;
 import kr.co.jhta.pony.dto.CarRegisterDTO;
 import kr.co.jhta.pony.dto.HistroyDTO;
 import kr.co.jhta.pony.dto.MechanicRegisterDTO;
-import kr.co.jhta.pony.dto.TechnologyAndPartDTO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -107,12 +108,28 @@ public class CarRegisterServiceImple implements CarRegisterService{
 	public void saveApproval(HistroyDTO DTO, LocalDate registrationDate, int registrationNumber) {
 		
 		if(DTO.getTechnologyNumber() == 0) {
-			carRegisterDAO.insertPartApproval(DTO,registrationDate,registrationNumber);
-			carRegisterDAO.updatePart(DTO);
+//			carRegisterDAO.insertPartApproval(DTO,registrationDate,registrationNumber);
 		}else {
-			carRegisterDAO.insertTechApproval(DTO,registrationDate,registrationNumber);			
+			long start = System.currentTimeMillis();
+			carRegisterDAO.insertTechApproval(DTO,registrationDate,registrationNumber);		
+			long end = System.currentTimeMillis();
+			log.info("기술 실행시간 : {}",(end - start) / 1000.0);
 		}
+		
+	}
+	
+	@Override
+	public void saveApprovalList(List<HistroyDTO> partlist, int registrationNumber) {
+		Map<String,Object> paramMap = new HashMap<String,Object>();
+		paramMap.put("partList", partlist);
+		paramMap.put("registrationNumber", registrationNumber);
 
+		long start = System.currentTimeMillis();
+		carRegisterDAO.insertPartApprovalList(paramMap);
+		long end = System.currentTimeMillis();
+		log.info("부품 실행시간 : {}",(end - start) / 1000.0);
+		
+		
 		
 	}
 
@@ -130,6 +147,8 @@ public class CarRegisterServiceImple implements CarRegisterService{
 //		dao.deleteCarRegister(registrationNumber);
 //		
 //	}
+
+
 
 
 
