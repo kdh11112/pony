@@ -23,7 +23,7 @@ public class ShopServiceImple implements ShopService{
 	@Transactional
 	@Cacheable(value = "shopCache")
 	public List<ShopDTO> shopArea(String shopArea, String shopAreaPoint) {
-		log.info("shopServiceImple Ehcache 확인 로그");
+		log.info("Service >>>>" + "지점 : "+shopArea);
 		return dao.shopArea(shopArea,shopAreaPoint);
 	}
 

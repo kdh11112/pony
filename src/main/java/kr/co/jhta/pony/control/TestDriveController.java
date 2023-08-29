@@ -45,15 +45,17 @@ public class TestDriveController {
 		return "testDrive";
 	}
 	
+	//지점 Select
 	@GetMapping("/shopFind")
 	@ResponseBody
 	public List<ShopDTO> shopArea(@RequestParam("shopAreaFind")String shopArea,@RequestParam("shopAreaFind")String shopAreaPoint, Model model) {
 		model.addAttribute("shop", ss.shopArea(shopArea,shopAreaPoint));
 //		log.info(""+ss.shopArea(shopArea,shopAreaPoint));
-		log.info("Controller" + shopArea + shopAreaPoint);
+		log.info("Controller >>>>" + "지점 : "+shopArea);
 		return ss.shopArea(shopArea,shopAreaPoint);
 	}
 	
+	//시승일정 추가
 	@PostMapping("/addTestDrive")
 	public String addTestDrive(Principal p ,@ModelAttribute TestDriveDTO dto,@RequestParam("selectedSchedule")String testDriveSchedule, @RequestParam("selectedShopNo")int shopNo, @RequestParam("selectedModel")int modelNo, @RequestParam("buttonTime")String testDriveTime) {
 								     //id           인증객체(로그인된 객체) -> p. 
@@ -74,7 +76,7 @@ public class TestDriveController {
 		return "confirmTestDrive";
 	}
 	
-
+	// 시승일정 Select
 	@GetMapping("/showTestDriveSchedule")
 	@ResponseBody
 	public List<TestDriveDTO> showTestDriveSchedule(Model model) {
