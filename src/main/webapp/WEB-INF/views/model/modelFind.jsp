@@ -38,7 +38,7 @@
 					<div class="row justify-content-center">
 						<div class="col-md-6">
 							<div class="card mx-auto" style="width: 25rem;">
-								<h5 class="card-title text-center">차량 선택22</h5>
+								<h5 class="card-title text-center">차량 선택</h5>
 								<div class="select text-center">
 									<select class="selectModel btn btn-secondary" id="selectModel"
 										name="selectModel">
