@@ -9,7 +9,10 @@ public interface TestDriveService {
 	
 	public List<TestDriveDTO> showTestDriveSchedule(); // 마감된 시승일정 달력에 표시
 
-	public void insertTestDriveSchedule(TestDriveDTO dto);
+	public void insertTestDriveSchedule(TestDriveDTO dto); // 시승일정 추가
+
+	public boolean checkTestDriveSchedule(int shopNo, String testDriveSchedule, String testDriveTime); // db에 동일한 데이터 있는지 확인
+	
 	public void updatedTestDrive(TestDriveDTO dto); //마이페이지의 시승신청내역 수정
 
 	 

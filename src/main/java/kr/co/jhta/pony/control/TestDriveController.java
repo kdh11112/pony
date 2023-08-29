@@ -52,11 +52,14 @@ public class TestDriveController {
 	}
 	
 	@PostMapping("/addTestDrive")
-
 	public String addTestDrive(Principal p ,@ModelAttribute TestDriveDTO dto,@RequestParam("selectedSchedule")String testDriveSchedule, @RequestParam("selectedShopNo")int shopNo, @RequestParam("selectedModel")int modelNo, @RequestParam("buttonTime")String testDriveTime) {
-
 								     //id           인증객체(로그인된 객체) -> p. 
 		PonyMemberDTO dtoUser = pms.getMemberEmail(pms.getPrincipalEmail(p));
+		
+		if(tds.checkTestDriveSchedule(shopNo, testDriveSchedule, testDriveTime)) {
+			// 선택한 데이터가 DB에 있는 데이터와 일치하면 경고창 띄어주기
+			return "redirect:/testDrive?alert=true";
+		}
 		
 		dto.setMemberNo(dtoUser.getMemberNo());
 		dto.setTestDriveSchedule(testDriveSchedule);
