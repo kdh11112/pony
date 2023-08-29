@@ -15,10 +15,8 @@ import kr.co.jhta.pony.dto.TestDriveDTO;
 public interface TestDriveDAO {
 	public List<TestDriveDTO> showTestDriveSchedule();
 
-	@Transactional
 	public void insertTestDriveSchedule(TestDriveDTO dto);
 
-	@Transactional
 	public int checkTestDriveSchedule(int shopNo, String testDriveSchedule, String testDriveTime);
 	
 	public void updatedTestDrive(TestDriveDTO dto);

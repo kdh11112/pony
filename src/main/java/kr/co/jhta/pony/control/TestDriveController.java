@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@EnableCaching
 @Api(tags = "시승신청")
 public class TestDriveController {
 	
@@ -48,6 +50,7 @@ public class TestDriveController {
 	public List<ShopDTO> shopArea(@RequestParam("shopAreaFind")String shopArea,@RequestParam("shopAreaFind")String shopAreaPoint, Model model) {
 		model.addAttribute("shop", ss.shopArea(shopArea,shopAreaPoint));
 //		log.info(""+ss.shopArea(shopArea,shopAreaPoint));
+		log.info("Controller" + shopArea + shopAreaPoint);
 		return ss.shopArea(shopArea,shopAreaPoint);
 	}
 	
