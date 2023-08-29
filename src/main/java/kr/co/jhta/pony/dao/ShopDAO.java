@@ -10,7 +10,6 @@ import kr.co.jhta.pony.dto.ShopDTO;
 
 @Repository
 @Mapper
-@CacheNamespace(flushInterval = 1000, size=2024)
 public interface ShopDAO {
 	public List<ShopDTO> shopArea(String shopArea,String shopAreaPoint);
 }

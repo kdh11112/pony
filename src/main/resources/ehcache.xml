@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns='http://www.ehcache.org/v3'>
+	<!-- 캐시 파일이 생성되는 경로 -->
+  <persistence directory="cache/data"/>
+
+  <cache alias="shopCache">
+    <expiry>
+      <!-- 캐시 만료 시간 = timeToLiveSeconds -->
+      <ttl unit="seconds">60</ttl>
+    </expiry>
+    <resources>
+      <!-- JVM heap 메모리, LRU strategy-->
+      <heap unit="entries">1000</heap>
+      <disk unit="MB" persistent="false">5</disk>
+    </resources>
+  </cache>
+</config>

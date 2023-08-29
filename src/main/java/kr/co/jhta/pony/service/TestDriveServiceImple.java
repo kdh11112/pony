@@ -2,6 +2,7 @@ package kr.co.jhta.pony.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,12 +25,14 @@ public class TestDriveServiceImple implements TestDriveService{
 	
 	//시승신청 추가
 	@Override
+	@Transactional
 	public void insertTestDriveSchedule(TestDriveDTO dto) {
 		dao.insertTestDriveSchedule(dto);
 	}
 	
 	// 동일한 데이터가 있는지 확인
 	@Override
+	@Transactional
 	public boolean checkTestDriveSchedule(int shopNo, String testDriveSchedule, String testDriveTime) {
 		int count = dao.checkTestDriveSchedule(shopNo, testDriveSchedule, testDriveTime);
 		return count > 0;
