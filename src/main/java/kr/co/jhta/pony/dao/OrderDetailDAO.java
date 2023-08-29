@@ -19,4 +19,6 @@ public interface OrderDetailDAO {
 	void insertOne(int cartNo);
 	
 	List<OrderDetailDTO> selectOne(int orderNo);
+	
+	int countKind(int orderNo);
 }

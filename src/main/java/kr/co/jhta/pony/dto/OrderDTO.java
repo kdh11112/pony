@@ -55,6 +55,8 @@ public class OrderDTO {
 		/* 상품 비용 & 적립포인트 */
 			for(OrderDetailDTO oddto : orders) {
 				orderSavePoint += oddto.getTotalSavePoint();
+				orderPrice += oddto.getOrderdetailAmount();
+				System.out.println("dddD");
 			}
 		/* 배송비용 */
 			if(orderPrice >= 30000) {

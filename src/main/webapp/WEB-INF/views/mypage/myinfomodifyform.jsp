@@ -13,7 +13,9 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>mypage</title>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+<title>PONY MOTORS</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -28,6 +30,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap"
 	rel="stylesheet">
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
 
 
 <style>
@@ -166,9 +169,7 @@ textarea {
 											data-v-269e3e5f>
 											<div class="content-box" data-v-269e3e5f>
 												<div class="title" data-v-269e3e5f>
-													<a href="#
-															draggable="
-														true" class="btn btn-primary active"><span>시승
+													<a href="testdriving" class="btn btn-primary active"><span>시승
 															신청 내역 <!---->
 													</span></a>
 												</div>

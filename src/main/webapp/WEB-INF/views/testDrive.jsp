@@ -5,7 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+<title>PONY MOTORS</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <link
@@ -16,12 +20,23 @@
 
 <!-- css링크 -->
 <link rel="stylesheet" href="../css/model/testDrive.css">
+
+<script>
+	function showAlert(message) {
+		alert(message);
+	}
+</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/gnav.jsp" />
-	<div>
-		<img src="../images/model/vs_top.png" alt="" id="topImg">
-	</div>
+
+	<header>
+		<img src="../images/model/banner_v01.jpg" alt="" />
+		<div class="header-content text-center text-black">
+			<p class="lead fw-normal text-black-50 mb-0"></p>
+		</div>
+	</header>
+
 	<div id="whiteBar"></div>
 	<div class="top-title text-center">
 		<h1 class="top-title-text">시승 신청</h1>
@@ -198,6 +213,14 @@
 			</div>
 			<div style="margin-top: 100px;">
 				<button type="button" class="btn" id="OkBtn">신청하기</button>
+				<!-- testDrive.jsp -->
+				<!-- JSP에서 경고창 띄우기 -->
+				<%-- 경고창 플래그가 true일 때 JavaScript 코드 실행 --%>
+				<c:if test="${param.alert == 'true'}">
+					<script>
+						showAlert("이미 예약된 날짜입니다."+"\n"+"다른 날짜를 선택해주세요.");
+					</script>
+				</c:if>
 			</div>
 		</form>
 	</div>

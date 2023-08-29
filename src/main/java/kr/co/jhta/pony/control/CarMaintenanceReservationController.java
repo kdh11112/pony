@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import io.swagger.annotations.Api;
 import kr.co.jhta.pony.dto.ClientDTO;
 import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.dto.ReservationDTO;
@@ -26,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
+@Api(tags = "정비예약")
 public class CarMaintenanceReservationController {
 	
 	@Autowired

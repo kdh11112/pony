@@ -215,6 +215,24 @@ a {
 </script>
 </head>
 <body>
+
+ 		<sec:authorize access="hasAnyRole('ROLE_USER')">
+	    <%
+        String cookieName = "jwtToken";
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(cookieName)) {
+                    // 쿠키의 유효 기간을 0으로 설정하여 삭제
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                    break;
+                }
+            }
+        }
+    	%>
+ 		</sec:authorize>
+
 	<div class="container">
 		<header class="header">
 			<div class="logo">
@@ -230,11 +248,11 @@ a {
 					<span class="dropbtn"><img src="images/pngegg.png" alt="" /></span>
 					<div class="dropdown-content">
 
-						<sec:authorize access="!hasAnyRole('ROLE_USER')">
+						<sec:authorize access="!hasAnyRole('ROLE_ADMIN')">
 							<a href="/adminlogin" class="login-link">관리자 로그인</a>
 						</sec:authorize>
 
-						<sec:authorize access="hasAnyRole('ROLE_USER')">
+						<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 							<a href="/logout">${username} 님 로그아웃</a>
 						</sec:authorize>
 
@@ -248,7 +266,7 @@ a {
 			<nav class="nav">
 
 				<ul class="gnb">
-					<li><a href="/adminpartlist">재고관리</a></li>
+					<!-- <li><a href="/adminpartlist">재고관리</a></li> -->
 					<li><a href="/adminorderlist">주문목록</a></li>
 					<li><a href="/questionlist">고객문의</a></li>
 					<li><a href="/adminnotice">공지사항</a></li>

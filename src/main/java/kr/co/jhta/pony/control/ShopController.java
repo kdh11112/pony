@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import io.swagger.annotations.Api;
 import kr.co.jhta.pony.dto.CartDTO;
 import kr.co.jhta.pony.dto.MyOrderListDTO;
 import kr.co.jhta.pony.dto.OrderDTO;
@@ -39,6 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@Api(tags = "구매")
 public class ShopController {
 
 	private final PonyMemberService mservice;
@@ -84,10 +86,15 @@ public class ShopController {
 	@ResponseBody // 데이터를 바로 반환
 	public String addCart(HttpSession session, @ModelAttribute CartDTO cartdto, HttpServletRequest req, Principal p) {
 		// Integer : int의 래퍼클래스로 null을 다룰 수 있음
-		Integer memberNo = (Integer) session.getAttribute("memberNo");
-		if ((Integer) session.getAttribute("memberNo") == null) {
+
+		PonyMemberDTO dto5 = mservice.getMemberEmail(mservice.getPrincipalEmail(p));
+
+		Integer memberNo = dto5.getMemberNo();
+		log.info("세션에 있는 값 " + memberNo);
+		if (memberNo == null) {
 			return "5";
 		}
+
 		PonyMemberDTO memberDTO = mservice.selectMemAll(memberNo);
 		session.setAttribute("memberDTO", memberDTO);
 
@@ -106,8 +113,8 @@ public class ShopController {
 	public String cartlist(HttpSession session, Principal p, Model model, HttpServletRequest req,
 			@ModelAttribute CartDTO cartdto) {
 		// 세션에 저장한 사용자의 번호
-
-		Integer memberNo = (Integer) session.getAttribute("memberNo");
+		PonyMemberDTO dto5 = mservice.getMemberEmail(mservice.getPrincipalEmail(p));
+		Integer memberNo = dto5.getMemberNo();
 		log.info("userNo: " + memberNo);
 
 		cartdto.setMemberNo(memberNo);
@@ -146,14 +153,17 @@ public class ShopController {
 	@GetMapping("/buypart")
 	public String getbuypage(HttpSession session, Model model, @RequestParam("sum_input") int sum,
 			@RequestParam("delivery_input") int delivery, @RequestParam("totalPrice_input") int total,
-			@RequestParam("point_input") int point, OrderDTO orderdto) {
-		int memberNo = (int) session.getAttribute("memberNo");
+			@RequestParam("point_input") int point, OrderDTO orderdto, Principal p) {
+		
+		PonyMemberDTO dto5 = mservice.getMemberEmail(mservice.getPrincipalEmail(p));
+		Integer memberNo = dto5.getMemberNo();
+		
 		PonyMemberDTO memberDTO = mservice.selectMemAll(memberNo);
 		model.addAttribute("memDTO", memberDTO);
 		model.addAttribute("delivery", delivery);
 		model.addAttribute("sum", sum);
 		model.addAttribute("total", total);
-		System.out.println("orders: "+orderdto.getOrders());
+		System.out.println("orders: " + orderdto.getOrders());
 		// cartlist에서 보낸 총 포인트
 		model.addAttribute("point", point);
 		log.info("delivery >>>>>>>>>>>>> " + delivery);
@@ -172,7 +182,8 @@ public class ShopController {
 
 	@PostMapping("/buypart2")
 	@ResponseBody // 응답 데이터를 JSON 등으로 반환하기 위해 필요
-	public String buypage(@RequestParam(value = "chkbox[]") String[] chkbox, Model model, HttpSession session, OrderDTO orderdto) {
+	public String buypage(@RequestParam(value = "chkbox[]") String[] chkbox, Model model, HttpSession session,
+			OrderDTO orderdto, Principal p) {
 
 		List<CartDTO> cartItems = new ArrayList<>(); // 각 카트 아이템을 저장할 리스트
 
@@ -183,44 +194,51 @@ public class ShopController {
 		}
 		log.info("cartItems : <><><><><>< " + cartItems);
 
-		System.out.println("orders: "+orderdto.getOrders());
+		System.out.println("orders: " + orderdto.getOrders());
 		session.setAttribute("cartItems", cartItems);
 		return "/shop/cart/buyPart";
 
 	}
-	
+
 	@PostMapping("/order")
 	public String payment(OrderDTO orderdto, HttpServletRequest req) {
-		
-		System.out.println(orderdto);
+
+		// 주문 후 주문 DB 저장 + 장바구니 삭제 등
 		oservice.order(orderdto);
+		log.info("ㅇㅕ기는 /order");
 		return "/shop/order/orderend";
 	}
-	
+
 	@PostMapping("/api/order")
 	public String apiOrder() {
+		log.info("ㅇㅕ기는 /api/order");
 		return "order";
 	}
-	
+
 	@GetMapping("/orderend")
 	public String order() {
+		log.info("ㅇㅕ기는 /orderend");
 		return "/shop/order/orderend";
 	}
-	
-	
 
 	// 내 주문목록 --------------------------------------
 
 	@GetMapping("/myorderlist")
-	public String myOrderList(HttpSession session, Model model) {
+	public String myOrderList(HttpSession session, Model model, OrderDTO orderdto, Principal p) {
 		
-		int memberNo = (int) session.getAttribute("memberNo");
+		PonyMemberDTO dto5 = mservice.getMemberEmail(mservice.getPrincipalEmail(p));
+		Integer memberNo = dto5.getMemberNo();
+		
 		List<OrderDTO> userOrderList = oservice.getAllByUser(memberNo);
 		for (OrderDTO order : userOrderList) {
 			List<OrderDetailDTO> orderDetails = odservice.getOrderDetailsByOrderNo(order.getOrderNo());
 			model.addAttribute("orderDetails", orderDetails);
+			int kind = odservice.countKind(order.getOrderNo());
+			model.addAttribute("kind", kind);
 		}
+		;
 		model.addAttribute("userorderlist", userOrderList);
+		model.addAttribute("memberNo", memberNo);
 		return "/shop/order/myOrderList";
 	}
 
@@ -230,15 +248,13 @@ public class ShopController {
 		OrderDTO order = oservice.selectOne(orderNo);
 		model.addAttribute("order", order);
 
-		String originalPhoneNumber = order.getOrderRecipientPhone();
-		String formattedPhoneNumber = originalPhoneNumber.replaceFirst("(\\d{3})(\\d{4})(\\d+)", "$1-$2-$3");
-		model.addAttribute("formattedPhoneNumber", formattedPhoneNumber);
+		List<OrderDetailDTO> orderDetails = odservice.selectOne(orderNo);
+		System.out.println("" + orderDetails);
+		model.addAttribute("orderDetails", orderDetails);
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date orderDate = dateFormat.parse(order.getOrderDate());
 		model.addAttribute("orderDate", orderDate);
-
-		model.addAttribute("userOrderList", odservice.selectOne(orderNo));
 
 		return "/shop/order/myOrderDetail";
 	}

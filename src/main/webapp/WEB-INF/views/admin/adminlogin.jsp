@@ -83,13 +83,13 @@ function redirectToKaKao(){
 						<form action="/login_proc" method="post">
 
 							<div class="form-outline mb-4">
-	 							<input type="email" name="email" id="email" class="form-control form-control-lg shadow-sm" value="heeee20000@gmail.com"/>
+	 							<input type="email" name="email" id="email" class="form-control form-control-lg shadow-sm" value="admin@admin"/>
 	    						<label class="form-label" for="email">Email</label>
 							</div>
 
 
 							<div class="form-outline mb-4">
-								<input type="password" id="password" name="password" class="form-control form-control-lg shadow-sm" value="Gmlwls100!"/>
+								<input type="password" id="password" name="password" class="form-control form-control-lg shadow-sm" value="admin"/>
 								<label class="form-label">Password</label>
 							</div>
 

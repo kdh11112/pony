@@ -5,7 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="css/admin/assets/invi.png" />
+<title>PONY MOTORS</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <link
@@ -19,14 +21,17 @@
 <body>
 	<jsp:include page="/WEB-INF/views/gnav.jsp" />
 	<form action="/model/modelDetail" id="frm">
-		<div>
-			<img src="../images/model/vs_top.png" alt="" id="topImg">
+	<header>
+		<img src="../images/model/banner_v01.jpg" alt="" />
+		<div class="header-content text-center text-black">
+			<p class="lead fw-normal text-black-50 mb-0"></p>
 		</div>
+	</header>
 		<div id="whiteBar"></div>
 		<div id="whiteBar2">
 			<div class="top-title text-center">
-				<h1 class="top-title-text">상세검색</h1>
-				<h1 class="top-title-text2">원하는 차량을 쉽게 찾아볼 수 있습니다</h1>
+				<h1 class="top-title-text">차량 상세검색</h1>
+				<h1 class="top-title-text2">원하는 차량을 검색으로 손 쉽게 찾아볼 수 있습니다.</h1>
 			</div>
 			<div>
 				<div class="container">

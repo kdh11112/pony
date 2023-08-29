@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import io.swagger.annotations.Api;
 import kr.co.jhta.pony.dto.PonyMemberDTO;
 import kr.co.jhta.pony.dto.ShopDTO;
 import kr.co.jhta.pony.dto.TestDriveDTO;
@@ -23,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@Api(tags = "시승신청")
 public class TestDriveController {
 	
 	@Autowired
@@ -50,11 +52,14 @@ public class TestDriveController {
 	}
 	
 	@PostMapping("/addTestDrive")
-
 	public String addTestDrive(Principal p ,@ModelAttribute TestDriveDTO dto,@RequestParam("selectedSchedule")String testDriveSchedule, @RequestParam("selectedShopNo")int shopNo, @RequestParam("selectedModel")int modelNo, @RequestParam("buttonTime")String testDriveTime) {
-
 								     //id           인증객체(로그인된 객체) -> p. 
 		PonyMemberDTO dtoUser = pms.getMemberEmail(pms.getPrincipalEmail(p));
+		
+		if(tds.checkTestDriveSchedule(shopNo, testDriveSchedule, testDriveTime)) {
+			// 선택한 데이터가 DB에 있는 데이터와 일치하면 경고창 띄어주기
+			return "redirect:/testDrive?alert=true";
+		}
 		
 		dto.setMemberNo(dtoUser.getMemberNo());
 		dto.setTestDriveSchedule(testDriveSchedule);
@@ -63,13 +68,13 @@ public class TestDriveController {
 		dto.setTestDriveTime(testDriveTime);
 		tds.insertTestDriveSchedule(dto);
 		log.info("dto {} 전송됨 ",dto);
-		return "redirect:testDrive";
+		return "confirmTestDrive";
 	}
 	
 
 	@GetMapping("/showTestDriveSchedule")
 	@ResponseBody
-	public List<TestDriveDTO> testDriveStatusButton(Model model) {
+	public List<TestDriveDTO> showTestDriveSchedule(Model model) {
 		model.addAttribute("btn", tds.showTestDriveSchedule());
 		log.info("btn"+tds.showTestDriveSchedule());
 		return tds.showTestDriveSchedule();

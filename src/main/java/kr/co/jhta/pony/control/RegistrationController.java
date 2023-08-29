@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import kr.co.jhta.pony.dto.CarRegisterDTO;
 import kr.co.jhta.pony.dto.HistroyDTO;
 import kr.co.jhta.pony.dto.HistroyDTOList;
@@ -37,6 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@Api(tags = "오프라인")
 public class RegistrationController {
 
 	CarRegisterService carRegisterService;
@@ -55,15 +58,17 @@ public class RegistrationController {
 		this.technologyAndPartService = technologyAndPartService;
 	}
 
-	//메인
+	
 	@GetMapping("/reg")
+	@ApiOperation(value = "메인 접속", notes = "메인으로 접속합니다.")
 	public String main() {
 		
 		return "/registration/main";
 	}
 	
-	//비로그인 일시 메인 접속 불가
+
 	@GetMapping("/reg/main")
+	@ApiOperation(value = "메인 접속 체크" ,notes = "비고르인 일시 메인 접속 불가")
 	public String regMain(HttpSession session) {
 		if(session.getAttribute("mechanicNo") != null) {
 			return "redirect:/reg";
@@ -72,8 +77,9 @@ public class RegistrationController {
 	}
 	
 	
-	//일반접수 - 검색
+	
 	@GetMapping("/reg/registration")
+	@ApiOperation(value = "일반접수 - 검색" ,notes = "일반접수 창을 눌렀을때 페이지로 이동")
 	public String regRegistrationSearch(Model model,
 			@RequestParam(name = "registrationRN" ,required = false) Integer registrationRN,
 			@RequestParam(name = "registrationDateHi" ,required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate registrationDate
@@ -86,9 +92,10 @@ public class RegistrationController {
 		return "/registration/registration";
 	}
 	
-	//모달창
+	
 	@GetMapping("/reg/registration/modal")
 	@ResponseBody
+	@ApiOperation(value = "차대번호,차량번호,고객명 을 검색하는 모달창" ,notes = "모달창을 눌렀을때")
 	public List<CarRegisterDTO> regModal(
 	        @RequestParam(name ="clientVin", required = false) String clientVin,
 	        @RequestParam(name ="clientCarNumber" , required = false) String clientCarNumber,
@@ -98,16 +105,18 @@ public class RegistrationController {
 	   return  carRegisterService.findAllmodalSearch(clientVin, clientCarNumber, memberName);
 	}
 	
-	//모달창에서 데이터 전송
+	
 	@PostMapping("/reg/registration/modalData")
 	@ResponseBody
+	@ApiOperation(value = "차대번호,차량번호,고객명 을 검색하는 모달창내부" ,notes = "모달창내부에서 데이터를 페이지로 전송")
 //	public List<CarRegisterDTO> regRegistration(@RequestParam(name = "clientVin",required = false)String clientVin ,Model model) {
 	public CarRegisterDTO regRegistrationModal(@RequestParam(name = "clientVin",required = false)String clientVin) {
 	    return carRegisterService.findOneregRegistration(clientVin);
 	}
 	
-	//일반접수-차량접수/수정
+	
 	@PostMapping("/reg/registration/edit")
+	@ApiOperation(value = "차량접수/수정" ,notes = "차량접수/수정 버튼을 클릭하면 로직에 따라 접수 및 수정을 결정")
 	public String regRegistrationAndcorrection(@ModelAttribute CarRegisterDTO regCarDTO,
 			@ModelAttribute HistroyDTO histroyDTO,
 			@RequestParam(name = "mechanicNoParam", defaultValue = "0", required = false) int mechanicNo,
@@ -185,9 +194,10 @@ public class RegistrationController {
 		return carRegisterDTO;
 	}
 	
-	//지정 정비사 확인
+	
 	@GetMapping("/reg/registration/modal/mechanic")
 	@ResponseBody
+	@ApiOperation(value = "지정 정비사 모달창" ,notes = "지정정비사 창을 클릭시 모달창이 뜸")
 	public List<MechanicRegisterDTO> regRegistrationChiceMechanic(@RequestParam(name = "mechanicNoParam", defaultValue = "0", required = false) int mechanicNo,@RequestParam(name = "mechanicName" , required = false) String mechanicName,HttpSession session) {
 		int word = (Integer)session.getAttribute("shopNo");
 			
@@ -197,18 +207,21 @@ public class RegistrationController {
 	
 	@PostMapping("/reg/registration/modal/mechanicInput")
 	@ResponseBody
+	@ApiOperation(value = "지정정비사 모달창 내부" ,notes = "지정정비사 모달창 내부 데이터를 페이지로 전달")
 	public MechanicRegisterDTO regRegistrationChiceMechanicModal(@RequestParam("mechanicNo")int mechanicNo) {
 		return carRegisterService.findOneRegistrationChiceMechanicInput(mechanicNo);
 	}
 	
-	//차량 등록
+	
 	@GetMapping("/reg/carRegister")
+	@ApiOperation(value = "차량등록" ,notes = "차량을 등록을 하는 페이지로 이동")
 	public String regCarRegister() {
 		return "/registration/carRegister";
 	}
 	
 	
 	@PostMapping("/reg/carRegister")
+	@ApiOperation(value = "차량등록 버튼" ,notes = "차량을 등록 하는 버튼을 클릭할시 차량이등록됨")
 	public String regCarCRegisterOk(@ModelAttribute CarRegisterDTO regCarDTO,@RequestParam("memberName")String memberName) {
 		CarRegisterDTO dto = 	CarRegisterDTO.builder()
 						.clientVin(regCarDTO.getClientVin())
@@ -228,6 +241,7 @@ public class RegistrationController {
 	}
 	
 	@GetMapping("/reg/work")
+	@ApiOperation(value = "차량등록 버튼" ,notes = "차량을 등록 하는 버튼을 클릭할시 차량이등록됨")
 	public String work(@RequestParam(name = "registrationRN",required = false,defaultValue = "0")Integer registrationRN,
 			@RequestParam(name = "registrationDateHi" ,required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate registrationDate,
 			Model model,HttpSession session) {
@@ -275,6 +289,7 @@ public class RegistrationController {
 	
 	
 	@PatchMapping("/reg/work")
+	@ApiOperation(value = "일반작업에서 수정" ,notes = "일반작업 페이지에서 일부분을 수정하게 함 세션에 담아져있음")
 	public String workSave(@ModelAttribute TechnologyAndPartDTO technologyAndPartDTO, 
 			HttpServletRequest request,HttpSession session,
 			@RequestParam(name = "technologyLength",defaultValue = "0") int technologyLength,
@@ -327,7 +342,8 @@ public class RegistrationController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/reg/registration/modal/technology")
+	@GetMapping("/reg/work/modal/technology")
+	@ApiOperation(value = "일반작업 모달창" ,notes = "페이지 윗부분에 있는 기술 모달창 띄움")
 	public List<TechnologyAndPartDTO> workTechnologyModal(
 	        @RequestParam(name = "technologyNumberAsy", required = false, defaultValue = "0") Integer technologyNumber,
 	        @RequestParam(name ="technologyDetailAsy", required = false) String technologyDetail) {
@@ -340,7 +356,8 @@ public class RegistrationController {
 	}
 	
 	@ResponseBody
-	@PostMapping("/reg/registration/modal/technologyData")
+	@PostMapping("/reg/work/modal/technologyData")
+	@ApiOperation(value = "일반작업 모달창내부 데이터" ,notes = "기술 모달창 데이터를 화면에 뿌려주는 역할")
 	public TechnologyAndPartDTO technologyData(@RequestBody Map<String, String> requestBody) {
 	    int technologyNumber = Integer.parseInt(requestBody.get("technologyNumberData"));
 		return technologyAndPartService.findOneTechnologyNumber(technologyNumber);
@@ -349,7 +366,8 @@ public class RegistrationController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/reg/registration/modal/part")
+	@GetMapping("/reg/work/modal/part")
+	@ApiOperation(value = "일반작업 모달창" ,notes = "페이지 아랫부분의 부품 모달창 띄움")
 	public List<TechnologyAndPartDTO> workPartModal(
 	        @RequestParam(name = "partNumberAsy", required = false, defaultValue = "0") Integer partNumber,
 	        @RequestParam(name ="partNameAsy", required = false) String partName) {
@@ -363,7 +381,8 @@ public class RegistrationController {
 	}
 	
 	@ResponseBody
-	@PostMapping("/reg/registration/modal/partData")
+	@PostMapping("/reg/work/modal/partData")
+	@ApiOperation(value = "일반작업 모달창내부 데이터" ,notes = "부품 모달창 데이터를 화면에 뿌려주는 역할")
 	public TechnologyAndPartDTO partData(@RequestBody Map<String, String> requestBody) {
 	    int partNumber = Integer.parseInt(requestBody.get("partNumberData"));
 		return technologyAndPartService.findOnePartNumber(partNumber);
@@ -373,6 +392,7 @@ public class RegistrationController {
 	
 	
 	@GetMapping("/reg/payment")
+	@ApiOperation(value = "일반수납" ,notes = "일반 수납창 클릭시 페이지 이동")
 	public String payment(@RequestParam(name = "registrationRN",required = false,defaultValue = "0")Integer registrationRN,
 			@RequestParam(name = "registrationDateHi" ,required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate registrationDate,
 			Model model,HttpSession session) {
@@ -413,6 +433,7 @@ public class RegistrationController {
 	}
 	
     @PostMapping("/reg/payment")
+    @ApiOperation(value = "일반수납에서 저장" ,notes = "일반수납창에서 저장을 클릭시에 데이터가 저장이됨")
     public String paymentApproval(@ModelAttribute("histroyDTOList") HistroyDTOList histroyDTOList,
                                   @RequestParam(name = "registrationDateHi", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate registrationDate,
                                   @RequestParam(name = "registrationNumber", required = false, defaultValue = "0") int registrationNumber) {
@@ -440,6 +461,7 @@ public class RegistrationController {
     }
     
     @GetMapping("/reg/paymentList")
+    @ApiOperation(value = "결재리스트" ,notes = "결재가 완료된 고객의 정보를 보여줌")
     public String paymentList(	@RequestParam(name = "registrationRN",required = false,defaultValue = "0")Integer registrationRN,
     							@RequestParam(name = "registrationDateHi" ,required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate registrationDate,
     							Model model) {
@@ -472,6 +494,7 @@ public class RegistrationController {
 	
 	
     @GetMapping("/reg/reservation")
+    @ApiOperation(value = "예약관리" ,notes = "예약관리 클릭시 페이지 이동")
 	public String reservation(Model model, Criteria cri,@RequestParam(name = "memberName", required = false) String memberName) {
 //		총게시물수
 		int totalNumber = reservationService.getTotalreservation(memberName);
@@ -488,6 +511,8 @@ public class RegistrationController {
 		return "/registration/reservation";
 		
 	}
+    
+    
 	
 	
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import io.swagger.annotations.Api;
 import kr.co.jhta.pony.dto.NoticeDTO;
 import kr.co.jhta.pony.dto.PageMakeDTO;
 import kr.co.jhta.pony.service.NoticeService;
@@ -17,6 +18,7 @@ import kr.co.jhta.pony.util.Criteria;
 
 
 @Controller
+@Api(tags = "공지사항")
 public class WebManagerController {
 	
 	@Autowired

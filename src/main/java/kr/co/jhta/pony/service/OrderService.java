@@ -3,6 +3,7 @@ package kr.co.jhta.pony.service;
 import java.util.List;
 
 import kr.co.jhta.pony.dto.MemberDTO;
+import kr.co.jhta.pony.dto.OrderCancelDTO;
 import kr.co.jhta.pony.dto.OrderDTO;
 import kr.co.jhta.pony.dto.OrderDetailDTO;
 import kr.co.jhta.pony.dto.OrderPageItemDTO;
@@ -50,4 +51,7 @@ public interface OrderService {
 	
 	// 주문처리
 	public void order(OrderDTO dto);
+	
+	/* 주문 취소 */
+	public void orderCancle(OrderCancelDTO ocdto);
 }

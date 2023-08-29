@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
+import io.swagger.annotations.Api;
 import kr.co.jhta.pony.dto.CarRegisterDTO;
 import kr.co.jhta.pony.dto.ClientDTO;
 import kr.co.jhta.pony.dto.PonyMemberDTO;
@@ -49,6 +50,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@Api(tags = "마이페이지")
 public class MyPageController {
 
 	@Autowired

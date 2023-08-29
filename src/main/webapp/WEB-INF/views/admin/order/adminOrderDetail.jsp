@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>	
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,19 +15,22 @@
 .board-table thead td {
 	colspan: 5 !important;
 }
-.board-table tbody td, 
-.board-table tfoot td {
-  text-align: left !important;
+
+.board-table tbody td, .board-table tfoot td {
+	text-align: left !important;
 }
-.board-table thead th, 
-.board-table tfoot th {
-  padding: 0px !important;
-  text-align: left !important;
+
+.board-table thead th, .board-table tfoot th {
+	padding: 0px !important;
+	text-align: left !important;
+	border-left : 20px !important;
 }
+
 .board-table tbody th {
-  padding: 0px !important;
-  text-align: center !important;	
+	padding: 0px !important;
+	text-align: center !important;
 }
+
 .btn-primary {
 	padding: 10 50px !important;
 	cursor: none !important;
@@ -36,15 +38,31 @@
 	background: none;
 	font: black !important;
 }
-thead {
-	background : #EBEDEE;
+.board-table tfoot th{
+	width: 1000px; 
 }
-#bodytd{
-	text-align: center !important;	
+.board-table thead th{
+	width: 700px; 
+} 
+.board-table tfoot td,
+.board-table thead td{
+	text-align: right; 
+} 
+.board-table thead td{
+	padding-right: 10px;
+}
+/* thead {
+	background: #EBEDEE;
+} */
+#bodytd {
+	text-align: center !important;
+}
+tfoot{
+	vertical-align: left !important;
 }
 </style>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"> 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
@@ -64,107 +82,79 @@ thead {
 </head>
 <body>
 	<div class="d-flex" id="wrapper">
-        <!-- Page content wrapper-->
-        <div id="page-content-wrapper">
-            <!-- Top navigation-->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                <div class="container-fluid">
-                    <img id="sidebarToggle" src="css/admin/assets/list.png">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                            <li class="nav-item active"><a class="nav-link" href="/admin">AdminHome</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/">UserPage</a></li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#!">Action</a>
-                                    <a class="dropdown-item" href="#!">Another action</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#!">Something else here</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            
-            <!-- Page content-->
-	        <div class="container-fluid">
-	        	<section class="boardsection">
-  					<div class="page-title">
+		<!-- Page content wrapper-->
+		<div id="page-content-wrapper">
+			<!-- Top navigation-->
+			<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+				<div class="container-fluid">
+					 <a href="/admin"><img id="sidebarToggle" src="images/pony_motors_log_cut.png"></img></a>
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+							<li class="nav-item active"><a class="nav-link" href="/admin">AdminHome</a></li>
+							<li class="nav-item"><a class="nav-link" href="/">UserPage</a></li>
+							<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">▼</a>
+								<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+									<!-- <a class="dropdown-item" href="/adminpartlist">재고관리</a> -->
+									<a class="dropdown-item" href="/adminorderlist">주문목록</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="/questionlist">고객문의</a>
+									<a class="dropdown-item" href="/adminnotice">공지사항</a>
+								</div></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+
+			<!-- Page content-->
+			<div class="container-fluid">
+				<section class="boardsection">
+					<div class="page-title">
 						<div class="container">
 							<h3>고객 주문목록</h3>
-        				</div>
-    				</div>
-    				<!-- board list area -->
-				    <div id="board-list">
+						</div>
+					</div>
+					<!-- board list area -->
+					<div id="board-list">
 						<div class="container">
 							<table class="board-table">
 								<thead>
-									<tr>	
-										<th colspan="2">주문번호</th>
-										<td class="td-no" colspan="4">${order.orderNo }</td>
-										<td><input type="hidden" name="orderNo" value="${order.orderNo }"></td>
+									<tr>
+										<th>주문번호</th>
+										<td class="td-no" >${order.orderNo }</td>
+										<td>
+											<input type="hidden" name="orderNo" value="${order.orderNo }">
+										</td>
 									</tr>
 									<tr>
-										<th colspan="2">주문일</th>
-										<td class="td-date" colspan="4">
-											<fmt:parseDate var="dateString" value="${order.orderDate }" pattern="yyyy-MM-dd HH:mm:ss" /> 
+										<th>주문일</th>
+										<td class="td-date" >
+											<fmt:parseDate var="dateString" value="${order.orderDate }" pattern="yyyy-MM-dd HH:mm:ss" />
 											<fmt:formatDate value="${dateString }" pattern="yyyy-MM-dd HH:mm:ss" />
 										</td>
 									</tr>
 									<tr>
-										<th colspan="2">주문자 번호</th>
-										<td class="td-mphone" colspan="4">${order.memberNo }</td>
+										<th>수령인</th>
+										<td class="td-recipient">${order.orderRecipientName }</td>
 									</tr>
 									<tr>
-										<th colspan="2">수령인</th>
-										<td class="td-recipient" colspan="4">${order.orderRecipientName }</td>
+										<th>연락처</th>
+										<td class="td-rphone" >${order.orderRecipientPhone }</td>
 									</tr>
 									<tr>
-										<th colspan="2">연락처</th>
-										<td class="td-rphone" colspan="4">${order.orderRecipientPhone }</td>
+										<th>배송지</th>
+										<td class="td-addrs" >${order.orderRecipientAddress }</td>
 									</tr>
 									<tr>
-										<th colspan="2">배송지</th>
-										<td class="td-addrs" colspan="4">${order.memberNo }</td>
-									</tr>
-									<tr>
-										<th colspan="2">주문상태</th>
-										<td class="td-status" colspan="4">${order.orderStatus} 
-											<a href="/delivery"><input type="button" class="btn btn-dark" value="배송시작" onclick="changeDelivery();"/></a>
-										</td>
+										<th>주문상태</th>
+										<td class="td-status" >${order.orderStatus}</td>
 									</tr>
 								</thead>
 							</table>
-							<table class="board-table">
-								<tbody>
-									<tr>
-										<th width="5%"><input type="checkbox" id="allCheck" /></th>
-										<th width="15%">부품번호</th>
-										<th width="50%">부품명</th>
-										<th width="15%">주문 수량</th>
-										<th width="15%">판매가</th>
-									</tr>
-									<c:forEach var="list" items="${list }" >
-										<tr>
-											<td id="bodytd"><input type="checkbox" name="RowCheck" value="${list.partNumber }" /></td>
-											<!-- 부품번호 -->
-											<td class="td-partno" id="bodytd">${list.partNumber }</td>
-											<!-- 부품명 -->
-											<td class="td-partname">${order.memberNo }</td>
-											<!-- 주문수량 -->
-											<td class="td-quantity" id="bodytd">${list.orderdetailOrderQuantity }</td>
-											<!-- 판매가 -->
-											<td class="td-amount" id="bodytd">${list.orderdetailAmount }</td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-							<table class="board-table">
+							<table class="board-table"  style="padding-bottom: 20px !important;" >
 								<tfoot>
-									
 									<tr>
 										<th>배송비</th>
 										<td class="td-delivery">${order.orderDeliveryCharge }</td>
@@ -180,17 +170,55 @@ thead {
 									<tr>
 										<th>포인트 혜택</th>
 										<td class="td-member">${order.memberNo }</td>
-									</tr>		
+									</tr>
 								</tfoot>
 							</table>
-							<a href="/adminorderlist"><input type="button" class="btn btn-outline-dark" value="배송시작" /></a>
-							<a href="/adminorderlist"><input type="button" class="btn btn-outline-dark" value="목록" /></a>
-							<a href="orderdelete?orderNo=${order.orderNo }"><input type="button" class="btn btn-outline-danger" value="삭제" /></a>		
+							<table class="board-table">
+								<tbody>
+									<tr>
+										<th width="5%">
+											<input type="checkbox" id="allCheck" />
+										</th>
+										<th width="15%">부품번호</th>
+										<th width="50%">부품명</th>
+										<th width="15%">주문 수량</th>
+										<th width="15%">판매가</th>
+									</tr>
+									<c:forEach var="orderDetails" items="${orderDetails }">
+										<tr>
+											<td id="bodytd">
+												<input type="checkbox" name="RowCheck" value="${orderDetails.partNumber }" />
+											</td>
+											<!-- 부품번호 -->
+											<td class="td-partno" id="bodytd">${orderDetails.partNumber }</td>
+											<!-- 부품명 -->
+											<td class="td-partname">${orderDetails.partName }</td>
+											<!-- 주문수량 -->
+											<td class="td-quantity" id="bodytd">${orderDetails.orderdetailOrderQuantity }</td>
+											<!-- 판매가 -->
+											<td class="td-amount" id="bodytd">
+												<fmt:formatNumber pattern="###,###,###원">
+													<c:out value=" ${orderDetails.orderdetailAmount }" />
+												</fmt:formatNumber>
+											</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+							<a href="/adminorderlist">
+								<input type="button" class="btn btn-outline-dark" value="배송시작" />
+							</a>
+							<a href="/adminorderlist">
+								<input type="button" class="btn btn-outline-dark" value="목록" />
+							</a>
+							<a href="orderdelete?orderNo=${order.orderNo }">
+								<input type="button" class="btn btn-outline-danger" value="삭제" />
+							</a>
 						</div>
 					</div>
 				</section>
-	        </div>
-        </div>
+			</div>
+		</div>
 	</div>
 	<!-- Bootstrap core JS-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

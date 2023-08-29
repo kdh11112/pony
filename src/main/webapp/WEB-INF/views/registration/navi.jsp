@@ -37,12 +37,12 @@
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <form>
               <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
-                <div class="input-group-append">
+                <input type="hidden" value="" class="form-control" placeholder="Search...">
+<!--                 <div class="input-group-append">
                   <div class="input-group-text">
                     <i class="nc-icon nc-zoom-split"></i>
                   </div>
-                </div>
+                </div> -->
               </div>
             </form>
             <ul class="navbar-nav">
@@ -55,8 +55,6 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                   <a class="dropdown-item" href="/reg/logout">로그아웃</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
                 </div>
               </li>
             </ul>
