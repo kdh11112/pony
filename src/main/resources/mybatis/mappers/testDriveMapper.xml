@@ -7,10 +7,8 @@
 
 	<!-- 시승신청 추가 -->
 	<insert id="insertTestDriveSchedule" parameterType="kr.co.jhta.pony.dto.TestDriveDTO">
-		LOCK TABLES TESTDRIVE WRITE;
-      		INSERT INTO TESTDRIVE(testDriveSchedule, shopNo, memberNo, modelNo, testDriveTime)
-     		VALUES(#{testDriveSchedule}, #{shopNo},#{memberNo} , #{modelNo}, #{testDriveTime});
-     	UNLOCK TABLES;
+		INSERT INTO TESTDRIVE(testDriveSchedule, shopNo, memberNo, modelNo, testDriveTime)
+		VALUES(#{testDriveSchedule}, #{shopNo},${memberNo} , #{modelNo}, #{testDriveTime})
 	</insert>
 	
 	<!-- 마감된 시승일정을 달력에 표시 -->
@@ -18,23 +16,6 @@
 		SELECT testDriveSchedule, shopNo, testDriveTime
 		FROM TESTDRIVE
 	</select>
-	
-	<!-- DB와 사용자가 선택한 날짜를 비교 -->
-	<select id="checkTestDriveSchedule" resultType="int">
-		SELECT COUNT(*)
-		FROM TESTDRIVE
-		WHERE shopNo = #{shopNo}
-		AND testDriveSchedule = #{testDriveSchedule}
-		AND testDriveTime = #{testDriveTime}
-		FOR UPDATE
-	</select>
-	
-	<!-- 시승신청 일정 추가 -->
-	<insert id="insertTestDriveSchedule" parameterType="kr.co.jhta.pony.dto.TestDriveDTO">
-		INSERT INTO TESTDRIVE(testDriveSchedule, shopNo, memberNo, modelNo, testDriveTime, testDriveStatus)
-		VALUES(#{testDriveSchedule}, #{shopNo},#{memberNo}, #{modelNo}, #{testDriveTime}, 'CLOSED')
-	</insert>
-	
 	
 	<!-- 시승신청내역 변경 -->
 	<update id="updatedTestDrive" parameterType="kr.co.jhta.pony.dto.TestDriveDTO" >
@@ -68,5 +49,10 @@
 		SELECT COUNT(*)
 		FROM TESTDRIVE
 		WHERE memberNo = #{memberNo}
+	</select>
+	<!-- 성환님코드 -->
+	<select id="testDriveStatusButton" resultType="kr.co.jhta.pony.dto.TestDriveDTO">
+		SELECT *
+		FROM TESTDRIVE
 	</select>
 </mapper>
