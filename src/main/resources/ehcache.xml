@@ -6,7 +6,7 @@
   <cache alias="shopCache">
     <expiry>
       <!-- 캐시 만료 시간 = timeToLiveSeconds -->
-      <ttl unit="seconds">60</ttl>
+      <ttl unit="seconds">60</ttl> 
     </expiry>
     <resources>
       <!-- JVM heap 메모리, LRU strategy-->
