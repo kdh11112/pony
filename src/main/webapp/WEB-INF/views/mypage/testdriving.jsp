@@ -246,7 +246,7 @@ textarea {
 						testDriveNo : no
 					}, // 삭제할 차대번호를 전달합니다.
 					success : function(data) {
-
+						$("#exampleModal1").modal("hide");
 					}
 				});
 			}

@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@EnableCaching
 @Api(tags = "시승신청")
 public class TestDriveController {
 	
@@ -43,20 +45,26 @@ public class TestDriveController {
 		return "testDrive";
 	}
 	
+	//지점 Select
 	@GetMapping("/shopFind")
 	@ResponseBody
 	public List<ShopDTO> shopArea(@RequestParam("shopAreaFind")String shopArea,@RequestParam("shopAreaFind")String shopAreaPoint, Model model) {
 		model.addAttribute("shop", ss.shopArea(shopArea,shopAreaPoint));
 //		log.info(""+ss.shopArea(shopArea,shopAreaPoint));
+		log.info("Controller >>>>" + "지점 : "+shopArea);
 		return ss.shopArea(shopArea,shopAreaPoint);
 	}
 	
+	//시승일정 추가
 	@PostMapping("/addTestDrive")
-
 	public String addTestDrive(Principal p ,@ModelAttribute TestDriveDTO dto,@RequestParam("selectedSchedule")String testDriveSchedule, @RequestParam("selectedShopNo")int shopNo, @RequestParam("selectedModel")int modelNo, @RequestParam("buttonTime")String testDriveTime) {
-
 								     //id           인증객체(로그인된 객체) -> p. 
 		PonyMemberDTO dtoUser = pms.getMemberEmail(pms.getPrincipalEmail(p));
+		
+		if(tds.checkTestDriveSchedule(shopNo, testDriveSchedule, testDriveTime)) {
+			// 선택한 데이터가 DB에 있는 데이터와 일치하면 경고창 띄어주기
+			return "redirect:/testDrive?alert=true";
+		}
 		
 		dto.setMemberNo(dtoUser.getMemberNo());
 		dto.setTestDriveSchedule(testDriveSchedule);
@@ -68,10 +76,10 @@ public class TestDriveController {
 		return "confirmTestDrive";
 	}
 	
-
+	// 시승일정 Select
 	@GetMapping("/showTestDriveSchedule")
 	@ResponseBody
-	public List<TestDriveDTO> testDriveStatusButton(Model model) {
+	public List<TestDriveDTO> showTestDriveSchedule(Model model) {
 		model.addAttribute("btn", tds.showTestDriveSchedule());
 		log.info("btn"+tds.showTestDriveSchedule());
 		return tds.showTestDriveSchedule();

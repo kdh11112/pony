@@ -20,6 +20,12 @@
 
 <!-- css링크 -->
 <link rel="stylesheet" href="../css/model/testDrive.css">
+
+<script>
+	function showAlert(message) {
+		alert(message);
+	}
+</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/gnav.jsp" />
@@ -207,6 +213,14 @@
 			</div>
 			<div style="margin-top: 100px;">
 				<button type="button" class="btn" id="OkBtn">신청하기</button>
+				<!-- testDrive.jsp -->
+				<!-- JSP에서 경고창 띄우기 -->
+				<%-- 경고창 플래그가 true일 때 JavaScript 코드 실행 --%>
+				<c:if test="${param.alert == 'true'}">
+					<script>
+						showAlert("이미 예약된 날짜입니다."+"\n"+"다른 날짜를 선택해주세요.");
+					</script>
+				</c:if>
 			</div>
 		</form>
 	</div>

@@ -77,7 +77,7 @@ $(document).ready(function() {
 		}
 	});
 	$("select").change(function() {
-		var selectModel = $("#selectModel").val();
+		let selectModel = $("#selectModel").val();
 		if (selectModel === "") {
 			$("#card-img1").attr("src", "../images/model/vs_logo.jpg");
 		} else if (selectModel === "1") {
@@ -95,7 +95,7 @@ $(document).ready(function() {
 
 
 	$("#selectOk").on("click", function() {
-		var selectedModel = $("#selectModel").val();
+		let selectedModel = $("#selectModel").val();
 		if (selectedModel === "") {
 			alert("모델을 선택해주세요");
 			return false;
@@ -125,7 +125,7 @@ $("#shopFindBtn, .shop-area-btn").on("click", function() {
 		data: { shopAreaFind: selectedVal },
 		success: function(reponse) {
 			for (let i = 0; i < reponse.length; i++) {
-				var data = "<div class='shop-detail col-md-4' > <h4>"
+				let data = "<div class='shop-detail col-md-4' > <h4>"
 					+ reponse[i].shopAreaPoint + "</h4><p>"
 					+ reponse[i].shopAddr + "</p><p>"
 					+ reponse[i].shopPhone + "</p><button type='button' class='shop-no-btn btn btn-primary' value='"
@@ -158,7 +158,7 @@ $(document).on("click", ".shop-no-btn", function() {
 	$.ajax({
 		url: "/showTestDriveSchedule",
 		success: function(response) {
-			for (var i = 0; i < response.length; i++) {
+			for (let i = 0; i < response.length; i++) {
 				shopNo.push(response[i].shopNo);
 				testDriveSchedule.push(response[i].testDriveSchedule);
 				testDriveTime.push(response[i].testDriveTime);
@@ -326,12 +326,11 @@ function handleButtonClick(event) {
 }
 
 $("#OkBtn").on("click", function() {
-	var selectedModel = $("#selectModel").val();
+	let selectedModel = $("#selectModel").val();
 	if (selectedModel === "" || selectedShopNo === "" || selectedSchedule === "") {
 		alert("모든 항목을 선택해주세요")
 		return false;
 	}
-	alert("시승신청이 완료 되었습니다");
 
 	$("#selectedSchedule").val(selectedSchedule);
 	$("#selectedShopNo").val(selectedShopNo);

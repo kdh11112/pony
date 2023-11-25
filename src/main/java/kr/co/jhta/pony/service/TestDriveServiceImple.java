@@ -2,6 +2,8 @@ package kr.co.jhta.pony.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +16,6 @@ public class TestDriveServiceImple implements TestDriveService{
 	@Autowired
 	TestDriveDAO dao;
 	
-	//시승신청 추가
-	@Override
-	public void insertTestDriveSchedule(TestDriveDTO dto) {
-		dao.insertTestDriveSchedule(dto);
-	}
 
 	// 마감된 시승일정 달력에 표시
 	@Override
@@ -26,6 +23,20 @@ public class TestDriveServiceImple implements TestDriveService{
 		return dao.showTestDriveSchedule();
 	}
 	
+	//시승신청 추가
+	@Override
+	@Transactional
+	public void insertTestDriveSchedule(TestDriveDTO dto) {
+		dao.insertTestDriveSchedule(dto);
+	}
+	
+	// 동일한 데이터가 있는지 확인
+	@Override
+	@Transactional
+	public boolean checkTestDriveSchedule(int shopNo, String testDriveSchedule, String testDriveTime) {
+		int count = dao.checkTestDriveSchedule(shopNo, testDriveSchedule, testDriveTime);
+		return count > 0;
+	}
 
 	@Override
 	public void deleteTestDrive(int testDriveNo) {
@@ -40,15 +51,11 @@ public class TestDriveServiceImple implements TestDriveService{
 		return dao.testDriveCount(memberNo);
 	}
 
-	@Override
-	public List<TestDriveDTO> testDriveStatusButton() {
-		// TODO Auto-generated method stub
-		return dao.testDriveStatusButton();
-	}
 
 	@Override
 	public void updatedTestDrive(TestDriveDTO dto) {
 		dao.updatedTestDrive(dto);
 		
 	}
+
 }
